@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "361203274280",
+    "project_id": "beehome-d0968",
+    "storage_bucket": "beehome-d0968.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361203274280:android:e955fb545dc6eb4cf6db1d",
+        "android_client_info": {
+          "package_name": "net.fpl.beehome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361203274280-q3v9cbi42ob97np9844h8ln16md6frml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsYUg74R7iIlH8P6s5HWIK1J4IFi5sV6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361203274280-q3v9cbi42ob97np9844h8ln16md6frml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
