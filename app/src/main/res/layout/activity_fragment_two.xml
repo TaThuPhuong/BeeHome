@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+    <ImageView
+        android:src="@drawable/fragment2"
+        android:scaleType="centerCrop"
+        android:layout_width="350dp"
+        android:layout_height="350dp"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:text="Nhà Trọ"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:text="Quản lý thông tin khách thuê, gồm các thông tin cá nhân, thông tin liên hệ."
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">BeeHome</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Trang Chủ</string>
+    <string name="menu_phong">Phòng</string>
+    <string name="menu_thuChi">Thu Chi</string>
+    <string name="menu_gT">Giới Thiệu</string>
+
+    <string name="nhap_user">Nhập tên người dùng</string>
+    <string name="nhap_pass">Nhập mật khẩu</string>
+    <string name="luumatkhau">Lưu Mật Khẩu</string>
+    <string name="quenmatkhau"><u>Quên mật khẩu ?</u></string>
+</resources>
