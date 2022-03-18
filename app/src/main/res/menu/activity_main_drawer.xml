@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_baseline_home_work_24"
             android:title="@string/menu_phong" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_thuChi"
             android:icon="@drawable/ic_thong_ke_24dp"
             android:title="@string/menu_thuChi" />
         <item
