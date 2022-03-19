@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.user);
         ab.setDisplayHomeAsUpEnabled(true);
+        setTitle("Xin chào");
 
         ////        dung fragment PhieuMuon lam home
         FragmentManager manager = getSupportFragmentManager();
@@ -55,11 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.nav_doiMatKhau:
+                    setTitle("Đổi mật khẩu");
                     DoiMatKhauFragment matKhauFragment = new DoiMatKhauFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main,matKhauFragment).commit();
                     break;
 
                 case R.id.nav_gT:
+                    setTitle("Giới thiệu");
                     GioiThieuFragment gioiThieuFragment = new GioiThieuFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main,gioiThieuFragment).commit();
                     break;
@@ -103,13 +106,16 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     fragment = new HomeFragment();
+                    setTitle("Xin chào");
                     loadFragment(fragment);
                     return true;
                 case R.id.nav_phòng:
+                    setTitle("Phòng");
                     fragment = new PhongFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.nav_thuChi:
+                    setTitle("Thu Chi");
                     fragment = new thuChiFragment();
                     loadFragment(fragment);
                     return true;
