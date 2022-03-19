@@ -17,13 +17,6 @@
 
     </FrameLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomnav"
-        android:layout_marginTop="3dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:menu="@menu/main"
-        tools:layout_editor_absoluteX="-16dp" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
