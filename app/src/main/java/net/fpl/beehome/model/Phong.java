@@ -1,0 +1,73 @@
+package net.fpl.beehome.model;
+
+public class Phong {
+    private String IDPhong, soPhong, trangThai;
+    private int giaPhong, soDienDau, soNuocDau;
+    public static final String TB_NAME = "tb_phong";
+    public static final String COL_ID = "id_phong";
+    public static final String COL_SO_PHONG = "so_phong";
+    public static final String COL_TRANG_THAI = "trang_thai";
+    public static final String COL_GIA_PHONG = "gia_phong";
+    public static final String COL_SO_DIEN_DAU = "so_dien_dau";
+    public static final String COL_SO_NUOC_DAU = "so_nuoc_dau";
+
+    public Phong() {
+    }
+
+    public Phong(String IDPhong, String soPhong, String trangThai, int giaPhong, int soDienDau, int soNuocDau) {
+        this.IDPhong = IDPhong;
+        this.soPhong = soPhong;
+        this.trangThai = trangThai;
+        this.giaPhong = giaPhong;
+        this.soDienDau = soDienDau;
+        this.soNuocDau = soNuocDau;
+    }
+
+    public String getIDPhong() {
+        return IDPhong;
+    }
+
+    public void setIDPhong(String IDPhong) {
+        this.IDPhong = IDPhong;
+    }
+
+    public String getSoPhong() {
+        return soPhong;
+    }
+
+    public void setSoPhong(String soPhong) {
+        this.soPhong = soPhong;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public int getGiaPhong() {
+        return giaPhong;
+    }
+
+    public void setGiaPhong(int giaPhong) {
+        this.giaPhong = giaPhong;
+    }
+
+    public int getSoDienDau() {
+        return soDienDau;
+    }
+
+    public void setSoDienDau(int soDienDau) {
+        this.soDienDau = soDienDau;
+    }
+
+    public int getSoNuocDau() {
+        return soNuocDau;
+    }
+
+    public void setSoNuocDau(int soNuocDau) {
+        this.soNuocDau = soNuocDau;
+    }
+}
