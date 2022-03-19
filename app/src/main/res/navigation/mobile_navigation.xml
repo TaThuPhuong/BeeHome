@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_phòng"
-        android:name="net.fpl.beehome.ui.Phong.PhongFragment"
+        android:name="net.fpl.beehome.ui.phong.PhongFragment"
         android:label="@string/menu_phong"
         tools:layout="@layout/fragment_phong" />
 

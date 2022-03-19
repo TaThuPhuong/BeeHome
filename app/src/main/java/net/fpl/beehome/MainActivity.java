@@ -2,29 +2,24 @@ package net.fpl.beehome;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Menu;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import net.fpl.beehome.databinding.ActivityMainBinding;
-import net.fpl.beehome.ui.Phong.PhongFragment;
+import net.fpl.beehome.ui.doiMatKhau.DoiMatKhauFragment;
+import net.fpl.beehome.ui.gioiThieu.GioiThieuFragment;
+import net.fpl.beehome.ui.phong.PhongFragment;
 import net.fpl.beehome.ui.home.HomeFragment;
 import net.fpl.beehome.ui.thuChi.thuChiFragment;
 
@@ -43,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.menu);
+        ab.setHomeAsUpIndicator(R.drawable.user);
         ab.setDisplayHomeAsUpEnabled(true);
 
         ////        dung fragment PhieuMuon lam home
@@ -55,28 +50,35 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView nv = findViewById(R.id.nav_view);
 
-        //        Dieu huong Navigation
+//                Dieu huong Navigation
         nv.setNavigationItemSelectedListener((item) ->{
 
             switch (item.getItemId()){
-                case R.id.nav_home:
-                    HomeFragment homeFragment = new HomeFragment();
-                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main,homeFragment).commit();
+                case R.id.nav_doiMatKhau:
+                    DoiMatKhauFragment matKhauFragment = new DoiMatKhauFragment();
+                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main,matKhauFragment).commit();
                     break;
 
-                case R.id.nav_phòng:
-                    PhongFragment phongFragment = new PhongFragment();
-                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main,phongFragment).commit();
+                case R.id.nav_gT:
+                    GioiThieuFragment gioiThieuFragment = new GioiThieuFragment();
+                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main,gioiThieuFragment).commit();
                     break;
 
-                case R.id.nav_thuChi:
-                    thuChiFragment chiFragment = new thuChiFragment();
-                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main,chiFragment).commit();
+                case R.id.sub_Logout:
+                    startActivity(new Intent(MainActivity.this,Login_Activity.class));
+                    finish();
                     break;
             }
             drawer.closeDrawers();
             return true;
         });
+
+//        bottom menu
+        BottomNavigationView bnavigation = findViewById(R.id.bottomnav);
+        bnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        loadFragment(new HomeFragment());
+
 
 
     }
@@ -91,10 +93,41 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    fragment = new HomeFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.nav_phòng:
+                    fragment = new PhongFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.nav_thuChi:
+                    fragment = new thuChiFragment();
+                    loadFragment(fragment);
+                    return true;
+            }
+
+            return false;
+        }
+    };
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.nav_host_fragment_content_main, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
+
+
+
+
 }

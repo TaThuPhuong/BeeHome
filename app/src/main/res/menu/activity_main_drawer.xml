@@ -5,17 +5,14 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="@string/menu_home" />
+            android:icon="@drawable/ic_key"
+            android:id="@+id/nav_doiMatKhau"
+            android:title="@string/mnu_rePass"
+            />
         <item
-            android:id="@+id/nav_phòng"
-            android:icon="@drawable/ic_baseline_home_work_24"
-            android:title="@string/menu_phong" />
-        <item
-            android:id="@+id/nav_thuChi"
-            android:icon="@drawable/ic_thong_ke_24dp"
-            android:title="@string/menu_thuChi" />
+            android:icon="@drawable/ic_logout"
+            android:id="@+id/sub_Logout"
+            android:title="@string/mnu_out" />
         <item
             android:id="@+id/nav_gT"
             android:icon="@drawable/ic_gioithieu"
