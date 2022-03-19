@@ -23,12 +23,14 @@ public class Login_Activity extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edNguoidung.getText().toString().equals("admin")&&edMatkhau.getText().toString().equals("123")){
-                    Intent intent = new Intent(Login_Activity.this,MainActivity.class);
-                    startActivity(intent);
-                }else {
-                    Toast.makeText(getBaseContext(), "Tên Đăng Nhập Hoăc Mật Khẩu Không Chính Xác", Toast.LENGTH_SHORT).show();
-                }
+//                if (edNguoidung.getText().toString().equals("admin")&&edMatkhau.getText().toString().equals("123")){
+//                    Intent intent = new Intent(Login_Activity.this,MainActivity.class);
+//                    startActivity(intent);
+//                }else {
+//                    Toast.makeText(getBaseContext(), "Tên Đăng Nhập Hoăc Mật Khẩu Không Chính Xác", Toast.LENGTH_SHORT).show();
+//                }
+                Intent intent = new Intent(Login_Activity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
     }
