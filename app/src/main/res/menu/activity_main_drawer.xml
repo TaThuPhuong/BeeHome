@@ -10,12 +10,14 @@
             android:title="@string/mnu_rePass"
             />
         <item
-            android:icon="@drawable/ic_logout"
-            android:id="@+id/sub_Logout"
-            android:title="@string/mnu_out" />
-        <item
             android:id="@+id/nav_gT"
             android:icon="@drawable/ic_gioithieu"
             android:title="@string/menu_gT" />
+        
+        <item
+            android:icon="@drawable/ic_logout"
+            android:id="@+id/sub_Logout"
+            android:title="@string/mnu_out" />
+
     </group>
 </menu>
