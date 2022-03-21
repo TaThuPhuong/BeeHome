@@ -7,7 +7,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
                     android:layout_width="130dp"
                     android:layout_height="130dp"
                     android:layout_marginTop="10dp"
-                    android:src="@drawable/user" />
+                    android:src="@drawable/ic_group" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             </LinearLayout>
             <GridLayout
                 android:layout_width="345dp"
-                android:layout_height="100dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="185dp"
                 android:layout_marginLeft="33dp"
                 android:layout_marginRight="33dp"
@@ -113,7 +113,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="300dp"
+                android:layout_marginTop="280dp"
                 android:background="@drawable/bg_ui"
                 android:orientation="horizontal">
 
@@ -144,49 +144,59 @@
                     android:textColor="@color/white"
                     android:textSize="20dp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginLeft="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="355dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="340dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/email"
                     app:tint="@color/grey_dam" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/grey_dam"
+                    android:paddingLeft="15dp"
                     android:text="phuongta15099@gmail.com"
-                    android:textSize="15dp"
-                    android:paddingLeft="15dp"/>
+                    android:textColor="@color/grey_dam"
+                    android:textSize="15dp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginLeft="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="395dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="375dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_phone_black_24dp"
                     app:tint="@color/grey_dam" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/grey_dam"
+                    android:paddingLeft="15dp"
                     android:text="0989481280"
-                    android:textSize="15dp"
-                    android:paddingLeft="15dp"/>
+                    android:textColor="@color/grey_dam"
+                    android:textSize="15dp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_marginLeft="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="433dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="410dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -194,13 +204,14 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_person_add_black_24dp"
                     app:tint="@color/grey_dam" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/grey_dam"
+                    android:paddingLeft="15dp"
                     android:text="Add to group              "
-                    android:textSize="15dp"
-                    android:paddingLeft="15dp"/>
+                    android:textColor="@color/grey_dam"
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -208,12 +219,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="472dp"
+                android:layout_marginTop="445dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
                     android:src="@drawable/ic_message_black_24dp"
                     app:tint="@color/grey_dam" />
 
@@ -233,7 +246,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/line1"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:gravity="start"
@@ -313,6 +326,7 @@
                 android:textAlignment="textStart"
                 android:textColor="@color/grey_dam"
                 android:textSize="14dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -320,7 +334,7 @@
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="80dp"
                 android:layout_toRightOf="@id/th"
                 android:text="Bùi Xuân Tiến"
                 android:textAlignment="textStart"
