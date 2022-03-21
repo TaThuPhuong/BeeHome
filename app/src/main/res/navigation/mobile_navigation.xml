@@ -22,4 +22,16 @@
         android:name="net.fpl.beehome.ui.thuChi.thuChiFragment"
         android:label="@string/menu_thuChi"
         tools:layout="@layout/fragment_thu_chi" />
+
+    <fragment
+        android:id="@+id/nav_doiMatKhau"
+        android:name="net.fpl.beehome.ui.doiMatKhau.DoiMatKhauFragment"
+        android:label="@string/mnu_rePass"
+        tools:layout="@layout/fragment_doi_mat_khau" />
+
+    <fragment
+        android:id="@+id/nav_gT"
+        android:name="net.fpl.beehome.ui.gioiThieu.GioiThieuFragment"
+        android:label="@string/menu_gT"
+        tools:layout="@layout/fragment_gioi_thieu" />
 </navigation>
