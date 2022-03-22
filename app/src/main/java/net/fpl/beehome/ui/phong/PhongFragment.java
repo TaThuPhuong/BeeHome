@@ -50,7 +50,7 @@ public class PhongFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fb = FirebaseFirestore.getInstance();
-        phongDAO = new PhongDAO(fb,getActivity().getApplicationContext());
+        phongDAO = new PhongDAO(fb,getContext());
         lsPhong = phongDAO.getData();
 //        lsPhong = new ArrayList<>();
 //        lsPhong.add(new Phong("P101","P101","Đang thuê","Giường, ",1500000,20,11));
@@ -67,7 +67,6 @@ public class PhongFragment extends Fragment {
         recyclerView.setAdapter(phongRecycleView);
 
 //        adapter = new PhongAdapter(lsPhong);
-
 //        lv = view.findViewById(R.id.lv_phong);
 //        lv.setAdapter(adapter);
         tvTongPhong = view.findViewById(R.id.tv_tong_phong);
