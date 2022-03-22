@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
@@ -23,12 +24,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Phong;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +44,7 @@ import java.util.Map;
 public class PhongDAO {
     FirebaseFirestore db;
     Context context;
-
+    ArrayList<Phong> lsPhong;
 
     public PhongDAO(FirebaseFirestore db, Context context) {
         this.db = db;
@@ -182,22 +189,29 @@ public class PhongDAO {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int soPhong = Integer.parseInt(edSoPhong.getText().toString());
+                String soPhong = edSoPhong.getText().toString();
                 String strVatTu = edVatTu.getText().toString();
-                int giaPhong = Integer.parseInt(edGiaPhong.getText().toString());
+                String giaPhong = edGiaPhong.getText().toString();
                 String strTrangThai = edTrangThai.getText().toString();
-                int soDienDau = Integer.parseInt(edSoDienDau.getText().toString());
-                int soNuocDau = Integer.parseInt(edSoNuocDau.getText().toString());
-                Phong phong = new Phong();
-                phong.setIDPhong("P" + soPhong);
-                phong.setGiaPhong(giaPhong);
-                phong.setSoPhong("P" + soPhong);
-                phong.setSoDienDau(soDienDau);
-                phong.setTrangThai(strTrangThai);
-                phong.setSoNuocDau(soNuocDau);
-                phong.setVatTu(strVatTu);
-                themPhong(phong);
-                dialog.dismiss();
+                String soDienDau = edSoDienDau.getText().toString();
+                String soNuocDau = edSoNuocDau.getText().toString();
+                if (TextUtils.isEmpty(soPhong) || TextUtils.isEmpty(strVatTu) || TextUtils.isEmpty(giaPhong) ||
+                        TextUtils.isEmpty(strTrangThai) || TextUtils.isEmpty(soDienDau) || TextUtils.isEmpty(soNuocDau)) {
+                    thongBao("Điền đầy đủ thông tin các mục");
+                    return;
+                } else {
+                    Phong phong = new Phong();
+                    phong.setIDPhong("P" + soPhong);
+                    phong.setGiaPhong(Integer.parseInt(giaPhong));
+                    phong.setSoPhong("P" + soPhong);
+                    phong.setSoDienDau(Integer.parseInt(soDienDau));
+                    phong.setTrangThai(strTrangThai);
+                    phong.setSoNuocDau(Integer.parseInt(soNuocDau));
+                    phong.setVatTu(strVatTu);
+                    themPhong(phong);
+                    dialog.dismiss();
+                }
+
             }
         });
         btnHuy.setOnClickListener(new View.OnClickListener() {
@@ -209,9 +223,7 @@ public class PhongDAO {
     }
 
     public void themPhong(Phong phong) {
-
-
-        db.collection(Phong.TB_NAME).document((String) phong.getIDPhong(Phong.COL_ID))
+        db.collection(Phong.TB_NAME).document(phong.getIDPhong())
                 .set(phong)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -227,17 +239,51 @@ public class PhongDAO {
                     }
                 });
     }
-    public void getData(){
+
+    public ArrayList<Phong> getData() {
+        lsPhong = new ArrayList<>();
+        db.collection(Phong.TB_NAME)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Phong phong = new Phong();
+//                                phong.setIDPhong(document.get(Phong.COL_ID).toString());
+//                                phong.setSoPhong(document.get(Phong.COL_SO_PHONG).toString());
+//                                phong.setGiaPhong(Integer.parseInt(document.get(Phong.COL_GIA_PHONG).toString()));
+//                                phong.setVatTu(document.get(Phong.COL_VAT_TU).toString());
+//                                phong.setTrangThai(document.get(Phong.COL_TRANG_THAI).toString());
+//                                phong.setSoDienDau(Integer.parseInt(document.get(Phong.COL_SO_DIEN_DAU).toString()));
+//                                phong.setSoNuocDau(Integer.parseInt(document.get(Phong.COL_SO_NUOC_DAU).toString()));
+                                Phong phong = document.toObject(Phong.class);
+                                Log.d("zzzzzz", "onComplete: " + phong.toString());
+
+                                lsPhong.add(phong);
+                            }
+                            Log.d("zzzzzz", "List: " + lsPhong.size());
+                        } else {
+                            Log.w("zzzzz", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        return lsPhong;
+    }
+
+    public void updatePhong(Phong phong) {
 
     }
-    public void updatePhong(Phong phong){
 
-    }
-    public void deletePhong(String IDphong){
-
-    }
-    public void getPhong(String IDPhong){
+    public void deletePhong(String IDphong) {
 
     }
 
+    public void getPhong(String IDPhong) {
+
+    }
+
+    public boolean checkPhong(String IDPhong) {
+        return true;
+    }
 }

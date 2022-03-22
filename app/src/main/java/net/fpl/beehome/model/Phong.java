@@ -25,7 +25,7 @@ public class Phong {
         this.soNuocDau = soNuocDau;
     }
 
-    public String getIDPhong(String s) {
+    public String getIDPhong() {
         return IDPhong;
     }
 
@@ -80,4 +80,19 @@ public class Phong {
     public void setSoNuocDau(int soNuocDau) {
         this.soNuocDau = soNuocDau;
     }
+
+    @Override
+    public String toString() {
+        return "Phong{" +
+                "IDPhong='" + IDPhong + '\'' +
+                ", soPhong='" + soPhong + '\'' +
+                ", trangThai='" + trangThai + '\'' +
+                ", vatTu='" + vatTu + '\'' +
+                ", giaPhong=" + giaPhong +
+                ", soDienDau=" + soDienDau +
+                ", soNuocDau=" + soNuocDau +
+                '}';
+    }
+
+
 }

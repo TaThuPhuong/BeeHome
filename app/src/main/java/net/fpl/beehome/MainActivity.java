@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer;
     Toolbar toolbar;
     ActionBar ab;
+    MySharedPreferences mySharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
         ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.user);
         ab.setDisplayHomeAsUpEnabled(true);
-        setTitle("Xin chào");
+        mySharedPreferences = new MySharedPreferences(getApplicationContext());
+        setTitle("Xin chào " + mySharedPreferences.getUser(MySharedPreferences.USER_KEY));
 
         ////        dung fragment PhieuMuon lam home
         FragmentManager manager = getSupportFragmentManager();
