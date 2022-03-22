@@ -43,18 +43,20 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        btnNguoiThue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), NguoiThue_Activity.class);
-                startActivity(intent);
-            }
-        });
+
 
         btnHoaDon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), HoaDonMain.class));
+            }
+        });
+
+        btnNguoiThue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NguoiThue_Activity.class);
+                startActivity(intent);
             }
         });
 
