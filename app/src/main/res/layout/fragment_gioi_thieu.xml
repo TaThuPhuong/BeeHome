@@ -64,14 +64,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="ID"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:textStyle="bold"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Team 3"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:textColor="@color/grey_dam"
                             android:layout_marginTop="8dp"/>
                     </LinearLayout>
@@ -87,13 +87,13 @@
                             android:layout_height="wrap_content"
                             android:text="Class"
                             android:textStyle="bold"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:textColor="@color/black"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="CP17102"
-                            android:textSize="20dp"
+                            android:textSize="15dp"
                             android:textColor="@color/grey_dam"
                             android:layout_marginTop="8dp"/>
                     </LinearLayout>
@@ -108,7 +108,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Starts"
-                            android:textSize="14dp"
+                            android:textSize="10dp"
                             android:background="@drawable/background_edttext"
                             android:textColor="@color/white"/>
                     </LinearLayout>

@@ -26,6 +26,7 @@ import net.fpl.beehome.ui.thuChi.thuChiFragment;
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer;
     Toolbar toolbar;
+    ActionBar ab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
+        ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.user);
         ab.setDisplayHomeAsUpEnabled(true);
         setTitle("Xin chào");
@@ -52,23 +53,23 @@ public class MainActivity extends AppCompatActivity {
         NavigationView nv = findViewById(R.id.nav_view);
 
 //                Dieu huong Navigation
-        nv.setNavigationItemSelectedListener((item) ->{
+        nv.setNavigationItemSelectedListener((item) -> {
 
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.nav_doiMatKhau:
                     setTitle("Đổi mật khẩu");
                     DoiMatKhauFragment matKhauFragment = new DoiMatKhauFragment();
-                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main,matKhauFragment).commit();
+                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, matKhauFragment).commit();
                     break;
 
                 case R.id.nav_gT:
                     setTitle("Giới thiệu");
                     GioiThieuFragment gioiThieuFragment = new GioiThieuFragment();
-                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main,gioiThieuFragment).commit();
+                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, gioiThieuFragment).commit();
                     break;
 
                 case R.id.sub_Logout:
-                    startActivity(new Intent(MainActivity.this,Login_Activity.class));
+                    startActivity(new Intent(MainActivity.this, Login_Activity.class));
                     finish();
                     break;
             }
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         bnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         loadFragment(new HomeFragment());
-
 
 
     }
@@ -108,16 +108,19 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new HomeFragment();
                     setTitle("Xin chào");
                     loadFragment(fragment);
+                    ab.show();
                     return true;
                 case R.id.nav_phòng:
                     setTitle("Phòng");
                     fragment = new PhongFragment();
                     loadFragment(fragment);
+                    ab.hide();
                     return true;
                 case R.id.nav_thuChi:
                     setTitle("Thu Chi");
                     fragment = new thuChiFragment();
                     loadFragment(fragment);
+                    ab.show();
                     return true;
             }
 
@@ -132,8 +135,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-
 
 
 }

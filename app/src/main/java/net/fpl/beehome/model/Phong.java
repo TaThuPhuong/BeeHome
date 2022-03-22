@@ -25,7 +25,7 @@ public class Phong {
         this.soNuocDau = soNuocDau;
     }
 
-    public String getIDPhong() {
+    public String getIDPhong(String s) {
         return IDPhong;
     }
 

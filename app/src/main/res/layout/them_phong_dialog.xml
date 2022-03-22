@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rd_top_20dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Thêm phòng"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số phòng"
+                app:hintTextColor="#5F098E">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_so_phong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Giá phòng"
+                app:hintTextColor="#5F098E">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_gia_phong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Vật tư"
+                app:hintTextColor="#5F098E">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_vat_tu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:enabled="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3">
+
+                <CheckBox
+                    android:id="@+id/chk_vt_giuong"
+                    android:buttonTint="#7D0E95"
+                    android:text="Giường" />
+
+                <CheckBox
+                    android:id="@+id/chk_vt_tu"
+
+                    android:buttonTint="#7D0E95"
+                    android:text="Tủ" />
+
+                <CheckBox
+                    android:id="@+id/chk_vt_dieu_hoa"
+
+                    android:buttonTint="#7D0E95"
+                    android:text="Điều hòa" />
+
+                <CheckBox
+                    android:id="@+id/chk_vt_binh_nl"
+
+                    android:buttonTint="#7D0E95"
+                    android:text="Bình nước nóng" />
+
+                <CheckBox
+                    android:id="@+id/chk_vt_may_giat"
+                    android:buttonTint="#7D0E95"
+
+                    android:text="Máy giặt" />
+
+                <CheckBox
+                    android:id="@+id/chk_vt_ban"
+
+                    android:buttonTint="#7D0E95"
+                    android:text="Bàn" />
+
+                <CheckBox
+                    android:id="@+id/chk_vt_bep"
+
+                    android:buttonTint="#7D0E95"
+                    android:text="Bếp" />
+            </GridLayout>
+            <!--            <GridView-->
+            <!--                android:id="@+id/listVT"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="200dp"-->
+            <!--                android:numColumns="2" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btn_chon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@color/white"
+                    android:src="@drawable/ic_baseline_check_circle_24" />
+
+                <ImageButton
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@color/white"
+                    android:src="@drawable/ic_baseline_cancel_24"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Trạng thái"
+                app:hintTextColor="#5F098E">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_trang_thai"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:enabled="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/rdgTrangThai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@id/rdo_trong"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rdo_dang_thue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#7D0E95"
+                    android:text="Đang thuê" />
+
+                <RadioButton
+                    android:id="@+id/rdo_trong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#7D0E95"
+                    android:text="Trống" />
+
+                <RadioButton
+                    android:id="@+id/rdo_dang_sua"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#7D0E95"
+                    android:text="Đang sửa chữa" />
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số điện đầu"
+                app:hintTextColor="#5F098E">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_so_dien_dau"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Số nước đầu"
+                app:hintTextColor="#5F098E">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ed_so_nuoc_dau"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:paddingVertical="20dp">
+
+                <Button
+                    android:id="@+id/btn_them_phong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:text="Thêm"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/btn_huy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="30dp"
+                    android:text="Hủy"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
