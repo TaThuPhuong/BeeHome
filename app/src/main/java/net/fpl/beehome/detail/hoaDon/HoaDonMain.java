@@ -1,4 +1,4 @@
-package net.fpl.beehome.detail;
+package net.fpl.beehome.detail.hoaDon;
 
 import androidx.appcompat.app.AppCompatActivity;
 
