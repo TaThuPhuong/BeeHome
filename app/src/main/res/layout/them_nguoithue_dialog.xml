@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F1F1F1"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_themnguoithue"
+                android:text="Thêm Người Thuê"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="30dp"
+                android:background="@drawable/bg_rd_top_20dp"
+                />
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Họ Và Tên *"
+                android:textSize="21dp"/>
+            <EditText
+                android:id="@+id/ed_hovatennguoithue"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mời Bạn Nhập Họ Tên"
+                android:textSize="20dp"/>
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Số Điện Thoại"
+                android:textSize="21dp"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/ed_sodienthoainguoithue"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Mời Bạn Nhập Số Điện Thoại"
+                android:textSize="20dp"/>
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Email"
+                android:textColor="@color/black"
+                android:textSize="21dp"/>
+            <EditText
+                android:id="@+id/ed_emailnguoithue"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Mời Bạn Nhập Email"
+                android:textSize="20dp"/>
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Số CMND/CCCD"
+                android:textColor="@color/black"
+                android:textSize="21dp"/>
+            <EditText
+                android:id="@+id/ed_cmndnguoithue"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Nhập Số CMND/CCCD"
+                android:textSize="20dp"/>
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Chọn Phòng Thuê"
+                android:textColor="@color/black"
+                android:textSize="21dp"/>
+            <Spinner
+                android:id="@+id/sp_phong"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="34dp" />
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên Đăng Nhập"
+                android:textColor="@color/black"
+                android:textSize="21dp"/>
+            <EditText
+                android:id="@+id/ed_tendangnhapnguoithue"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập Tên Đăng Nhập"
+                android:textSize="20dp"/>
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mật Khẩu"
+                android:textColor="@color/black"
+                android:textSize="21dp"/>
+            <EditText
+                android:id="@+id/ed_matkhaunguoithue"
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập Mật Khẩu"
+                android:textSize="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/btn_dangkinguoithue"
+                    android:layout_marginLeft="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đăng Kí"/>
+
+                <Button
+                    android:id="@+id/btn_huynguoithue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:text="Hủy" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
