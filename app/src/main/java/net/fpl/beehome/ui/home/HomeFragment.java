@@ -18,6 +18,7 @@ import net.fpl.beehome.R;
 public class HomeFragment extends Fragment {
     // code đâu ông tú
     ImageView nguoithue;
+
     public HomeFragment() {
     }
 

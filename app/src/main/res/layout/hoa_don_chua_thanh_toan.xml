@@ -21,15 +21,14 @@
 
             <EditText
                 android:id="@+id/ed_tim_hoa_don"
-                android:hint="Nhập phòng cần tìm kiếm hóa đơn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="14dp"
-                android:textColorHint="@color/grey_dam"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/background_edttext2"
-                />
+                android:hint="Nhập phòng cần tìm kiếm hóa đơn"
+                android:padding="14dp"
+                android:textColorHint="@color/grey_dam" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton

@@ -57,6 +57,7 @@ public class Login_Activity extends AppCompatActivity {
                 }
                 if (edNguoidung.getText().toString().equals("admin") && edMatkhau.getText().toString().equals("123")) {
                     Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                    intent.putExtra("quyen", "admin");
                     startActivity(intent);
                     if (chk.isChecked()) {
                         mySharedPreferences.saveUser(MySharedPreferences.USER_KEY, user);
