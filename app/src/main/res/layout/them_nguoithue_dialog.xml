@@ -23,6 +23,7 @@
                 android:background="@drawable/bg_rd_top_20dp"
                 />
             <TextView
+                android:paddingLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
@@ -30,12 +31,15 @@
                 android:text="Họ Và Tên *"
                 android:textSize="21dp"/>
             <EditText
+                android:id="@+id/ed_hovatennguoithue"
+                android:paddingLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mời Bạn Nhập Họ Tên"
                 android:textSize="20dp"/>
             <TextView
+                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -43,12 +47,15 @@
                 android:textSize="21dp"
                 android:textColor="@color/black"/>
             <EditText
+                android:id="@+id/ed_sodienthoainguoithue"
+                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Mời Bạn Nhập Số Điện Thoại"
                 android:textSize="20dp"/>
             <TextView
+                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -56,12 +63,15 @@
                 android:textColor="@color/black"
                 android:textSize="21dp"/>
             <EditText
+                android:id="@+id/ed_emailnguoithue"
+                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Mời Bạn Nhập Email"
                 android:textSize="20dp"/>
             <TextView
+                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -69,12 +79,15 @@
                 android:textColor="@color/black"
                 android:textSize="21dp"/>
             <EditText
+                android:id="@+id/ed_cmndnguoithue"
+                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="Nhập Số CMND/CCCD"
                 android:textSize="20dp"/>
             <TextView
+                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -82,10 +95,12 @@
                 android:textColor="@color/black"
                 android:textSize="21dp"/>
             <Spinner
+                android:id="@+id/sp_phong"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="34dp" />
             <TextView
+                android:paddingLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,11 +108,14 @@
                 android:textColor="@color/black"
                 android:textSize="21dp"/>
             <EditText
+                android:id="@+id/ed_tendangnhapnguoithue"
+                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nhập Tên Đăng Nhập"
                 android:textSize="20dp"/>
             <TextView
+                android:paddingLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,6 +123,8 @@
                 android:textColor="@color/black"
                 android:textSize="21dp"/>
             <EditText
+                android:id="@+id/ed_matkhaunguoithue"
+                android:paddingLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nhập Mật Khẩu"
@@ -115,12 +135,14 @@
                 android:orientation="horizontal"
                 >
                 <Button
+                    android:id="@+id/btn_dangkinguoithue"
                     android:layout_marginLeft="60dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Đăng Kí"/>
 
                 <Button
+                    android:id="@+id/btn_huynguoithue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
