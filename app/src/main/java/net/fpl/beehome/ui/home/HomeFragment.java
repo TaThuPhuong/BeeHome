@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import net.fpl.beehome.MainActivity;
 import net.fpl.beehome.R;
+import net.fpl.beehome.detail.hoaDon.HoaDonMain;
 
 public class HomeFragment extends Fragment {
     ImageView btnDichVu, btnNguoiThue, btnHoaDon, btnSuCo, btnHopDong, btnHuongDan;
@@ -38,6 +38,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        btnHoaDon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), HoaDonMain.class);
+                startActivity(i);
             }
         });
 
