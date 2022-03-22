@@ -14,9 +14,10 @@ import androidx.fragment.app.Fragment;
 
 import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
+import net.fpl.beehome.detail.hoaDon.HoaDonMain;
 
 public class HomeFragment extends Fragment {
-    ImageView nguoithue;
+    ImageView btnDichVu, btnNguoiThue, btnHoaDon, btnSuCo, btnHopDong, btnHuongDan;
     public HomeFragment() {
     }
 
@@ -30,12 +31,31 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        nguoithue = view.findViewById(R.id.iv_nguoi_thue);
-        nguoithue.setOnClickListener(new View.OnClickListener() {
+        btnDichVu = view.findViewById(R.id.btn_dich_vu);
+        btnNguoiThue = view.findViewById(R.id.btn_nguoi_thue);
+        btnHoaDon = view.findViewById(R.id.btn_hoa_don);
+        btnSuCo = view.findViewById(R.id.btn_su_co);
+        btnHopDong = view.findViewById(R.id.brn_hop_dong);
+        btnHuongDan = view.findViewById(R.id.btn_huong_dan);
+        btnDichVu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnNguoiThue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), NguoiThue_Activity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnHoaDon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), HoaDonMain.class));
             }
         });
     }
