@@ -16,8 +16,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.Phong.PhongAdapter;
 import net.fpl.beehome.Adapter.Phong.PhongRecycleView;
@@ -50,7 +54,7 @@ public class PhongFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         fb = FirebaseFirestore.getInstance();
-        phongDAO = new PhongDAO(fb,getContext());
+        phongDAO = new PhongDAO(fb, getContext());
         lsPhong = phongDAO.getData();
 //        lsPhong = new ArrayList<>();
 //        lsPhong.add(new Phong("P101","P101","Đang thuê","Giường, ",1500000,20,11));
@@ -78,5 +82,27 @@ public class PhongFragment extends Fragment {
                 phongDAO.showDialogThem();
             }
         });
+//        hienThi();
     }
+//    public void hienThi(){
+//        fb.collection(Phong.TB_NAME)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Phong phong = document.toObject(Phong.class);
+//                                Log.d("zzzzzz", "onComplete: " + phong.toString());
+//                                lsPhong.add(phong);
+//                            }
+//                            Log.d("zzzzzz", "List: " + lsPhong.size());
+//                        } else {
+//                            Log.w("zzzzz", "Error getting documents.", task.getException());
+//                        }
+//                    }
+//                });
+//        phongRecycleView = new PhongRecycleView(lsPhong, phongDAO);
+//        recyclerView.setAdapter(phongRecycleView);
+//    }
 }

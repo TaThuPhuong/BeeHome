@@ -81,14 +81,14 @@ public class DichVuDAO {
             Button btnHuy = view.findViewById(R.id.btn_huy);
 
             DichVu dichVu = new DichVu();
-            dichVu.setIdDichVu();
-
-            btnThem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    insertDichVu();
-                }
-            });
+//            dichVu.setIdDichVu();
+//
+//            btnThem.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    insertDichVu();
+//                }
+//            });
 
             btnHuy.setOnClickListener(new View.OnClickListener() {
                 @Override
