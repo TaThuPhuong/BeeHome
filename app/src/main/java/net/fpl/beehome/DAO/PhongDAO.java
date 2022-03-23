@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -58,9 +60,9 @@ public class PhongDAO {
         TextView tvMess = view.findViewById(R.id.tv_thong_bao);
         TextView btnOK = view.findViewById(R.id.btn_ok);
         tvMess.setText(mess);
-
-
         Dialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         dialog.show();
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +82,7 @@ public class PhongDAO {
         EditText edSoPhong, edGiaPhong, edVatTu, edTrangThai, edSoNuocDau, edSoDienDau;
         Button btnThem, btnHuy;
         CheckBox chkGiuong, chkTu, chkDieuHoa, chkNL, chkMayGiat, chkBan, chkBep;
-        ImageButton btnChon, btnCancel;
+        ImageButton btnChon, btnCancel,btnChonTatCa;
         RadioGroup rdgTrangThai;
         edSoPhong = view.findViewById(R.id.ed_so_phong);
         edGiaPhong = view.findViewById(R.id.ed_gia_phong);
@@ -90,8 +92,8 @@ public class PhongDAO {
         edSoNuocDau = view.findViewById(R.id.ed_so_nuoc_dau);
         btnThem = view.findViewById(R.id.btn_them_phong);
         btnHuy = view.findViewById(R.id.btn_huy);
-//        GridView lv = view.findViewById(R.id.listVT);
         btnChon = view.findViewById(R.id.btn_chon);
+        btnChonTatCa = view.findViewById(R.id.btn_chon_tat_ca);
         btnCancel = view.findViewById(R.id.btn_cancel);
         chkGiuong = view.findViewById(R.id.chk_vt_giuong);
         chkBan = view.findViewById(R.id.chk_vt_ban);
@@ -101,33 +103,19 @@ public class PhongDAO {
         chkTu = view.findViewById(R.id.chk_vt_tu);
         chkMayGiat = view.findViewById(R.id.chk_vt_may_giat);
         rdgTrangThai = view.findViewById(R.id.rdgTrangThai);
-
-
-//        ArrayList<String> lsVT = new ArrayList<String>();
-//        ArrayList<Integer> indexVT = new ArrayList<>();
-//        lsVT.add("Giường");
-//        lsVT.add("Tủ");
-//        lsVT.add("Bàn");
-//        lsVT.add("Bếp");
-//        lsVT.add("Điều hòa");
-//        lsVT.add("Máy giặt");
-//        lsVT.add("Nóng lạnh");
-//        Adapter adapter = new ArrayAdapter<String>(dialog.getContext(), android.R.layout.simple_list_item_multiple_choice, lsVT);
-//        lv.setAdapter((ListAdapter) adapter);
-//
-//        lv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                indexVT.add(i);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//
-//        });
-//
+btnChonTatCa.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        edVatTu.setText("Giường, Bàn, Bếp, Tủ, Điều hòa, Máy giặt, Bình nước nóng");
+        chkBan.setChecked(true);
+        chkBep.setChecked(true);
+        chkDieuHoa.setChecked(true);
+        chkGiuong.setChecked(true);
+        chkMayGiat.setChecked(true);
+        chkNL.setChecked(true);
+        chkTu.setChecked(true);
+    }
+});
         btnChon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
