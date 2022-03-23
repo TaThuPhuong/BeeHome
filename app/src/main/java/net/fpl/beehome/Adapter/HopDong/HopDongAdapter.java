@@ -45,6 +45,13 @@ public class HopDongAdapter extends RecyclerView.Adapter<HopDongAdapter.HopDongV
         holder.tv_ngayky.setText("Ngày ký: " + objHopDong.getNgayKiHD());
         holder.tv_ngaybd.setText("Ngày Bắt Đầu: "+objHopDong.getNgayBatDau());
         holder.tv_ngaykt.setText("Ngày Kết Thúc: "+objHopDong.getNgayKetThuc());
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                // show dialog xoa
+                return true;
+            }
+        });
 
     }
 

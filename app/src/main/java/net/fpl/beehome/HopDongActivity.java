@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,9 +18,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.fpl.beehome.Adapter.HopDong.HopDongAdapter;
@@ -55,7 +59,7 @@ public class HopDongActivity extends AppCompatActivity {
             public void run() {
                 hopDongAdapter.notifyDataSetChanged();
             }
-        },3000);
+        },6000);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +73,7 @@ public class HopDongActivity extends AppCompatActivity {
                 TextInputLayout ed_ngayky = dialog.findViewById(R.id.ed_ngaykyhd);
                 TextInputLayout ed_ngaybd = dialog.findViewById(R.id.ed_ngaybd);
                 TextInputLayout ed_ngaykt = dialog.findViewById(R.id.ed_ngaykt);
+                TextInputLayout ed_songuoithue = dialog.findViewById(R.id.ed_songuoithue);
 
 
 
@@ -132,7 +137,34 @@ public class HopDongActivity extends AppCompatActivity {
                 btn_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        HopDong objHopDong = new HopDong();
+                        objHopDong.setId_hop_dong("2");
+                        objHopDong.setId_chu_tro("1");
+                        objHopDong.setId_phong(sp_phong.getSelectedItem()+"");
+                        objHopDong.setId_thanh_vien(sp_tvien.getSelectedItem()+"");
+                        objHopDong.setKyHan(ed_kyhan.getEditText().getText().toString());
+                        objHopDong.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
+                        objHopDong.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());
+                        objHopDong.setNgayKetThuc(ed_ngaykt.getEditText().getText().toString());
+                        objHopDong.setSoNguoiThue(Double.parseDouble(ed_songuoithue.getEditText().getText().toString()));
 
+                        fb.collection(HopDong.TB_NAME)
+                                .add(objHopDong)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(HopDongActivity.this, "Them thanh cong", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(HopDongActivity.this, "Them That bai", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+
+                        dialog.dismiss();
                     }
                 });
                 dialog.show();
