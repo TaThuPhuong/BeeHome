@@ -4,15 +4,21 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -29,7 +35,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Phong;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PhongDAO {
     FirebaseFirestore db;
@@ -66,7 +76,6 @@ public class PhongDAO {
         View view = View.inflate(context, R.layout.dialog_them_phong, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         EditText edSoPhong, edGiaPhong, edVatTu, edTrangThai, edSoNuocDau, edSoDienDau;
         Button btnThem, btnHuy;
@@ -250,6 +259,7 @@ public class PhongDAO {
 //                                phong.setSoNuocDau(Integer.parseInt(document.get(Phong.COL_SO_NUOC_DAU).toString()));
                                 Phong phong = document.toObject(Phong.class);
                                 Log.d("zzzzzz", "onComplete: " + phong.toString());
+
                                 lsPhong.add(phong);
                             }
                             Log.d("zzzzzz", "List: " + lsPhong.size());
@@ -258,9 +268,6 @@ public class PhongDAO {
                         }
                     }
                 });
-
-        Log.d("zzzzz111111", lsPhong.toString());
-
         return lsPhong;
     }
 
@@ -277,7 +284,6 @@ public class PhongDAO {
     }
 
     public boolean checkPhong(String IDPhong) {
-
         return true;
     }
 }
