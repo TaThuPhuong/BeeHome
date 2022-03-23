@@ -46,7 +46,7 @@ public class DichVuActivity extends AppCompatActivity {
         fab_dichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dichVuAdapter.showDialog(0, DichVuActivity.this);
+                dichVuAdapter.showDialog(0, DichVuActivity.this, 0);
             }
         });
 
