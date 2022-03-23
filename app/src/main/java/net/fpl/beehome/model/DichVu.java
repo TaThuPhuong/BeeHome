@@ -40,6 +40,15 @@ public class DichVu {
         this.gia = gia;
     }
 
+    @Override
+    public String toString() {
+        return "DichVu{" +
+                "tenDichVu='" + tenDichVu + '\'' +
+                ", gia=" + gia +
+                ", donVi='" + donVi + '\'' +
+                '}';
+    }
+
     public DichVu() {
     }
 

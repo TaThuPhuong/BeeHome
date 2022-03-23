@@ -171,21 +171,4 @@ public class DichVuDAO {
         return list.get(0);
     }
 
-
-    public ArrayList<DichVu> getAll(){
-        ArrayList<DichVu> list = new ArrayList<>();
-
-        db.collection(DichVu.TB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (QueryDocumentSnapshot snapshot : task.getResult()){
-                        DichVu dichVu = snapshot.toObject(DichVu.class);
-                        list.add(dichVu);
-                    }
-                }
-            }
-        });
-        return list;
-    }
 }
