@@ -59,7 +59,8 @@
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.264" />
         <entry key="app/src/main/res/layout/activity_nguoi_thue.xml" value="0.16259057971014493" />
         <entry key="app/src/main/res/layout/dialog_add_hopdong.xml" value="0.10099637681159421" />
-        <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.335" />
         <entry key="app/src/main/res/layout/dialog_thong_bao_dich_vu_success.xml" value="0.10099637681159421" />
         <entry key="app/src/main/res/layout/item_nguoithue.xml" value="0.10099637681159421" />
       </map>

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
+    android:layout_marginTop="10dp"
     android:background="@drawable/background_edttext2"
     android:orientation="vertical">
 
@@ -12,13 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="tendv"/>
-    <TextView
-        android:id="@+id/tv_donVi"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="donvitinh"/>
+
     <TextView
         android:id="@+id/tv_gia"
         android:layout_marginTop="5dp"
@@ -27,4 +22,11 @@
         android:layout_height="wrap_content"
         android:text="gia"/>
 
+    <TextView
+        android:id="@+id/tv_donVi"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="donvitinh"/>
 </LinearLayout>

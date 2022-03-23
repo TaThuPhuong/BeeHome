@@ -1,49 +1,49 @@
 package net.fpl.beehome.model;
 
 public class NguoiThue {
-    int ID_thanhvien;
-    int ID_phong;
+    String ID_thanhvien;
+    String ID_phong;
     String HoTen;
-    String NgaySinh;
-    String Username;
-    String Password;
     String SDT;
+    String Password;
+    String email;
     String CCCD;
 
     public static final String TB_NGUOITHUE = "tb_Nguoithue";
-    public static final String COL_ID_THANHVIEN = "id_Thanhvien";
-    public static final String COL_ID_PHONG = "id_Phong";
-    public static final String COL_HOTEN = "hoTen";
-    public static final String COL_NGAYSINH = "ngaySinh";
-    public static final String COL_USERNAME = "userName";
-    public static final String COL_PASSWORD = "passWord";
+    public static final String COL_ID_THANHVIEN = "ID_thanhvien";
+    public static final String COL_ID_PHONG = "ID_phong";
+    public static final String COL_HOTEN = "HoTen";
     public static final String COL_SDT = "SDT";
+    public static final String COL_PASS = "Password";
+    public static final String COL_EMAIL = "email";
     public static final String COL_CCCD = "CCCD";
 
-    public NguoiThue(int ID_thanhvien, int ID_phong, String hoTen, String ngaySinh, String username, String password, String SDT, String CCCD) {
+    public NguoiThue() {
+    }
+
+    public NguoiThue(String ID_thanhvien, String ID_phong, String hoTen, String SDT, String password, String email, String CCCD) {
         this.ID_thanhvien = ID_thanhvien;
         this.ID_phong = ID_phong;
         HoTen = hoTen;
-        NgaySinh = ngaySinh;
-        Username = username;
-        Password = password;
         this.SDT = SDT;
+        Password = password;
+        this.email = email;
         this.CCCD = CCCD;
     }
 
-    public int getID_thanhvien() {
+    public String getID_thanhvien() {
         return ID_thanhvien;
     }
 
-    public void setID_thanhvien(int ID_thanhvien) {
+    public void setID_thanhvien(String ID_thanhvien) {
         this.ID_thanhvien = ID_thanhvien;
     }
 
-    public int getID_phong() {
+    public String getID_phong() {
         return ID_phong;
     }
 
-    public void setID_phong(int ID_phong) {
+    public void setID_phong(String ID_phong) {
         this.ID_phong = ID_phong;
     }
 
@@ -55,20 +55,12 @@ public class NguoiThue {
         HoTen = hoTen;
     }
 
-    public String getNgaySinh() {
-        return NgaySinh;
+    public String getSDT() {
+        return SDT;
     }
 
-    public void setNgaySinh(String ngaySinh) {
-        NgaySinh = ngaySinh;
-    }
-
-    public String getUsername() {
-        return Username;
-    }
-
-    public void setUsername(String username) {
-        Username = username;
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
     }
 
     public String getPassword() {
@@ -79,12 +71,12 @@ public class NguoiThue {
         Password = password;
     }
 
-    public String getSDT() {
-        return SDT;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSDT(String SDT) {
-        this.SDT = SDT;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCCCD() {
@@ -93,5 +85,18 @@ public class NguoiThue {
 
     public void setCCCD(String CCCD) {
         this.CCCD = CCCD;
+    }
+
+    @Override
+    public String toString() {
+        return "NguoiThue{" +
+                "ID_thanhvien='" + ID_thanhvien + '\'' +
+                ", ID_phong='" + ID_phong + '\'' +
+                ", HoTen='" + HoTen + '\'' +
+                ", SDT='" + SDT + '\'' +
+                ", Password='" + Password + '\'' +
+                ", email='" + email + '\'' +
+                ", CCCD='" + CCCD + '\'' +
+                '}';
     }
 }

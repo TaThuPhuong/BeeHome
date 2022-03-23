@@ -1,6 +1,8 @@
 package net.fpl.beehome.DAO;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +50,7 @@ public class DichVuDAO {
             builder.setView(view);
 
             AlertDialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
             TextView btn = view.findViewById(R.id.btn_success);
             TextView tv = view.findViewById(R.id.tv_dialog);
@@ -63,6 +66,7 @@ public class DichVuDAO {
             builder.setView(view);
 
             AlertDialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.show();
             TextView btn = view.findViewById(R.id.btn_fail);
             TextView tv = view.findViewById(R.id.tv_dialog);
@@ -81,7 +85,7 @@ public class DichVuDAO {
 
         Map<String, Object> map = new HashMap<>();
         map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
-        map.put(DichVu.COL_GIA, dichVu.getGia() +"");
+        map.put(DichVu.COL_GIA, dichVu.getGia());
         map.put(DichVu.COL_DONVI, dichVu.getDonVi());
 
         db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).set(map)
@@ -158,12 +162,8 @@ public class DichVuDAO {
                         dichVu.setGia(Integer.parseInt(Objects.requireNonNull(snapshot.get(DichVu.COL_GIA)).toString()));
                         dichVu.setDonVi(Objects.requireNonNull(snapshot.get(DichVu.COL_DONVI)).toString());
 
-                        boolean check = list.add(dichVu);
-                        if (check){
-                            thongbao(0, "Tải dữ liệu thành công");
-                        } else {
-                            thongbao(1, "Tải dữ liệu thất bại");
-                        }
+                        list.add(dichVu);
+
                     }
                 }
             }
@@ -171,21 +171,4 @@ public class DichVuDAO {
         return list.get(0);
     }
 
-
-    public ArrayList<DichVu> getAll(){
-        ArrayList<DichVu> list = new ArrayList<>();
-
-        db.collection(DichVu.TB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()){
-                    for (QueryDocumentSnapshot snapshot : task.getResult()){
-                        DichVu dichVu = snapshot.toObject(DichVu.class);
-                        list.add(dichVu);
-                    }
-                }
-            }
-        });
-        return list;
-    }
 }
