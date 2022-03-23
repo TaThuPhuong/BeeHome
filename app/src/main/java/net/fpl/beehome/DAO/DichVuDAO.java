@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -105,7 +106,13 @@ public class DichVuDAO {
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                thongbao(0);
+                thongbao(0, "Thêm dịch vụ thành công");
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                thongbao(1, "Thêm dịch vụ thất bại");
             }
         });
     }
@@ -125,9 +132,15 @@ public class DichVuDAO {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        thongbao(2);
+                        thongbao(0, "Sửa dịch vụ thành công");
                     }
-                });
+                })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                thongbao(1, "Sửa dịch vụ thất bại");
+            }
+        });
     }
 
     public void deleteDichVu(DichVu dichVu){
