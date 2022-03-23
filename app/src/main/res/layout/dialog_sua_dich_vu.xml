@@ -43,13 +43,14 @@
             android:text="Thu phí dựa trên:"
             android:textSize="16dp"/>
 
-        <EditText
+        <TextView
             android:id="@+id/ed_chiSo"
+            android:gravity="center_vertical"
+            android:textSize="17sp"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@drawable/background_edttext2"
             android:hint="   Lũy tiến theo chỉ số, phòng, người, số lần"
-            android:gravity="center_vertical"
             android:layout_marginTop="7dp"/>
 
         <TextView

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/background_edttext2"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_tenDV"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tendv"/>
+    <TextView
+        android:id="@+id/tv_donVi"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="donvitinh"/>
+    <TextView
+        android:id="@+id/tv_gia"
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="gia"/>
+
+</LinearLayout>
