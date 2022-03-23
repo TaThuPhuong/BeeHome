@@ -105,6 +105,7 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
             btnThem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     dichVuDAO.insertDichVu(dichVu);
                     alertDialog.dismiss();
                 }
