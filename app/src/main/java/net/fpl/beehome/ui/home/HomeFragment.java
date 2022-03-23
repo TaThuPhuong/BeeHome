@@ -12,11 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.detail.hoaDon.HoaDonMain;
 
 public class HomeFragment extends Fragment {
     ImageView btnDichVu, btnNguoiThue, btnHoaDon, btnSuCo, btnHopDong, btnHuongDan;
+    public HomeFragment() {
+    }
 
     @Nullable
     @Override
@@ -41,13 +44,22 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         btnHoaDon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), HoaDonMain.class);
-                startActivity(i);
+                startActivity(new Intent(getActivity(), HoaDonMain.class));
             }
         });
+
+        btnNguoiThue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NguoiThue_Activity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 }
