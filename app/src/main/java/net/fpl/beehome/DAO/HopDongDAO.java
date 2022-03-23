@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.auth.User;
 
 import net.fpl.beehome.model.HopDong;
 
@@ -27,7 +28,7 @@ public class HopDongDAO {
     }
 
     public ArrayList<HopDong> getAll(){
-        ArrayList arr = new ArrayList();
+        ArrayList<HopDong> arr = new ArrayList<>();
 
         db.collection(HopDong.TB_NAME)
                 .get()
@@ -36,19 +37,10 @@ public class HopDongDAO {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                HopDong objHopDong = new HopDong();
-                                objHopDong.setIDHopDong(document.get(HopDong.COL_IDHOPDONG).toString());
-                                objHopDong.setIDChuTro(document.get(HopDong.COL_IDCHUTRO).toString());
-                                objHopDong.setIDPhong(document.get(HopDong.COL_IDPHONG).toString());
-                                objHopDong.setIDThanhVien(document.get(HopDong.COL_IDTHANHVIEN).toString());
-                                objHopDong.setKyHan(document.get(HopDong.COL_KYHAN).toString());
-                                objHopDong.setNgayKiHD(document.get(HopDong.COL_NGAYKYHD).toString());
-                                objHopDong.setNgayBatDau(document.get(HopDong.COL_NGAYBATDAU).toString());
-                                objHopDong.setNgayKetThuc(document.get(HopDong.COL_NGAYKETTHUC).toString());
-                                objHopDong.setSoNguoiThue(Integer.parseInt(document.get(HopDong.COL_SONGUOITHUE).toString()));
-
+                                HopDong objHopDong = document.toObject(HopDong.class);
+//
+                                arr.add(objHopDong);
                                 Log.d("aaaaaaa", document.getId() + " => " + document.getData());
-
                             }
                         } else {
                             Log.d("aaaaaaa", "Error getting documents: ", task.getException());

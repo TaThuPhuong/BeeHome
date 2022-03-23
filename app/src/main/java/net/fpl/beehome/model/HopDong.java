@@ -1,8 +1,8 @@
 package net.fpl.beehome.model;
 
 public class HopDong {
-    String IDHopDong, IDChuTro, IDPhong, IDThanhVien, KyHan, NgayKiHD, NgayBatDau, NgayKetThuc;
-    int SoNguoiThue;
+    String id_hop_dong, id_chu_tro, id_phong, id_thanh_vien, KyHan, NgayKiHD, NgayBatDau, NgayKetThuc;
+    Double SoNguoiThue;
 
     public static final String TB_NAME = "tb_hopDong";
     public static final String COL_IDHOPDONG = "id_hop_dong";
@@ -19,36 +19,36 @@ public class HopDong {
     public HopDong() {
     }
 
-    public String getIDHopDong() {
-        return IDHopDong;
+    public String getId_hop_dong() {
+        return id_hop_dong;
     }
 
-    public void setIDHopDong(String IDHopDong) {
-        this.IDHopDong = IDHopDong;
+    public void setId_hop_dong(String id_hop_dong) {
+        this.id_hop_dong = id_hop_dong;
     }
 
-    public String getIDChuTro() {
-        return IDChuTro;
+    public String getId_chu_tro() {
+        return id_chu_tro;
     }
 
-    public void setIDChuTro(String IDChuTro) {
-        this.IDChuTro = IDChuTro;
+    public void setId_chu_tro(String id_chu_tro) {
+        this.id_chu_tro = id_chu_tro;
     }
 
-    public String getIDPhong() {
-        return IDPhong;
+    public String getId_phong() {
+        return id_phong;
     }
 
-    public void setIDPhong(String IDPhong) {
-        this.IDPhong = IDPhong;
+    public void setId_phong(String id_phong) {
+        this.id_phong = id_phong;
     }
 
-    public String getIDThanhVien() {
-        return IDThanhVien;
+    public String getId_thanh_vien() {
+        return id_thanh_vien;
     }
 
-    public void setIDThanhVien(String IDThanhVien) {
-        this.IDThanhVien = IDThanhVien;
+    public void setId_thanh_vien(String id_thanh_vien) {
+        this.id_thanh_vien = id_thanh_vien;
     }
 
     public String getKyHan() {
@@ -83,11 +83,11 @@ public class HopDong {
         NgayKetThuc = ngayKetThuc;
     }
 
-    public int getSoNguoiThue() {
+    public Double getSoNguoiThue() {
         return SoNguoiThue;
     }
 
-    public void setSoNguoiThue(int soNguoiThue) {
+    public void setSoNguoiThue(Double soNguoiThue) {
         SoNguoiThue = soNguoiThue;
     }
 }

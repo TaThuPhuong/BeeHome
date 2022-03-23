@@ -16,6 +16,10 @@
             android:name=".Login_Activity"
             android:exported="true" />
         <activity
+            android:name=".HopDongActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

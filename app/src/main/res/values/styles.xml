@@ -3,4 +3,9 @@
     <style name = "CustomTab" parent = "TextAppearance.Design.Tab">
         <item name = "android:textSize"> 15sp </item>
     </style>
+    
+    <style name="datePicker" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="colorAccent">@color/purple_200</item>
+        <item name="android:radius">20dp</item>
+    </style>
 </resources>
