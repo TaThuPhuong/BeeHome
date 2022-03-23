@@ -156,7 +156,13 @@ public class DichVuDAO {
         reference.update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                thongbao(1);
+                thongbao(0, "Xóa dịch vụ thành công");
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                thongbao(1, "Xóa dịch vụ thất bại");
             }
         });
     }
