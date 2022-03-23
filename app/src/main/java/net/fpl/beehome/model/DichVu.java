@@ -9,6 +9,7 @@ public class DichVu {
     public static final String TB_NAME = "tb_dichVu";
     public static final String COL_ID = "id_dichVu";
     public static final String COL_NAME = "name_dichVu";
+    public static final String COL_DONVI = "donVi_dichVu";
     public static final String COL_GIA = "gia_dichVu";
 
     public int getIdDichVu() {
