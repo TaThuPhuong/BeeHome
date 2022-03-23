@@ -108,7 +108,7 @@ public class HopDongActivity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                                 String date = i +"/" + i1 +"/" + i2;
-                                ed_ngayky.getEditText().setText(date);
+                                ed_ngaybd.getEditText().setText(date);
                             }
                         },y,m,d);
                         dialog1.show();
@@ -122,7 +122,7 @@ public class HopDongActivity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                                 String date = i +"/" + i1 +"/" + i2;
-                                ed_ngayky.getEditText().setText(date);
+                                ed_ngaykt.getEditText().setText(date);
                             }
                         },y,m,d);
                         dialog1.show();
