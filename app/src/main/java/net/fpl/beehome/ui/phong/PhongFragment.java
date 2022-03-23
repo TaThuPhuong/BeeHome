@@ -41,6 +41,7 @@ public class PhongFragment extends Fragment {
     TextView tvTongPhong, tvPhongTrong;
     PhongAdapter adapter;
     ListView lv;
+    int phongTrong = 0;
 
     @Nullable
     @Override
@@ -53,7 +54,10 @@ public class PhongFragment extends Fragment {
         fb = FirebaseFirestore.getInstance();
         recyclerView = view.findViewById(R.id.rcv_phong);
         tvTongPhong = view.findViewById(R.id.tv_tong_phong);
+        tvPhongTrong = view.findViewById(R.id.phong_trong);
         fab = view.findViewById(R.id.floating_action_button);
+        phongDAO = new PhongDAO(fb, getContext());
+        lsPhong = new ArrayList<>();
 
     }
 
@@ -61,19 +65,6 @@ public class PhongFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init(view);
-        phongDAO = new PhongDAO(fb, getContext());
-        lsPhong = phongDAO.getData();
-
-//        lsPhong = new ArrayList<>();
-//        lsPhong.add(new Phong("P101","P101","Đang thuê","Giường, ",1500000,20,11));
-//        lsPhong.add(new Phong("P102","P102","Trống","Giường, ",1800000,20,11));
-//        lsPhong.add(new Phong("P103","P103","Đang sửa chữa","Giường, ",1600000,20,11));
-//        lsPhong.add(new Phong("P104","P104","Đang thuê","Giường, ",1700000,20,11));
-
-        Log.d("zzzzzz", "List: " + lsPhong.size());
-//        phongRecycleView = new PhongRecycleView(lsPhong, phongDAO);
-//        phongRecycleView.notifyDataSetChanged();
-//        recyclerView.setAdapter(phongRecycleView);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,8 +88,13 @@ public class PhongFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Phong phong = document.toObject(Phong.class);
+                                if (phong.getTrangThai().equals("Trống")) {
+                                    phongTrong++;
+                                    tvPhongTrong.setText("Phòng trống - " +phongTrong);
+                                }
                                 Log.d("zzzzzz", "onComplete: " + phong.toString());
                                 lsPhong.add(phong);
+                                tvTongPhong.setText("Tổng số phòng - " + lsPhong.size());
                                 phongRecycleView.notifyDataSetChanged();
                             }
                             Log.d("zzzzzz", "List: " + lsPhong.size());
@@ -107,7 +103,6 @@ public class PhongFragment extends Fragment {
                         }
                     }
                 });
-        tvTongPhong.setText("Tổng số phòng - " + lsPhong.size());
         phongRecycleView = new PhongRecycleView(lsPhong, phongDAO);
         recyclerView.setAdapter(phongRecycleView);
     }

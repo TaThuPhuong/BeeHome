@@ -78,11 +78,12 @@ public class PhongDAO {
         View view = View.inflate(context, R.layout.dialog_them_phong, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         EditText edSoPhong, edGiaPhong, edVatTu, edTrangThai, edSoNuocDau, edSoDienDau;
         Button btnThem, btnHuy;
         CheckBox chkGiuong, chkTu, chkDieuHoa, chkNL, chkMayGiat, chkBan, chkBep;
-        ImageButton btnChon, btnCancel,btnChonTatCa;
+        ImageButton btnChon, btnCancel, btnChonTatCa;
         RadioGroup rdgTrangThai;
         edSoPhong = view.findViewById(R.id.ed_so_phong);
         edGiaPhong = view.findViewById(R.id.ed_gia_phong);
@@ -103,19 +104,19 @@ public class PhongDAO {
         chkTu = view.findViewById(R.id.chk_vt_tu);
         chkMayGiat = view.findViewById(R.id.chk_vt_may_giat);
         rdgTrangThai = view.findViewById(R.id.rdgTrangThai);
-btnChonTatCa.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        edVatTu.setText("Giường, Bàn, Bếp, Tủ, Điều hòa, Máy giặt, Bình nước nóng");
-        chkBan.setChecked(true);
-        chkBep.setChecked(true);
-        chkDieuHoa.setChecked(true);
-        chkGiuong.setChecked(true);
-        chkMayGiat.setChecked(true);
-        chkNL.setChecked(true);
-        chkTu.setChecked(true);
-    }
-});
+        btnChonTatCa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edVatTu.setText("Giường, Bàn, Bếp, Tủ, Điều hòa, Máy giặt, Bình nước nóng");
+                chkBan.setChecked(true);
+                chkBep.setChecked(true);
+                chkDieuHoa.setChecked(true);
+                chkGiuong.setChecked(true);
+                chkMayGiat.setChecked(true);
+                chkNL.setChecked(true);
+                chkTu.setChecked(true);
+            }
+        });
         btnChon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
