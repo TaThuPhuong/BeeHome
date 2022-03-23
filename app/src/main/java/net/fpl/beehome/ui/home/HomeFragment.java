@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import net.fpl.beehome.HopDongActivity;
 import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.detail.hoaDon.HoaDonMain;
@@ -45,6 +46,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        btnNguoiThue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NguoiThue_Activity.class);
+                startActivity(intent);
+            }
+        });
+
 
         btnHoaDon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +66,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), NguoiThue_Activity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnHopDong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), HopDongActivity.class);
                 startActivity(intent);
             }
         });

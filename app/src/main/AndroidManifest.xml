@@ -16,7 +16,11 @@
             android:name=".Login_Activity"
             android:exported="true" />
         <activity
-            android:name=".Screen_Activity"
+            android:name=".HopDongActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,10 +29,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".HopDongActivity"
+            android:exported="true" />
+        <activity
             android:name=".NguoiThue_Activity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Screen_Activity"
             android:exported="true"></activity>
         <activity android:name=".DichVuActivity"
             android:exported="true"/>

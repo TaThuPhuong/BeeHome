@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,8 +22,6 @@ import com.google.firebase.firestore.SetOptions;
 
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,9 +46,7 @@ public class DichVuDAO {
 
             AlertDialog dialog = builder.create();
             dialog.show();
-            TextView btn = view.findViewById(R.id.btn_success);
-            TextView tv = view.findViewById(R.id.tv_dialog);
-            tv.setText(mess);
+            Button btn = view.findViewById(R.id.btn_success);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -64,9 +59,7 @@ public class DichVuDAO {
 
             AlertDialog dialog = builder.create();
             dialog.show();
-            TextView btn = view.findViewById(R.id.btn_fail);
-            TextView tv = view.findViewById(R.id.tv_dialog);
-            tv.setText(mess);
+            Button btn = view.findViewById(R.id.btn_fail);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -76,14 +69,49 @@ public class DichVuDAO {
         }
     }
 
+    public void showDialog(int type){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        if (type == 0){
+            View view = View.inflate(context, R.layout.dialog_them_dich_vu, null);
+            dialog.setView(view);
+            EditText edTenDichVu= view.findViewById(R.id.ed_tenDichVu);
+            EditText edChiSo = view .findViewById(R.id.ed_chiSo);
+            EditText edGia = view.findViewById(R.id.ed_giaDichVu);
+            Button btnThem = view.findViewById(R.id.btn_themDichVu);
+            Button btnHuy = view.findViewById(R.id.btn_huy);
+
+            DichVu dichVu = new DichVu();
+            dichVu.setIdDichVu();
+
+            btnThem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    insertDichVu();
+                }
+            });
+
+            btnHuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        } else {
+
+        }
+    }
+
     public void insertDichVu(DichVu dichVu){
 
-        Map<String, Object> map = new HashMap<>();
-        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
-        map.put(DichVu.COL_GIA, dichVu.getGia() +"");
-        map.put(DichVu.COL_DONVI, dichVu.getDonVi());
+        DocumentReference reference = db.collection(DichVu.TB_NAME).document(DichVu.COL_ID);
 
-        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).set(map)
+        Map<String, Object> map = new HashMap<>();
+        map.put(DichVu.COL_ID, String.valueOf(dichVu.getIdDichVu()));
+        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
+        map.put(DichVu.COL_DONVI, dichVu.getDonViTinh());
+        map.put(DichVu.COL_GIA, dichVu.getGia());
+
+        reference.set(map, SetOptions.merge())
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -100,12 +128,16 @@ public class DichVuDAO {
 
     public void updateDichVu(DichVu dichVu){
 
-        Map<String, Object> map = new HashMap<>();
-        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
-        map.put(DichVu.COL_GIA, dichVu.getGia());
-        map.put(DichVu.COL_DONVI, dichVu.getDonVi());
 
-        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).update(map)
+        DocumentReference reference = db.collection(DichVu.TB_NAME).document(DichVu.COL_ID);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put(DichVu.COL_ID, String.valueOf(dichVu.getIdDichVu()));
+        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
+        map.put(DichVu.COL_DONVI, dichVu.getDonViTinh());
+        map.put(DichVu.COL_GIA, dichVu.getGia());
+
+        reference.update(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -121,15 +153,16 @@ public class DichVuDAO {
     }
 
     public void deleteDichVu(DichVu dichVu){
+        DocumentReference reference = db.collection(DichVu.TB_NAME).document(DichVu.COL_ID);
 
         Map<String, Object> map = new HashMap<>();
+        map.put(DichVu.COL_ID, FieldValue.delete());
         map.put(DichVu.COL_NAME, FieldValue.delete());
-        map.put(DichVu.COL_GIA, FieldValue.delete());
         map.put(DichVu.COL_DONVI, FieldValue.delete());
+        map.put(DichVu.COL_GIA, FieldValue.delete());
 
-        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).delete();
-        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).update(map)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+        reference.delete();
+        reference.update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 thongbao(0, "Xóa dịch vụ thành công");
@@ -143,19 +176,20 @@ public class DichVuDAO {
         });
     }
 
-    public DichVu getDichVu(String name){
+    public DichVu getDichVu(String id){
         ArrayList<DichVu> list = new ArrayList<>();
 
-        db.collection(DichVu.TB_NAME).whereEqualTo(DichVu.COL_NAME, name).get()
+        db.collection(DichVu.TB_NAME).whereEqualTo(DichVu.COL_ID, id).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     for (QueryDocumentSnapshot snapshot : task.getResult()){
                         DichVu dichVu = new DichVu();
+                        dichVu.setIdDichVu(Integer.parseInt(Objects.requireNonNull(snapshot.get(DichVu.COL_ID)).toString()));
                         dichVu.setTenDichVu(Objects.requireNonNull(snapshot.get(DichVu.COL_NAME)).toString());
+                        dichVu.setDonViTinh(Objects.requireNonNull(snapshot.get(DichVu.COL_DONVI)).toString());
                         dichVu.setGia(Integer.parseInt(Objects.requireNonNull(snapshot.get(DichVu.COL_GIA)).toString()));
-                        dichVu.setDonVi(Objects.requireNonNull(snapshot.get(DichVu.COL_DONVI)).toString());
 
                         boolean check = list.add(dichVu);
                         if (check){
@@ -179,8 +213,18 @@ public class DichVuDAO {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()){
                     for (QueryDocumentSnapshot snapshot : task.getResult()){
-                        DichVu dichVu = snapshot.toObject(DichVu.class);
-                        list.add(dichVu);
+                        DichVu dichVu = new DichVu();
+                        dichVu.setIdDichVu(Integer.parseInt(Objects.requireNonNull(snapshot.get(DichVu.COL_ID)).toString()));
+                        dichVu.setTenDichVu(Objects.requireNonNull(snapshot.get(DichVu.COL_NAME)).toString());
+                        dichVu.setDonViTinh(Objects.requireNonNull(snapshot.get(DichVu.COL_DONVI)).toString());
+                        dichVu.setGia(Integer.parseInt(Objects.requireNonNull(snapshot.get(DichVu.COL_GIA)).toString()));
+
+                        boolean check = list.add(dichVu);
+                        if (check == true){
+                            thongbao(0, "Tải dữ liệu thành công");
+                        } else {
+                            thongbao(1, "Tải dữ liệu thất bại");
+                        }
                     }
                 }
             }

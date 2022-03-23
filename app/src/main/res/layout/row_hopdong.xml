@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_hopdong"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="2dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_idphong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hop Dong"
+                android:textSize="18dp"
+                android:textColor="@color/purple_200"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_ngayky"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngay Ky: 23/5/2022"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_ngaybatdau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngay Ky: 23/5/2022"
+                android:textSize="14dp"
+                android:layout_marginBottom="5dp"
+                />
+            <TextView
+                android:id="@+id/tv_ngayketthuc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngay Ky: 23/5/2022"
+                android:textSize="14dp"
+                android:layout_marginTop="5dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>

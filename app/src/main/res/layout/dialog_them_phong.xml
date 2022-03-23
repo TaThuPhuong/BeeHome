@@ -75,6 +75,7 @@
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:columnCount="3">
 
                 <CheckBox
@@ -118,38 +119,75 @@
                     android:buttonTint="#7D0E95"
                     android:text="Bếp" />
             </GridLayout>
-            <!--            <GridView-->
-            <!--                android:id="@+id/listVT"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="200dp"-->
-            <!--                android:numColumns="2" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btn_chon"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_baseline_check_circle_24" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/btn_cancel"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_baseline_cancel_24"
-                    android:textAllCaps="false" />
+                    <ImageButton
+                        android:id="@+id/btn_chon_tat_ca"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_baseline_checklist_rtl_24" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Tất cả" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/btn_chon"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_baseline_check_circle_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Chọn" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/btn_cancel"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_baseline_cancel_24"
+                        android:textAllCaps="false" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="Bỏ" />
+                </LinearLayout>
             </LinearLayout>
-
-
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -168,6 +206,7 @@
                 android:id="@+id/rdgTrangThai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:checkedButton="@id/rdo_trong"
                 android:orientation="horizontal">
 
@@ -224,7 +263,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/bg_white_rd_bottom_20dp"
                 android:gravity="center"
                 android:paddingVertical="20dp">
 
