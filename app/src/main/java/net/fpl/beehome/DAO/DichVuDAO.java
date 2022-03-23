@@ -13,8 +13,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import net.fpl.beehome.R;
@@ -23,6 +26,7 @@ import net.fpl.beehome.model.DichVu;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class DichVuDAO {
 
@@ -76,10 +80,13 @@ public class DichVuDAO {
             Button btnThem = view.findViewById(R.id.btn_themDichVu);
             Button btnHuy = view.findViewById(R.id.btn_huy);
 
+            DichVu dichVu = new DichVu();
+            dichVu.setIdDichVu();
+
             btnThem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    insertDichVu();
                 }
             });
 
@@ -89,6 +96,8 @@ public class DichVuDAO {
 
                 }
             });
+        } else {
+
         }
     }
 
@@ -97,10 +106,10 @@ public class DichVuDAO {
         DocumentReference reference = db.collection(DichVu.TB_NAME).document(DichVu.COL_ID);
 
         Map<String, Object> map = new HashMap<>();
-        map.put("IdDichVu", String.valueOf(dichVu.getIdDichVu()));
-        map.put("TenDichVu", dichVu.getTenDichVu());
-        map.put("DonViTinh", dichVu.getDonViTinh());
-        map.put("Gia", dichVu.getGia());
+        map.put(DichVu.COL_ID, String.valueOf(dichVu.getIdDichVu()));
+        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
+        map.put(DichVu.COL_DONVI, dichVu.getDonViTinh());
+        map.put(DichVu.COL_GIA, dichVu.getGia());
 
         reference.set(map, SetOptions.merge())
         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -123,10 +132,10 @@ public class DichVuDAO {
         DocumentReference reference = db.collection(DichVu.TB_NAME).document(DichVu.COL_ID);
 
         Map<String, Object> map = new HashMap<>();
-        map.put("IdDichVu", String.valueOf(dichVu.getIdDichVu()));
-        map.put("TenDichVu", dichVu.getTenDichVu());
-        map.put("DonViTinh", dichVu.getDonViTinh());
-        map.put("Gia", dichVu.getGia());
+        map.put(DichVu.COL_ID, String.valueOf(dichVu.getIdDichVu()));
+        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
+        map.put(DichVu.COL_DONVI, dichVu.getDonViTinh());
+        map.put(DichVu.COL_GIA, dichVu.getGia());
 
         reference.update(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -147,10 +156,10 @@ public class DichVuDAO {
         DocumentReference reference = db.collection(DichVu.TB_NAME).document(DichVu.COL_ID);
 
         Map<String, Object> map = new HashMap<>();
-        map.put("IdDichVu", FieldValue.delete());
-        map.put("TenDichVu", FieldValue.delete());
-        map.put("DonViTinh", FieldValue.delete());
-        map.put("Gia", FieldValue.delete());
+        map.put(DichVu.COL_ID, FieldValue.delete());
+        map.put(DichVu.COL_NAME, FieldValue.delete());
+        map.put(DichVu.COL_DONVI, FieldValue.delete());
+        map.put(DichVu.COL_GIA, FieldValue.delete());
 
         reference.delete();
         reference.update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -167,20 +176,59 @@ public class DichVuDAO {
         });
     }
 
-    public DichVu getDichVu(int id){
+    public DichVu getDichVu(String id){
+        ArrayList<DichVu> list = new ArrayList<>();
 
-        DocumentReference reference = db.collection(DichVu.TB_NAME).document(String.valueOf(id));
-        reference.get();
+        db.collection(DichVu.TB_NAME).whereEqualTo(DichVu.COL_ID, id).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot snapshot : task.getResult()){
+                        DichVu dichVu = new DichVu();
+                        dichVu.setIdDichVu(Integer.parseInt(Objects.requireNonNull(snapshot.get(DichVu.COL_ID)).toString()));
+                        dichVu.setTenDichVu(Objects.requireNonNull(snapshot.get(DichVu.COL_NAME)).toString());
+                        dichVu.setDonViTinh(Objects.requireNonNull(snapshot.get(DichVu.COL_DONVI)).toString());
+                        dichVu.setGia(Integer.parseInt(Objects.requireNonNull(snapshot.get(DichVu.COL_GIA)).toString()));
 
-        DichVu dichVu = new DichVu();
-
-
-
-        return dichVu;
+                        boolean check = list.add(dichVu);
+                        if (check){
+                            thongbao(0, "Tải dữ liệu thành công");
+                        } else {
+                            thongbao(1, "Tải dữ liệu thất bại");
+                        }
+                    }
+                }
+            }
+        });
+        return list.get(0);
     }
+
 
     public ArrayList<DichVu> getAll(){
         ArrayList<DichVu> list = new ArrayList<>();
+
+        db.collection(DichVu.TB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot snapshot : task.getResult()){
+                        DichVu dichVu = new DichVu();
+                        dichVu.setIdDichVu(Integer.parseInt(Objects.requireNonNull(snapshot.get(DichVu.COL_ID)).toString()));
+                        dichVu.setTenDichVu(Objects.requireNonNull(snapshot.get(DichVu.COL_NAME)).toString());
+                        dichVu.setDonViTinh(Objects.requireNonNull(snapshot.get(DichVu.COL_DONVI)).toString());
+                        dichVu.setGia(Integer.parseInt(Objects.requireNonNull(snapshot.get(DichVu.COL_GIA)).toString()));
+
+                        boolean check = list.add(dichVu);
+                        if (check == true){
+                            thongbao(0, "Tải dữ liệu thành công");
+                        } else {
+                            thongbao(1, "Tải dữ liệu thất bại");
+                        }
+                    }
+                }
+            }
+        });
         return list;
     }
 }
