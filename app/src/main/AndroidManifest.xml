@@ -10,16 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BeeHome">
         <activity
-            android:name=".HopDongActivity"
-            android:exported="false" />
-        <activity
             android:name=".detail.hoaDon.HoaDonMain"
             android:exported="false" />
         <activity
             android:name=".Login_Activity"
             android:exported="true" />
         <activity
-            android:name=".Screen_Activity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,8 +28,8 @@
             android:name=".NguoiThue_Activity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true" />
+            android:name=".Screen_Activity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

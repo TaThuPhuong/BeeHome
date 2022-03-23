@@ -53,7 +53,7 @@ public class PhongDAO {
 
     public void thongBao(String mess) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View view = View.inflate(context, R.layout.thong_bao_dialog, null);
+        View view = View.inflate(context, R.layout.dialog_thong_bao, null);
         builder.setView(view);
         TextView tvMess = view.findViewById(R.id.tv_thong_bao);
         TextView btnOK = view.findViewById(R.id.btn_ok);
@@ -73,7 +73,7 @@ public class PhongDAO {
     @SuppressLint("ResourceType")
     public void showDialogThem() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        View view = View.inflate(context, R.layout.them_phong_dialog, null);
+        View view = View.inflate(context, R.layout.dialog_them_phong, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
         dialog.show();

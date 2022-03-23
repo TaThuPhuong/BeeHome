@@ -3,7 +3,6 @@ package net.fpl.beehome;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -25,7 +24,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
     }
     private void opendialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view = View.inflate(this, R.layout.them_nguoithue_dialog, null);
+        View view = View.inflate(this, R.layout.dialog_them_nguoithue, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
         dialog.show();
