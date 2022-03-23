@@ -95,10 +95,12 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
             Button btnThem = view.findViewById(R.id.btn_themDichVu);
             Button btnHuy = view.findViewById(R.id.btn_huy);
 
+            String gia = edGia.getText().toString();
+
             DichVu dichVu = new DichVu();
             dichVu.setTenDichVu(edTenDichVu.getText().toString());
             dichVu.setDonVi(edDonVi.getText().toString());
-            dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
+            dichVu.setGia(Integer.parseInt(gia));
 
             btnThem.setOnClickListener(new View.OnClickListener() {
                 @Override
