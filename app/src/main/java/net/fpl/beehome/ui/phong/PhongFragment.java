@@ -41,68 +41,71 @@ public class PhongFragment extends Fragment {
     TextView tvTongPhong, tvPhongTrong;
     PhongAdapter adapter;
     ListView lv;
+    int phongTrong = 0;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_phong, container, false);
         return v;
+    }
+
+    public void init(View view) {
+        fb = FirebaseFirestore.getInstance();
+        recyclerView = view.findViewById(R.id.rcv_phong);
+        tvTongPhong = view.findViewById(R.id.tv_tong_phong);
+        tvPhongTrong = view.findViewById(R.id.phong_trong);
+        fab = view.findViewById(R.id.floating_action_button);
+        phongDAO = new PhongDAO(fb, getContext());
+        lsPhong = new ArrayList<>();
 
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        fb = FirebaseFirestore.getInstance();
-        phongDAO = new PhongDAO(fb, getContext());
-        lsPhong = phongDAO.getData();
-//        lsPhong = new ArrayList<>();
-//        lsPhong.add(new Phong("P101","P101","Đang thuê","Giường, ",1500000,20,11));
-//        lsPhong.add(new Phong("P102","P102","Trống","Giường, ",1800000,20,11));
-//        lsPhong.add(new Phong("P103","P103","Đang sửa chữa","Giường, ",1600000,20,11));
-//        lsPhong.add(new Phong("P104","P104","Đang thuê","Giường, ",1700000,20,11));
-        Log.d("zzzzzz", "List: " + lsPhong.size());
-//        for (int i =0 ; i<lsPhong.size();i++){
-//            Log.d("zzzzzzzzz", "phong: " + lsPhong.get(i).toString());
-//        }
-
-        phongRecycleView = new PhongRecycleView(lsPhong, phongDAO);
-        recyclerView = view.findViewById(R.id.rcv_phong);
-        recyclerView.setAdapter(phongRecycleView);
-
-//        adapter = new PhongAdapter(lsPhong);
-//        lv = view.findViewById(R.id.lv_phong);
-//        lv.setAdapter(adapter);
-        tvTongPhong = view.findViewById(R.id.tv_tong_phong);
-        tvTongPhong.setText("Tổng số phòng - " + lsPhong.size());
-        fab = view.findViewById(R.id.floating_action_button);
+        init(view);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 phongDAO.showDialogThem();
             }
         });
-//        hienThi();
     }
-//    public void hienThi(){
-//        fb.collection(Phong.TB_NAME)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Phong phong = document.toObject(Phong.class);
-//                                Log.d("zzzzzz", "onComplete: " + phong.toString());
-//                                lsPhong.add(phong);
-//                            }
-//                            Log.d("zzzzzz", "List: " + lsPhong.size());
-//                        } else {
-//                            Log.w("zzzzz", "Error getting documents.", task.getException());
-//                        }
-//                    }
-//                });
-//        phongRecycleView = new PhongRecycleView(lsPhong, phongDAO);
-//        recyclerView.setAdapter(phongRecycleView);
-//    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        hienThi();
+    }
+
+    public void hienThi() {
+        fb.collection(Phong.TB_NAME)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Phong phong = document.toObject(Phong.class);
+                                if (phong.getTrangThai().equals("Trống")) {
+                                    phongTrong++;
+                                    tvPhongTrong.setText("Phòng trống - " +phongTrong);
+                                }
+                                Log.d("zzzzzz", "onComplete: " + phong.toString());
+                                lsPhong.add(phong);
+                                tvTongPhong.setText("Tổng số phòng - " + lsPhong.size());
+                                phongRecycleView.notifyDataSetChanged();
+                            }
+                            Log.d("zzzzzz", "List: " + lsPhong.size());
+                        } else {
+                            Log.w("zzzzz", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        phongRecycleView = new PhongRecycleView(lsPhong, phongDAO);
+        recyclerView.setAdapter(phongRecycleView);
+    }
+
+
 }

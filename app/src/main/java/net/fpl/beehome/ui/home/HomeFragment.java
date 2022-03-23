@@ -16,6 +16,7 @@ import net.fpl.beehome.HopDongActivity;
 import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.detail.hoaDon.HoaDonMain;
+import net.fpl.beehome.DichVuActivity;
 
 public class HomeFragment extends Fragment {
     ImageView btnDichVu, btnNguoiThue, btnHoaDon, btnSuCo, btnHopDong, btnHuongDan;
@@ -41,7 +42,7 @@ public class HomeFragment extends Fragment {
         btnDichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(getActivity(), DichVuActivity.class));
             }
         });
 

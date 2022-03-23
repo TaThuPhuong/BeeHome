@@ -30,6 +30,7 @@
             android:textSize="16dp"/>
         
         <EditText
+            android:textSize="16sp"
             android:id="@+id/ed_tenDichVu"
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -45,25 +46,28 @@
 
         <EditText
             android:id="@+id/ed_chiSo"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:background="@drawable/background_edttext2"
             android:hint="   Lũy tiến theo chỉ số, phòng, người, số lần"
-            android:gravity="center_vertical"
             android:layout_marginTop="7dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tên dịch vụ:"
+            android:text="Giá dịch vụ:"
             android:textSize="16dp"/>
 
         <EditText
             android:id="@+id/ed_giaDichVu"
             android:layout_width="match_parent"
+            android:textSize="16sp"
             android:layout_height="30dp"
+            android:inputType="number"
             android:background="@drawable/background_edttext2"
-            android:hint="   Điện, nước, vệ sinh,..."
+            android:hint="   0đ"
             android:layout_marginTop="7dp"/>
 
         <LinearLayout

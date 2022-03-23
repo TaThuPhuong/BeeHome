@@ -31,13 +31,13 @@ public class PhongRecycleView extends RecyclerView.Adapter<PhongRecycleView.Phon
     public void mauTrangThai(String trangThai, TextView tv) {
         switch (trangThai) {
             case "Đang thuê":
-                tv.setTextColor(R.color.blackTextColor);
+                tv.setTextColor(Color.parseColor("#000000"));
                 break;
             case "Trống":
-                tv.setTextColor(R.color.blue);
+                tv.setTextColor(Color.parseColor("#FF0000"));
                 break;
             case "Đang sửa chữa":
-                tv.setTextColor(R.color.grey_dam);
+                tv.setTextColor(Color.parseColor("#5EA3CD"));
                 break;
         }
     }
