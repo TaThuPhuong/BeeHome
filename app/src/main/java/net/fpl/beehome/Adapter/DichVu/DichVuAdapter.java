@@ -105,13 +105,14 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
         Button btnThem = dialog.findViewById(R.id.btn_themDichVu);
         Button btnHuy = dialog.findViewById(R.id.btn_huy);
 
-        String ten = edTenDichVu.getText().toString().trim();
-        String gia = edGia.getText().toString().trim();
-        String donvi = edDonVi.getText().toString().trim();
+
 
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String ten = edTenDichVu.getText().toString().trim();
+                String gia = edGia.getText().toString().trim();
+                String donvi = edDonVi.getText().toString().trim();
                 if (ten.equals("") || gia.equals("") || donvi.equals("")) {
                     dichVuDAO.thongbao(1, "Điền đầy đủ các thông tin");
                     Log.e("xxx", "onClick: " + ten + gia + donvi);
