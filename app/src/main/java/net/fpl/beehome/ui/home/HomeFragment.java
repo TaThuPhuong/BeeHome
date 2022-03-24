@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import net.fpl.beehome.HopDongActivity;
 import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
+import net.fpl.beehome.SuCoActivity;
 import net.fpl.beehome.detail.hoaDon.HoaDonMain;
 import net.fpl.beehome.DichVuActivity;
 
@@ -78,6 +79,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        btnSuCo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SuCoActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
