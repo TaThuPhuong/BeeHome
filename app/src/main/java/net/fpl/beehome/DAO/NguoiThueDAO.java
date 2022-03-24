@@ -4,10 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -26,19 +29,13 @@ public class NguoiThueDAO {
     public ArrayList<NguoiThue> getall(){
         ArrayList<NguoiThue> arr = new ArrayList<>();
         firestore.collection(NguoiThue.TB_NGUOITHUE)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
-
-                                arr.add(objNguoiThue);
-                                Log.d("dddddddd", document.getId() + " = > " + document.getData());
-                            }
-                        }else {
-                            Log.d("dddddddddd", "Error getting documents: ", task.getException());
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        arr.clear();
+                        for (QueryDocumentSnapshot documentSnapshot : value){
+                            NguoiThue objNguoiThue = documentSnapshot.toObject(NguoiThue.class);
+                            arr.add(objNguoiThue);
                         }
                     }
                 });

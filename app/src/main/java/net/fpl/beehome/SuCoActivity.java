@@ -77,23 +77,9 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                 final int y = calendar.get(Calendar.YEAR);
                 final int m = calendar.get(Calendar.MONTH);
                 final int d = calendar.get(Calendar.DAY_OF_MONTH);
+                ed_ngbao.getEditText().setText(y +"/"+m+"/"+d);
 
-
-                ed_ngbao.getEditText().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        DatePickerDialog dialog1 = new DatePickerDialog(SuCoActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"/" + i1 +"/" + i2;
-                                ed_ngbao.getEditText().setText(date);
-                            }
-                        },y,m,d);
-                        dialog1.show();
-                    }
-                });
                 dialog.show();
-
             }
         });
     }
