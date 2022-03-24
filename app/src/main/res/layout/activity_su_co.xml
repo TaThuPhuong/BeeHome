@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient_violet"
-    tools:context=".HopDongActivity">
+    tools:context=".SuCoActivity">
 
     <TextView
-
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
         android:background="@drawable/bg_tv_hopdong"
         android:gravity="center"
         android:padding="10dp"
-        android:text="Hợp Đồng"
+        android:text="Sự Cố"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -41,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_hd"
+            android:id="@+id/rv_sc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

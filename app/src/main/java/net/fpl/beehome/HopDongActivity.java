@@ -2,7 +2,9 @@ package net.fpl.beehome;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -34,12 +36,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
-public class HopDongActivity extends AppCompatActivity {
+public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     FloatingActionButton btn_add;
     RecyclerView rv_hd;
     HopDongDAO hopDongDAO;
     FirebaseFirestore fb;
+    SwipeRefreshLayout swipeRefreshLayout;
     HopDongAdapter hopDongAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,18 +53,24 @@ public class HopDongActivity extends AppCompatActivity {
         btn_add = findViewById(R.id.btn_add);
         rv_hd = findViewById(R.id.rv_hd);
         fb = FirebaseFirestore.getInstance();
+        swipeRefreshLayout = findViewById(R.id.sw_rv);
+
         hopDongDAO = new HopDongDAO(fb, HopDongActivity.this);
-        ArrayList<HopDong> arr = hopDongDAO.getAll();
         hopDongAdapter = new HopDongAdapter(hopDongDAO);
 
         rv_hd.setAdapter(hopDongAdapter);
 
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setRefreshing(true);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 hopDongAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
-        },6000);
+        },2000);
+
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,27 +159,43 @@ public class HopDongActivity extends AppCompatActivity {
                         objHopDong.setNgayKetThuc(ed_ngaykt.getEditText().getText().toString());
                         objHopDong.setSoNguoiThue(Double.parseDouble(ed_songuoithue.getEditText().getText().toString()));
 
+
+
                         fb.collection(HopDong.TB_NAME)
                                 .add(objHopDong)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
                                         Toast.makeText(HopDongActivity.this, "Them thanh cong", Toast.LENGTH_SHORT).show();
+                                        hopDongAdapter.notifyDataSetChanged();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(HopDongActivity.this, "Them That bai", Toast.LENGTH_SHORT).show();
-
                                     }
                                 });
-
                         dialog.dismiss();
                     }
                 });
                 dialog.show();
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fb = FirebaseFirestore.getInstance();
+                hopDongDAO = new HopDongDAO(fb, HopDongActivity.this);
+                hopDongAdapter = new HopDongAdapter(hopDongDAO);
+                hopDongAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        },1000);
     }
 }

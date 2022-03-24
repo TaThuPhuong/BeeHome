@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="13dp"
+    android:orientation="vertical"
+    android:background="@drawable/bg_rd_signal">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/signal_attention"/>
+    <TextView
+        android:id="@+id/tv_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bạn có chắc chắn muốn xóa không ?"
+        android:textSize="22sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/btn_co"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:text="Yes"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#D6B606"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_rd_ok"/>
+
+        <TextView
+            android:id="@+id/btn_khong"
+            android:layout_marginLeft="15dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="No"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="#D6B606"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rd_ok"/>
+
+    </LinearLayout>
+
+</LinearLayout>
