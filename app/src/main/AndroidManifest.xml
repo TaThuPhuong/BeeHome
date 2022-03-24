@@ -29,9 +29,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HopDongActivity"
-            android:exported="true" />
-        <activity
             android:name=".NguoiThue_Activity"
             android:exported="true" />
         <activity
