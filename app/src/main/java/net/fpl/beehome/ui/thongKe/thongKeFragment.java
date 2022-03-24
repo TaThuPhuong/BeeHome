@@ -1,4 +1,4 @@
-package net.fpl.beehome.ui.thuChi;
+package net.fpl.beehome.ui.thongKe;
 
 
 import android.os.Bundle;
@@ -12,11 +12,14 @@ import androidx.fragment.app.Fragment;
 
 import net.fpl.beehome.R;
 
-public class thuChiFragment extends Fragment {
+public class thongKeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_thu_chi, container, false);
+        View v = inflater.inflate(R.layout.fragment_thong_ke, container, false);
         return v;
+
+
+
     }
 }

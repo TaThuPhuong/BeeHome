@@ -1,6 +1,13 @@
 package net.fpl.beehome.Adapter.DichVu;
 
+
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.text.Layout;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
 import net.fpl.beehome.DAO.DichVuDAO;
+import net.fpl.beehome.DichVuActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
 
@@ -32,6 +40,10 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
 
     DichVuDAO dichVuDAO;
     ArrayList<DichVu> list;
+    DichVuActivity dichVuActivity;
+
+    public static final String TAG = "123";
+
 
     public DichVuAdapter(DichVuDAO dichVuDAO, ArrayList<DichVu> list) {
         this.dichVuDAO = dichVuDAO;
@@ -56,9 +68,8 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
 
         DichVu dichVu = list.get(position);
 
-        holder.tv_tenDV.setText(dichVu.getTenDichVu());
-        holder.tv_donVi.setText(dichVu.getDonVi());
-        holder.tv_gia.setText(String.valueOf(dichVu.getGia()));
+        holder.tv_tenDV.setText("Tên dịch vụ: " + dichVu.getTenDichVu());
+        holder.tv_gia.setText("Giá: " + String.valueOf(dichVu.getGia()) + " / " + dichVu.getDonVi());
 
     }
 
@@ -75,76 +86,59 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
             super(itemView);
 
             tv_tenDV = itemView.findViewById(R.id.tv_tenDV);
-            tv_donVi = itemView.findViewById(R.id.tv_donVi);
             tv_gia = itemView.findViewById(R.id.tv_gia);
         }
     }
 
-    public void showDialog(int type, Context context, int... i){
-        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        if (type == 0){
-            View view = View.inflate(context, R.layout.dialog_them_dich_vu, null);
-            dialog.setView(view);
-            EditText edTenDichVu= view.findViewById(R.id.ed_tenDichVu);
-            EditText edGia = view.findViewById(R.id.ed_giaDichVu);
-            EditText edDonVi = view.findViewById(R.id.ed_chiSo);
+    public void showDialog(Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-            AlertDialog alertDialog = dialog.create();
-            alertDialog.show();
+//        if (type == 0){
+        View view = View.inflate(context, R.layout.dialog_them_dich_vu, null);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
 
-            Button btnThem = view.findViewById(R.id.btn_themDichVu);
-            Button btnHuy = view.findViewById(R.id.btn_huy);
+        EditText edTenDichVu = dialog.findViewById(R.id.ed_tenDichVu);
+        EditText edGia = dialog.findViewById(R.id.ed_giaDichVu);
+        EditText edDonVi = dialog.findViewById(R.id.ed_chiSo);
+        Button btnThem = dialog.findViewById(R.id.btn_themDichVu);
+        Button btnHuy = dialog.findViewById(R.id.btn_huy);
 
-            String gia = edGia.getText().toString();
 
-            DichVu dichVu = new DichVu();
-            dichVu.setTenDichVu(edTenDichVu.getText().toString());
-            dichVu.setDonVi(edDonVi.getText().toString());
-            dichVu.setGia(Integer.parseInt(gia));
 
-            btnThem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String ten = edTenDichVu.getText().toString().trim();
+                String gia = edGia.getText().toString().trim();
+                String donvi = edDonVi.getText().toString().trim();
+                if (ten.equals("") || gia.equals("") || donvi.equals("")) {
+                    dichVuDAO.thongbao(1, "Điền đầy đủ các thông tin");
+                    Log.e("xxx", "onClick: " + ten + gia + donvi);
+                    return;
+                } else {
+                    DichVu dichVu = new DichVu();
+                    dichVu.setTenDichVu(ten);
+                    dichVu.setDonVi(donvi);
+                    dichVu.setGia(Integer.parseInt(gia));
+
                     dichVuDAO.insertDichVu(dichVu);
-                    alertDialog.dismiss();
+                    dialog.dismiss();
+                    Log.e("xxx", "onClick: " + ten + gia + donvi);
+                    notifyDataSetChanged();
                 }
-            });
+            }
+        });
 
-            btnHuy.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    alertDialog.dismiss();
-                }
-            });
-
-
-
-        } else {
-            View view = View.inflate(context, R.layout.dialog_sua_dich_vu, null);
-            dialog.setView(view);
-            EditText edTenDichVu= view.findViewById(R.id.ed_tenDichVu);
-            EditText edGia = view.findViewById(R.id.ed_giaDichVu);
-            Button btnThem = view.findViewById(R.id.btn_themDichVu);
-            Button btnHuy = view.findViewById(R.id.btn_huy);
-
-            DichVu dichVu = new DichVu();
-            dichVu.setTenDichVu(edTenDichVu.getText().toString());
-            dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
-
-            btnThem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dichVuDAO.updateDichVu(dichVu);
-                }
-            });
-
-            btnHuy.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-        }
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
 }

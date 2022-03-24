@@ -21,7 +21,7 @@ import net.fpl.beehome.ui.doiMatKhau.DoiMatKhauFragment;
 import net.fpl.beehome.ui.gioiThieu.GioiThieuFragment;
 import net.fpl.beehome.ui.phong.PhongFragment;
 import net.fpl.beehome.ui.home.HomeFragment;
-import net.fpl.beehome.ui.thuChi.thuChiFragment;
+import net.fpl.beehome.ui.thongKe.thongKeFragment;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawer;
@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
                     ab.hide();
                     return true;
                 case R.id.nav_thuChi:
-                    setTitle("Thu Chi");
-                    fragment = new thuChiFragment();
+                    setTitle("Thống kê");
+                    fragment = new thongKeFragment();
                     loadFragment(fragment);
                     ab.show();
                     return true;
