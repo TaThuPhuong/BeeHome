@@ -51,7 +51,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
             public void run() {
                 nguoiThueAdapter.notifyDataSetChanged();
             }
-        },6000);
+        },3000);
 
 
         fladd.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +117,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(NguoiThue_Activity.this, "Them Thanh Cong", Toast.LENGTH_SHORT).show();
+                nguoiThueAdapter.notifyDataSetChanged();
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -125,5 +126,6 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 Toast.makeText(NguoiThue_Activity.this, "Them That Bai", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 }
