@@ -30,7 +30,9 @@
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/menu/main.xml" value="0.2" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/background_btn_login.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd.xml" value="0.152" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_fail.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_mess.xml" value="0.152" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_signal.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_top_20dp.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/acitivity_dich_vu.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/activity_fragment_one.xml" value="0.22826086956521738" />
@@ -51,6 +53,7 @@
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_thong_bao.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_thong_bao_dich_vu_fail.xml" value="0.12135416666666667" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_thong_bao_dich_vu_success.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_xoa.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_dich_vu.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_phong.xml" value="0.22826086956521738" />
