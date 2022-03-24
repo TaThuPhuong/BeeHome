@@ -3,6 +3,7 @@ package net.fpl.beehome.DAO;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -171,4 +172,45 @@ public class DichVuDAO {
         return list.get(0);
     }
 
-}
+
+
+
+//        } else {
+//            View view = View.inflate(context, R.layout.dialog_sua_dich_vu, null);
+//            dialog.setView(view);
+//            EditText edTenDichVu= view.findViewById(R.id.ed_tenDichVu);
+//            EditText edGia = view.findViewById(R.id.ed_giaDichVu);
+//            EditText edDonVi = view.findViewById(R.id.ed_chiSo);
+//            Button btnSua = view.findViewById(R.id.btn_suaDichVu);
+//            Button btnHuy = view.findViewById(R.id.btn_huy);
+//
+//            AlertDialog alertDialog = dialog.create();
+//            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            alertDialog.show();
+//
+//            DichVu dichVu = list.get(i);
+//
+//            edTenDichVu.setText(dichVu.getTenDichVu());
+//            edGia.setText(dichVu.getGia());
+//            edDonVi.setText(dichVu.getDonVi());
+//
+//            dichVu.setTenDichVu(edTenDichVu.getText().toString());
+//            dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
+//
+//            btnSua.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    updateDichVu(dichVu);
+//                }
+//            });
+//
+//            btnHuy.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//
+//                }
+//            });
+//        }
+    }
+
+

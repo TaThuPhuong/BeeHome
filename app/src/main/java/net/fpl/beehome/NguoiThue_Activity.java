@@ -2,9 +2,11 @@ package net.fpl.beehome;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,6 +20,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import net.fpl.beehome.Adapter.NguoiThue.NguoiThueAdapter;
+import net.fpl.beehome.DAO.NguoiThueDAO;
 import net.fpl.beehome.model.NguoiThue;
 
 import java.util.ArrayList;
@@ -28,13 +32,29 @@ public class NguoiThue_Activity extends AppCompatActivity {
     FirebaseFirestore firestore;
     EditText ed_ten, ed_sodt, ed_email,ed_cccd ;
     Spinner sp_nguoithue;
+    RecyclerView rc_nguoithue;
     Button btn_them, btn_huy;
+    NguoiThueDAO nguoiThueDAO;
+    NguoiThueAdapter nguoiThueAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nguoi_thue);
+        rc_nguoithue = findViewById(R.id.rc_nguoithue);
         fladd = findViewById(R.id.fl_nguoithue);
         firestore = FirebaseFirestore.getInstance();
+        nguoiThueDAO = new NguoiThueDAO(firestore,getBaseContext());
+        nguoiThueDAO.getall();
+        nguoiThueAdapter = new NguoiThueAdapter(nguoiThueDAO);
+        rc_nguoithue.setAdapter(nguoiThueAdapter);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                nguoiThueAdapter.notifyDataSetChanged();
+            }
+        },6000);
+
+
         fladd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

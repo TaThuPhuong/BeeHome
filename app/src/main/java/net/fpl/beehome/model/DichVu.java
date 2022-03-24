@@ -20,9 +20,9 @@ public class DichVu {
     }
 
     public static final String TB_NAME = "tb_dichVu";
-    public static final String COL_NAME = "name_dichVu";
-    public static final String COL_GIA = "gia_dichVu";
-    public static final String COL_DONVI = "donVi_dichVu";
+    public static final String COL_NAME = "tenDichVu";
+    public static final String COL_GIA = "gia";
+    public static final String COL_DONVI = "donVi";
 
     public String getTenDichVu() {
         return tenDichVu;
