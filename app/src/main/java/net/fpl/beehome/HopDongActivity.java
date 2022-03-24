@@ -44,6 +44,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
     SwipeRefreshLayout swipeRefreshLayout;
     HopDongAdapter hopDongAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,6 +159,8 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         objHopDong.setNgayKetThuc(ed_ngaykt.getEditText().getText().toString());
                         objHopDong.setSoNguoiThue(Double.parseDouble(ed_songuoithue.getEditText().getText().toString()));
 
+
+
                         fb.collection(HopDong.TB_NAME)
                                 .add(objHopDong)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -171,10 +174,8 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(HopDongActivity.this, "Them That bai", Toast.LENGTH_SHORT).show();
-
                                     }
                                 });
-
                         dialog.dismiss();
                     }
                 });
@@ -185,10 +186,14 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
 
     @Override
     public void onRefresh() {
-        hopDongAdapter.notifyDataSetChanged();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                fb = FirebaseFirestore.getInstance();
+                hopDongDAO = new HopDongDAO(fb, HopDongActivity.this);
+                hopDongAdapter = new HopDongAdapter(hopDongDAO);
+                hopDongAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
         },1000);

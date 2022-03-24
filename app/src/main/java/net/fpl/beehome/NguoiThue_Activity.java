@@ -43,8 +43,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
         rc_nguoithue = findViewById(R.id.rc_nguoithue);
         fladd = findViewById(R.id.fl_nguoithue);
         firestore = FirebaseFirestore.getInstance();
-        nguoiThueDAO = new NguoiThueDAO(firestore,getBaseContext());
-        nguoiThueDAO.getall();
+        nguoiThueDAO = new NguoiThueDAO(firestore,NguoiThue_Activity.this);
         nguoiThueAdapter = new NguoiThueAdapter(nguoiThueDAO);
         rc_nguoithue.setAdapter(nguoiThueAdapter);
         new Handler().postDelayed(new Runnable() {
