@@ -4,6 +4,7 @@ package net.fpl.beehome.ui.phong;
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,6 @@ public class PhongFragment extends Fragment {
     RecyclerView recyclerView;
     TextView tvTongPhong, tvPhongTrong;
     PhongAdapter adapter;
-    ListView lv;
     int phongTrong = 0;
 
     @Nullable
@@ -58,7 +58,7 @@ public class PhongFragment extends Fragment {
         fab = view.findViewById(R.id.floating_action_button);
         phongDAO = new PhongDAO(fb, getContext());
         lsPhong = new ArrayList<>();
-
+        phongRecycleView = new PhongRecycleView(getLsPhong(), phongDAO, getContext());
     }
 
     @Override
@@ -69,6 +69,8 @@ public class PhongFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 phongDAO.showDialogThem();
+                phongRecycleView.notifyDataSetChanged();
+                onResume();
             }
         });
     }
@@ -76,10 +78,11 @@ public class PhongFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        hienThi();
+        recyclerView.setAdapter(phongRecycleView);
+        registerForContextMenu(recyclerView);
     }
 
-    public void hienThi() {
+    public ArrayList<Phong> getLsPhong() {
         fb.collection(Phong.TB_NAME)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -90,7 +93,7 @@ public class PhongFragment extends Fragment {
                                 Phong phong = document.toObject(Phong.class);
                                 if (phong.getTrangThai().equals("Trống")) {
                                     phongTrong++;
-                                    tvPhongTrong.setText("Phòng trống - " +phongTrong);
+                                    tvPhongTrong.setText("Phòng trống - " + phongTrong);
                                 }
                                 Log.d("zzzzzz", "onComplete: " + phong.toString());
                                 lsPhong.add(phong);
@@ -103,9 +106,12 @@ public class PhongFragment extends Fragment {
                         }
                     }
                 });
-        phongRecycleView = new PhongRecycleView(lsPhong, phongDAO);
-        recyclerView.setAdapter(phongRecycleView);
+        return lsPhong;
     }
 
-
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getActivity().getMenuInflater().inflate(R.menu.long_click_item_menu,menu);
+    }
 }

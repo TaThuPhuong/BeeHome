@@ -1,11 +1,14 @@
 package net.fpl.beehome.Adapter.Phong;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,16 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import net.fpl.beehome.DAO.PhongDAO;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Phong;
+import net.fpl.beehome.ui.phong.PhongFragment;
 
 import java.util.ArrayList;
 
 public class PhongRecycleView extends RecyclerView.Adapter<PhongRecycleView.PhongViewHolder> {
     ArrayList<Phong> lsPhong;
     PhongDAO phongDAO;
+    Context context;
 
-    public PhongRecycleView(ArrayList<Phong> lsPhong, PhongDAO phongDAO) {
+    public PhongRecycleView(ArrayList<Phong> lsPhong, PhongDAO phongDAO, Context context) {
         this.lsPhong = lsPhong;
         this.phongDAO = phongDAO;
+        this.context = context;
     }
 
     @SuppressLint("ResourceAsColor")
@@ -56,10 +62,19 @@ public class PhongRecycleView extends RecyclerView.Adapter<PhongRecycleView.Phon
     @Override
     public void onBindViewHolder(@NonNull PhongViewHolder holder, int position) {
         Phong phong = this.lsPhong.get(position);
-        Log.d("zzzzz", "onBindViewHolder: " +phong.toString());
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.item);
+
+        Log.d("zzzzz", "onBindViewHolder: " + phong.toString());
         holder.tvSoPhong.setText("Phòng - " + phong.getSoPhong());
         holder.tvTrangThai.setText(phong.getTrangThai());
         mauTrangThai(phong.getTrangThai(), holder.tvTrangThai);
+        holder.llItem.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                
+                return false;
+            }
+        });
     }
 
     @Override
