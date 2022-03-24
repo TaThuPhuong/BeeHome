@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.3312820512820513" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/drawable-v24/bg_ui.xml" value="0.1695" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/drawable/background_btn_login.xml" value="0.1805" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/drawable/background_edttext.xml" value="0.1695" />
@@ -55,14 +56,21 @@
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_screen.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/app_bar_main.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/content_main.xml" value="0.12092391304347826" />
-        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_add_hopdong.xml" value="0.11296859169199595" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.264" />
+        <entry key="app/src/main/res/drawable/ic_people.xml" value="0.1855" />
+        <entry key="app/src/main/res/layout/activity_hop_dong.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_nguoi_thue.xml" value="0.16259057971014493" />
+        <entry key="app/src/main/res/layout/activity_screen.xml" value="0.1308876811594203" />
         <entry key="app/src/main/res/layout/dialog_add_hopdong.xml" value="0.10099637681159421" />
         <entry key="app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_sua_nguoithue.xml" value="0.20244565217391305" />
         <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/dialog_thong_bao.xml" value="0.20244565217391305" />
         <entry key="app/src/main/res/layout/dialog_thong_bao_dich_vu_success.xml" value="0.10099637681159421" />
-        <entry key="app/src/main/res/layout/item_nguoithue.xml" value="0.10099637681159421" />
+        <entry key="app/src/main/res/layout/item_dich_vu.xml" value="0.20244565217391305" />
+        <entry key="app/src/main/res/layout/item_nguoithue.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_phong.xml" value="0.20244565217391305" />
+        <entry key="app/src/main/res/layout/row_hopdong.xml" value="0.20244565217391305" />
       </map>
     </option>
   </component>
