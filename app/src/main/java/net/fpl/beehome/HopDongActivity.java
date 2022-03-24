@@ -59,9 +59,9 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         hopDongAdapter = new HopDongAdapter(hopDongDAO);
 
         rv_hd.setAdapter(hopDongAdapter);
-
-        swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(true);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -190,9 +190,6 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                fb = FirebaseFirestore.getInstance();
-                hopDongDAO = new HopDongDAO(fb, HopDongActivity.this);
-                hopDongAdapter = new HopDongAdapter(hopDongDAO);
                 hopDongAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
