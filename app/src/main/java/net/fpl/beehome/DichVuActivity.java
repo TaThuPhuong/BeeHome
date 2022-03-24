@@ -1,12 +1,18 @@
 package net.fpl.beehome;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,13 +44,15 @@ public class DichVuActivity extends AppCompatActivity {
     ArrayList<DichVu> list;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_dich_vu);
 
         addDichVu();
 
         dichVuDAO = new DichVuDAO(this);
+        dichVuAdapter = new DichVuAdapter(dichVuDAO, list);
+
 
         rcv_dichVu = findViewById(R.id.rcv_dichVu);
         fab_dichVu = findViewById(R.id.fab_dichVu);
@@ -54,7 +62,7 @@ public class DichVuActivity extends AppCompatActivity {
         fab_dichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dichVuAdapter.showDialog(0, DichVuActivity.this, 0);
+                dichVuAdapter.showDialog(DichVuActivity.this);
             }
         });
 
@@ -103,4 +111,5 @@ public class DichVuActivity extends AppCompatActivity {
         hienThi();
 
     }
-}
+
+    }
