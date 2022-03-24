@@ -5,6 +5,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.BeeHome.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_hoa_don"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:titleTextColor="#EDEDED"
+            app:popupTheme="@style/Theme.BeeHome.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout_hoa_don"
         android:layout_width="match_parent"

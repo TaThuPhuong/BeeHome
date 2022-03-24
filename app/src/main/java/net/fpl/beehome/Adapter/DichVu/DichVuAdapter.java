@@ -40,6 +40,7 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
 
     DichVuDAO dichVuDAO;
     ArrayList<DichVu> list;
+    DichVuActivity dichVuActivity;
 
     public static final String TAG = "123";
 
@@ -126,7 +127,7 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
                     dichVuDAO.insertDichVu(dichVu);
                     dialog.dismiss();
                     Log.e("xxx", "onClick: " + ten + gia + donvi);
-
+                    notifyDataSetChanged();
                 }
             }
         });

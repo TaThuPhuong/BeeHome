@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         drawer = findViewById(R.id.drawer_layout);
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_hoa_don);
 
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);

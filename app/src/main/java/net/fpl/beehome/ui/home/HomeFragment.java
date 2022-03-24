@@ -148,7 +148,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void sendMessage() {
         String strMess = edMess.getText().toString().trim();
         if (TextUtils.isEmpty(strMess)) {
