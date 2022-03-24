@@ -4,10 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -29,22 +32,17 @@ public class SuCoDAO {
     public ArrayList<SuCo> getAll(){
         ArrayList<SuCo> arr = new ArrayList<>();
 
-        db.collection(SuCo.TB_NAME)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                SuCo objSuCo = document.toObject(SuCo.class);
-                                arr.add(objSuCo);
-                                Log.d("aaaaaaa", document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.d("aaaaaaa", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+        db.collection(SuCo.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for (QueryDocumentSnapshot document : value) {
+                    SuCo objSuCo = document.toObject(SuCo.class);
+                    arr.add(objSuCo);
+                    Log.d("aaaaaaa", document.getId() + " => " + document.getData());
+                }
+            }
+        });
 
         return arr;
     }

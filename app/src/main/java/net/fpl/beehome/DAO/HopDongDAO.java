@@ -44,24 +44,6 @@ public class HopDongDAO {
             }
         });
 
-//        db.collection(HopDong.TB_NAME)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                HopDong objHopDong = document.toObject(HopDong.class);
-//
-//                                arr.add(objHopDong);
-//                                Log.d("aaaaaaa", document.getId() + " => " + document.getData());
-//                            }
-//                        } else {
-//                            Log.d("aaaaaaa", "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
-
         return arr;
     }
 }
