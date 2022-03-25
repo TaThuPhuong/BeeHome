@@ -238,14 +238,6 @@ public class PhongDAO {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Phong phong = new Phong();
-//                                phong.setIDPhong(document.get(Phong.COL_ID).toString());
-//                                phong.setSoPhong(document.get(Phong.COL_SO_PHONG).toString());
-//                                phong.setGiaPhong(Integer.parseInt(document.get(Phong.COL_GIA_PHONG).toString()));
-//                                phong.setVatTu(document.get(Phong.COL_VAT_TU).toString());
-//                                phong.setTrangThai(document.get(Phong.COL_TRANG_THAI).toString());
-//                                phong.setSoDienDau(Integer.parseInt(document.get(Phong.COL_SO_DIEN_DAU).toString()));
-//                                phong.setSoNuocDau(Integer.parseInt(document.get(Phong.COL_SO_NUOC_DAU).toString()));
                                 Phong phong = document.toObject(Phong.class);
                                 Log.d("zzzzzz", "onComplete: " + phong.toString());
 
