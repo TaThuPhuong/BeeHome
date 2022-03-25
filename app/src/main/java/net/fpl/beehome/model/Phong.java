@@ -7,7 +7,7 @@ public class Phong {
     public static final String COL_ID = "id_phong";
     public static final String COL_SO_PHONG = "so_phong";
     public static final String COL_VAT_TU = "vat_tu";
-    public static final String COL_TRANG_THAI = "trang_thai";
+    public static final String COL_TRANG_THAI = "trangThai";
     public static final String COL_GIA_PHONG = "gia_phong";
     public static final String COL_SO_DIEN_DAU = "so_dien_dau";
     public static final String COL_SO_NUOC_DAU = "so_nuoc_dau";
