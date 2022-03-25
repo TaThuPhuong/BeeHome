@@ -67,6 +67,8 @@
         <entry key="app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.1261904761904762" />
         <entry key="app/src/main/res/layout/dialog_thong_bao_dich_vu_success.xml" value="0.10099637681159421" />
+        <entry key="app/src/main/res/layout/dialog_thong_bao_nguoithue_fail.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/dialog_thong_bao_nguoithue_success.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/item_nguoithue.xml" value="0.10099637681159421" />
         <entry key="app/src/main/res/layout/item_spinner_nguoithue.xml" value="0.17572463768115942" />
       </map>

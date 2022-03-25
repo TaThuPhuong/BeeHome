@@ -123,7 +123,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 String email = ed_email.getText().toString();
                 String cccd = ed_cccd.getText().toString();
                 if (TextUtils.isEmpty(ten) || TextUtils.isEmpty(sodt) || TextUtils.isEmpty(email) || TextUtils.isEmpty(cccd)) {
-                    Toast.makeText(NguoiThue_Activity.this, "Thieu", Toast.LENGTH_SHORT).show();
+                    nguoiThueDAO.thongbaonguoithue(1,"Không Được Để Trống");
                 } else {
                     NguoiThue nguoiThue = new NguoiThue();
                     nguoiThue.setID_thanhvien(sodt);
@@ -148,14 +148,14 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(NguoiThue_Activity.this, "Them Thanh Cong", Toast.LENGTH_SHORT).show();
+                        nguoiThueDAO.thongbaonguoithue(0,"Thêm Thành Công");
                         nguoiThueAdapter.notifyDataSetChanged();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(NguoiThue_Activity.this, "Them That Bai", Toast.LENGTH_SHORT).show();
+                        nguoiThueDAO.thongbaonguoithue(1,"Thêm Thất Bại");
                     }
                 });
     }
