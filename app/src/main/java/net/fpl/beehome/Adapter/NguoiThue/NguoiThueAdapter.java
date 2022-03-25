@@ -3,6 +3,7 @@ package net.fpl.beehome.Adapter.NguoiThue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -46,11 +47,13 @@ public class NguoiThueAdapter extends RecyclerView.Adapter<NguoiThueAdapter.Nguo
 
     public class NguoiThueViewHodel extends RecyclerView.ViewHolder{
         TextView tv_name, tv_sdt,tv_phong;
+        Spinner sp_nguoithue;
         public NguoiThueViewHodel(@NonNull View itemView) {
             super(itemView);
             tv_name = itemView.findViewById(R.id.tv_tennguoithue);
             tv_phong = itemView.findViewById(R.id.tv_phongnguoithue);
             tv_sdt = itemView.findViewById(R.id.tv_sdtnguoithue);
+            sp_nguoithue = itemView.findViewById(R.id.spn_phong);
         }
     }
 }

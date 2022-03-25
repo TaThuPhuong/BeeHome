@@ -18,57 +18,20 @@
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/add_success_dialog.xml" value="0.22826086956521738" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/app_bar_main.xml" value="0.264" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/content_main.xml" value="0.25181159420289856" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_add_hopdong.xml" value="0.25416666666666665" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_sua_nguoithue.xml" value="0.25416666666666665" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.2" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_phong.xml" value="0.2536231884057971" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/hoa_don_chua_thanh_toan.xml" value="0.176" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/item_phong.xml" value="0.2536231884057971" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/item_phong_spinner.xml" value="0.25416666666666665" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/item_phong_swipe.xml" value="0.16" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/nav_header_main.xml" value="0.25181159420289856" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/them_phong_dialog.xml" value="0.2536231884057971" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/thong_bao_dialog.xml" value="0.2536231884057971" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/menu/long_click_item_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/menu/main.xml" value="0.2" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/background_btn_login.xml" value="0.152" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd.xml" value="0.152" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_mess.xml" value="0.152" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_top_20dp.xml" value="0.152" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/acitivity_dich_vu.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/activity_fragment_one.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/activity_fragment_three.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/activity_login.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/activity_nguoi_thue.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/activity_screen.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_add_hopdong.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_dich_vu_success.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_don_vi_dich_vu.xml" value="0.264" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_don_vi_tinh.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_message.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_sua_nguoithue.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_them_dich_vu.xml" value="0.264" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_them_phong.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_thong_bao.xml" value="0.12135416666666667" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_thong_bao_dich_vu_fail.xml" value="0.12135416666666667" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_thong_bao_dich_vu_success.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_dich_vu.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_phong.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_thong_ke.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_thu_chi.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/item_dich_vu.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/item_mesage.xml" value="0.4" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/them_nguoithue_dialog.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/menu/main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1755" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/drawable/background_btn_login.xml" value="0.1755" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/drawable/background_edttext.xml" value="0.1755" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/drawable/bg_gradient_violet_top_right.xml" value="0.129" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/drawable/ic_gioithieu.xml" value="0.1755" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1755" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1755" />
@@ -80,9 +43,13 @@
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/activity_screen.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/dialog_hoa_don_them.xml" value="0.15443840579710144" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/dialog_hoa_don_xoa.xml" value="0.15443840579710144" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/fragment_gallery.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/fragment_phong.xml" value="0.11822916666666666" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/fragment_slideshow.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/item_phong.xml" value="0.11822916666666666" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/menu/main.xml" value="0.25" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_fragment_one.xml" value="0.12092391304347826" />
@@ -93,7 +60,15 @@
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_screen.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/app_bar_main.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/content_main.xml" value="0.12092391304347826" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_add_hopdong.xml" value="0.11296859169199595" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.264" />
+        <entry key="app/src/main/res/layout/activity_nguoi_thue.xml" value="0.16259057971014493" />
+        <entry key="app/src/main/res/layout/dialog_add_hopdong.xml" value="0.10099637681159421" />
+        <entry key="app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.1261904761904762" />
+        <entry key="app/src/main/res/layout/dialog_thong_bao_dich_vu_success.xml" value="0.10099637681159421" />
+        <entry key="app/src/main/res/layout/item_nguoithue.xml" value="0.10099637681159421" />
+        <entry key="app/src/main/res/layout/item_spinner_nguoithue.xml" value="0.17572463768115942" />
       </map>
     </option>
   </component>
