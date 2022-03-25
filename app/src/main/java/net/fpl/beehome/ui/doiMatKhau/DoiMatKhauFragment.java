@@ -25,7 +25,6 @@ public class DoiMatKhauFragment extends Fragment {
 
         animation = AnimationUtils.loadAnimation(getContext(), R.anim.login);
         lnL.startAnimation(animation);
-
         return v;
     }
 }
