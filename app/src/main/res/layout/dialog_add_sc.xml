@@ -38,12 +38,19 @@
         app:boxStrokeColor="@color/purple_200"
         app:hintTextColor="@color/purple_200"
         android:hint="Mô tả sự cố"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:endIconMode="clear_text"
+        app:boxCornerRadiusTopStart="16dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:maxLength="31"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -60,12 +67,17 @@
         app:hintTextColor="@color/purple_200"
         app:startIconDrawable="@drawable/ic_day"
         android:hint="Ngày báo cáo"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:enabled="false"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

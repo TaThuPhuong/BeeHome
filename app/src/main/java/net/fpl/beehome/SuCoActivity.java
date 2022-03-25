@@ -1,24 +1,28 @@
 package net.fpl.beehome;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.SuCo.SuCoAdapter;
-import net.fpl.beehome.DAO.SuCoDAO;
+import net.fpl.beehome.model.SuCo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +34,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
     FirebaseFirestore fb;
     SwipeRefreshLayout swipeRefreshLayout;
 
-    SuCoDAO suCoDAO;
+
     SuCoAdapter suCoAdapter;
 
     @Override
@@ -42,21 +46,13 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         rv_cs = findViewById(R.id.rv_sc);
         fb = FirebaseFirestore.getInstance();
         swipeRefreshLayout = findViewById(R.id.sw_rv);
-        suCoDAO = new SuCoDAO(fb ,SuCoActivity.this);
-        suCoAdapter = new SuCoAdapter(suCoDAO);
+
+        ArrayList<SuCo> arr = getAll();
+        suCoAdapter = new SuCoAdapter(arr);
         rv_cs.setAdapter(suCoAdapter);
 
 
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setRefreshing(true);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                suCoAdapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        },2000);
-
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,4 +92,22 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         },1000);
     }
 
+    public ArrayList<SuCo> getAll(){
+        ArrayList<SuCo> arr = new ArrayList<>();
+
+        fb.collection(SuCo.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for (QueryDocumentSnapshot document : value) {
+                    SuCo objSuCo = document.toObject(SuCo.class);
+                    arr.add(objSuCo);
+                    Log.d("aaaaaaa", document.getId() + " => " + document.getData());
+                }
+                suCoAdapter.notifyDataSetChanged();
+            }
+        });
+
+        return arr;
+    }
 }

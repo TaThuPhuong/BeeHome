@@ -57,6 +57,10 @@
             app:boxStrokeColor="@color/purple_200"
             app:hintTextColor="@color/purple_200"
             android:hint="Kỳ Hạn"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -78,12 +82,18 @@
             app:boxStrokeColor="@color/purple_200"
             app:hintTextColor="@color/purple_200"
             app:startIconDrawable="@drawable/ic_day"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
             android:hint="Ngày Ký"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="date"
+
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -99,6 +109,10 @@
             app:boxStrokeColor="@color/purple_200"
             app:hintTextColor="@color/purple_200"
             android:hint="Ngày Bắt Đầu"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
             app:startIconDrawable="@drawable/ic_day"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -106,6 +120,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="date"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -121,6 +136,10 @@
             app:boxStrokeColor="@color/purple_200"
             app:hintTextColor="@color/purple_200"
             android:hint="Ngày Kết Thúc"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
             app:startIconDrawable="@drawable/ic_day"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -128,6 +147,8 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="date"
+
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -143,6 +164,12 @@
             app:boxStrokeColor="@color/purple_200"
             app:hintTextColor="@color/purple_200"
             android:hint="Số người thuê"
+
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:startIconDrawable="@drawable/ic_user"
+            app:boxCornerRadiusTopStart="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText

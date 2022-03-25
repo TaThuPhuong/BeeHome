@@ -1,17 +1,13 @@
 package net.fpl.beehome.Adapter.NguoiThue;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.fpl.beehome.DAO.HopDongDAO;
 import net.fpl.beehome.DAO.NguoiThueDAO;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.NguoiThue;

@@ -8,21 +8,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.fpl.beehome.DAO.SuCoDAO;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.SuCo;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 public class SuCoAdapter extends RecyclerView.Adapter<SuCoAdapter.SuCoViewHolder> {
     ArrayList<SuCo> arr;
-    SuCoDAO suCoDAO;
 
-    public SuCoAdapter(SuCoDAO suCoDAO) {
-        this.arr = suCoDAO.getAll();
-        this.suCoDAO = suCoDAO;
+    public SuCoAdapter(ArrayList<SuCo> arr) {
+        this.arr = arr;
     }
 
     @NonNull

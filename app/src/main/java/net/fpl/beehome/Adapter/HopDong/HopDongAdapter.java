@@ -1,6 +1,5 @@
 package net.fpl.beehome.Adapter.HopDong;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import net.fpl.beehome.DAO.HopDongDAO;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.HopDong;
 
@@ -19,11 +15,10 @@ import java.util.ArrayList;
 
 public class HopDongAdapter extends RecyclerView.Adapter<HopDongAdapter.HopDongViewholder> {
     ArrayList<HopDong> arr ;
-    HopDongDAO hopDongDAO;
 
-    public HopDongAdapter(HopDongDAO hopDongDAO){
-        this.hopDongDAO = hopDongDAO;
-        this.arr = hopDongDAO.getAll();
+
+    public HopDongAdapter(ArrayList<HopDong> arr){
+        this.arr = arr;
     }
 
 
@@ -71,4 +66,5 @@ public class HopDongAdapter extends RecyclerView.Adapter<HopDongAdapter.HopDongV
             tv_ngaykt = itemView.findViewById(R.id.tv_ngayketthuc);
         }
     }
+
 }
