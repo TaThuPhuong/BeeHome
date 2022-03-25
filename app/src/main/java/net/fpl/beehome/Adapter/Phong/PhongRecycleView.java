@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.daimajia.swipe.SwipeLayout;
 
 import net.fpl.beehome.DAO.PhongDAO;
 import net.fpl.beehome.R;
@@ -68,30 +71,37 @@ public class PhongRecycleView extends RecyclerView.Adapter<PhongRecycleView.Phon
         holder.tvSoPhong.setText("Phòng - " + phong.getSoPhong());
         holder.tvTrangThai.setText(phong.getTrangThai());
         mauTrangThai(phong.getTrangThai(), holder.tvTrangThai);
-        holder.llItem.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                
-                return false;
-            }
-        });
+//        holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+//        holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.bottom_wrapper));
     }
+
 
     @Override
     public int getItemCount() {
         return this.lsPhong.size();
     }
 
-    class PhongViewHolder extends RecyclerView.ViewHolder {
+    class PhongViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
 
         public TextView tvSoPhong, tvTrangThai;
         public LinearLayout llItem;
+//        public SwipeLayout swipeLayout;
+
 
         public PhongViewHolder(@NonNull View itemView) {
             super(itemView);
             tvSoPhong = itemView.findViewById(R.id.tv_phong);
             tvTrangThai = itemView.findViewById(R.id.tv_trang_thai);
             llItem = itemView.findViewById(R.id.ll_item);
+//            swipeLayout = itemView.findViewById(R.id.swipe_layout);
+            llItem.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            contextMenu.add(this.getAdapterPosition(), 111, 0, "Chi tiết");
+            contextMenu.add(this.getAdapterPosition(), 112, 1, "Cập nhập");
+            contextMenu.add(this.getAdapterPosition(), 113, 2, "Xóa");
         }
     }
 }
