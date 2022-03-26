@@ -1,25 +1,18 @@
 package net.fpl.beehome.ui.phong;
 
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,8 +20,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import net.fpl.beehome.Adapter.Phong.PhongAdapter;
 import net.fpl.beehome.Adapter.Phong.PhongRecycleView;
+import net.fpl.beehome.Adapter.Phong.PhongSwipeRecyclerViewAdapter;
 import net.fpl.beehome.DAO.PhongDAO;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Phong;
@@ -43,8 +36,8 @@ public class PhongFragment extends Fragment {
     ArrayList<Phong> lsPhong;
     RecyclerView recyclerView;
     TextView tvTongPhong, tvPhongTrong;
-    PhongAdapter adapter;
     int phongTrong = 0;
+    PhongSwipeRecyclerViewAdapter phongSwipeRecyclerViewAdapter;
 
     @Nullable
     @Override
@@ -61,9 +54,12 @@ public class PhongFragment extends Fragment {
         fab = view.findViewById(R.id.floating_action_button);
         phongDAO = new PhongDAO(fb, getContext());
         lsPhong = new ArrayList<>();
-        phongRecycleView = new PhongRecycleView(getLsPhong(), phongDAO, getContext());
-        recyclerView.setAdapter(phongRecycleView);
-        registerForContextMenu(recyclerView);
+//        phongRecycleView = new PhongRecycleView(getLsPhong(), phongDAO, getContext());
+//        recyclerView.setAdapter(phongRecycleView);
+//        registerForContextMenu(recyclerView);
+        phongSwipeRecyclerViewAdapter = new PhongSwipeRecyclerViewAdapter(getContext(), getLsPhong());
+        recyclerView.setAdapter(phongSwipeRecyclerViewAdapter);
+
     }
 
     @Override
@@ -74,9 +70,12 @@ public class PhongFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 phongDAO.showDialogThem();
-                phongRecycleView = new PhongRecycleView(getLsPhong(), phongDAO, getContext());
-                phongRecycleView.notifyDataSetChanged();
-                recyclerView.setAdapter(phongRecycleView);
+//                phongRecycleView = new PhongRecycleView(getLsPhong(), phongDAO, getContext());
+//                phongRecycleView.notifyDataSetChanged();
+//                recyclerView.setAdapter(phongRecycleView);
+                phongSwipeRecyclerViewAdapter = new PhongSwipeRecyclerViewAdapter(getContext(), getLsPhong());
+                phongSwipeRecyclerViewAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(phongSwipeRecyclerViewAdapter);
             }
         });
     }
@@ -97,8 +96,10 @@ public class PhongFragment extends Fragment {
                             Log.d("zzzzzz", "onComplete: " + phong.toString());
                             lsPhong.add(phong);
                             tvTongPhong.setText("Tổng số phòng - " + lsPhong.size());
-                            phongRecycleView.notifyDataSetChanged();
+//                            phongRecycleView.notifyDataSetChanged();
+                            phongSwipeRecyclerViewAdapter.notifyDataSetChanged();
                         }
+
                         Log.d("zzzzzz", "List: " + lsPhong.size());
 
                     }

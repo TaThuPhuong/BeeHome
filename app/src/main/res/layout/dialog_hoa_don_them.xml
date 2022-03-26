@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
     android:background="@drawable/background_dialog"
     android:orientation="vertical">
@@ -25,60 +24,49 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="3dp"
+            android:backgroundTint="@color/purple_200"
+            app:boxStrokeColor="@color/purple_200"
+            app:hintTextColor="@color/purple_200"
             android:hint="Hóa đơn tháng"
-            android:paddingRight="20dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:textColor="#000000"
-            android:background="@drawable/background_edttext2"
-            android:drawableRight="@drawable/ic_date"
-            android:padding="12dp"
-            android:textColorHint="@color/grey_dam"
-            android:drawableTint="@color/grey_dam"
-            android:paddingLeft="10dp"
-            android:textSize="16dp"
-            />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_date2"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="3dp"
+            android:backgroundTint="@color/purple_200"
+            app:boxStrokeColor="@color/purple_200"
+            app:hintTextColor="@color/purple_200"
+            android:hint="Hóa đơn tháng"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            android:padding="12dp"
-            android:textColorHint="@color/grey_dam"
-            android:drawableTint="@color/grey_dam"
-            android:background="@drawable/background_edttext2"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
-            android:hint="Chọn phòng"
-            android:textSize="16dp"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_date2"
+                />
 
-        <EditText
+        </com.google.android.material.textfield.TextInputLayout>
 
-            android:paddingRight="20dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:layout_marginBottom="10dp"
-            android:padding="12dp"
-            android:background="@drawable/background_edttext"
-            android:textColorHint="@color/grey_dam"
-            android:drawableTint="@color/grey_dam"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Số tiền"
-            android:inputType="number"
-            android:textSize="16dp"
-            />
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"

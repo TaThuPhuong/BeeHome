@@ -47,7 +47,8 @@ public class NguoiThue_Activity extends AppCompatActivity {
     Button btn_them, btn_huy;
     NguoiThueDAO nguoiThueDAO;
     NguoiThueAdapter nguoiThueAdapter;
-    ArrayList<String> lsPhong;
+    ArrayList<Phong> lsPhong;
+    public PhongSpinnerAdapter phongSpinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +78,17 @@ public class NguoiThue_Activity extends AppCompatActivity {
         });
     }
 
-    public ArrayList<String> getIDPhong() {
-        ArrayList<String> ls = new ArrayList<>();
+    public ArrayList<Phong> getIDPhong() {
+        ArrayList<Phong> ls = new ArrayList<>();
         firestore.collection(Phong.TB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                    ls.add(documentSnapshot.getId());
+                    Phong phong = documentSnapshot.toObject(Phong.class);
+                    if (phong.getTrangThai().equals("Trống")){
+                        ls.add(phong);
+                    }
+
                     Log.d("zzzzzzzz", "onComplete: " + documentSnapshot.getId());
                 }
             }
@@ -107,8 +112,8 @@ public class NguoiThue_Activity extends AppCompatActivity {
         sp_nguoithue = view.findViewById(R.id.spn_phong);
         btn_them = view.findViewById(R.id.btn_dangkinguoithue);
         btn_huy = view.findViewById(R.id.btn_huynguoithue);
-        PhongSpinnerAdapter adapter = new PhongSpinnerAdapter(lsPhong);
-        sp_nguoithue.setAdapter(adapter);
+        phongSpinnerAdapter = new PhongSpinnerAdapter(lsPhong);
+        sp_nguoithue.setAdapter(phongSpinnerAdapter);
         btn_huy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,9 +137,19 @@ public class NguoiThue_Activity extends AppCompatActivity {
                     nguoiThue.setPassword(sodt);
                     nguoiThue.setEmail(email);
                     nguoiThue.setCCCD(cccd);
-                    nguoiThue.setID_phong(sp_nguoithue.getSelectedItem().toString());
+                    Phong phong = (Phong)sp_nguoithue.getSelectedItem();
+                    nguoiThue.setID_phong(phong.getIDPhong());
 
                     themNguoiThue(nguoiThue);
+                    firestore.collection(Phong.TB_NAME).document(phong.getIDPhong())
+                            .update(Phong.COL_TRANG_THAI,"Đang thuê")
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    lsPhong.clear();
+                                    lsPhong = getIDPhong();
+                                }
+                            });
                     dialog.dismiss();
                 }
             }

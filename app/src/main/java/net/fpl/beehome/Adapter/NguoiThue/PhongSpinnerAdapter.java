@@ -6,13 +6,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import net.fpl.beehome.R;
+import net.fpl.beehome.model.Phong;
 
 import java.util.ArrayList;
 
 public class PhongSpinnerAdapter extends BaseAdapter {
-    ArrayList<String> lsPhong;
+    ArrayList<Phong> lsPhong;
 
-    public PhongSpinnerAdapter(ArrayList<String> lsPhong) {
+    public PhongSpinnerAdapter(ArrayList<Phong> lsPhong) {
         this.lsPhong = lsPhong;
     }
 
@@ -22,7 +23,7 @@ public class PhongSpinnerAdapter extends BaseAdapter {
     }
 
     @Override
-    public String getItem(int i) {
+    public Phong getItem(int i) {
         return this.lsPhong.get(i);
     }
 
@@ -40,8 +41,8 @@ public class PhongSpinnerAdapter extends BaseAdapter {
             v = view;
         }
         TextView tvPhong = v.findViewById(R.id.tv_phong);
-        String phong = lsPhong.get(i);
-        tvPhong.setText(phong);
+        Phong phong = lsPhong.get(i);
+        tvPhong.setText(phong.getIDPhong());
         return v;
     }
 }
