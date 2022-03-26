@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
     <TextView
-        android:id="@+id/btn_co"
+        android:id="@+id/tv_co"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="32dp"
@@ -40,7 +40,7 @@
         android:background="@drawable/bg_rd_ok"/>
 
         <TextView
-            android:id="@+id/btn_khong"
+            android:id="@+id/tv_khong"
             android:layout_marginLeft="15dp"
             android:layout_width="0dp"
             android:layout_weight="1"

@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,20 +14,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.Source;
 
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,20 +127,22 @@ public class DichVuDAO {
         map.put(DichVu.COL_GIA, FieldValue.delete());
         map.put(DichVu.COL_DONVI, FieldValue.delete());
 
-        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).delete();
-        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).update(map)
+        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                thongbao(0, "Xóa dịch vụ thành công");
-            }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                thongbao(1, "Xóa dịch vụ thất bại");
-            }
-        });
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        thongbao(0, "Xóa dịch vụ thành công");
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        thongbao(1, "Xóa dịch vụ thất bại");
+                        Log.e("TAG", "onFailure: " + dichVu.toString());
+                    }
+                });;
+        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).update(map);
     }
 
     public DichVu getDichVu(String name){
@@ -173,45 +168,6 @@ public class DichVuDAO {
         return list.get(0);
     }
 
-
-
-
-//        } else {
-//            View view = View.inflate(context, R.layout.dialog_sua_dich_vu, null);
-//            dialog.setView(view);
-//            EditText edTenDichVu= view.findViewById(R.id.ed_tenDichVu);
-//            EditText edGia = view.findViewById(R.id.ed_giaDichVu);
-//            EditText edDonVi = view.findViewById(R.id.ed_chiSo);
-//            Button btnSua = view.findViewById(R.id.btn_suaDichVu);
-//            Button btnHuy = view.findViewById(R.id.btn_huy);
-//
-//            AlertDialog alertDialog = dialog.create();
-//            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//            alertDialog.show();
-//
-//            DichVu dichVu = list.get(i);
-//
-//            edTenDichVu.setText(dichVu.getTenDichVu());
-//            edGia.setText(dichVu.getGia());
-//            edDonVi.setText(dichVu.getDonVi());
-//
-//            dichVu.setTenDichVu(edTenDichVu.getText().toString());
-//            dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
-//
-//            btnSua.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    updateDichVu(dichVu);
-//                }
-//            });
-//
-//            btnHuy.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                }
-//            });
-//        }
     }
 
 
