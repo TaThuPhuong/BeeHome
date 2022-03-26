@@ -24,6 +24,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.fpl.beehome.Adapter.Message.MessageAdapter;
 import net.fpl.beehome.HopDongActivity;
+import net.fpl.beehome.MessageActivity;
 import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.SuCoActivity;
@@ -38,11 +39,7 @@ public class HomeFragment extends Fragment {
     ImageView btnDichVu, btnNguoiThue, btnHoaDon, btnSuCo, btnHopDong, btnHuongDan;
     FloatingActionButton button;
 
-    RecyclerView rcvMess;
-    EditText edMess;
-    ImageView imgMess;
-    ArrayList<Message> list;
-    MessageAdapter messageAdapter;
+
 
 
     public HomeFragment() {
@@ -124,49 +121,9 @@ public class HomeFragment extends Fragment {
 
     public void showDialogMessage(){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View view = View.inflate(getContext(),R.layout.dialog_message, null);
-        builder.setView(view);
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
-
-        rcvMess = view.findViewById(R.id.rcv_mess);
-        edMess = view.findViewById(R.id.ed_mess);
-        imgMess = view.findViewById(R.id.img_mess);
-        list = new ArrayList<>();
-        messageAdapter = new MessageAdapter();
-        messageAdapter.setData(list);
-
-        rcvMess.setAdapter(messageAdapter);
-
-        imgMess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendMessage();
-            }
-        });
-    }
-
-    private void sendMessage() {
-        String strMess = edMess.getText().toString().trim();
-        if (TextUtils.isEmpty(strMess)) {
-            return;
-        }
-        Log.e("TAG", "sendMessage: " + strMess );
-
-        Message message = new Message();
-        message.setMess(strMess);
-
-        message = new Message("Hello");
-
-        list.add(message);
-        messageAdapter.notifyDataSetChanged();
-        rcvMess.scrollToPosition(list.size() - 1);
-        Log.e("TAG", "sendMessage: " + list.size() );
-        Log.e("TAG", "sendMessage: " +  message.toString());
-        edMess.setText("");
+        startActivity(new Intent(HomeFragment.this.getContext(), MessageActivity.class));
 
     }
+
 
 }

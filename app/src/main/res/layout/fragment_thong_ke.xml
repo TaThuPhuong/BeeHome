@@ -97,9 +97,10 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/layout_tuNgay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="25dp"
+                android:paddingLeft="25dp"
                 android:paddingVertical="10dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
@@ -117,17 +118,18 @@
                     android:layout_gravity="center_vertical"
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"/>
-                <TextView
-                    android:id="@+id/tv_tuNgay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ngày bắt đầu: "
-                    android:textSize="20sp"
-                    android:layout_gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"/>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_tuNgay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày bắt đầu: "
+                android:textSize="20sp"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"/>
 
         </LinearLayout>
 
@@ -140,9 +142,10 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/layout_denNgay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="25dp"
+                android:paddingLeft="25dp"
                 android:paddingVertical="10dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
@@ -161,17 +164,19 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"/>
 
-                <TextView
-                    android:id="@+id/tv_denNgay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ngày kết thúc: "
-                    android:textSize="20sp"
-                    android:layout_gravity="center_vertical"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="4dp"/>
+
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_denNgay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày kết thúc: "
+                android:textSize="20sp"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold"
+                android:layout_marginLeft="4dp"/>
 
         </LinearLayout>
 

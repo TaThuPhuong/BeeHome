@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Message;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    private List<Message> list;
+    private ArrayList<Message> list;
 
-    public void setData(List<Message> list){
+    public void setData(ArrayList<Message> list){
         this.list = list;
         notifyDataSetChanged();
     }

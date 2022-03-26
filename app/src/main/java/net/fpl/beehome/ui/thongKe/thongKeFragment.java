@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import java.util.Calendar;
 
 public class thongKeFragment extends Fragment {
 
+    LinearLayout layoutTuNgay, layoutDenNgay;
     TextView tvTuNgay, tvDenNgay;
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -30,6 +32,8 @@ public class thongKeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_thong_ke, container, false);
 
+        layoutTuNgay = v.findViewById(R.id.layout_tuNgay);
+        layoutDenNgay = v.findViewById(R.id.layout_denNgay);
         tvTuNgay = v.findViewById(R.id.tv_tuNgay);
         tvDenNgay = v.findViewById(R.id.tv_denNgay);
 
@@ -38,23 +42,30 @@ public class thongKeFragment extends Fragment {
         int month = c.get(Calendar.MONTH);
         int date = c.get(Calendar.DATE);
 
-        tvTuNgay.setOnClickListener(new View.OnClickListener() {
+        layoutTuNgay.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-
+                        tvTuNgay.setText( i2 + " / "  + i1 + " / " + i);
                     }
                 }, year, month, date);
+                dialog.show();
             }
         });
 
-        tvDenNgay.setOnClickListener(new View.OnClickListener() {
+        layoutDenNgay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        tvDenNgay.setText( i2 + " / "  + i1 + " / " + i);
+                    }
+                }, year, month, date);
+                dialog.show();
             }
         });
 
