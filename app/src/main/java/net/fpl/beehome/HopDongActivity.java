@@ -10,9 +10,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
+
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -29,11 +29,18 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.HopDong.HopDongAdapter;
+import net.fpl.beehome.Adapter.HopDong.SpinnerNguoiThueAdapter;
+import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.model.HopDong;
+import net.fpl.beehome.model.NguoiThue;
+import net.fpl.beehome.model.Phong;
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
+
 
 public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
     FloatingActionButton btn_add;
@@ -56,11 +63,13 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         hopDongAdapter = new HopDongAdapter(arr);
         rv_hd.setAdapter(hopDongAdapter);
 
+        ArrayList<Phong> arrphong = getSPPHong();
+        ArrayList<NguoiThue> arrnguoithue = getSPNguoiThue();
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
 
-
+        //show dialog add
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,58 +85,57 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 TextInputLayout ed_ngaykt = dialog.findViewById(R.id.ed_ngaykt);
                 TextInputLayout ed_songuoithue = dialog.findViewById(R.id.ed_songuoithue);
 
+                ed_kyhan.setError(null);
+                ed_ngaybd.setError(null);
+                ed_ngaykt.setError(null);
+                ed_ngayky.setError(null);
+                ed_songuoithue.setError(null);
+
+                SpinnerPhongAdapter phongAdapter = new SpinnerPhongAdapter(arrphong);
+                sp_phong.setAdapter(phongAdapter);
+
+                SpinnerNguoiThueAdapter nguoiThueAdapter = new SpinnerNguoiThueAdapter(arrnguoithue);
+                sp_tvien.setAdapter(nguoiThueAdapter);
 
 
-                String[] val = {"P101","P102","P103","P104"};
-                ArrayList<String> arr_p = new ArrayList<>(Arrays.asList(val));
-                ArrayAdapter arrayAdapter = new ArrayAdapter(HopDongActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, arr_p);
-                sp_phong.setAdapter(arrayAdapter);
-
-                String[] val1 = {"Tien","Cuong","Tu","Hien","Phuong"};
-                ArrayList<String> arr_tv = new ArrayList<>(Arrays.asList(val1));
-                ArrayAdapter arrayAdapter1 = new ArrayAdapter(HopDongActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, arr_tv);
-                sp_tvien.setAdapter(arrayAdapter1);
 
                 Calendar calendar = Calendar.getInstance();
                 final int y = calendar.get(Calendar.YEAR);
                 final int m = calendar.get(Calendar.MONTH);
                 final int d = calendar.get(Calendar.DAY_OF_MONTH);
-
                 ed_ngayky.getEditText().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"/" + i1 +"/" + i2;
+                                String date = i +"-" + i1 +"-" + i2;
                                 ed_ngayky.getEditText().setText(date);
                             }
                         },y,m,d);
                         dialog1.show();
                     }
                 });
-
                 ed_ngaybd.getEditText().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"/" + i1 +"/" + i2;
+                                String date = i +"-" + i1 +"-" + i2;
                                 ed_ngaybd.getEditText().setText(date);
                             }
                         },y,m,d);
                         dialog1.show();
                     }
                 });
-
                 ed_ngaykt.getEditText().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"/" + i1 +"/" + i2;
+                                String date = i +"-" + i1 +"-" + i2;
                                 ed_ngaykt.getEditText().setText(date);
                             }
                         },y,m,d);
@@ -136,14 +144,52 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 });
 
 
+//              btn add
                 btn_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        String edkyhan = ed_kyhan.getEditText().getText().toString();
+                        String ednbd = ed_ngaybd.getEditText().getText().toString();
+                        String ednkt = ed_ngaykt.getEditText().getText().toString();
+                        String ednky = ed_ngayky.getEditText().getText().toString();
+                        String edsn = ed_songuoithue.getEditText().getText().toString();
+
+                        if(edkyhan.length() == 0){
+                            ed_kyhan.setError("Trường không được bỏ trống");
+                            return;
+                        }else if(ednky.length()==0){
+                            ed_ngayky.setError("Trường không được bỏ trống");
+                            return;
+                        }else if(ednbd.length()==0){
+                            ed_ngaybd.setError("Trường không được bỏ trống");
+                            return;
+                        }else if(ednkt.length()==0){
+                            ed_ngaykt.setError("Trường không được bỏ trống");
+                            return;
+                        }else if(edsn.length()==0){
+                            ed_songuoithue.setError("Trường không được bỏ trống");
+                            return;
+                        }else if(!checkDateFormat(ednky)){
+                            ed_ngayky.setError("Sai định dạng");
+                            return;
+                        }else if(!checkDateFormat(ednbd)){
+                            ed_ngaybd.setError("Sai định dạng");
+                            return;
+                        }else if(!checkDateFormat(ednkt)){
+                            ed_ngaykt.setError("Sai định dạng");
+                            return;
+                        }
+
+
+
                         HopDong objHopDong = new HopDong();
-                        objHopDong.setId_hop_dong(sp_phong.getSelectedItem() + "" + sp_tvien.getSelectedItem());
+                        Phong objPhong = (Phong) sp_phong.getSelectedItem();
+                        NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
+                        objHopDong.setId_hop_dong(objPhong.getIDPhong() + objNguoiThue.getHoTen());
                         objHopDong.setId_chu_tro("1");
-                        objHopDong.setId_phong(sp_phong.getSelectedItem()+"");
-                        objHopDong.setId_thanh_vien(sp_tvien.getSelectedItem()+"");
+
+                        objHopDong.setId_phong(objPhong.getIDPhong());
+                        objHopDong.setId_thanh_vien(objNguoiThue.getID_thanhvien());
                         objHopDong.setKyHan(ed_kyhan.getEditText().getText().toString());
                         objHopDong.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
                         objHopDong.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());
@@ -165,7 +211,6 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                                 Toast.makeText(HopDongActivity.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
                             }
                         });
-
 
                         dialog.dismiss();
                     }
@@ -205,4 +250,49 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
 
         return arr;
     }
+
+    public ArrayList<Phong> getSPPHong(){
+        ArrayList<Phong> arr = new ArrayList<>();
+        fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for(QueryDocumentSnapshot document : value){
+                    Phong objPhong = document.toObject(Phong.class);
+                    if(objPhong.getTrangThai().equalsIgnoreCase("Trống")) {
+                        arr.add(objPhong);
+                    }
+                }
+            }
+        });
+        return arr;
+}
+
+    public ArrayList<NguoiThue> getSPNguoiThue(){
+        ArrayList<NguoiThue> arr = new ArrayList<>();
+        fb.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for(QueryDocumentSnapshot document : value){
+                    NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
+                    arr.add(objNguoiThue);
+                }
+            }
+        });
+        return arr;
+    }
+
+    public Boolean checkDateFormat(String date){
+        if (date == null || !date.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$"))
+            return false;
+        SimpleDateFormat format=new SimpleDateFormat("yyyy-mm-dd");
+        try {
+            format.parse(date);
+            return true;
+        }catch (ParseException e){
+            return false;
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package net.fpl.beehome;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,8 +12,12 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.EventListener;
@@ -21,7 +26,10 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.Adapter.SuCo.SuCoAdapter;
+import net.fpl.beehome.model.HopDong;
+import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.model.SuCo;
 
 import java.util.ArrayList;
@@ -48,6 +56,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         swipeRefreshLayout = findViewById(R.id.sw_rv);
 
         ArrayList<SuCo> arr = getAll();
+        ArrayList<Phong> arrphong = getSPPHong();
         suCoAdapter = new SuCoAdapter(arr);
         rv_cs.setAdapter(suCoAdapter);
 
@@ -62,18 +71,53 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 TextInputLayout ed_mota = dialog.findViewById(R.id.ed_mota);
                 TextInputLayout ed_ngbao = dialog.findViewById(R.id.ed_ngaybaocao) ;
+                Button btn_bc = dialog.findViewById(R.id.btn_bc);
                 Spinner sp_phong = dialog.findViewById(R.id.sp_hd_phong);
 
-                String[] val = {"P101","P102","P103","P104"};
-                ArrayList<String> arr_p = new ArrayList<>(Arrays.asList(val));
-                ArrayAdapter arrayAdapter = new ArrayAdapter(SuCoActivity.this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, arr_p);
-                sp_phong.setAdapter(arrayAdapter);
+                SpinnerPhongAdapter spinnerPhongAdapter = new SpinnerPhongAdapter(arrphong);
+                sp_phong.setAdapter(spinnerPhongAdapter);
 
                 Calendar calendar = Calendar.getInstance();
                 final int y = calendar.get(Calendar.YEAR);
                 final int m = calendar.get(Calendar.MONTH);
                 final int d = calendar.get(Calendar.DAY_OF_MONTH);
                 ed_ngbao.getEditText().setText(y +"/"+m+"/"+d);
+
+
+
+                btn_bc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(ed_mota.getEditText().getText().toString().length()==0 || ed_mota.getEditText().getText().toString().length()<5){
+                            ed_mota.setError("Độ dài ký tự không hợp lệ (5 đến 30 ký tự)");
+                            return;
+                        }
+
+                        SuCo objSuCo = new SuCo();
+                        Phong objPhong = (Phong) sp_phong.getSelectedItem();
+                        objSuCo.setId_phong(objPhong.getIDPhong());
+                        objSuCo.setMoTa(ed_mota.getEditText().getText().toString());
+                        objSuCo.setNgayBaoCao(ed_ngbao.getEditText().getText().toString());
+
+                        fb.collection(SuCo.TB_NAME).document()
+                                .set(objSuCo)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(SuCoActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                        suCoAdapter.notifyDataSetChanged();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(SuCoActivity.this, "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        dialog.dismiss();
+                    }
+                });
 
                 dialog.show();
             }
@@ -108,6 +152,23 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
 
+        return arr;
+    }
+
+    public ArrayList<Phong> getSPPHong(){
+        ArrayList<Phong> arr = new ArrayList<>();
+        fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for(QueryDocumentSnapshot document : value){
+                    Phong objPhong = document.toObject(Phong.class);
+                    if(objPhong.getTrangThai().equalsIgnoreCase("Đang thuê")) {
+                        arr.add(objPhong);
+                    }
+                }
+            }
+        });
         return arr;
     }
 }
