@@ -60,6 +60,7 @@
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
+            app:errorEnabled="true"
             app:boxCornerRadiusTopStart="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -87,13 +88,14 @@
             app:boxCornerRadiusTopEnd="16dp"
             app:boxCornerRadiusTopStart="16dp"
             android:hint="Ngày Ký"
+            app:errorEnabled="true"
+
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date"
-
+                android:inputType="datetime"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -113,6 +115,8 @@
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
             app:boxCornerRadiusTopStart="16dp"
+            app:errorEnabled="true"
+
             app:startIconDrawable="@drawable/ic_day"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -140,6 +144,8 @@
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
             app:boxCornerRadiusTopStart="16dp"
+            app:errorEnabled="true"
+
             app:startIconDrawable="@drawable/ic_day"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -168,6 +174,7 @@
             app:boxCornerRadiusBottomEnd="16dp"
             app:boxCornerRadiusBottomStart="16dp"
             app:boxCornerRadiusTopEnd="16dp"
+            app:errorEnabled="true"
             app:startIconDrawable="@drawable/ic_user"
             app:boxCornerRadiusTopStart="16dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
