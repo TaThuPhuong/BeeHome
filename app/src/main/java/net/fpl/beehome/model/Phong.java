@@ -4,13 +4,13 @@ public class Phong {
     private String IDPhong, soPhong, trangThai, vatTu;
     private int giaPhong, soDienDau, soNuocDau;
     public static final String TB_NAME = "tb_phong";
-    public static final String COL_ID = "id_phong";
-    public static final String COL_SO_PHONG = "so_phong";
-    public static final String COL_VAT_TU = "vat_tu";
+    public static final String COL_ID = "IDPhong";
+    public static final String COL_SO_PHONG = "soPhong";
+    public static final String COL_VAT_TU = "vatTu";
     public static final String COL_TRANG_THAI = "trangThai";
-    public static final String COL_GIA_PHONG = "gia_phong";
-    public static final String COL_SO_DIEN_DAU = "so_dien_dau";
-    public static final String COL_SO_NUOC_DAU = "so_nuoc_dau";
+    public static final String COL_GIA_PHONG = "giaPhong";
+    public static final String COL_SO_DIEN_DAU = "soDienDau";
+    public static final String COL_SO_NUOC_DAU = "soNuocDau";
 
     public Phong() {
     }
