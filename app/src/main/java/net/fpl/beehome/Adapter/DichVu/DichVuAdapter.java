@@ -20,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -217,7 +219,7 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
                         dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
                         dichVu.setDonVi(edDonVi.getText().toString());
 
-                        dichVuDAO.updateDichVu(dichVu);
+                        updateDichVu(dichVu);
                         notifyDataSetChanged();
                         alertDialog.dismiss();
                     }
@@ -230,5 +232,28 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
                     alertDialog.dismiss();
                 }
             });
+    }
+
+    public void updateDichVu(DichVu dichVu){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> map = new HashMap<>();
+        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
+        map.put(DichVu.COL_DONVI, dichVu.getDonVi());
+        map.put(DichVu.COL_GIA, dichVu.getGia());
+
+        db.collection(DichVu.TB_NAME).document("DV - " + dichVu.getTenDichVu()).update(map)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        dichVuDAO.thongbao(0, "Sửa dịch vụ thành công");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        dichVuDAO.thongbao(1, "Sửa dịch vụ thất bại");
+                    }
+                });
     }
 }
