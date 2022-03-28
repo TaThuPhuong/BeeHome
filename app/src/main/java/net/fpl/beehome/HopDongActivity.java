@@ -64,8 +64,9 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         ArrayList<HopDong> arr = getAll();
         ArrayList<Phong> arrphong = getSPPHong();
         ArrayList<NguoiThue> arrnguoithue = getSPNguoiThue();
+        ArrayList<Phong> arrallphong = getAllPHong();
 
-        hopDongAdapter = new HopDongAdapter(arr, HopDongActivity.this, fb, arrphong, arrnguoithue);
+        hopDongAdapter = new HopDongAdapter(arr, HopDongActivity.this, fb, arrallphong, arrnguoithue);
         rv_hd.setAdapter(hopDongAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -213,7 +214,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         HopDong objHopDong = new HopDong();
                         Phong objPhong = (Phong) sp_phong.getSelectedItem();
                         NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
-                        objHopDong.setId_hop_dong(objPhong.getIDPhong() + objNguoiThue.getHoTen());
+                        objHopDong.setId_hop_dong(objPhong.getIDPhong() + objNguoiThue.getHoTen()+ed_songuoithue.getEditText().getText().toString());
                         objHopDong.setId_chu_tro("1");
 
                         objHopDong.setId_phong(objPhong.getIDPhong());
@@ -309,6 +310,21 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         });
         return arr;
 }
+
+    public ArrayList<Phong> getAllPHong(){
+        ArrayList<Phong> arr = new ArrayList<>();
+        fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for(QueryDocumentSnapshot document : value){
+                    Phong objPhong = document.toObject(Phong.class);
+                        arr.add(objPhong);
+                }
+            }
+        });
+        return arr;
+    }
 
     public ArrayList<NguoiThue> getSPNguoiThue(){
         ArrayList<NguoiThue> arr = new ArrayList<>();
