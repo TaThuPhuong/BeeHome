@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:menu="@menu/menu_toolbar_right"
             app:popupTheme="@style/Theme.BeeHome.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -24,10 +25,10 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomnav"
-        android:layout_marginTop="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginTop="3dp"
         app:menu="@menu/main"
         tools:layout_editor_absoluteX="-16dp" />
 

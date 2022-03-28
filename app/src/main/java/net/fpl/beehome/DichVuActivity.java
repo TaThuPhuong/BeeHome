@@ -17,10 +17,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -50,11 +53,10 @@ public class DichVuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_dich_vu);
 
-        addDichVu();
-
         dichVuDAO = new DichVuDAO(this);
         dichVuAdapter = new DichVuAdapter(dichVuDAO, list);
 
+        addDichVu();
 
         rcv_dichVu = findViewById(R.id.rcv_dichVu);
         fab_dichVu = findViewById(R.id.fab_dichVu);
@@ -73,17 +75,19 @@ public class DichVuActivity extends AppCompatActivity {
     public void addDichVu(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
         DichVu dichVu = new DichVu("Dien", 3000, "Kw");
-        db.collection(DichVu.TB_NAME).document("Dien").set(dichVu, SetOptions.merge());
+        db.collection(DichVu.TB_NAME).document("DV - Dien").set(dichVu, SetOptions.merge());
 
         DichVu dichVu1 = new DichVu("Nuoc", 20000, "Khoi");
-        db.collection(DichVu.TB_NAME).document("Nuoc").set(dichVu1, SetOptions.merge());
+        db.collection(DichVu.TB_NAME).document("DV - Nuoc").set(dichVu1, SetOptions.merge());
 
         DichVu dichVu2 = new DichVu("Ve sinh", 20000, "Nguoi");
-        db.collection(DichVu.TB_NAME).document("Ve sinh").set(dichVu2, SetOptions.merge());
+        db.collection(DichVu.TB_NAME).document("DV - Ve sinh").set(dichVu2, SetOptions.merge());
 
         DichVu dichVu3 = new DichVu("Mang", 200000, "Phong");
-        db.collection(DichVu.TB_NAME).document("Mang").set(dichVu3, SetOptions.merge());
+        db.collection(DichVu.TB_NAME).document("DV - Mang").set(dichVu3, SetOptions.merge());
+
     }
 
     public void hienThi(){
@@ -96,7 +100,7 @@ public class DichVuActivity extends AppCompatActivity {
                     list.clear();
                     for (QueryDocumentSnapshot snapshot : value){
                         DichVu dichVu = snapshot.toObject(DichVu.class);
-                        Log.e("TAG", "onComplete: "+dichVu.toString() );
+                        Log.e("TAG", "onComplete: "+snapshot.getId() + " / " + snapshot.getData());
                         list.add(dichVu);
                         dichVuAdapter.notifyDataSetChanged();
 

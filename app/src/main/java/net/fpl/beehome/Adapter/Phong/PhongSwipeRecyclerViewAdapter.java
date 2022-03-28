@@ -1,22 +1,34 @@
 package net.fpl.beehome.Adapter.Phong;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Phong;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -25,11 +37,14 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
 
     private Context mContext;
     private ArrayList<Phong> lsPhong;
+    private FirebaseFirestore fb;
 
-    public PhongSwipeRecyclerViewAdapter(Context context, ArrayList<Phong> lsPhong) {
+    public PhongSwipeRecyclerViewAdapter(Context context, ArrayList<Phong> lsPhong, FirebaseFirestore fb) {
         this.mContext = context;
         this.lsPhong = lsPhong;
+        this.fb = fb;
     }
+
     @SuppressLint("ResourceAsColor")
     public void mauTrangThai(String trangThai, TextView tv) {
         switch (trangThai) {
@@ -44,6 +59,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                 break;
         }
     }
+
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_phong_swipe, parent, false);
@@ -58,9 +74,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         viewHolder.tvTrangThai.setText(phong.getTrangThai());
         mauTrangThai(phong.getTrangThai(), viewHolder.tvTrangThai);
 
-
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-
         // Drag From Left
 //        viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper1));
 
@@ -101,22 +115,51 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
             }
         });
 
-        viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             }
         });
 
 
-        viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
-//                studentList.remove(position);
-//                notifyItemRemoved(position);
-//                notifyItemRangeChanged(position, studentList.size());
-//                mItemManger.closeAllItems();
-//                Toast.makeText(view.getContext(), "Deleted " + viewHolder.tvName.getText().toString(), Toast.LENGTH_SHORT).show();
+                Dialog dialog = new Dialog(mContext, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                dialog.setContentView(R.layout.dialog_xoa);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+                TextView tvDelete = dialog.findViewById(R.id.tv_co);
+                TextView tvCancel = dialog.findViewById(R.id.tv_khong);
+                tvDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fb.collection(Phong.TB_NAME).document(phong.getIDPhong())
+                                .delete()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(mContext, "Xóa Thành công", Toast.LENGTH_SHORT).show();
+                                        notifyDataSetChanged();
+                                        mItemManger.closeAllItems();
+                                        dialog.dismiss();
+                                    }
+                                });
+                    }
+                });
+                tvCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+        });
+        viewHolder.tvInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -139,19 +182,16 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         SwipeLayout swipeLayout;
         TextView tvPhong, tvTrangThai;
-        LinearLayout btnEdit, btnDelete;
-        ImageButton btnLocation;
+        LinearLayout tvInfo, tvEdit, tvDelete;
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             tvPhong = itemView.findViewById(R.id.tv_phong);
             tvTrangThai = itemView.findViewById(R.id.tv_trang_thai);
-            btnEdit = itemView.findViewById(R.id.btn_edit);
-            btnDelete = itemView.findViewById(R.id.btn_delete);
-//            btnLocation = (ImageButton) itemView.findViewById(R.id.btnLocation);
-
-
+            tvInfo = itemView.findViewById(R.id.tv_info);
+            tvEdit = itemView.findViewById(R.id.tv_edit);
+            tvDelete = itemView.findViewById(R.id.tv_delete);
         }
     }
 }

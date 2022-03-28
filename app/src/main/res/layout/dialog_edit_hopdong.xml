@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Thêm Hợp Đồng"
+        android:text="Sửa Hợp Đồng"
         android:textStyle="bold"
         android:textSize="24dp"
         android:gravity="center"
@@ -204,4 +204,9 @@
     </LinearLayout>
 
     </ScrollView>
+
+
+
+
+
 </LinearLayout>
