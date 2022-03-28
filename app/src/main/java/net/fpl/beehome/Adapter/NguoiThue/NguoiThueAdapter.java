@@ -17,11 +17,9 @@ import java.util.ArrayList;
 
 public class NguoiThueAdapter extends RecyclerView.Adapter<NguoiThueAdapter.NguoiThueViewHodel> {
     ArrayList<NguoiThue> arr;
-    NguoiThueDAO nguoiThueDAO;
 
-    public NguoiThueAdapter(NguoiThueDAO nguoiThueDAO){
-        this.nguoiThueDAO = nguoiThueDAO;
-        this.arr = nguoiThueDAO.getall();
+    public NguoiThueAdapter(ArrayList<NguoiThue>list){
+       this.arr = list;
     }
 
 
