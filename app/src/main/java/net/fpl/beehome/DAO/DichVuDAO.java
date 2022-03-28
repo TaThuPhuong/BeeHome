@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -83,7 +84,7 @@ public class DichVuDAO {
         map.put(DichVu.COL_GIA, dichVu.getGia());
         map.put(DichVu.COL_DONVI, dichVu.getDonVi());
 
-        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).set(map)
+        db.collection(DichVu.TB_NAME).document("DV - " + dichVu.getTenDichVu()).set(map)
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -101,24 +102,23 @@ public class DichVuDAO {
     public void updateDichVu(DichVu dichVu){
 
         Map<String, Object> map = new HashMap<>();
-        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
         map.put(DichVu.COL_GIA, dichVu.getGia());
-        map.put(DichVu.COL_DONVI, dichVu.getDonVi());
 
-        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).update(map)
+        db.collection(DichVu.TB_NAME).document("DV - " + dichVu.getTenDichVu()).update(map)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         thongbao(0, "Sửa dịch vụ thành công");
                     }
                 })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                thongbao(1, "Sửa dịch vụ thất bại");
-            }
-        });
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        thongbao(1, "Sửa dịch vụ thất bại");
+                    }
+                });
     }
+
 
     public void deleteDichVu(DichVu dichVu){
 
@@ -127,7 +127,7 @@ public class DichVuDAO {
         map.put(DichVu.COL_GIA, FieldValue.delete());
         map.put(DichVu.COL_DONVI, FieldValue.delete());
 
-        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).delete()
+        db.collection(DichVu.TB_NAME).document("DV - " + dichVu.getTenDichVu()).delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
