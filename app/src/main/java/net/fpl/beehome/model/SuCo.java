@@ -1,7 +1,7 @@
 package net.fpl.beehome.model;
 
 public class  SuCo {
-    String id_phong, moTa, ngayBaoCao;
+    String id_suco,id_phong, moTa, ngayBaoCao;
 
     public static final String TB_NAME = "tb_suCo";
     public static final String COL_IDPHONG = "moTa";
@@ -33,5 +33,13 @@ public class  SuCo {
 
     public void setNgayBaoCao(String ngayBaoCao) {
         this.ngayBaoCao = ngayBaoCao;
+    }
+
+    public String getId_suco() {
+        return id_suco;
+    }
+
+    public void setId_suco(String id_suco) {
+        this.id_suco = id_suco;
     }
 }

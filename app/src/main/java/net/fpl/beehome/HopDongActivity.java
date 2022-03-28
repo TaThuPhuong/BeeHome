@@ -3,6 +3,7 @@ package net.fpl.beehome;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -57,15 +58,15 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         rv_hd = findViewById(R.id.rv_hd);
         fb = FirebaseFirestore.getInstance();
         swipeRefreshLayout = findViewById(R.id.sw_rv);
+        rv_hd.setLayoutManager(new LinearLayoutManager(this));
 
 
         ArrayList<HopDong> arr = getAll();
-        hopDongAdapter = new HopDongAdapter(arr);
-        rv_hd.setAdapter(hopDongAdapter);
-
         ArrayList<Phong> arrphong = getSPPHong();
         ArrayList<NguoiThue> arrnguoithue = getSPNguoiThue();
 
+        hopDongAdapter = new HopDongAdapter(arr, HopDongActivity.this, fb, arrphong, arrnguoithue);
+        rv_hd.setAdapter(hopDongAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
 
 
