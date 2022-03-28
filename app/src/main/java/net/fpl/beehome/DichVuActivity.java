@@ -53,11 +53,10 @@ public class DichVuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_dich_vu);
 
-        addDichVu();
-
         dichVuDAO = new DichVuDAO(this);
         dichVuAdapter = new DichVuAdapter(dichVuDAO, list);
 
+        addDichVu();
 
         rcv_dichVu = findViewById(R.id.rcv_dichVu);
         fab_dichVu = findViewById(R.id.fab_dichVu);
@@ -76,6 +75,7 @@ public class DichVuActivity extends AppCompatActivity {
     public void addDichVu(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
         DichVu dichVu = new DichVu("Dien", 3000, "Kw");
         db.collection(DichVu.TB_NAME).document("DV - Dien").set(dichVu, SetOptions.merge());
 
@@ -87,6 +87,7 @@ public class DichVuActivity extends AppCompatActivity {
 
         DichVu dichVu3 = new DichVu("Mang", 200000, "Phong");
         db.collection(DichVu.TB_NAME).document("DV - Mang").set(dichVu3, SetOptions.merge());
+
     }
 
     public void hienThi(){
