@@ -3,6 +3,7 @@ package net.fpl.beehome;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -57,11 +58,27 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         ArrayList<SuCo> arr = getAll();
         ArrayList<Phong> arrphong = getSPPHong();
-        suCoAdapter = new SuCoAdapter(arr);
+        rv_cs.setLayoutManager(new LinearLayoutManager(this));
+
+        suCoAdapter = new SuCoAdapter(arr, arrphong, SuCoActivity.this, fb);
         rv_cs.setAdapter(suCoAdapter);
 
 
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        rv_cs.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.e("RecyclerView", "onScrollStateChanged");
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
 
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +113,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                         SuCo objSuCo = new SuCo();
                         Phong objPhong = (Phong) sp_phong.getSelectedItem();
+                        objSuCo.setId_suco(objPhong.getIDPhong()+ed_mota.getEditText().getText().toString()+ed_ngbao.getEditText().getText().toString());
                         objSuCo.setId_phong(objPhong.getIDPhong());
                         objSuCo.setMoTa(ed_mota.getEditText().getText().toString());
                         objSuCo.setNgayBaoCao(ed_ngbao.getEditText().getText().toString());
