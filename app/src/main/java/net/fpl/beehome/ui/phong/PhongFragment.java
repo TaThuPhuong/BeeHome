@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,7 +20,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import net.fpl.beehome.Adapter.Phong.PhongRecycleView;
 import net.fpl.beehome.Adapter.Phong.PhongSwipeRecyclerViewAdapter;
 import net.fpl.beehome.DAO.PhongDAO;
 import net.fpl.beehome.R;
@@ -33,7 +31,6 @@ public class PhongFragment extends Fragment {
     FloatingActionButton fab;
     FirebaseFirestore fb;
     PhongDAO phongDAO;
-    PhongRecycleView phongRecycleView;
     ArrayList<Phong> lsPhong;
     RecyclerView recyclerView;
     TextView tvTongPhong, tvPhongTrong;
@@ -55,10 +52,8 @@ public class PhongFragment extends Fragment {
         fab = view.findViewById(R.id.floating_action_button);
         phongDAO = new PhongDAO(fb, getContext());
         lsPhong = new ArrayList<>();
-//        phongRecycleView = new PhongRecycleView(getLsPhong(), phongDAO, getContext());
-//        recyclerView.setAdapter(phongRecycleView);
-//        registerForContextMenu(recyclerView);
-        phongSwipeRecyclerViewAdapter = new PhongSwipeRecyclerViewAdapter(getContext(), getLsPhong());
+
+        phongSwipeRecyclerViewAdapter = new PhongSwipeRecyclerViewAdapter(getContext(), getLsPhong(), fb);
         recyclerView.setAdapter(phongSwipeRecyclerViewAdapter);
 
     }
@@ -71,10 +66,7 @@ public class PhongFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 phongDAO.showDialogThem();
-//                phongRecycleView = new PhongRecycleView(getLsPhong(), phongDAO, getContext());
-//                phongRecycleView.notifyDataSetChanged();
-//                recyclerView.setAdapter(phongRecycleView);
-                phongSwipeRecyclerViewAdapter = new PhongSwipeRecyclerViewAdapter(getContext(), getLsPhong());
+                phongSwipeRecyclerViewAdapter = new PhongSwipeRecyclerViewAdapter(getContext(), getLsPhong(),fb);
                 phongSwipeRecyclerViewAdapter.notifyDataSetChanged();
                 recyclerView.setAdapter(phongSwipeRecyclerViewAdapter);
             }
@@ -97,7 +89,7 @@ public class PhongFragment extends Fragment {
                             Log.d("zzzzzz", "onComplete: " + phong.toString());
                             lsPhong.add(phong);
                             tvTongPhong.setText("Tổng số phòng - " + lsPhong.size());
-//                            phongRecycleView.notifyDataSetChanged();
+                            phongSwipeRecyclerViewAdapter.notifyDataSetChanged();
                             phongSwipeRecyclerViewAdapter.notifyDataSetChanged();
                         }
 
@@ -107,29 +99,4 @@ public class PhongFragment extends Fragment {
                 });
         return lsPhong;
     }
-//
-//    @Override
-//    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
-//        super.onCreateContextMenu(menu, v, menuInfo);
-//        getActivity().getMenuInflater().inflate(R.menu.long_click_item_menu, menu);
-//        menu.setHeaderTitle("Chọn");
-//    }
-//
-//    @Override
-//    public boolean onContextItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.mnu_chi_tiet:
-//
-//                break;
-//            case R.id.mnu_cap_nhap:
-//                break;
-//            case R.id.mnu_xoa:
-//                break;
-//        }
-//        return true;
-//    }
-//
-//    public void showDetail(){
-//
-//    }
 }
