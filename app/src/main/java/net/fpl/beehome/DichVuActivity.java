@@ -64,7 +64,7 @@ public class DichVuActivity extends AppCompatActivity {
         fab_dichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dichVuAdapter.showDialog(DichVuActivity.this);
+                dichVuAdapter.showDialog(DichVuActivity.this, 0 , 0);
             }
         });
 
@@ -77,11 +77,9 @@ public class DichVuActivity extends AppCompatActivity {
         db.collection(DichVu.TB_NAME).document("Dien").set(dichVu, SetOptions.merge());
 
         DichVu dichVu1 = new DichVu("Nuoc", 20000, "Khoi");
-
         db.collection(DichVu.TB_NAME).document("Nuoc").set(dichVu1, SetOptions.merge());
 
         DichVu dichVu2 = new DichVu("Ve sinh", 20000, "Nguoi");
-
         db.collection(DichVu.TB_NAME).document("Ve sinh").set(dichVu2, SetOptions.merge());
 
         DichVu dichVu3 = new DichVu("Mang", 200000, "Phong");
