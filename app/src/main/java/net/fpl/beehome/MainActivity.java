@@ -2,7 +2,10 @@ package net.fpl.beehome;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -40,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
         ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.user);
-        ab.setDisplayHomeAsUpEnabled(true);
+//        ab.setHomeAsUpIndicator(R.drawable.user);
+//        ab.setDisplayHomeAsUpEnabled(true);
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
         setTitle("Xin chào " + mySharedPreferences.getUser(MySharedPreferences.USER_KEY));
 
@@ -91,9 +94,16 @@ public class MainActivity extends AppCompatActivity {
     //nhấn vào icon menu thì mở ra
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            drawer.openDrawer(GravityCompat.START);
+//        int id = item.getItemId();
+//        if (id == android.R.id.) {
+//            drawer.openDrawer(GravityCompat.START);
+//        }
+        switch (item.getItemId()) {
+            case R.id.menu_user:
+                drawer.openDrawer(GravityCompat.START);
+                break;
+            case R.id.menu_thong_bao:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -138,5 +148,10 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_toolbar_right, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }

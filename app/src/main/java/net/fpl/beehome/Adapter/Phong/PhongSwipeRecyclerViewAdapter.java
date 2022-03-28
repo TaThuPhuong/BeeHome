@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         this.mContext = context;
         this.lsPhong = lsPhong;
     }
+
     @SuppressLint("ResourceAsColor")
     public void mauTrangThai(String trangThai, TextView tv) {
         switch (trangThai) {
@@ -44,6 +47,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                 break;
         }
     }
+
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_phong_swipe, parent, false);
@@ -58,9 +62,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         viewHolder.tvTrangThai.setText(phong.getTrangThai());
         mauTrangThai(phong.getTrangThai(), viewHolder.tvTrangThai);
 
-
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-
         // Drag From Left
 //        viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper1));
 
@@ -101,14 +103,14 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
             }
         });
 
-        viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             }
         });
 
 
-        viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                mItemManger.removeShownLayouts(viewHolder.swipeLayout);
@@ -117,6 +119,12 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
 //                notifyItemRangeChanged(position, studentList.size());
 //                mItemManger.closeAllItems();
 //                Toast.makeText(view.getContext(), "Deleted " + viewHolder.tvName.getText().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        viewHolder.tvInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -139,16 +147,16 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         SwipeLayout swipeLayout;
         TextView tvPhong, tvTrangThai;
-        LinearLayout btnEdit, btnDelete;
-        ImageButton btnLocation;
+        LinearLayout tvInfo, tvEdit, tvDelete;
 
         public SimpleViewHolder(View itemView) {
             super(itemView);
             swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
             tvPhong = itemView.findViewById(R.id.tv_phong);
             tvTrangThai = itemView.findViewById(R.id.tv_trang_thai);
-            btnEdit = itemView.findViewById(R.id.btn_edit);
-            btnDelete = itemView.findViewById(R.id.btn_delete);
+            tvInfo = itemView.findViewById(R.id.tv_info);
+            tvEdit = itemView.findViewById(R.id.tv_edit);
+            tvDelete = itemView.findViewById(R.id.tv_delete);
 //            btnLocation = (ImageButton) itemView.findViewById(R.id.btnLocation);
 
 

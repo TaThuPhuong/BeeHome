@@ -7,5 +7,6 @@
         android:type="sweep"
         android:centerY="100%"
         android:centerX="100%"
+        android:angle="0"
         />
 </shape>
