@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.SuCo.SuCoAdapter;
 import net.fpl.beehome.HopDongActivity;
@@ -114,6 +121,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        fb.collection(Phong.TB_NAME).document(objHopDong.getId_phong()).update(Phong.COL_TRANG_THAI, "Trống");
                         fb.collection(HopDong.TB_NAME).document(objHopDong.getId_hop_dong())
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -159,7 +167,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
             @Override
             public void onClick(View view) {
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                dialog.setContentView(R.layout.dialog_add_hopdong);
+                dialog.setContentView(R.layout.dialog_edit_hopdong);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 Spinner sp_phong = dialog.findViewById(R.id.sp_hd_phong);
                 Spinner sp_tvien = dialog.findViewById(R.id.sp_hd_tvien);
@@ -286,7 +294,6 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
 
                         Phong objPhong = (Phong) sp_phong.getSelectedItem();
                         NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
-                        objHopDong.setId_hop_dong(objPhong.getIDPhong() + objNguoiThue.getHoTen());
                         objHopDong.setId_chu_tro("1");
                         objHopDong.setId_phong(objPhong.getIDPhong());
                         objHopDong.setId_thanh_vien(objNguoiThue.getID_thanhvien());
@@ -360,4 +367,5 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
             return false;
         }
     }
+
 }
