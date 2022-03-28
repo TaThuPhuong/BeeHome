@@ -110,7 +110,7 @@
                 android:id="@+id/btn_dangkinguoithue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="90dp"
                 android:text="Đăng Kí" />
 
             <Button

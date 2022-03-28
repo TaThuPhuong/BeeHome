@@ -3,16 +3,12 @@ package net.fpl.beehome.DAO;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -69,20 +65,5 @@ public class NguoiThueDAO {
                 }
             });
         }
-    }
-    public ArrayList<NguoiThue> getall(){
-        ArrayList<NguoiThue> arr = new ArrayList<>();
-        firestore.collection(NguoiThue.TB_NGUOITHUE)
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        arr.clear();
-                        for (QueryDocumentSnapshot documentSnapshot : value){
-                            NguoiThue objNguoiThue = documentSnapshot.toObject(NguoiThue.class);
-                            arr.add(objNguoiThue);
-                        }
-                    }
-                });
-        return arr;
     }
 }

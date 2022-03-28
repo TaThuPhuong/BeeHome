@@ -1,6 +1,7 @@
 package net.fpl.beehome;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -25,7 +27,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -57,18 +61,12 @@ public class NguoiThue_Activity extends AppCompatActivity {
         rc_nguoithue = findViewById(R.id.rc_nguoithue);
         fladd = findViewById(R.id.fl_nguoithue);
         firestore = FirebaseFirestore.getInstance();
-        nguoiThueDAO = new NguoiThueDAO(firestore, NguoiThue_Activity.this);
-        nguoiThueAdapter = new NguoiThueAdapter(nguoiThueDAO);
+        ArrayList<NguoiThue> list = getall();
+        nguoiThueAdapter = new NguoiThueAdapter(list);
+
         rc_nguoithue.setAdapter(nguoiThueAdapter);
         lsPhong = getIDPhong();
         Log.d("zzzzzzzz", "onComplete: " + lsPhong.size());
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                nguoiThueAdapter.notifyDataSetChanged();
-            }
-        }, 3000);
-
 
         fladd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +83,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                     Phong phong = documentSnapshot.toObject(Phong.class);
-                    if (phong.getTrangThai().equals("Trống")){
+                    if (phong.getTrangThai().equals("Đang thuê")){
                         ls.add(phong);
                     }
 
@@ -127,9 +125,16 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 String sodt = ed_sodt.getText().toString();
                 String email = ed_email.getText().toString();
                 String cccd = ed_cccd.getText().toString();
-                if (TextUtils.isEmpty(ten) || TextUtils.isEmpty(sodt) || TextUtils.isEmpty(email) || TextUtils.isEmpty(cccd)) {
-                    nguoiThueDAO.thongbaonguoithue(1,"Không Được Để Trống");
-                } else {
+                if (TextUtils.isEmpty(ten)) {
+                    nguoiThueDAO.thongbaonguoithue(1,"Không Được Để Trống Tên");
+                }else if (!isNumber(sodt.toString())){
+                    nguoiThueDAO.thongbaonguoithue(1,"Không Đúng Số Điện Thoại");
+                }else if (!isEmail(email.toString())){
+                    nguoiThueDAO.thongbaonguoithue(1,"Không Đúng Định Dạng Email");
+                }else if (cccd.length() != 12 ){
+                    nguoiThueDAO.thongbaonguoithue(1,"Căn Cước 12 Số");
+                }
+                else {
                     NguoiThue nguoiThue = new NguoiThue();
                     nguoiThue.setID_thanhvien(sodt);
                     nguoiThue.setHoTen(ten);
@@ -141,20 +146,17 @@ public class NguoiThue_Activity extends AppCompatActivity {
                     nguoiThue.setID_phong(phong.getIDPhong());
 
                     themNguoiThue(nguoiThue);
-                    firestore.collection(Phong.TB_NAME).document(phong.getIDPhong())
-                            .update(Phong.COL_TRANG_THAI,"Đang thuê")
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    lsPhong.clear();
-                                    lsPhong = getIDPhong();
-                                }
-                            });
                     dialog.dismiss();
                 }
             }
         });
 
+    }
+    public static boolean isEmail(CharSequence charSequence){
+        return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
+    }
+    public static boolean isNumber(CharSequence charSequence){
+        return !TextUtils.isEmpty(charSequence) && Patterns.PHONE.matcher(charSequence).matches();
     }
 
     private void themNguoiThue(NguoiThue nguoiThue) {
@@ -174,6 +176,21 @@ public class NguoiThue_Activity extends AppCompatActivity {
                     }
                 });
     }
-
+    public ArrayList<NguoiThue> getall(){
+        ArrayList<NguoiThue> arr = new ArrayList<>();
+        firestore.collection(NguoiThue.TB_NGUOITHUE)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        arr.clear();
+                        for (QueryDocumentSnapshot documentSnapshot : value){
+                            NguoiThue objNguoiThue = documentSnapshot.toObject(NguoiThue.class);
+                            arr.add(objNguoiThue);
+                            nguoiThueAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+        return arr;
+    }
 
 }
