@@ -110,8 +110,17 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"-" + i1 +"-" + i2;
-                                ed_ngayky.getEditText().setText(date);
+                                String month = String.valueOf(i1);
+                                String day = String.valueOf(i2);
+
+                                if(String.valueOf(i1).length() == 1){
+                                    month = "0"+i1;
+                                }
+                                if(String.valueOf(i2).length() == 1){
+                                    day = "0"+i2;
+                                }
+
+                                ed_ngayky.getEditText().setText(i + "-" +month + "-" + day);
                             }
                         },y,m,d);
                         dialog1.show();
@@ -123,8 +132,17 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"-" + i1 +"-" + i2;
-                                ed_ngaybd.getEditText().setText(date);
+                                String month = String.valueOf(i1);
+                                String day = String.valueOf(i2);
+
+                                if(String.valueOf(i1).length() == 1){
+                                    month = "0"+i1;
+                                }
+                                if(String.valueOf(i2).length() == 1){
+                                    day = "0"+i2;
+                                }
+
+                                ed_ngaybd.getEditText().setText(i + "-" +month + "-" + day);
                             }
                         },y,m,d);
                         dialog1.show();
@@ -136,8 +154,17 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"-" + i1 +"-" + i2;
-                                ed_ngaykt.getEditText().setText(date);
+                                String month = String.valueOf(i1);
+                                String day = String.valueOf(i2);
+
+                                if(String.valueOf(i1).length() == 1){
+                                    month = "0"+i1;
+                                }
+                                if(String.valueOf(i2).length() == 1){
+                                    day = "0"+i2;
+                                }
+
+                                ed_ngaykt.getEditText().setText(i + "-" +month + "-" + day);
                             }
                         },y,m,d);
                         dialog1.show();
@@ -203,6 +230,20 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
+                                        objPhong.setTrangThai("Đang thuê");
+                                        fb.collection(Phong.TB_NAME).document(objPhong.getIDPhong())
+                                                .set(objPhong)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        phongAdapter.notifyDataSetChanged();
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                    }
+                                                });
                                         Toast.makeText(HopDongActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                                         hopDongAdapter.notifyDataSetChanged();
                                     }
