@@ -34,6 +34,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.NguoiThue.NguoiThueAdapter;
+import net.fpl.beehome.Adapter.NguoiThue.NguoiThueSwip;
 import net.fpl.beehome.Adapter.NguoiThue.PhongSpinnerAdapter;
 import net.fpl.beehome.DAO.NguoiThueDAO;
 import net.fpl.beehome.model.NguoiThue;
@@ -50,7 +51,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
     RecyclerView rc_nguoithue;
     Button btn_them, btn_huy;
     NguoiThueDAO nguoiThueDAO;
-    NguoiThueAdapter nguoiThueAdapter;
+    NguoiThueSwip nguoiThueSwip;
     ArrayList<Phong> lsPhong;
     public PhongSpinnerAdapter phongSpinnerAdapter;
 
@@ -61,10 +62,11 @@ public class NguoiThue_Activity extends AppCompatActivity {
         rc_nguoithue = findViewById(R.id.rc_nguoithue);
         fladd = findViewById(R.id.fl_nguoithue);
         firestore = FirebaseFirestore.getInstance();
+        nguoiThueDAO = new NguoiThueDAO(firestore,getBaseContext());
         ArrayList<NguoiThue> list = getall();
-        nguoiThueAdapter = new NguoiThueAdapter(list);
+        nguoiThueSwip = new NguoiThueSwip(list,NguoiThue_Activity.this,firestore);
 
-        rc_nguoithue.setAdapter(nguoiThueAdapter);
+        rc_nguoithue.setAdapter(nguoiThueSwip);
         lsPhong = getIDPhong();
         Log.d("zzzzzzzz", "onComplete: " + lsPhong.size());
 
@@ -102,7 +104,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
         builder.setView(view);
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
+
         ed_ten = view.findViewById(R.id.ed_hovatennguoithue);
         ed_sodt = view.findViewById(R.id.ed_sodienthoainguoithue);
         ed_email = view.findViewById(R.id.ed_emailnguoithue);
@@ -150,7 +152,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 }
             }
         });
-
+        dialog.show();
     }
     public static boolean isEmail(CharSequence charSequence){
         return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
@@ -166,7 +168,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         nguoiThueDAO.thongbaonguoithue(0,"Thêm Thành Công");
-                        nguoiThueAdapter.notifyDataSetChanged();
+                        nguoiThueSwip.notifyDataSetChanged();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -186,11 +188,10 @@ public class NguoiThue_Activity extends AppCompatActivity {
                         for (QueryDocumentSnapshot documentSnapshot : value){
                             NguoiThue objNguoiThue = documentSnapshot.toObject(NguoiThue.class);
                             arr.add(objNguoiThue);
-                            nguoiThueAdapter.notifyDataSetChanged();
+                            nguoiThueSwip.notifyDataSetChanged();
                         }
                     }
                 });
         return arr;
     }
-
 }

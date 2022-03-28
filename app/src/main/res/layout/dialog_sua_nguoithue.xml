@@ -1,112 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
+
     <TextView
+        android:id="@+id/tv_themnguoithue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_themnguoithue"
-        android:text="Sửa Người Thuê"
+        android:background="@drawable/bg_rd_top_20dp"
         android:gravity="center"
         android:padding="10dp"
-        android:textSize="30dp"
-        android:background="@drawable/bg_rd_top_20dp"
-        ></TextView>
-    <TextView
-        android:paddingLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Họ Và Tên *"
-        />
-    <EditText
-        android:id="@+id/ed_suatennguoithue"
-        android:paddingLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Mời Bạn Nhập Họ Tên"
-        />
-    <TextView
-        android:paddingLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Số Điện Thoại"
-        android:textColor="@color/black"/>
-    <EditText
-        android:id="@+id/ed_suasodienthoainguoithue"
-        android:paddingLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Mời Bạn Nhập Số Điện Thoại"
-        />
-    <TextView
-        android:paddingLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Email"
-        android:textColor="@color/black"
-        />
-    <EditText
-        android:id="@+id/ed_suaemailnguoithue"
-        android:paddingLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Mời Bạn Nhập Email"
-        />
-    <TextView
-        android:paddingLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Số CMND/CCCD"
-        android:textColor="@color/black"
-        />
-    <EditText
-        android:id="@+id/ed_suacmndnguoithue"
-        android:paddingLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Nhập Số CMND/CCCD"
-        />
-    <TextView
-        android:paddingLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Chọn Phòng Thuê"
-        android:textColor="@color/black"
-        />
-    <Spinner
-        android:id="@+id/sp_suaphong"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        android:text="Sửa Người Thuê"
+        android:textColor="@color/white"
+        android:textSize="30dp"></TextView>
     <LinearLayout
-        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/bg_white_rd_bottom_20dp"
         >
-        <Button
-            android:id="@+id/btn_suadangkinguoithue"
-            android:layout_marginLeft="60dp"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đăng Kí"/>
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:text="Họ Và Tên *"
+            android:textColor="@color/black" />
 
-        <Button
-            android:id="@+id/btn_suahuynguoithue"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/ed_suatennguoithue"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:text="Hủy" />
+            android:layout_marginTop="10dp"
+            android:hint="Mời Bạn Nhập Họ Tên"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:text="Số Điện Thoại"
+
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/ed_suasdtnguoithue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Mời Bạn Nhập Số Điện Thoại"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:text="Email"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/ed_suaemailnguoithue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Mời Bạn Nhập Email"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:text="Số CMND/CCCD"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/ed_suacccdnguoithue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="Nhập Số CMND/CCCD"
+            android:paddingLeft="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:text="Chọn Phòng Thuê"
+            android:textColor="@color/black" />
+
+        <Spinner
+            android:id="@+id/spn_suaphong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_white_rd_bottom_20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_updatenguoithue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:text="Đăng Kí" />
+
+            <Button
+                android:id="@+id/btn_huysuanguoithue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="Hủy" />
+        </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>
