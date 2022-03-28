@@ -99,6 +99,26 @@ public class DichVuDAO {
         });
     }
 
+    public void updateDichVu(DichVu dichVu){
+
+        Map<String, Object> map = new HashMap<>();
+        map.put(DichVu.COL_GIA, dichVu.getGia());
+
+        db.collection(DichVu.TB_NAME).document("DV - " + dichVu.getTenDichVu()).update(map)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        thongbao(0, "Sửa dịch vụ thành công");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        thongbao(1, "Sửa dịch vụ thất bại");
+                    }
+                });
+    }
+
 
     public void deleteDichVu(DichVu dichVu){
 
@@ -127,7 +147,6 @@ public class DichVuDAO {
 
     public DichVu getDichVu(String name){
         ArrayList<DichVu> list = new ArrayList<>();
-
 
         db.collection(DichVu.TB_NAME).whereEqualTo(DichVu.COL_NAME, name).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

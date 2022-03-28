@@ -36,6 +36,10 @@
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/menu/long_click_item_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/menu/main.xml" value="0.2" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/background_btn_login.xml" value="0.152" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/background_dialog.xml" value="0.132" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_dialog_addhd.xml" value="0.132" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_gradient_violet.xml" value="0.132" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_gradient_violet_top_right.xml" value="0.132" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_mess.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_top_20dp.xml" value="0.152" />
@@ -51,7 +55,7 @@
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_don_vi_dich_vu.xml" value="0.264" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_don_vi_tinh.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_message.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.264" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_sua_nguoithue.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_them_dich_vu.xml" value="0.264" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/dialog_them_phong.xml" value="0.22826086956521738" />

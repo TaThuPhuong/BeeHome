@@ -220,7 +220,7 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
                         dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
                         dichVu.setDonVi(edDonVi.getText().toString());
 
-                        updateDichVu(dichVu);
+                        dichVuDAO.updateDichVu(dichVu);
                         notifyDataSetChanged();
                         alertDialog.dismiss();
                     }
@@ -235,27 +235,5 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
             });
     }
 
-    public void updateDichVu(DichVu dichVu){
-
-        Map<String, Object> map = new HashMap<>();
-        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
-        map.put(DichVu.COL_DONVI, dichVu.getDonVi());
-        map.put(DichVu.COL_GIA, dichVu.getGia());
-
-
-        db.collection(DichVu.TB_NAME).document("DV - " + dichVu.getTenDichVu()).update(map)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        dichVuDAO.thongbao(0, "Sửa dịch vụ thành công");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        dichVuDAO.thongbao(1, "Sửa dịch vụ thất bại");
-                    }
-                });
-    }
 
 }
