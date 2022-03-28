@@ -40,6 +40,7 @@
       android:layout_marginTop="20dp"
       app:layout_constraintBottom_toTopOf="@id/linearLayout4"
       app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      android:orientation="vertical"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/tv" />

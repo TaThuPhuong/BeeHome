@@ -18,9 +18,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     private ArrayList<Message> list;
 
-    public void setData(ArrayList<Message> list){
+    public MessageAdapter(ArrayList<Message> list) {
         this.list = list;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -43,10 +42,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public int getItemCount() {
-        if (list != null){
-            list.size();
-        }
-        return 0;
+        return list.size();
     }
 
     public class MessageViewHolder extends RecyclerView.ViewHolder{
