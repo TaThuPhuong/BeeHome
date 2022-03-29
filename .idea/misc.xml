@@ -85,15 +85,23 @@
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/fragment_slideshow.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/menu/main.xml" value="0.25" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable-v24/bg_row_hdsc.xml" value="0.1465" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/bg_tv_hopdong.xml" value="0.2" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_fragment_one.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_fragment_three.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_fragment_two.xml" value="0.12092391304347826" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_hop_dong.xml" value="0.264" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_login.xml" value="0.17119565217391305" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_main.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_screen.xml" value="0.12092391304347826" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_su_co.xml" value="0.2" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/app_bar_main.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/content_main.xml" value="0.12092391304347826" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_add_hopdong.xml" value="0.1693840579710145" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_edit_hopdong.xml" value="0.1693840579710145" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.264" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_hopdong.xml" value="0.264" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_suco.xml" value="0.264" />
         <entry key="app/src/main/res/drawable-v24/bg_dialog_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_hop_dong.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/dialog_delete_hopdong.xml" value="0.23641304347826086" />
