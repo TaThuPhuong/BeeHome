@@ -110,7 +110,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        nguoiThueDAO.thongbaonguoithue(1,"Xóa Thành Công");
+                                        Toast.makeText(context, "Xóa Thành Công", Toast.LENGTH_SHORT).show();
                                         notifyDataSetChanged();
                                         mItemManger.closeAllItems();
 
@@ -119,7 +119,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        nguoiThueDAO.thongbaonguoithue(0,"Xóa Thất Bại");
+                                        Toast.makeText(context, "Xóa Thất Bại", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                         dialog.dismiss();
