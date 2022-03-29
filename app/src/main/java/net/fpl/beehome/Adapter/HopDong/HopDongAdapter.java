@@ -326,6 +326,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 dialog.show();
             }
         });
+        mItemManger.bindView(viewHolder.itemView, position);
     }
 
     @Override

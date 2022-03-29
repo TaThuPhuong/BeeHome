@@ -113,6 +113,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                         SuCo objSuCo = new SuCo();
                         Phong objPhong = (Phong) sp_phong.getSelectedItem();
+                        objSuCo.setId_suco(objPhong.getIDPhong() + ed_mota.getEditText().getText().toString());
                         objSuCo.setId_suco(objPhong.getIDPhong()+ed_mota.getEditText().getText().toString()+ed_ngbao.getEditText().getText().toString());
                         objSuCo.setId_phong(objPhong.getIDPhong());
                         objSuCo.setMoTa(ed_mota.getEditText().getText().toString());
