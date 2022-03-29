@@ -1,8 +1,11 @@
 package net.fpl.beehome.Adapter.NguoiThue;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,9 +141,11 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         viewHolder.tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                dialog.setContentView(R.layout.dialog_sua_nguoithue);
-                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                view = View.inflate(context, R.layout.dialog_sua_nguoithue, null);
+                builder.setView(view);
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 dialog.show();
             }
