@@ -238,9 +238,9 @@ public class PhongFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
-                    case R.id.rdo_dang_thue:
-                        edTrangThai.setText("Đang thuê");
-                        break;
+//                    case R.id.rdo_dang_thue:
+//                        edTrangThai.setText("Đang thuê");
+//                        break;
                     case R.id.rdo_trong:
                         edTrangThai.setText("Trống");
                         break;

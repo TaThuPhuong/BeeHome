@@ -243,10 +243,10 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
             RadioButton rdoTrong = view.findViewById(R.id.rdo_trong);
             rdoTrong.setChecked(true);
         }
-        if (phong.getTrangThai().equalsIgnoreCase("Đang thuê")) {
-            RadioButton rdoDangThue = view.findViewById(R.id.rdo_dang_thue);
-            rdoDangThue.setChecked(true);
-        }
+//        if (phong.getTrangThai().equalsIgnoreCase("Đang thuê")) {
+//            RadioButton rdoDangThue = view.findViewById(R.id.rdo_dang_thue);
+//            rdoDangThue.setChecked(true);
+//        }
         if (phong.getTrangThai().equalsIgnoreCase("Đang sửa chữa")) {
             RadioButton rdoDangSua = view.findViewById(R.id.rdo_dang_sua);
             rdoDangSua.setChecked(true);
@@ -311,9 +311,9 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
-                    case R.id.rdo_dang_thue:
-                        edTrangThai.setText("Đang thuê");
-                        break;
+//                    case R.id.rdo_dang_thue:
+//                        edTrangThai.setText("Đang thuê");
+//                        break;
                     case R.id.rdo_trong:
                         edTrangThai.setText("Trống");
                         break;
