@@ -41,27 +41,30 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.hbb20.CountryCodePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cpp"/>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Số Điện Thoại"
             app:counterMaxLength="10"
             app:counterEnabled="true"
-            android:layout_marginTop="15dp"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_sdtnguoithue"
                 android:paddingTop="30dp"
-                android:maxLength="10"
+                android:id="@+id/ed_sdtnguoithue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:inputType="number"
+                android:maxLength="10"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
