@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="40dp"
-        android:text="Phòng - 201" />
+        android:text="Phòng - Trống" />
 
     <TextView
         android:layout_marginTop="20dp"
