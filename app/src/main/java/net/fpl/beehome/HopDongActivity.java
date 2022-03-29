@@ -1,19 +1,9 @@
 package net.fpl.beehome;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +13,13 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,7 +37,6 @@ import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
-
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -118,60 +114,6 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 arrkyhan.add(12);
                 ArrayAdapter arrayAdapter = new ArrayAdapter(dialog.getContext(), android.R.layout.simple_spinner_dropdown_item, arrkyhan);
                 sp_kyhan.setAdapter(arrayAdapter);
-                sp_kyhan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this , R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String monthbd = String.valueOf(i1);
-                                String daybd = String.valueOf(i2);
-
-                                if(String.valueOf(i1).length() == 1){
-                                    monthbd = "0"+i1;
-                                }
-                                if(String.valueOf(i2).length() == 1){
-                                    daybd = "0"+i2;
-                                }
-
-                                ed_ngaybd.getEditText().setText(i + "-" +monthbd + "-" + daybd);
-
-                                if(Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1 > 12){
-                                    int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1) - 12 ;
-                                    int iyearkt = i+1;
-                                    String daykt = String.valueOf(i2);
-                                    String monthkt = String.valueOf(imonthkt);
-
-                                    if(String.valueOf(imonthkt).length() == 1){
-                                        monthkt = "0"+monthkt;
-                                    }
-                                    if(String.valueOf(i2).length() == 1){
-                                        daykt = "0"+i2;
-                                    }
-                                    ed_ngaykt.getEditText().setText(iyearkt + "-" +monthkt + "-" + daykt);
-                                }else{
-                                    int imonthkt = Integer.parseInt(sp_kyhan.getSelectedItem()+"") + i1;
-                                    String daykt = String.valueOf(i2);
-                                    String monthkt = String.valueOf(imonthkt);
-                                    if(String.valueOf(imonthkt).length() == 1){
-                                        monthkt = "0"+monthkt;
-                                    }
-                                    if(String.valueOf(i2).length() == 1){
-                                        daykt = "0"+i2;
-                                    }
-                                    ed_ngaykt.getEditText().setText(i + "-" +monthkt + "-" + daykt);
-
-                                }
-                            }
-                        },y,m,d);
-                        dialog1.show();
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
 
                 ed_ngayky.getEditText().setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -238,6 +180,62 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                                     ed_ngaykt.getEditText().setText(i + "-" +monthkt + "-" + daykt);
 
                                 }
+
+                                sp_kyhan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this , R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
+                                            @Override
+                                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                                String monthbd = String.valueOf(i1);
+                                                String daybd = String.valueOf(i2);
+
+                                                if(String.valueOf(i1).length() == 1){
+                                                    monthbd = "0"+i1;
+                                                }
+                                                if(String.valueOf(i2).length() == 1){
+                                                    daybd = "0"+i2;
+                                                }
+
+                                                ed_ngaybd.getEditText().setText(i + "-" +monthbd + "-" + daybd);
+
+                                                if(Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1 > 12){
+                                                    int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1) - 12 ;
+                                                    int iyearkt = i+1;
+                                                    String daykt = String.valueOf(i2);
+                                                    String monthkt = String.valueOf(imonthkt);
+
+                                                    if(String.valueOf(imonthkt).length() == 1){
+                                                        monthkt = "0"+monthkt;
+                                                    }
+                                                    if(String.valueOf(i2).length() == 1){
+                                                        daykt = "0"+i2;
+                                                    }
+                                                    ed_ngaykt.getEditText().setText(iyearkt + "-" +monthkt + "-" + daykt);
+                                                }else{
+                                                    int imonthkt = Integer.parseInt(sp_kyhan.getSelectedItem()+"") + i1;
+                                                    String daykt = String.valueOf(i2);
+                                                    String monthkt = String.valueOf(imonthkt);
+                                                    if(String.valueOf(imonthkt).length() == 1){
+                                                        monthkt = "0"+monthkt;
+                                                    }
+                                                    if(String.valueOf(i2).length() == 1){
+                                                        daykt = "0"+i2;
+                                                    }
+                                                    ed_ngaykt.getEditText().setText(i + "-" +monthkt + "-" + daykt);
+
+                                                }
+                                            }
+                                        },y,m,d);
+                                        dialog1.show();
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                    }
+                                });
+
                             }
                         },y,m,d);
                         dialog1.show();
