@@ -178,6 +178,12 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
     public int getSwipeLayoutResourceId(int position) {
         return R.id.swipe;
     }
+
+    // Dialog thông tin chi tiết phòng
+    public void showDetail(Phong phong){
+
+    }
+
     // Dialog sửa thông tin phòng
     public void showDialogSua(Phong phong) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);

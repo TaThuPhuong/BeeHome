@@ -263,6 +263,9 @@ public class PhongFragment extends Fragment {
                         TextUtils.isEmpty(strTrangThai) || TextUtils.isEmpty(soDienDau) || TextUtils.isEmpty(soNuocDau)) {
                     thongBao("Điền đầy đủ thông tin các mục");
                     return;
+                } else if (checkIDPhong(soPhong)) {
+                    thongBao("Số phòng đã tồn tại");
+                    return;
                 } else {
                     Phong phong = new Phong();
                     phong.setIDPhong("P" + soPhong);
@@ -284,5 +287,12 @@ public class PhongFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+    }
+
+    public boolean checkIDPhong(String ID) {
+        if (fb.collection(Phong.TB_NAME).document(ID).get().getResult().exists()) {
+            return true;
+        }
+        return false;
     }
 }
