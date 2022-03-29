@@ -1,8 +1,8 @@
 package net.fpl.beehome.model;
 
 public class HopDong {
-    String id_hop_dong, id_chu_tro, id_phong, id_thanh_vien, KyHan, NgayKiHD, NgayBatDau, NgayKetThuc;
-    Double SoNguoiThue;
+    String id_hop_dong, id_chu_tro, id_phong, id_thanh_vien, NgayKiHD, NgayBatDau, NgayKetThuc;
+    Integer SoNguoiThue, KyHan;
 
     public static final String TB_NAME = "tb_hopDong";
     public static final String COL_IDHOPDONG = "id_hop_dong";
@@ -51,11 +51,11 @@ public class HopDong {
         this.id_thanh_vien = id_thanh_vien;
     }
 
-    public String getKyHan() {
+    public Integer getKyHan() {
         return KyHan;
     }
 
-    public void setKyHan(String kyHan) {
+    public void setKyHan(Integer kyHan) {
         KyHan = kyHan;
     }
 
@@ -83,11 +83,11 @@ public class HopDong {
         NgayKetThuc = ngayKetThuc;
     }
 
-    public Double getSoNguoiThue() {
+    public Integer getSoNguoiThue() {
         return SoNguoiThue;
     }
 
-    public void setSoNguoiThue(Double soNguoiThue) {
+    public void setSoNguoiThue(Integer soNguoiThue) {
         SoNguoiThue = soNguoiThue;
     }
 }

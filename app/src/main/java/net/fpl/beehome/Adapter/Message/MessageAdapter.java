@@ -1,5 +1,6 @@
 package net.fpl.beehome.Adapter.Message;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +10,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.fpl.beehome.R;
-import net.fpl.beehome.model.Message;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    private ArrayList<Message> list;
+    private ArrayList<String> list;
+    Context context;
 
-    public void setData(ArrayList<Message> list){
+    public MessageAdapter(ArrayList<String> list, Context context) {
         this.list = list;
+        this.context = context;
+    }
+
+    public void addMess(String mess){
+        list.add(mess);
         notifyDataSetChanged();
+    }
+
+    public MessageAdapter(ArrayList<String> list) {
+        this.list = list;
     }
 
     @NonNull
@@ -32,21 +41,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
-        Message message = list.get(position);
 
-        if (message == null){
-            return;
-        }
-
-        holder.tvMessage.setText(message.getMess());
+        holder.tvMessage.setText(list.get(position));
     }
 
     @Override
     public int getItemCount() {
-        if (list != null){
-            list.size();
-        }
-        return 0;
+        return list.size();
     }
 
     public class MessageViewHolder extends RecyclerView.ViewHolder{

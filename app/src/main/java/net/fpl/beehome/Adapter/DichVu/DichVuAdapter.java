@@ -11,15 +11,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -39,11 +44,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuViewHolder> {
+public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuViewHolder> {
 
     DichVuDAO dichVuDAO;
     ArrayList<DichVu> list;
-    DichVuActivity dichVuActivity;
 
     public static final String TAG = "123";
 
@@ -72,22 +76,70 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
         DichVu dichVu = list.get(position);
 
         holder.tv_tenDV.setText("Tên dịch vụ: " + dichVu.getTenDichVu());
-        holder.tv_gia.setText("Giá: " + String.valueOf(dichVu.getGia()) + " / " + dichVu.getDonVi());
+        holder.tv_gia.setText("Giá: " + String.valueOf(dichVu.getGia()) + " đ / " + dichVu.getDonVi());
 
-        holder.layoutDichVu.setOnClickListener(new View.OnClickListener() {
+        holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        // Drag From Left
+//        viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper1));
+
+        // Drag From Right
+        holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.bottom_wrapper));
+
+
+        // Handling different events when swiping
+        holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+            @Override
+            public void onClose(SwipeLayout layout) {
+                //when the SurfaceView totally cover the BottomView.
+            }
+
+            @Override
+            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+                //you are swiping.
+            }
+
+            @Override
+            public void onStartOpen(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onOpen(SwipeLayout layout) {
+                //when the BottomView totally show.
+            }
+
+            @Override
+            public void onStartClose(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+                //when user's hand released.
+            }
+        });
+
+
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialog(view.getContext(), 1, position);
+                mItemManger.closeAllItems();
+
             }
         });
 
-        holder.layoutDichVu.setOnLongClickListener(new View.OnLongClickListener() {
+        holder.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public void onClick(View view) {
                 showDialogSua(view.getContext(), dichVu, position);
-                return true;
+                mItemManger.closeAllItems();
             }
         });
+
+        // mItemManger is member in RecyclerSwipeAdapter Class
+        mItemManger.bindView(holder.itemView, position);
+
     }
 
     @Override
@@ -95,17 +147,24 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
         return list.size();
     }
 
-    public class DichVuViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.swipe;
+    }
 
+    public class DichVuViewHolder extends RecyclerView.ViewHolder{
+        SwipeLayout swipeLayout;
         public TextView tv_tenDV, tv_donVi, tv_gia;
-        private LinearLayout layoutDichVu;
+        private LinearLayout tvEdit, tvDelete;
 
         public DichVuViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_tenDV = itemView.findViewById(R.id.tv_tenDV);
             tv_gia = itemView.findViewById(R.id.tv_gia);
-            layoutDichVu=itemView.findViewById(R.id.layout_dichVu);
+            tvEdit = itemView.findViewById(R.id.tv_edit);
+            tvDelete = itemView.findViewById(R.id.tv_delete);
+            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
         }
     }
 
@@ -121,30 +180,31 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
 
             EditText edTenDichVu = dialog.findViewById(R.id.ed_tenDichVu);
             EditText edGia = dialog.findViewById(R.id.ed_giaDichVu);
-            EditText edDonVi = dialog.findViewById(R.id.ed_chiSo);
             Button btnThem = dialog.findViewById(R.id.btn_themDichVu);
             Button btnHuy = dialog.findViewById(R.id.btn_huy);
 
+            Spinner spinner = dialog.findViewById(R.id.spinner);
+            ArrayAdapter adapter = ArrayAdapter.createFromResource(context, R.array.listChiSoDichVu, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+            spinner.setAdapter(adapter);
 
             btnThem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String ten = edTenDichVu.getText().toString().trim();
                     String gia = edGia.getText().toString().trim();
-                    String donvi = edDonVi.getText().toString().trim();
-                    if (ten.equals("") || gia.equals("") || donvi.equals("")) {
+
+                    if (ten.equals("") || gia.equals("")) {
                         dichVuDAO.thongbao(1, "Điền đầy đủ các thông tin");
-                        Log.e("xxx", "onClick: " + ten + gia + donvi);
                         return;
                     } else {
                         DichVu dichVu = new DichVu();
                         dichVu.setTenDichVu(ten);
-                        dichVu.setDonVi(donvi);
+                        dichVu.setDonVi((String) spinner.getSelectedItem());
                         dichVu.setGia(Integer.parseInt(gia));
 
                         dichVuDAO.insertDichVu(dichVu);
                         dialog.dismiss();
-                        Log.e("xxx", "onClick: " + ten + gia + donvi);
                         notifyDataSetChanged();
                     }
                 }
@@ -191,9 +251,8 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
 
         View view = View.inflate(context, R.layout.dialog_sua_dich_vu, null);
             builder.setView(view);
-            EditText edTenDichVu = view.findViewById(R.id.ed_tenDichVu);
+            TextView edTenDichVu = view.findViewById(R.id.tv_tenDV);
             EditText edGia = view.findViewById(R.id.ed_giaDichVu);
-            EditText edDonVi = view.findViewById(R.id.ed_chiSo);
             Button btnSua = view.findViewById(R.id.btn_suaDichVu);
             Button btnHuy = view.findViewById(R.id.btn_huy);
 
@@ -201,24 +260,32 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             alertDialog.show();
 
+            TextView tv_chiSo = view.findViewById(R.id.tv_chiSo);
 
             edTenDichVu.setText(dichVu.getTenDichVu());
             edGia.setText(String.valueOf(dichVu.getGia()));
-            edDonVi.setText(dichVu.getDonVi());
+            if (dichVu.getDonVi().equals("Người")){
+                tv_chiSo.setText("Người");
+            } else if(dichVu.getDonVi().equals("Phòng")){
+                tv_chiSo.setText("Phòng");
+            } else if(dichVu.getDonVi().equals("Số lần sử dụng")){
+                tv_chiSo.setText("Số lần sử dụng");
+            }else if(dichVu.getDonVi().equals("Kw")){
+                tv_chiSo.setText("Kw");
+            }else if(dichVu.getDonVi().equals("Khối nước")){
+                tv_chiSo.setText("Khối nước");
+            }
+
 
             btnSua.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String strTen = edTenDichVu.getText().toString();
                     String strGia = edGia.getText().toString();
-                    String strDonVi = edDonVi.getText().toString();
-                    if (TextUtils.isEmpty(strDonVi) ||TextUtils.isEmpty(strGia) ||TextUtils.isEmpty(strTen) ){
+                    if (TextUtils.isEmpty(strGia)){
                         dichVuDAO.thongbao(1, "Vui lòng điền đầy đủ thông tin");
                         return;
                     }else {
-                        dichVu.setTenDichVu(edTenDichVu.getText().toString());
                         dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
-                        dichVu.setDonVi(edDonVi.getText().toString());
 
                         dichVuDAO.updateDichVu(dichVu);
                         notifyDataSetChanged();

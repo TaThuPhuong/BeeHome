@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -122,6 +125,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                     @Override
                     public void onClick(View view) {
                         fb.collection(Phong.TB_NAME).document(objHopDong.getId_phong()).update(Phong.COL_TRANG_THAI, "Trống");
+                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objHopDong.getId_thanh_vien()).update(NguoiThue.COL_ID_PHONG, "Trống");
                         fb.collection(HopDong.TB_NAME).document(objHopDong.getId_hop_dong())
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -158,7 +162,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 dialog.setContentView(R.layout.dialog_info_suco);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 TextView tv_info = dialog.findViewById(R.id.tv_info_hopdong);
-                tv_info.setText("Phòng: "+ objHopDong.getId_phong() +"\nThành viên: "+ objHopDong.getId_thanh_vien()+"\nKỳ hạn: "+ objHopDong.getKyHan()+"\nNgày ký: " + objHopDong.getNgayKiHD() + "\nNgày bắt đầu: "+objHopDong.getNgayBatDau()+ "\nNgày kết thúc: " +objHopDong.getNgayKetThuc()+"\nSố người thuê: "+ objHopDong.getSoNguoiThue());
+                tv_info.setText("Phòng: "+ objHopDong.getId_phong() +"\nSĐT người thuê: "+ objHopDong.getId_thanh_vien() +"\nKỳ hạn: "+ objHopDong.getKyHan()+"\nNgày ký: " + objHopDong.getNgayKiHD() + "\nNgày bắt đầu: "+objHopDong.getNgayBatDau()+ "\nNgày kết thúc: " +objHopDong.getNgayKetThuc()+"\nSố người thuê: "+ objHopDong.getSoNguoiThue());
                 dialog.show();
                 mItemManger.closeAllItems();
             }
@@ -171,14 +175,16 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 Spinner sp_phong = dialog.findViewById(R.id.sp_hd_phong);
                 Spinner sp_tvien = dialog.findViewById(R.id.sp_hd_tvien);
+                Spinner sp_kyhan = dialog.findViewById(R.id.sp_hd_kyhan);
+
                 Button btn_add = dialog.findViewById(R.id.btn_add);
-                TextInputLayout ed_kyhan = dialog.findViewById(R.id.ed_kyhan);
                 TextInputLayout ed_ngayky = dialog.findViewById(R.id.ed_ngaykyhd);
                 TextInputLayout ed_ngaybd = dialog.findViewById(R.id.ed_ngaybd);
                 TextInputLayout ed_ngaykt = dialog.findViewById(R.id.ed_ngaykt);
                 TextInputLayout ed_songuoithue = dialog.findViewById(R.id.ed_songuoithue);
+                TextView tv_er_p = dialog.findViewById(R.id.tv_er_phong);
+                TextView tv_er_ngthue = dialog.findViewById(R.id.tv_er_ngthue);
 
-                ed_kyhan.setError(null);
                 ed_ngaybd.setError(null);
                 ed_ngaykt.setError(null);
                 ed_ngayky.setError(null);
@@ -186,22 +192,104 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
 
                 SpinnerPhongAdapter phongAdapter = new SpinnerPhongAdapter(arrphong);
                 sp_phong.setAdapter(phongAdapter);
+                if(arrphong.size() == 0){
+                    Phong obj = new Phong();
+                    obj.setSoPhong("Trống");
+                    arrphong.add(obj);
+                    phongAdapter.notifyDataSetChanged();
+                    sp_phong.setSelection(1);
+                }
+
                 SpinnerNguoiThueAdapter nguoiThueAdapter = new SpinnerNguoiThueAdapter(arrnguoithue);
                 sp_tvien.setAdapter(nguoiThueAdapter);
-
+                if(arrnguoithue.size() == 0){
+                    NguoiThue obj = new NguoiThue();
+                    obj.setHoTen("Trống");
+                    arrnguoithue.add(obj);
+                    nguoiThueAdapter.notifyDataSetChanged();
+                    sp_tvien.setSelection(1);
+                }
 
                 Calendar calendar = Calendar.getInstance();
                 final int y = calendar.get(Calendar.YEAR);
                 final int m = calendar.get(Calendar.MONTH);
                 final int d = calendar.get(Calendar.DAY_OF_MONTH);
+
+                ArrayList<Integer> arrkyhan = new ArrayList<>(); arrkyhan.add(1); arrkyhan.add(3); arrkyhan.add(6); arrkyhan.add(12);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(dialog.getContext(), android.R.layout.simple_spinner_dropdown_item, arrkyhan);
+                sp_kyhan.setAdapter(arrayAdapter);
+                sp_kyhan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        DatePickerDialog dialog1 = new DatePickerDialog(context, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                String monthbd = String.valueOf(i1);
+                                String daybd = String.valueOf(i2);
+
+                                if(String.valueOf(i1).length() == 1){
+                                    monthbd = "0"+i1;
+                                }
+                                if(String.valueOf(i2).length() == 1){
+                                    daybd = "0"+i2;
+                                }
+
+                                ed_ngaybd.getEditText().setText(i + "-" +monthbd + "-" + daybd);
+
+                                if(Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1 > 12){
+                                    int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1) - 12 ;
+                                    int iyearkt = i+1;
+                                    String daykt = String.valueOf(i2);
+                                    String monthkt = String.valueOf(imonthkt);
+
+                                    if(String.valueOf(imonthkt).length() == 1){
+                                        monthkt = "0"+monthkt;
+                                    }
+                                    if(String.valueOf(i2).length() == 1){
+                                        daykt = "0"+i2;
+                                    }
+                                    ed_ngaykt.getEditText().setText(iyearkt + "-" +monthkt + "-" + daykt);
+                                }else{
+                                    int imonthkt = Integer.parseInt(sp_kyhan.getSelectedItem()+"") + i1;
+                                    String daykt = String.valueOf(i2);
+                                    String monthkt = String.valueOf(imonthkt);
+                                    if(String.valueOf(imonthkt).length() == 1){
+                                        monthkt = "0"+monthkt;
+                                    }
+                                    if(String.valueOf(i2).length() == 1){
+                                        daykt = "0"+i2;
+                                    }
+                                    ed_ngaykt.getEditText().setText(i + "-" +monthkt + "-" + daykt);
+
+                                }
+                            }
+                        },y,m,d);
+                        dialog1.show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
                 ed_ngayky.getEditText().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         DatePickerDialog dialog1 = new DatePickerDialog(context, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"-" + i1 +"-" + i2;
-                                ed_ngayky.getEditText().setText(date);
+                                String monthbd = String.valueOf(i1);
+                                String daybd = String.valueOf(i2);
+
+                                if(String.valueOf(i1).length() == 1){
+                                    monthbd = "0"+i1;
+                                }
+                                if(String.valueOf(i2).length() == 1){
+                                    daybd = "0"+i2;
+                                }
+
+                                ed_ngayky.getEditText().setText(i + "-" +monthbd + "-" + daybd);
                             }
                         },y,m,d);
                         dialog1.show();
@@ -213,28 +301,50 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                         DatePickerDialog dialog1 = new DatePickerDialog(context, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"-" + i1 +"-" + i2;
-                                ed_ngaybd.getEditText().setText(date);
-                            }
-                        },y,m,d);
-                        dialog1.show();
-                    }
-                });
-                ed_ngaykt.getEditText().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        DatePickerDialog dialog1 = new DatePickerDialog(context, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                String date = i +"-" + i1 +"-" + i2;
-                                ed_ngaykt.getEditText().setText(date);
+                                String monthbd = String.valueOf(i1);
+                                String daybd = String.valueOf(i2);
+
+                                if(String.valueOf(i1).length() == 1){
+                                    monthbd = "0"+i1;
+                                }
+                                if(String.valueOf(i2).length() == 1){
+                                    daybd = "0"+i2;
+                                }
+
+                                ed_ngaybd.getEditText().setText(i + "-" +monthbd + "-" + daybd);
+
+                                if(Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1 > 12){
+                                    int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1) - 12 ;
+                                    int iyearkt = i+1;
+                                    String daykt = String.valueOf(i2);
+                                    String monthkt = String.valueOf(imonthkt);
+
+                                    if(String.valueOf(imonthkt).length() == 1){
+                                        monthkt = "0"+monthkt;
+                                    }
+                                    if(String.valueOf(i2).length() == 1){
+                                        daykt = "0"+i2;
+                                    }
+                                    ed_ngaykt.getEditText().setText(iyearkt + "-" +monthkt + "-" + daykt);
+                                }else{
+                                    int imonthkt = Integer.parseInt(sp_kyhan.getSelectedItem()+"") + i1;
+                                    String daykt = String.valueOf(i2);
+                                    String monthkt = String.valueOf(imonthkt);
+                                    if(String.valueOf(imonthkt).length() == 1){
+                                        monthkt = "0"+monthkt;
+                                    }
+                                    if(String.valueOf(i2).length() == 1){
+                                        daykt = "0"+i2;
+                                    }
+                                    ed_ngaykt.getEditText().setText(i + "-" +monthkt + "-" + daykt);
+
+                                }
                             }
                         },y,m,d);
                         dialog1.show();
                     }
                 });
 
-                ed_kyhan.getEditText().setText(objHopDong.getKyHan());
                 ed_ngayky.getEditText().setText(objHopDong.getNgayKiHD());
                 ed_ngaykt.getEditText().setText(objHopDong.getNgayKetThuc());
                 ed_ngaybd.getEditText().setText(objHopDong.getNgayBatDau());
@@ -257,17 +367,30 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                     }
                 }
 
+                for(int j = 0; j <arrkyhan.size(); j++){
+                    int tmp = arrkyhan.get(j);
+                    if(tmp == objHopDong.getKyHan()){
+                        sp_kyhan.setSelection(j);
+                        sp_kyhan.setSelected(true);
+                        break;
+                    }
+                }
+
                 btn_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String edkyhan = ed_kyhan.getEditText().getText().toString();
                         String ednbd = ed_ngaybd.getEditText().getText().toString();
                         String ednkt = ed_ngaykt.getEditText().getText().toString();
                         String ednky = ed_ngayky.getEditText().getText().toString();
                         String edsn = ed_songuoithue.getEditText().getText().toString();
 
-                        if(edkyhan.length() == 0){
-                            ed_kyhan.setError("Trường không được bỏ trống");
+                        if(sp_phong.getSelectedItem().toString().equalsIgnoreCase("Trống")){
+                            tv_er_p.setTextSize(14);
+                            tv_er_p.setText("Không có phòng trống");
+                            return;
+                        }else if(sp_tvien.getSelectedItem().toString().equalsIgnoreCase("Trống")){
+                            tv_er_ngthue.setTextSize(14);
+                            tv_er_ngthue.setText("Không có người thuê");
                             return;
                         }else if(ednky.length()==0){
                             ed_ngayky.setError("Trường không được bỏ trống");
@@ -297,17 +420,21 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                         objHopDong.setId_chu_tro("1");
                         objHopDong.setId_phong(objPhong.getIDPhong());
                         objHopDong.setId_thanh_vien(objNguoiThue.getID_thanhvien());
-                        objHopDong.setKyHan(ed_kyhan.getEditText().getText().toString());
+                        objHopDong.setKyHan(Integer.parseInt(sp_kyhan.getSelectedItem()+""));
                         objHopDong.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
                         objHopDong.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());
                         objHopDong.setNgayKetThuc(ed_ngaykt.getEditText().getText().toString());
-                        objHopDong.setSoNguoiThue(Double.parseDouble(ed_songuoithue.getEditText().getText().toString()));
+                        objHopDong.setSoNguoiThue(Integer.parseInt(ed_songuoithue.getEditText().getText().toString()));
 
                         fb.collection(HopDong.TB_NAME).document(objHopDong.getId_hop_dong())
                                 .set(objHopDong)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        fb.collection(Phong.TB_NAME).document(objPhong.getIDPhong())
+                                                .update(Phong.COL_TRANG_THAI, "Đang thuê");
+                                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getID_thanhvien())
+                                                .update(NguoiThue.COL_ID_PHONG, objPhong.getIDPhong());
                                         arr.set(index, objHopDong);
                                         notifyDataSetChanged();
                                         mItemManger.closeAllItems();

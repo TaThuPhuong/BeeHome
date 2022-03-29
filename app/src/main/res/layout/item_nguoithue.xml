@@ -27,12 +27,12 @@
         android:text="Phòng - Trống" />
 
     <TextView
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="290dp"
         android:id="@+id/tv_sdtnguoithue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Số Điện Thoại"/>
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="20dp"
+        android:text="Số Điện Thoại" />
 
 
 
