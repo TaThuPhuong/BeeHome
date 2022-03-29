@@ -23,7 +23,7 @@
                 android:background="@drawable/bg_rd_top_20dp"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Thêm phòng"
+                android:text="Sửa thông tin "
                 android:textColor="@color/white"
                 android:textSize="30dp"
 
@@ -33,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Số phòng"
+                android:enabled="false"
                 app:hintTextColor="#5F098E">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -272,7 +273,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
-                    android:text="Thêm"
+                    android:text="Lưu"
                     android:textAllCaps="false" />
 
                 <Button

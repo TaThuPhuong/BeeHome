@@ -11,7 +11,7 @@ public class NguoiThue {
 
     public static final String TB_NGUOITHUE = "tb_Nguoithue";
     public static final String COL_ID_THANHVIEN = "ID_thanhvien";
-    public static final String COL_ID_PHONG = "ID_phong";
+    public static final String COL_ID_PHONG = "id_phong";
     public static final String COL_HOTEN = "HoTen";
     public static final String COL_SDT = "SDT";
     public static final String COL_PASS = "Password";

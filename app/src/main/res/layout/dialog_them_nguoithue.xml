@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     android:orientation="vertical">
 
@@ -21,71 +22,87 @@
         android:orientation="vertical"
         android:background="@drawable/bg_white_rd_bottom_20dp"
         >
-        <TextView
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
-            android:text="Họ Và Tên *"
-            android:textColor="@color/black" />
+            android:hint="Họ và tên"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
-        <EditText
-            android:id="@+id/ed_hovatennguoithue"
+            <com.google.android.material.textfield.TextInputEditText
+                android:paddingTop="30dp"
+                android:id="@+id/ed_hotennguoithue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Mời Bạn Nhập Họ Tên"
-            android:paddingLeft="10dp" />
+            android:hint="Số Điện Thoại"
+            app:counterMaxLength="10"
+            app:counterEnabled="true"
+            android:layout_marginTop="15dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
-        <TextView
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ed_sdtnguoithue"
+                android:paddingTop="30dp"
+                android:maxLength="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
-            android:text="Số Điện Thoại"
+            android:hint="Email"
+            android:layout_marginTop="15dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
-            android:textColor="@color/black" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:paddingTop="30dp"
+                android:id="@+id/ed_emailnguoithue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
-        <EditText
-            android:id="@+id/ed_sodienthoainguoithue"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Mời Bạn Nhập Số Điện Thoại"
-            android:paddingLeft="10dp" />
+            android:hint="CMND/CCCD"
+            app:counterMaxLength="12"
+            app:counterEnabled="true"
+            android:layout_marginTop="15dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
-            android:text="Email"
-            android:textColor="@color/black" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:paddingTop="30dp"
+                android:id="@+id/ed_cccdnguoithue"
+                android:maxLength="12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
 
-        <EditText
-            android:id="@+id/ed_emailnguoithue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Mời Bạn Nhập Email"
-            android:paddingLeft="10dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
-            android:text="Số CMND/CCCD"
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/ed_cmndnguoithue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="Nhập Số CMND/CCCD"
-            android:paddingLeft="10dp" />
-
+        </com.google.android.material.textfield.TextInputLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,7 +114,7 @@
                 android:id="@+id/btn_dangkinguoithue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
+                android:layout_marginLeft="80dp"
                 android:text="Đăng Kí" />
 
             <Button

@@ -14,9 +14,11 @@ import android.os.Handler;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -66,6 +68,8 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         ArrayList<NguoiThue> arrnguoithue = getSPNguoiThue();
         ArrayList<Phong> arrallphong = getAllPHong();
 
+
+
         hopDongAdapter = new HopDongAdapter(arr, HopDongActivity.this, fb, arrallphong, arrnguoithue);
         rv_hd.setAdapter(hopDongAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -80,14 +84,14 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 Spinner sp_phong = dialog.findViewById(R.id.sp_hd_phong);
                 Spinner sp_tvien = dialog.findViewById(R.id.sp_hd_tvien);
+                Spinner sp_kyhan = dialog.findViewById(R.id.sp_hd_kyhan);
                 Button btn_add = dialog.findViewById(R.id.btn_add);
-                TextInputLayout ed_kyhan = dialog.findViewById(R.id.ed_kyhan);
                 TextInputLayout ed_ngayky = dialog.findViewById(R.id.ed_ngaykyhd);
                 TextInputLayout ed_ngaybd = dialog.findViewById(R.id.ed_ngaybd);
                 TextInputLayout ed_ngaykt = dialog.findViewById(R.id.ed_ngaykt);
                 TextInputLayout ed_songuoithue = dialog.findViewById(R.id.ed_songuoithue);
-
-                ed_kyhan.setError(null);
+                TextView tv_er_p = dialog.findViewById(R.id.tv_er_phong);
+                TextView tv_er_ngthue = dialog.findViewById(R.id.tv_er_ngthue);
                 ed_ngaybd.setError(null);
                 ed_ngaykt.setError(null);
                 ed_ngayky.setError(null);
@@ -99,7 +103,13 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 SpinnerNguoiThueAdapter nguoiThueAdapter = new SpinnerNguoiThueAdapter(arrnguoithue);
                 sp_tvien.setAdapter(nguoiThueAdapter);
 
-
+                ArrayList<Integer> arrkyhan = new ArrayList<>();
+                arrkyhan.add(1);
+                arrkyhan.add(3);
+                arrkyhan.add(6);
+                arrkyhan.add(12);
+                ArrayAdapter arrayAdapter = new ArrayAdapter(dialog.getContext(), android.R.layout.simple_spinner_dropdown_item, arrkyhan);
+                sp_kyhan.setAdapter(arrayAdapter);
 
                 Calendar calendar = Calendar.getInstance();
                 final int y = calendar.get(Calendar.YEAR);
@@ -177,14 +187,38 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 btn_add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String edkyhan = ed_kyhan.getEditText().getText().toString();
                         String ednbd = ed_ngaybd.getEditText().getText().toString();
                         String ednkt = ed_ngaykt.getEditText().getText().toString();
                         String ednky = ed_ngayky.getEditText().getText().toString();
                         String edsn = ed_songuoithue.getEditText().getText().toString();
+                        HopDong objHopDong = new HopDong();
+                        Phong objPhong = (Phong) sp_phong.getSelectedItem();
+                        NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
 
-                        if(edkyhan.length() == 0){
-                            ed_kyhan.setError("Trường không được bỏ trống");
+                        if(objPhong.getSoPhong().equalsIgnoreCase("Trống")&&
+                                objNguoiThue.getHoTen().equalsIgnoreCase("Trống")&&
+                                ednky.length()==0&&
+                                ednbd.length()==0&&
+                                ednkt.length()==0&&
+                                edsn.length()==0 ){
+                            tv_er_p.setTextSize(14);
+                            tv_er_p.setText("Không có phòng trống");
+                            tv_er_ngthue.setTextSize(14);
+                            tv_er_ngthue.setText("Không có người thuê");
+                            ed_ngayky.setError("Trường không được bỏ trống");
+                            ed_ngaybd.setError("Trường không được bỏ trống");
+                            ed_ngaykt.setError("Trường không được bỏ trống");
+                            ed_songuoithue.setError("Trường không được bỏ trống");
+                            return;
+
+                        }else if(objPhong.getSoPhong().equalsIgnoreCase("Trống")){
+                            tv_er_ngthue.setTextSize(14);
+                            tv_er_ngthue.setText("Không có người thuê");
+                            return;
+
+                        }else if(objNguoiThue.getHoTen().equalsIgnoreCase("Trống")){
+                            tv_er_ngthue.setTextSize(14);
+                            tv_er_ngthue.setText("Không có người thuê");
                             return;
                         }else if(ednky.length()==0){
                             ed_ngayky.setError("Trường không được bỏ trống");
@@ -198,7 +232,10 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         }else if(edsn.length()==0){
                             ed_songuoithue.setError("Trường không được bỏ trống");
                             return;
-                        }else if(!checkDateFormat(ednky)){
+                        }else if(ednbd.length() >= 2){
+                            ed_songuoithue.setError("Nhập tối da 1 ký tự");
+                        }
+                        else if(!checkDateFormat(ednky)){
                             ed_ngayky.setError("Sai định dạng");
                             return;
                         }else if(!checkDateFormat(ednbd)){
@@ -211,19 +248,17 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
 
 
 
-                        HopDong objHopDong = new HopDong();
-                        Phong objPhong = (Phong) sp_phong.getSelectedItem();
-                        NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
+
                         objHopDong.setId_hop_dong(objPhong.getIDPhong() + objNguoiThue.getHoTen()+ed_songuoithue.getEditText().getText().toString());
                         objHopDong.setId_chu_tro("1");
 
                         objHopDong.setId_phong(objPhong.getIDPhong());
                         objHopDong.setId_thanh_vien(objNguoiThue.getID_thanhvien());
-                        objHopDong.setKyHan(ed_kyhan.getEditText().getText().toString());
+                        objHopDong.setKyHan(Integer.parseInt(sp_kyhan.getSelectedItem()+""));
                         objHopDong.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
                         objHopDong.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());
                         objHopDong.setNgayKetThuc(ed_ngaykt.getEditText().getText().toString());
-                        objHopDong.setSoNguoiThue(Double.parseDouble(ed_songuoithue.getEditText().getText().toString()));
+                        objHopDong.setSoNguoiThue(Integer.parseInt(ed_songuoithue.getEditText().getText().toString()));
 
 
                         fb.collection(HopDong.TB_NAME).document(objHopDong.getId_hop_dong())
@@ -231,20 +266,10 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        objPhong.setTrangThai("Đang thuê");
                                         fb.collection(Phong.TB_NAME).document(objPhong.getIDPhong())
-                                                .set(objPhong)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        phongAdapter.notifyDataSetChanged();
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                    }
-                                                });
+                                                .update(Phong.COL_TRANG_THAI, "Đang thuê");
+                                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getID_thanhvien())
+                                                .update(NguoiThue.COL_ID_PHONG, objPhong.getIDPhong());
                                         Toast.makeText(HopDongActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                                         hopDongAdapter.notifyDataSetChanged();
                                     }
@@ -306,8 +331,15 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         arr.add(objPhong);
                     }
                 }
+                if(arr.size() == 0){
+                    Phong obj = new Phong();
+                    obj.setSoPhong("Trống");
+                    obj.setIDPhong("Trống");
+                    arr.add(obj);
+                }
             }
         });
+
         return arr;
 }
 
@@ -334,10 +366,20 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 arr.clear();
                 for(QueryDocumentSnapshot document : value){
                     NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
-                    arr.add(objNguoiThue);
+                    if(objNguoiThue.getID_phong().equalsIgnoreCase("Trống")){
+                        arr.add(objNguoiThue);
+                    }
+                }
+                if(arr.size() == 0){
+                    NguoiThue obj = new NguoiThue();
+                    obj.setHoTen("Trống");
+                    obj.setID_phong("Trống");
+                    arr.add(obj);
                 }
             }
         });
+
+
         return arr;
     }
 

@@ -1,18 +1,22 @@
 package net.fpl.beehome.Adapter.Phong;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +31,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Phong;
-
-import org.w3c.dom.Text;
-
+import net.fpl.beehome.ui.phong.PhongFragment;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwipeRecyclerViewAdapter.SimpleViewHolder> {
 
@@ -38,11 +42,13 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
     private Context mContext;
     private ArrayList<Phong> lsPhong;
     private FirebaseFirestore fb;
+    private PhongFragment fragment;
 
-    public PhongSwipeRecyclerViewAdapter(Context context, ArrayList<Phong> lsPhong, FirebaseFirestore fb) {
+    public PhongSwipeRecyclerViewAdapter(Context context, ArrayList<Phong> lsPhong, FirebaseFirestore fb, PhongFragment phongFragment) {
         this.mContext = context;
         this.lsPhong = lsPhong;
         this.fb = fb;
+        this.fragment = phongFragment;
     }
 
     @SuppressLint("ResourceAsColor")
@@ -75,9 +81,6 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         mauTrangThai(phong.getTrangThai(), viewHolder.tvTrangThai);
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-        // Drag From Left
-//        viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper1));
-
         // Drag From Right
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper));
 
@@ -114,14 +117,15 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                 //when user's hand released.
             }
         });
-
+        // update phòng
         viewHolder.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showDialogSua(phong);
             }
         });
 
-
+        // Delete 1 dòng
         viewHolder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,19 +157,16 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                         dialog.dismiss();
                     }
                 });
-
             }
         });
+        // Show detail
         viewHolder.tvInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
-
-        // mItemManger is member in RecyclerSwipeAdapter Class
         mItemManger.bindView(viewHolder.itemView, position);
-
     }
 
     @Override
@@ -177,8 +178,185 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
     public int getSwipeLayoutResourceId(int position) {
         return R.id.swipe;
     }
-    //  ViewHolder Class
+    // Dialog sửa thông tin phòng
+    public void showDialogSua(Phong phong) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        View view = View.inflate(mContext, R.layout.dialog_sua_phong, null);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        EditText edSoPhong, edGiaPhong, edVatTu, edTrangThai, edSoNuocDau, edSoDienDau;
+        Button btnThem, btnHuy;
+        CheckBox chkGiuong, chkTu, chkDieuHoa, chkNL, chkMayGiat, chkBan, chkBep;
+        ImageButton btnChon, btnCancel, btnChonTatCa;
+        RadioGroup rdgTrangThai;
+        edSoPhong = view.findViewById(R.id.ed_so_phong);
+        edGiaPhong = view.findViewById(R.id.ed_gia_phong);
+        edVatTu = view.findViewById(R.id.ed_vat_tu);
+        edTrangThai = view.findViewById(R.id.ed_trang_thai);
+        edSoDienDau = view.findViewById(R.id.ed_so_dien_dau);
+        edSoNuocDau = view.findViewById(R.id.ed_so_nuoc_dau);
+        btnThem = view.findViewById(R.id.btn_them_phong);
+        btnHuy = view.findViewById(R.id.btn_huy);
+        btnChon = view.findViewById(R.id.btn_chon);
+        btnChonTatCa = view.findViewById(R.id.btn_chon_tat_ca);
+        btnCancel = view.findViewById(R.id.btn_cancel);
+        chkGiuong = view.findViewById(R.id.chk_vt_giuong);
+        chkBan = view.findViewById(R.id.chk_vt_ban);
+        chkBep = view.findViewById(R.id.chk_vt_bep);
+        chkDieuHoa = view.findViewById(R.id.chk_vt_dieu_hoa);
+        chkNL = view.findViewById(R.id.chk_vt_binh_nl);
+        chkTu = view.findViewById(R.id.chk_vt_tu);
+        chkMayGiat = view.findViewById(R.id.chk_vt_may_giat);
+        rdgTrangThai = view.findViewById(R.id.rdgTrangThai);
 
+        // set phòng sửa lên dialog
+        edSoPhong.setText(phong.getSoPhong());
+        edGiaPhong.setText(phong.getGiaPhong() + "");
+        edVatTu.setText(phong.getVatTu());
+        edTrangThai.setText(phong.getTrangThai());
+
+        if (phong.getVatTu().contains("Bàn")) {
+            chkBan.setChecked(true);
+        }
+
+        if (phong.getVatTu().contains("Bếp")) {
+            chkBep.setChecked(true);
+        }
+        if (phong.getVatTu().contains("Điều hòa")) {
+            chkDieuHoa.setChecked(true);
+        }
+        if (phong.getVatTu().contains("Giường")) {
+            chkGiuong.setChecked(true);
+        }
+        if (phong.getVatTu().contains("Máy giặt")) {
+            chkMayGiat.setChecked(true);
+        }
+        if (phong.getVatTu().contains("Bình nước nóng")) {
+            chkNL.setChecked(true);
+        }
+        if (phong.getVatTu().contains("Tủ")) {
+            chkTu.setChecked(true);
+        }
+        if (phong.getTrangThai().equalsIgnoreCase("Trống")) {
+            RadioButton rdoTrong = view.findViewById(R.id.rdo_trong);
+            rdoTrong.setChecked(true);
+        }
+//        if (phong.getTrangThai().equalsIgnoreCase("Đang thuê")) {
+//            RadioButton rdoDangThue = view.findViewById(R.id.rdo_dang_thue);
+//            rdoDangThue.setChecked(true);
+//        }
+        if (phong.getTrangThai().equalsIgnoreCase("Đang sửa chữa")) {
+            RadioButton rdoDangSua = view.findViewById(R.id.rdo_dang_sua);
+            rdoDangSua.setChecked(true);
+        }
+        edSoDienDau.setText(phong.getSoDienDau() + "");
+        edSoNuocDau.setText(phong.getSoNuocDau() + "");
+        btnChonTatCa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edVatTu.setText("Giường, Bàn, Bếp, Tủ, Điều hòa, Máy giặt, Bình nước nóng");
+                chkBan.setChecked(true);
+                chkBep.setChecked(true);
+                chkDieuHoa.setChecked(true);
+                chkGiuong.setChecked(true);
+                chkMayGiat.setChecked(true);
+                chkNL.setChecked(true);
+                chkTu.setChecked(true);
+            }
+        });
+        btnChon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String vt = "";
+                if (chkBan.isChecked()) {
+                    vt += chkBan.getText().toString() + ", ";
+                }
+                if (chkBep.isChecked()) {
+                    vt += chkBep.getText().toString() + ", ";
+                }
+                if (chkDieuHoa.isChecked()) {
+                    vt += chkDieuHoa.getText().toString() + ", ";
+                }
+                if (chkGiuong.isChecked()) {
+                    vt += chkGiuong.getText().toString() + ", ";
+                }
+                if (chkMayGiat.isChecked()) {
+                    vt += chkMayGiat.getText().toString() + ", ";
+                }
+                if (chkNL.isChecked()) {
+                    vt += chkNL.getText().toString() + ", ";
+                }
+                if (chkTu.isChecked()) {
+                    vt += chkTu.getText().toString() + ", ";
+                }
+                edVatTu.setText(vt);
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edVatTu.setText("");
+                chkBan.setChecked(false);
+                chkBep.setChecked(false);
+                chkDieuHoa.setChecked(false);
+                chkGiuong.setChecked(false);
+                chkMayGiat.setChecked(false);
+                chkNL.setChecked(false);
+                chkTu.setChecked(false);
+            }
+        });
+        rdgTrangThai.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+//                    case R.id.rdo_dang_thue:
+//                        edTrangThai.setText("Đang thuê");
+//                        break;
+                    case R.id.rdo_trong:
+                        edTrangThai.setText("Trống");
+                        break;
+                    case R.id.rdo_dang_sua:
+                        edTrangThai.setText("Đang sửa chữa");
+                        break;
+                }
+            }
+        });
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String strVatTu = edVatTu.getText().toString();
+                String giaPhong = edGiaPhong.getText().toString();
+                String strTrangThai = edTrangThai.getText().toString();
+                String soDienDau = edSoDienDau.getText().toString();
+                String soNuocDau = edSoNuocDau.getText().toString();
+                if (TextUtils.isEmpty(strVatTu) || TextUtils.isEmpty(giaPhong) ||
+                        TextUtils.isEmpty(strTrangThai) || TextUtils.isEmpty(soDienDau) || TextUtils.isEmpty(soNuocDau)) {
+                    fragment.thongBao("Điền đầy đủ thông tin các mục");
+                    return;
+                } else {
+                    Map<String, Object> p = new HashMap<>();
+                    p.put(Phong.COL_GIA_PHONG, Integer.parseInt(giaPhong));
+                    p.put(Phong.COL_VAT_TU, strVatTu);
+                    p.put(Phong.COL_TRANG_THAI, strTrangThai);
+                    p.put(Phong.COL_SO_DIEN_DAU, Integer.parseInt(soDienDau));
+                    p.put(Phong.COL_SO_NUOC_DAU, Integer.parseInt(soNuocDau));
+                    fb.collection(Phong.TB_NAME).document(phong.getIDPhong()).update(p);
+                    notifyDataSetChanged();
+                    dialog.dismiss();
+                }
+
+            }
+        });
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+    }
+    //  ViewHolder Class
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         SwipeLayout swipeLayout;
         TextView tvPhong, tvTrangThai;

@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import net.fpl.beehome.DAO.PhongDAO;
 import net.fpl.beehome.R;
 
 public class DoiMatKhauFragment extends Fragment {
@@ -25,7 +24,6 @@ public class DoiMatKhauFragment extends Fragment {
     Animation animation;
     EditText edMKHienTai, edMKMoi, edMKNhapLai;
     Button btnLuu, btnXoa;
-    PhongDAO phongDAO;
     FirebaseFirestore fb;
 
     @Nullable
@@ -48,7 +46,6 @@ public class DoiMatKhauFragment extends Fragment {
         btnLuu = view.findViewById(R.id.btn_luu_doi_mk);
         btnXoa = view.findViewById(R.id.btn_clear);
         fb = FirebaseFirestore.getInstance();
-        phongDAO = new PhongDAO(fb, getContext());
 
         btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +63,6 @@ public class DoiMatKhauFragment extends Fragment {
                 String strMKMoi = edMKMoi.getText().toString();
                 String strMKNhapLai = edMKNhapLai.getText().toString();
                 if (TextUtils.isEmpty(strMK) || TextUtils.isEmpty(strMKMoi) || TextUtils.isEmpty(strMKNhapLai)) {
-                    phongDAO.thongBao("Không được để trống");
                 }else {
 
                 }

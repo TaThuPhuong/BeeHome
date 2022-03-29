@@ -104,10 +104,10 @@ public class NguoiThue_Activity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        ed_ten = view.findViewById(R.id.ed_hovatennguoithue);
-        ed_sodt = view.findViewById(R.id.ed_sodienthoainguoithue);
+        ed_ten = view.findViewById(R.id.ed_hotennguoithue);
+        ed_sodt = view.findViewById(R.id.ed_sdtnguoithue);
         ed_email = view.findViewById(R.id.ed_emailnguoithue);
-        ed_cccd = view.findViewById(R.id.ed_cmndnguoithue);
+        ed_cccd = view.findViewById(R.id.ed_cccdnguoithue);
         btn_them = view.findViewById(R.id.btn_dangkinguoithue);
         btn_huy = view.findViewById(R.id.btn_huynguoithue);
         phongSpinnerAdapter = new PhongSpinnerAdapter(lsPhong);
