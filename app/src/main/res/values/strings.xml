@@ -24,4 +24,12 @@
     <string name="chuaco_fragment">Chưa Có Phòng</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <string-array name="listChiSoDichVu">
+        <item>Người</item>
+        <item>Phòng</item>
+        <item>Số lần sử dụng</item>
+        <item>Kw</item>
+        <item>Khối nước</item>
+    </string-array>
 </resources>

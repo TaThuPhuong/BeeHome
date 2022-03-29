@@ -3,8 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/D/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_sua_phong.xml" value="0.25416666666666665" />
-        <entry key="..\:/D/KyIV/DA1/BeeHome/app/src/main/res/layout/item_phong_swipe.xml" value="0.22826086956521738" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/drawable-v24/bg_ui.xml" value="0.1695" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/drawable/background_btn_login.xml" value="0.1805" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/drawable/background_edttext.xml" value="0.1695" />
@@ -22,9 +20,7 @@
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/content_main.xml" value="0.25181159420289856" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_add_hopdong.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_sua_nguoithue.xml" value="0.25416666666666665" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_sua_phong.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.25416666666666665" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_them_phong.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.2" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_phong.xml" value="0.2536231884057971" />
@@ -89,21 +85,40 @@
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/fragment_slideshow.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/menu/main.xml" value="0.25" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable-v24/bg_row_hdsc.xml" value="0.1465" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/bg_tv_hopdong.xml" value="0.2" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_fragment_one.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_fragment_three.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_fragment_two.xml" value="0.12092391304347826" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_hop_dong.xml" value="0.264" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_login.xml" value="0.17119565217391305" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_main.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_screen.xml" value="0.12092391304347826" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_su_co.xml" value="0.2" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/app_bar_main.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/content_main.xml" value="0.12092391304347826" />
-        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_add_hopdong.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_add_sc.xml" value="0.11296859169199595" />
-        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_edit_hopdong.xml" value="0.11296859169199595" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_add_hopdong.xml" value="0.1693840579710145" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_edit_hopdong.xml" value="0.1693840579710145" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.264" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_hopdong.xml" value="0.264" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_suco.xml" value="0.264" />
+        <entry key="app/src/main/res/drawable-v24/bg_dialog_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_hop_dong.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/layout/dialog_delete_hopdong.xml" value="0.23641304347826086" />
+        <entry key="app/src/main/res/layout/dialog_delete_nguoithue.xml" value="0.23641304347826086" />
+        <entry key="app/src/main/res/layout/dialog_delete_suco.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog_edit_sc.xml" value="0.21145833333333333" />
+        <entry key="app/src/main/res/layout/dialog_info_nguoithue.xml" value="0.1105072463768116" />
+        <entry key="app/src/main/res/layout/dialog_info_suco.xml" value="0.1105072463768116" />
+        <entry key="app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.23641304347826086" />
+        <entry key="app/src/main/res/layout/dialog_sua_nguoithue.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/item_nguoithue.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.23641304347826086" />
+        <entry key="app/src/main/res/layout/row_hopdong.xml" value="0.23641304347826086" />
+        <entry key="app/src/main/res/layout/row_nguoithue.xml" value="0.23641304347826086" />
+        <entry key="app/src/main/res/layout/row_sp_phong_dialogadd.xml" value="0.23641304347826086" />
+        <entry key="app/src/main/res/layout/row_suco.xml" value="0.23641304347826086" />
       </map>
     </option>
   </component>
