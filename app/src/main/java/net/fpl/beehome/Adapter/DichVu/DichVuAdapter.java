@@ -20,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
@@ -39,11 +41,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuViewHolder> {
+public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuViewHolder> {
 
     DichVuDAO dichVuDAO;
     ArrayList<DichVu> list;
-    DichVuActivity dichVuActivity;
 
     public static final String TAG = "123";
 
@@ -74,20 +75,68 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
         holder.tv_tenDV.setText("Tên dịch vụ: " + dichVu.getTenDichVu());
         holder.tv_gia.setText("Giá: " + String.valueOf(dichVu.getGia()) + " / " + dichVu.getDonVi());
 
-        holder.layoutDichVu.setOnClickListener(new View.OnClickListener() {
+        holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        // Drag From Left
+//        viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Left, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper1));
+
+        // Drag From Right
+        holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.bottom_wrapper));
+
+
+        // Handling different events when swiping
+        holder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
             @Override
-            public void onClick(View view) {
-                showDialog(view.getContext(), 1, position);
+            public void onClose(SwipeLayout layout) {
+                //when the SurfaceView totally cover the BottomView.
+            }
+
+            @Override
+            public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+                //you are swiping.
+            }
+
+            @Override
+            public void onStartOpen(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onOpen(SwipeLayout layout) {
+                //when the BottomView totally show.
+            }
+
+            @Override
+            public void onStartClose(SwipeLayout layout) {
+
+            }
+
+            @Override
+            public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
+                //when user's hand released.
             }
         });
 
-        holder.layoutDichVu.setOnLongClickListener(new View.OnLongClickListener() {
+
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                showDialogSua(view.getContext(), dichVu, position);
-                return true;
+            public void onClick(View view) {
+                showDialog(view.getContext(), 1, position);
+                mItemManger.closeAllItems();
+
             }
         });
+
+        holder.tvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogSua(view.getContext(), dichVu, position);
+                mItemManger.closeAllItems();
+            }
+        });
+
+        // mItemManger is member in RecyclerSwipeAdapter Class
+        mItemManger.bindView(holder.itemView, position);
+
     }
 
     @Override
@@ -95,17 +144,24 @@ public class DichVuAdapter extends RecyclerView.Adapter<DichVuAdapter.DichVuView
         return list.size();
     }
 
-    public class DichVuViewHolder extends RecyclerView.ViewHolder{
+    @Override
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.swipe;
+    }
 
+    public class DichVuViewHolder extends RecyclerView.ViewHolder{
+        SwipeLayout swipeLayout;
         public TextView tv_tenDV, tv_donVi, tv_gia;
-        private LinearLayout layoutDichVu;
+        private LinearLayout tvEdit, tvDelete;
 
         public DichVuViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_tenDV = itemView.findViewById(R.id.tv_tenDV);
             tv_gia = itemView.findViewById(R.id.tv_gia);
-            layoutDichVu=itemView.findViewById(R.id.layout_dichVu);
+            tvEdit = itemView.findViewById(R.id.tv_edit);
+            tvDelete = itemView.findViewById(R.id.tv_delete);
+            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
         }
     }
 
