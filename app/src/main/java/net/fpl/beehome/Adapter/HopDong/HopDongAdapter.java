@@ -123,6 +123,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                     @Override
                     public void onClick(View view) {
                         fb.collection(Phong.TB_NAME).document(objHopDong.getId_phong()).update(Phong.COL_TRANG_THAI, "Trống");
+                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objHopDong.getId_thanh_vien()).update(NguoiThue.COL_ID_PHONG, "Trống");
                         fb.collection(HopDong.TB_NAME).document(objHopDong.getId_hop_dong())
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {

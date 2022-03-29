@@ -68,6 +68,8 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         ArrayList<NguoiThue> arrnguoithue = getSPNguoiThue();
         ArrayList<Phong> arrallphong = getAllPHong();
 
+
+
         hopDongAdapter = new HopDongAdapter(arr, HopDongActivity.this, fb, arrallphong, arrnguoithue);
         rv_hd.setAdapter(hopDongAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -97,23 +99,9 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
 
                 SpinnerPhongAdapter phongAdapter = new SpinnerPhongAdapter(arrphong);
                 sp_phong.setAdapter(phongAdapter);
-                if(arrphong.size() == 0){
-                    Phong obj = new Phong();
-                    obj.setSoPhong("Trống");
-                    arrphong.add(obj);
-                    phongAdapter.notifyDataSetChanged();
-                    sp_phong.setSelection(1);
-                }
 
                 SpinnerNguoiThueAdapter nguoiThueAdapter = new SpinnerNguoiThueAdapter(arrnguoithue);
                 sp_tvien.setAdapter(nguoiThueAdapter);
-                if(arrnguoithue.size() == 0){
-                    NguoiThue obj = new NguoiThue();
-                    obj.setHoTen("Trống");
-                    arrnguoithue.add(obj);
-                    nguoiThueAdapter.notifyDataSetChanged();
-                    sp_tvien.setSelection(1);
-                }
 
                 ArrayList<Integer> arrkyhan = new ArrayList<>();
                 arrkyhan.add(1);
@@ -207,10 +195,27 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         Phong objPhong = (Phong) sp_phong.getSelectedItem();
                         NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
 
-                        if(objPhong.getSoPhong().equalsIgnoreCase("Trống")){
+                        if(objPhong.getSoPhong().equalsIgnoreCase("Trống")&&
+                                objNguoiThue.getHoTen().equalsIgnoreCase("Trống")&&
+                                ednky.length()==0&&
+                                ednbd.length()==0&&
+                                ednkt.length()==0&&
+                                edsn.length()==0 ){
                             tv_er_p.setTextSize(14);
                             tv_er_p.setText("Không có phòng trống");
+                            tv_er_ngthue.setTextSize(14);
+                            tv_er_ngthue.setText("Không có người thuê");
+                            ed_ngayky.setError("Trường không được bỏ trống");
+                            ed_ngaybd.setError("Trường không được bỏ trống");
+                            ed_ngaykt.setError("Trường không được bỏ trống");
+                            ed_songuoithue.setError("Trường không được bỏ trống");
                             return;
+
+                        }else if(objPhong.getSoPhong().equalsIgnoreCase("Trống")){
+                            tv_er_ngthue.setTextSize(14);
+                            tv_er_ngthue.setText("Không có người thuê");
+                            return;
+
                         }else if(objNguoiThue.getHoTen().equalsIgnoreCase("Trống")){
                             tv_er_ngthue.setTextSize(14);
                             tv_er_ngthue.setText("Không có người thuê");
@@ -326,8 +331,15 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         arr.add(objPhong);
                     }
                 }
+                if(arr.size() == 0){
+                    Phong obj = new Phong();
+                    obj.setSoPhong("Trống");
+                    obj.setIDPhong("Trống");
+                    arr.add(obj);
+                }
             }
         });
+
         return arr;
 }
 
@@ -354,10 +366,20 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 arr.clear();
                 for(QueryDocumentSnapshot document : value){
                     NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
-                    arr.add(objNguoiThue);
+                    if(objNguoiThue.getID_phong().equalsIgnoreCase("Trống")){
+                        arr.add(objNguoiThue);
+                    }
+                }
+                if(arr.size() == 0){
+                    NguoiThue obj = new NguoiThue();
+                    obj.setHoTen("Trống");
+                    obj.setID_phong("Trống");
+                    arr.add(obj);
                 }
             }
         });
+
+
         return arr;
     }
 
