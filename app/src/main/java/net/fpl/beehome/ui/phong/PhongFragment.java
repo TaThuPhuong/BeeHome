@@ -265,96 +265,13 @@ public class PhongFragment extends Fragment {
                 }
             }
         });
-        edSoPhong.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        setErr(edGiaPhong);
+        setErr(edSoPhong);
+        setErr(edSoDienDau);
+        setErr(edSoNuocDau);
+        setErr(edVatTu);
+        setErr(edSoPhong);
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (edSoPhong.getEditText().getText().toString().length() != 0) {
-                    edSoPhong.setError(null);
-                }
-            }
-        });
-        edGiaPhong.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (edGiaPhong.getEditText().getText().toString().length() != 0) {
-                    edGiaPhong.setError(null);
-                }
-            }
-        });
-        edVatTu.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (edVatTu.getEditText().getText().toString().length() != 0) {
-                    edVatTu.setError(null);
-                }
-            }
-        });
-        edSoDienDau.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (edSoDienDau.getEditText().getText().toString().length() != 0) {
-                    edSoDienDau.setError(null);
-                }
-            }
-        });
-        edSoNuocDau.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (edSoNuocDau.getEditText().getText().toString().length() != 0) {
-                    edSoNuocDau.setError(null);
-                }
-            }
-        });
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -419,6 +336,27 @@ public class PhongFragment extends Fragment {
             }
         }
         return null;
+    }
+
+    public void setErr(TextInputLayout textInputLayout) {
+        textInputLayout.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (textInputLayout.getEditText().getText().toString().length() != 0) {
+                    textInputLayout.setError(null);
+                }
+            }
+        });
     }
 }
 // #################################################################
