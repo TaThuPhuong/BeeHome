@@ -1,26 +1,21 @@
 package net.fpl.beehome;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,16 +27,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.hbb20.CountryCodePicker;
 
-import net.fpl.beehome.Adapter.NguoiThue.NguoiThueAdapter;
 import net.fpl.beehome.Adapter.NguoiThue.NguoiThueSwip;
-import net.fpl.beehome.Adapter.NguoiThue.PhongSpinnerAdapter;
 import net.fpl.beehome.DAO.NguoiThueDAO;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NguoiThue_Activity extends AppCompatActivity {
     FloatingActionButton fladd;
@@ -51,8 +46,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
     Button btn_them, btn_huy;
     NguoiThueDAO nguoiThueDAO;
     NguoiThueSwip nguoiThueSwip;
-    ArrayList<Phong> lsPhong;
-    public PhongSpinnerAdapter phongSpinnerAdapter;
+    CountryCodePicker cpp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +60,6 @@ public class NguoiThue_Activity extends AppCompatActivity {
         nguoiThueSwip = new NguoiThueSwip(list,NguoiThue_Activity.this,firestore);
 
         rc_nguoithue.setAdapter(nguoiThueSwip);
-        lsPhong = getIDPhong();
-        Log.d("zzzzzzzz", "onComplete: " + lsPhong.size());
 
         fladd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,13 +96,13 @@ public class NguoiThue_Activity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        cpp = (CountryCodePicker) findViewById(R.id.cpp);
         ed_ten = view.findViewById(R.id.ed_hotennguoithue);
         ed_sodt = view.findViewById(R.id.ed_sdtnguoithue);
         ed_email = view.findViewById(R.id.ed_emailnguoithue);
         ed_cccd = view.findViewById(R.id.ed_cccdnguoithue);
         btn_them = view.findViewById(R.id.btn_dangkinguoithue);
         btn_huy = view.findViewById(R.id.btn_huynguoithue);
-        phongSpinnerAdapter = new PhongSpinnerAdapter(lsPhong);
         btn_huy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +118,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 String cccd = ed_cccd.getText().toString();
                 if (TextUtils.isEmpty(ten)) {
                     Toast.makeText(NguoiThue_Activity.this, "Không Được Để Trống Tên", Toast.LENGTH_SHORT).show();
-                }else if (!isNumber(sodt.toString())){
+                }else if (!isNumber(sodt)){
                     Toast.makeText(NguoiThue_Activity.this, "Không Đúng Số Điện Thoại", Toast.LENGTH_SHORT).show();
                 }else if (!isEmail(email.toString())){
                     Toast.makeText(NguoiThue_Activity.this, "Không Đúng Định Dạng Email", Toast.LENGTH_SHORT).show();
@@ -137,6 +129,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
                     NguoiThue nguoiThue = new NguoiThue();
                     nguoiThue.setID_thanhvien(sodt);
                     nguoiThue.setHoTen(ten);
+                    nguoiThue.setID_phong("Trống");
                     nguoiThue.setSDT(sodt);
                     nguoiThue.setPassword(sodt);
                     nguoiThue.setEmail(email);
@@ -152,8 +145,10 @@ public class NguoiThue_Activity extends AppCompatActivity {
     public static boolean isEmail(CharSequence charSequence){
         return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
     }
-    public static boolean isNumber(CharSequence charSequence){
-        return !TextUtils.isEmpty(charSequence) && Patterns.PHONE.matcher(charSequence).matches();
+    public static boolean isNumber(String input){
+        Pattern b = Pattern.compile("(84|0[3|5|7|8|9])+([0-9]{8})\\b");
+        Matcher m = b.matcher(input);
+        return m.matches();
     }
 
     private void themNguoiThue(NguoiThue nguoiThue) {
