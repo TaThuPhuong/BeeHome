@@ -20,6 +20,7 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
+
 public class MessageActivity extends AppCompatActivity {
 
     public static final String URL_SV = "http://192.168.0.101:3000";
@@ -60,7 +61,8 @@ public class MessageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String strMess = edMess.getText().toString();
                 Log.e("TAG", "onClick: " + strMess );
-
+                
+                Log.e("TAG", "onClick: " );
                 Log.e("TAG", "onClick: " + list.size() );
                 edMess.setText("");
             }
