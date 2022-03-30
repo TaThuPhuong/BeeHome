@@ -23,9 +23,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -142,7 +145,6 @@ public class PhongFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         thongBao("Thêm thất bại");
-                        Log.w("zzzz", "Error writing document", e);
                     }
                 });
     }
@@ -272,7 +274,12 @@ public class PhongFragment extends Fragment {
                     phong.setTrangThai(strTrangThai);
                     phong.setSoNuocDau(Integer.parseInt(soNuocDau));
                     phong.setVatTu(strVatTu);
-                    themPhong(phong);
+                    if (checkIDPhong(phong) != null) {
+                        thongBao("Số phòng đã tồn tại");
+                        return;
+                    } else {
+                        themPhong(phong);
+                    }
                     dialog.dismiss();
                 }
 
@@ -284,5 +291,14 @@ public class PhongFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+    }
+
+    public Phong checkIDPhong(Phong phong) {
+        for (Phong phong1 : lsPhong){
+            if(phong.getIDPhong().equalsIgnoreCase(phong1.getIDPhong())){
+                return phong1;
+            }
+        }
+        return null;
     }
 }
