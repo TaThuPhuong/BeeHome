@@ -29,41 +29,4 @@ public class NguoiThueDAO {
         this.firestore = firestore;
         this.context = context;
     }
-    public void thongbaonguoithue(int type, String mess){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-        if (type == 0){
-            View view = View.inflate(context, R.layout.dialog_thong_bao_nguoithue_success, null);
-            builder.setView(view);
-
-            AlertDialog dialog = builder.create();
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.show();
-            TextView btn = view.findViewById(R.id.btn_successnguoithue);
-            TextView tv = view.findViewById(R.id.tv_dialognguoithue);
-            tv.setText(mess);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-        } else if(type == 1) {
-            View view = View.inflate(context, R.layout.dialog_thong_bao_nguoithue_fail, null);
-            builder.setView(view);
-
-            AlertDialog dialog = builder.create();
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.show();
-            TextView btn = view.findViewById(R.id.btn_failnguoithue);
-            TextView tv = view.findViewById(R.id.tv_dialognguoithue);
-            tv.setText(mess);
-            btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-        }
-    }
 }

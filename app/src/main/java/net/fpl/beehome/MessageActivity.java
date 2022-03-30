@@ -13,11 +13,11 @@ import net.fpl.beehome.Adapter.Message.MessageAdapter;
 
 import org.json.JSONObject;
 
+import java.net.Socket;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import io.socket.client.IO;
-import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 
@@ -25,11 +25,11 @@ public class MessageActivity extends AppCompatActivity {
 
     public static final String URL_SV = "http://192.168.0.101:3000";
     private Socket mSocket;
-    {
-        try {
-            mSocket = IO.socket("http://chat.socket.io");
-        } catch (URISyntaxException e) {}
-    }
+//    {
+//        try {
+//            mSocket = IO.socket("http://chat.socket.io");
+//        } catch (URISyntaxException e) {}
+//    }
 
     RecyclerView rcvMess;
     EditText edMess;
@@ -42,7 +42,7 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
-        mSocket.connect();
+//        mSocket.connect();
         list = new ArrayList<>();
         messageAdapter = new MessageAdapter(list);
 
@@ -50,8 +50,8 @@ public class MessageActivity extends AppCompatActivity {
         edMess = findViewById(R.id.ed_mess);
         imgMess = findViewById(R.id.img_mess);
 
-        connectSocket();
-        mSocket.on("receiver_message", setOnNewMessage);
+//        connectSocket();
+//        mSocket.on("receiver_message", setOnNewMessage);
 
         messageAdapter = new MessageAdapter(list);
         rcvMess.setAdapter(messageAdapter);
@@ -83,12 +83,12 @@ public class MessageActivity extends AppCompatActivity {
         }
     };
 
-   void connectSocket(){
-        try {
-            mSocket = IO.socket(URL_SV);
-            mSocket.connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-   }
+//   void connectSocket(){
+//        try {
+//            mSocket = IO.socket(URL_SV);
+//            mSocket.connect();
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//   }
 }
