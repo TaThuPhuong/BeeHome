@@ -32,4 +32,5 @@
         <item>Kw</item>
         <item>Khối nước</item>
     </string-array>
+    <string name="chat">Bắt đầu Chat</string>
 </resources>
