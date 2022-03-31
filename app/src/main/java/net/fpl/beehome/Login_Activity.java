@@ -1,5 +1,6 @@
 package net.fpl.beehome;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +52,7 @@ public class Login_Activity extends AppCompatActivity {
     Admin admin;
     NguoiThue nguoiThue;
     PhongFragment phongFragment;
+    ProgressDialog progressDialog;
 
     public void init() {
         edNguoidung = findViewById(R.id.ed_sdt);
@@ -65,6 +67,7 @@ public class Login_Activity extends AppCompatActivity {
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
         animation = AnimationUtils.loadAnimation(this, R.anim.login);
         constraintLayout.startAnimation(animation);
+        progressDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -91,6 +94,9 @@ public class Login_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 String pass = edMatkhau.getEditText().getText().toString();
                 String user = edNguoidung.getEditText().getText().toString();
+                Log.d("zzzzzzzz", "onClick: " + user);
+
+
                 if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pass)) {
                     if (TextUtils.isEmpty(user)) {
                         edNguoidung.setError("Nhập tên đăng nhập hoặc số điện thoại");
@@ -100,23 +106,48 @@ public class Login_Activity extends AppCompatActivity {
                     }
                     return;
                 } else {
-                    admin = getAdmin(user);
-                    nguoiThue = getNguoiThue(user);
-                    if (admin == null && nguoiThue == null) {
-                        edMatkhau.setError("Sai tên đăng nhập hoặc mật khẩu");
-                    } else if (admin != null && admin.getPassword().equals(pass)) {
-                        Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                        intent.putExtra("user", user);
-                        intent.putExtra("ad", admin);
-                        startActivity(intent);
-                        nhoMatKhau(chk.isChecked(), user, pass);
-                    } else if (nguoiThue != null && nguoiThue.getPassword().equals(pass)) {
-                        Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                        intent.putExtra("user", user);
-                        intent.putExtra("nt", nguoiThue);
-                        startActivity(intent);
-                        nhoMatKhau(chk.isChecked(), user, pass);
+                    if (user.equals("admin")) {
+                        getAdmin(user);
+//                        Log.d("TAG", "onClick: " + admin.toString());
+                    } else {
+                        getNguoiThue(user);
+//                        Log.d("TAG", "onClick: " + nguoiThue.toString());
                     }
+                    progressDialog.show();
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (admin == null && nguoiThue == null) {
+                                edNguoidung.setError("Sai tên đăng nhập");
+                                progressDialog.dismiss();
+                            } else {
+                                if (admin != null && admin.getPassword().equals(pass)) {
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                                    intent.putExtra("user", user);
+                                    intent.putExtra("ad", admin);
+                                    startActivity(intent);
+                                    nhoMatKhau(chk.isChecked(), user, pass);
+                                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
+
+                                } else if (nguoiThue != null && nguoiThue.getPassword().equals(pass)) {
+                                    progressDialog.dismiss();
+                                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                                    intent.putExtra("user", user);
+                                    intent.putExtra("nt", nguoiThue);
+                                    startActivity(intent);
+                                    nhoMatKhau(chk.isChecked(), user, pass);
+                                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    edMatkhau.setError("Sai mật khẩu");
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        }
+                    }, 2300);
+
                 }
             }
 
@@ -136,7 +167,7 @@ public class Login_Activity extends AppCompatActivity {
         });
     }
 
-    public Admin getAdmin(String str) {
+    public void getAdmin(String str) {
         fb.collection(Admin.TB_NAME).document(str)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -147,10 +178,10 @@ public class Login_Activity extends AppCompatActivity {
                         }
                     }
                 });
-        return admin;
+//        return admin;
     }
 
-    public NguoiThue getNguoiThue(String str) {
+    public void getNguoiThue(String str) {
         fb.collection(NguoiThue.TB_NGUOITHUE).document(str)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -162,7 +193,7 @@ public class Login_Activity extends AppCompatActivity {
                         }
                     }
                 });
-        return nguoiThue;
+//        return nguoiThue;
     }
 
     private void nhoMatKhau(boolean b, String user, String pass) {
@@ -170,7 +201,6 @@ public class Login_Activity extends AppCompatActivity {
             mySharedPreferences.saveUser(MySharedPreferences.USER_KEY, user);
             mySharedPreferences.savePassword(MySharedPreferences.PASSWORD_KEY, pass);
             mySharedPreferences.saveStatus(MySharedPreferences.STATUS_KEY, chk.isChecked());
-            Toast.makeText(Login_Activity.this, "Đã ghi nhớ ", Toast.LENGTH_SHORT).show();
         } else {
             mySharedPreferences.clear();
             mySharedPreferences.saveUser(MySharedPreferences.USER_KEY, user);
