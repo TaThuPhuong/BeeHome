@@ -17,7 +17,6 @@ import java.net.Socket;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-import io.socket.client.IO;
 import io.socket.emitter.Emitter;
 
 

@@ -44,16 +44,14 @@
                 android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_mk_cu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                app:hintEnabled="false"
+                android:layout_marginHorizontal="24dp"
+                app:errorEnabled="true"
                 app:passwordToggleEnabled="true">
 
                 <EditText
-                    android:id="@+id/ed_mk_cu"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/background_edttext"
@@ -65,16 +63,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_mk_moi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                app:hintEnabled="false"
+                android:layout_marginHorizontal="24dp"
+                app:errorEnabled="true"
                 app:passwordToggleEnabled="true">
 
                 <EditText
-                    android:id="@+id/ed_mk_moi"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/background_edttext"
@@ -86,16 +82,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_re_mk_moi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
-                app:hintEnabled="false"
+                android:layout_marginHorizontal="24dp"
+                app:errorEnabled="true"
                 app:passwordToggleEnabled="true">
 
                 <EditText
-                    android:id="@+id/ed_re_mk_moi"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/background_edttext"

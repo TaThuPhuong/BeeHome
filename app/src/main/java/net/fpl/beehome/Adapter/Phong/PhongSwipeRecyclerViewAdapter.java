@@ -231,10 +231,10 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         edVatTu.setError(null);
         edSoDienDau.setError(null);
         edSoNuocDau.setError(null);
-        fragment.setErr(edGiaPhong);
-        fragment.setErr(edSoDienDau);
-        fragment.setErr(edSoNuocDau);
-        fragment.setErr(edVatTu);
+        fragment.setUnErr(edGiaPhong);
+        fragment.setUnErr(edSoDienDau);
+        fragment.setUnErr(edSoNuocDau);
+        fragment.setUnErr(edVatTu);
         // set phòng sửa lên dialog
         edSoPhong.getEditText().setText(phong.getSoPhong());
         edGiaPhong.getEditText().setText(phong.getGiaPhong() + "");

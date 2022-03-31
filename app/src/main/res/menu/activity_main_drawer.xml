@@ -5,18 +5,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:icon="@drawable/ic_key"
+            android:id="@+id/nav_trang_chu"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Trang chủ" />
+        <item
             android:id="@+id/nav_doiMatKhau"
-            android:title="@string/mnu_rePass"
-            />
+            android:icon="@drawable/ic_key"
+            android:title="@string/mnu_rePass" />
         <item
             android:id="@+id/nav_gT"
             android:icon="@drawable/ic_user"
             android:title="@string/menu_gT" />
-        
+
         <item
-            android:icon="@drawable/ic_logout"
             android:id="@+id/sub_Logout"
+            android:icon="@drawable/ic_logout"
             android:title="@string/mnu_out" />
 
     </group>

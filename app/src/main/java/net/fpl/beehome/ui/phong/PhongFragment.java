@@ -265,12 +265,12 @@ public class PhongFragment extends Fragment {
                 }
             }
         });
-        setErr(edGiaPhong);
-        setErr(edSoPhong);
-        setErr(edSoDienDau);
-        setErr(edSoNuocDau);
-        setErr(edVatTu);
-        setErr(edSoPhong);
+        setUnErr(edGiaPhong);
+        setUnErr(edSoPhong);
+        setUnErr(edSoDienDau);
+        setUnErr(edSoNuocDau);
+        setUnErr(edVatTu);
+        setUnErr(edSoPhong);
 
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -338,7 +338,7 @@ public class PhongFragment extends Fragment {
         return null;
     }
 
-    public void setErr(TextInputLayout textInputLayout) {
+    public void setUnErr(TextInputLayout textInputLayout) {
         textInputLayout.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
