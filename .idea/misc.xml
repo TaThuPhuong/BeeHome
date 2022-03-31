@@ -13,7 +13,6 @@
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1805" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/activity_login.xml" value="0.25181159420289856" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/activity_main.xml" value="0.25181159420289856" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/activity_main_nguoi_thue.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/activity_nguoi_thue.xml" value="0.15081521739130435" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/activity_screen.xml" value="0.25181159420289856" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/add_success_dialog.xml" value="0.22826086956521738" />
@@ -24,17 +23,14 @@
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_sua_phong.xml" value="0.264" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/dialog_them_phong.xml" value="0.264" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_doi_mat_khau.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.2" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_home.xml" value="0.264" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_home_nguoi_thue.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/fragment_phong.xml" value="0.2536231884057971" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/hoa_don_chua_thanh_toan.xml" value="0.176" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/item_phong.xml" value="0.2536231884057971" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/item_phong_spinner.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/item_phong_swipe.xml" value="0.16" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/nav_header_main.xml" value="0.25181159420289856" />
-        <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/row_sp_phong_dialogadd.xml" value="0.25416666666666665" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/them_phong_dialog.xml" value="0.2536231884057971" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/layout/thong_bao_dialog.xml" value="0.2536231884057971" />
         <entry key="..\:/KyIV/DA1/BeeHome/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />
@@ -118,8 +114,10 @@
         <entry key="app/src/main/res/layout/dialog_info_suco.xml" value="0.1105072463768116" />
         <entry key="app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/dialog_sua_nguoithue.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/dialog_them_phong.xml" value="0.10740740740740741" />
+        <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/dialog_them_phong.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.14361702127659576" />
+        <entry key="app/src/main/res/layout/fragment_phong.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/item_nguoithue.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/row_hopdong.xml" value="0.23641304347826086" />
