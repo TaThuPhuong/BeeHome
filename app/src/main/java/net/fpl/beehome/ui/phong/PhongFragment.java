@@ -6,11 +6,15 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -23,9 +27,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -35,6 +43,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import net.fpl.beehome.Adapter.Phong.PhongSwipeRecyclerViewAdapter;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Phong;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -64,7 +74,6 @@ public class PhongFragment extends Fragment {
         phongSwipeRecyclerViewAdapter = new PhongSwipeRecyclerViewAdapter(getContext(), getLsPhong(), fb, this);
         phongSwipeRecyclerViewAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(phongSwipeRecyclerViewAdapter);
-
     }
 
     @Override
@@ -142,7 +151,6 @@ public class PhongFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         thongBao("Thêm thất bại");
-                        Log.w("zzzz", "Error writing document", e);
                     }
                 });
     }
@@ -155,11 +163,13 @@ public class PhongFragment extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-        EditText edSoPhong, edGiaPhong, edVatTu, edTrangThai, edSoNuocDau, edSoDienDau;
+        TextInputLayout edSoPhong, edGiaPhong, edVatTu, edSoNuocDau, edSoDienDau;
+        EditText ed_VatTu, edTrangThai;
         Button btnThem, btnHuy;
         CheckBox chkGiuong, chkTu, chkDieuHoa, chkNL, chkMayGiat, chkBan, chkBep;
         ImageButton btnChon, btnCancel, btnChonTatCa;
         RadioGroup rdgTrangThai;
+        ed_VatTu = view.findViewById(R.id.ed_vattu);
         edSoPhong = view.findViewById(R.id.ed_so_phong);
         edGiaPhong = view.findViewById(R.id.ed_gia_phong);
         edVatTu = view.findViewById(R.id.ed_vat_tu);
@@ -179,10 +189,15 @@ public class PhongFragment extends Fragment {
         chkTu = view.findViewById(R.id.chk_vt_tu);
         chkMayGiat = view.findViewById(R.id.chk_vt_may_giat);
         rdgTrangThai = view.findViewById(R.id.rdgTrangThai);
+        edSoPhong.setError(null);
+        edGiaPhong.setError(null);
+        edVatTu.setError(null);
+        edSoDienDau.setError(null);
+        edSoNuocDau.setError(null);
         btnChonTatCa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                edVatTu.setText("Giường, Bàn, Bếp, Tủ, Điều hòa, Máy giặt, Bình nước nóng");
+                ed_VatTu.setText("Giường, Bàn, Bếp, Tủ, Điều hòa, Máy giặt, Bình nước nóng");
                 chkBan.setChecked(true);
                 chkBep.setChecked(true);
                 chkDieuHoa.setChecked(true);
@@ -217,13 +232,13 @@ public class PhongFragment extends Fragment {
                 if (chkTu.isChecked()) {
                     vt += chkTu.getText().toString() + ", ";
                 }
-                edVatTu.setText(vt);
+                ed_VatTu.setText(vt);
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                edVatTu.setText("");
+                ed_VatTu.setText("");
                 chkBan.setChecked(false);
                 chkBep.setChecked(false);
                 chkDieuHoa.setChecked(false);
@@ -250,18 +265,41 @@ public class PhongFragment extends Fragment {
                 }
             }
         });
+        setErr(edGiaPhong);
+        setErr(edSoPhong);
+        setErr(edSoDienDau);
+        setErr(edSoNuocDau);
+        setErr(edVatTu);
+        setErr(edSoPhong);
+
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String soPhong = edSoPhong.getText().toString();
-                String strVatTu = edVatTu.getText().toString();
-                String giaPhong = edGiaPhong.getText().toString();
+                String soPhong = edSoPhong.getEditText().getText().toString();
+                String strVatTu = edVatTu.getEditText().getText().toString();
+                String giaPhong = edGiaPhong.getEditText().getText().toString();
                 String strTrangThai = edTrangThai.getText().toString();
-                String soDienDau = edSoDienDau.getText().toString();
-                String soNuocDau = edSoNuocDau.getText().toString();
+                String soDienDau = edSoDienDau.getEditText().getText().toString();
+                String soNuocDau = edSoNuocDau.getEditText().getText().toString();
                 if (TextUtils.isEmpty(soPhong) || TextUtils.isEmpty(strVatTu) || TextUtils.isEmpty(giaPhong) ||
                         TextUtils.isEmpty(strTrangThai) || TextUtils.isEmpty(soDienDau) || TextUtils.isEmpty(soNuocDau)) {
-                    thongBao("Điền đầy đủ thông tin các mục");
+                    if (TextUtils.isEmpty(soPhong)) {
+                        edSoPhong.setError("Số phòng không được đế trống");
+                    } else {
+                        edSoPhong.setError(null);
+                    }
+                    if (TextUtils.isEmpty(giaPhong)) {
+                        edGiaPhong.setError("Giá phòng không được để trống");
+                    }
+                    if (TextUtils.isEmpty(strVatTu)) {
+                        edVatTu.setError("Chọn trang bị có trong phòng");
+                    }
+                    if (TextUtils.isEmpty(soDienDau)) {
+                        edSoDienDau.setError("Số điện hiện tại không được để trống");
+                    }
+                    if (TextUtils.isEmpty(soNuocDau)) {
+                        edSoNuocDau.setError("Số nước hiện tại không được để trống");
+                    }
                     return;
                 } else {
                     Phong phong = new Phong();
@@ -272,7 +310,12 @@ public class PhongFragment extends Fragment {
                     phong.setTrangThai(strTrangThai);
                     phong.setSoNuocDau(Integer.parseInt(soNuocDau));
                     phong.setVatTu(strVatTu);
-                    themPhong(phong);
+                    if (checkIDPhong(phong) != null) {
+                        edSoPhong.setError("Số phòng đã tồn tại");
+                        return;
+                    } else {
+                        themPhong(phong);
+                    }
                     dialog.dismiss();
                 }
 
@@ -285,4 +328,64 @@ public class PhongFragment extends Fragment {
             }
         });
     }
+
+    public Phong checkIDPhong(Phong phong) {
+        for (Phong phong1 : lsPhong) {
+            if (phong.getIDPhong().equalsIgnoreCase(phong1.getIDPhong())) {
+                return phong1;
+            }
+        }
+        return null;
+    }
+
+    public void setErr(TextInputLayout textInputLayout) {
+        textInputLayout.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (textInputLayout.getEditText().getText().toString().length() != 0) {
+                    textInputLayout.setError(null);
+                }
+            }
+        });
+    }
 }
+// #################################################################
+// #                             _`
+// #                          _ooOoo_
+// #                         o8888888o
+// #                         88" . "88
+// #                        (|   😑  |)
+// #                         O\  =  /O
+// #                      ____/`---'\____
+// #                    .'  \\|     |//  `.
+// #                   /  \\|||  :  |||//  \
+// #                  /  _||||| -:- |||||_  \
+// #                  |   | \\\  -  /'| |   |
+// #                  | \_|  `\`---'//  |_/ |
+// #                  \  .-\__ `-. -'__/-.  /
+// #                ___`. .'  /--.--\  `. .'___
+// #             ."" '<  `.___\_<|>_/___.' _> \"".
+// #            | | :  `- \`. ;`. _/; .'/ /  .' ; |
+// #            \  \ `-.   \_\_`. _.'_/_/  -' _.' /
+// #=============`-.`___`-.__\ \___  /__.-'_.'_.-'=================#
+//                            `=--=-'
+//           _.-/`)
+//          // / / )
+//       .=// / / / )
+//      //`/ / / / /
+//     // /     ` /
+//    ||         /
+//     \\       /
+//      ))    .'
+//     //    /
+//          /

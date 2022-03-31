@@ -17,7 +17,6 @@
 
             <TextView
                 android:id="@+id/tv_title"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_rd_top_20dp"
@@ -30,13 +29,15 @@
                 />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_so_phong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:hint="Số phòng"
+                app:errorEnabled="true"
                 app:hintTextColor="#5F098E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_so_phong"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -45,13 +46,15 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_gia_phong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:hint="Giá phòng"
+                app:errorEnabled="true"
                 app:hintTextColor="#5F098E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_gia_phong"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -59,13 +62,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_vat_tu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:hint="Vật tư"
+                app:errorEnabled="true"
                 app:hintTextColor="#5F098E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_vat_tu"
+                    android:id="@+id/ed_vattu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -188,6 +194,7 @@
                         android:text="Bỏ" />
                 </LinearLayout>
             </LinearLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -210,12 +217,12 @@
                 android:checkedButton="@id/rdo_trong"
                 android:orientation="horizontal">
 
-<!--                <RadioButton-->
-<!--                    android:id="@+id/rdo_dang_thue"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:buttonTint="#7D0E95"-->
-<!--                    android:text="Đang thuê" />-->
+                <!--                <RadioButton-->
+                <!--                    android:id="@+id/rdo_dang_thue"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:buttonTint="#7D0E95"-->
+                <!--                    android:text="Đang thuê" />-->
 
                 <RadioButton
                     android:id="@+id/rdo_trong"
@@ -233,13 +240,15 @@
             </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_so_dien_dau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:hint="Số điện đầu"
+                app:errorEnabled="true"
                 app:hintTextColor="#5F098E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_so_dien_dau"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -247,13 +256,15 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ed_so_nuoc_dau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:hint="Số nước đầu"
+                app:errorEnabled="true"
                 app:hintTextColor="#5F098E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_so_nuoc_dau"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
