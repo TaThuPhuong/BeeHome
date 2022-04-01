@@ -16,12 +16,6 @@ import java.util.ArrayList;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
     private ArrayList<String> list;
-    Context context;
-
-    public MessageAdapter(ArrayList<String> list, Context context) {
-        this.list = list;
-        this.context = context;
-    }
 
     public void addMess(String mess){
         list.add(mess);

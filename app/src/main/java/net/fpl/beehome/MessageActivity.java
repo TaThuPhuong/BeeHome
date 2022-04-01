@@ -33,7 +33,7 @@ public class MessageActivity extends AppCompatActivity {
     private Socket mSocket;
     {
         try {
-            mSocket = IO.socket("http://chat.socket.io");
+            mSocket = IO.socket("http://192.168.0.101:3000");
         } catch (URISyntaxException e) {}
     }
 
@@ -50,10 +50,8 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
 
-        connectSocket();
-
-        mSocket.on("receiver_message", setOnNewMessage);
         mSocket.connect();
+        mSocket.on("receiver_message", setOnNewMessage);
         list = new ArrayList<>();
 
         fab = findViewById(R.id.fab);
@@ -61,8 +59,6 @@ public class MessageActivity extends AppCompatActivity {
         edMess = findViewById(R.id.ed_mess);
         imgMess = findViewById(R.id.img_mess);
 
-
-        messageAdapter = new MessageAdapter(list);
         messageAdapter = new MessageAdapter(list);
         rcvMess.setAdapter(messageAdapter);
 
@@ -117,4 +113,21 @@ public class MessageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mSocket.connect();
+        mSocket.on("receiver_message", setOnNewMessage);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mSocket.disconnect();
+    }
 }
