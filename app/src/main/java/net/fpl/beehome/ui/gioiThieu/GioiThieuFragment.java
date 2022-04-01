@@ -18,4 +18,9 @@ public class GioiThieuFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_gioi_thieu, container, false);
         return v;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 }

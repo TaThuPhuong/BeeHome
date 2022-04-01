@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -41,7 +44,7 @@ import java.util.regex.Pattern;
 public class NguoiThue_Activity extends AppCompatActivity {
     FloatingActionButton fladd;
     FirebaseFirestore firestore;
-    EditText ed_ten, ed_sodt, ed_email, ed_cccd;
+    TextInputLayout ed_ten, ed_sodt, ed_email, ed_cccd;
     RecyclerView rc_nguoithue;
     Button btn_them, btn_huy;
     NguoiThueDAO nguoiThueDAO;
@@ -101,6 +104,10 @@ public class NguoiThue_Activity extends AppCompatActivity {
         ed_sodt = view.findViewById(R.id.ed_sdtnguoithue);
         ed_email = view.findViewById(R.id.ed_emailnguoithue);
         ed_cccd = view.findViewById(R.id.ed_cccdnguoithue);
+        ed_ten.setError(null);
+        ed_sodt.setError(null);
+        ed_email.setError(null);
+        ed_cccd.setError(null);
         btn_them = view.findViewById(R.id.btn_dangkinguoithue);
         btn_huy = view.findViewById(R.id.btn_huynguoithue);
         btn_huy.setOnClickListener(new View.OnClickListener() {
@@ -113,22 +120,26 @@ public class NguoiThue_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //ccp.getFullNumber() +
-                String ten = ed_ten.getText().toString();
-                String sodt =  ed_sodt.getText().toString();
-                String email = ed_email.getText().toString();
-                String cccd = ed_cccd.getText().toString();
+                String ten = ed_ten.getEditText().getText().toString();
+                String sodt =  ed_sodt.getEditText().getText().toString();
+                String email = ed_email.getEditText().getText().toString();
+                String cccd = ed_cccd.getEditText().getText().toString();
+                setUnErrNguoiThue(ed_ten);
+                setUnErrNguoiThue(ed_sodt);
+                setUnErrNguoiThue(ed_email);
+                setUnErrNguoiThue(ed_cccd);
 //                ccp.registerCarrierNumberEditText(ed_sodt);
                 if (TextUtils.isEmpty(ten)) {
-                    Toast.makeText(NguoiThue_Activity.this, "Không Được Để Trống Tên", Toast.LENGTH_SHORT).show();
+                    ed_ten.setError("Không Được Để Trống Tên");
                     return;
                 }else if (!isNumber(sodt)){
-                    Toast.makeText(NguoiThue_Activity.this, "Không Đúng Số Điện Thoại", Toast.LENGTH_SHORT).show();
+                    ed_sodt.setError("Không Đúng Số Điện Thoại");
                     return;
                 }else if (!isEmail(email)){
-                    Toast.makeText(NguoiThue_Activity.this, "Không Đúng Định Dạng Email", Toast.LENGTH_SHORT).show();
+                    ed_email.setError("Không Đúng Định Dạng Email");
                     return;
                 }else if (cccd.length() != 12 ){
-                    Toast.makeText(NguoiThue_Activity.this, "Căn Cước 12 Số", Toast.LENGTH_SHORT).show();
+                    ed_cccd.setError("Căn Cước 12 Số");
                     return;
                 }
                 else {
@@ -217,5 +228,25 @@ public class NguoiThue_Activity extends AppCompatActivity {
             }
         }
         return null;
+    }
+    public void setUnErrNguoiThue(TextInputLayout textInputLayout) {
+        textInputLayout.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (textInputLayout.getEditText().getText().toString().length() != 0) {
+                    textInputLayout.setError(null);
+                }
+            }
+        });
     }
 }

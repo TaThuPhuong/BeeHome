@@ -17,11 +17,11 @@
 
     <string name="nhap_user">Nhập tên người dùng</string>
     <string name="nhap_pass">Nhập mật khẩu</string>
-    <string name="luumatkhau">Lưu Mật Khẩu</string>
+    <string name="luumatkhau">Lưu mật khẩu</string>
     <string name="quenmatkhau"><u>Quên mật khẩu ?</u></string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="daco_fragment">Đã Có Phòng</string>
-    <string name="chuaco_fragment">Chưa Có Phòng</string>
+    <string name="daco_fragment">Đã có phòng</string>
+    <string name="chuaco_fragment">Chưa có phòng</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     

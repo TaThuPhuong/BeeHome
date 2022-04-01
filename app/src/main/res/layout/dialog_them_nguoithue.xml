@@ -27,11 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Họ và tên"
+            android:id="@+id/ed_hotennguoithue"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:paddingTop="30dp"
-                android:id="@+id/ed_hotennguoithue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -48,49 +48,50 @@
             app:ccp_autoDetectCountry="true"
             app:ccp_showNameCode="true"
             />
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:counterMaxLength="10"-->
-<!--            app:counterEnabled="true"-->
-<!--            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:paddingTop="30dp"-->
-<!--                android:id="@+id/ed_sdtnguoithue"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@color/white"-->
-<!--                android:inputType="number"-->
-<!--                android:maxLength="10"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="20dp" />-->
-            <EditText
-                android:paddingLeft="10dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterMaxLength="10"
+            app:counterEnabled="true"
+            android:id="@+id/ed_sdtnguoithue"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+            <com.google.android.material.textfield.TextInputEditText
+                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="10"
-                android:id="@+id/ed_sdtnguoithue"
                 android:background="@color/white"
-                android:textSize="25dp"
-                android:editable="false"
-                android:hint = " phone "
-                android:inputType = "phone"
-                android:singleLine = "true"
-                />
+                android:inputType="number"
+                android:hint="Số Điện Thoại"
+                android:maxLength="10"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+<!--            <EditText-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:maxLength="10"-->
+<!--                android:id="@+id/ed_sdtnguoithue"-->
+<!--                android:background="@color/white"-->
+<!--                android:textSize="25dp"-->
+<!--                android:editable="false"-->
+<!--                android:hint = " phone "-->
+<!--                android:inputType = "phone"-->
+<!--                android:singleLine = "true"-->
+<!--                />-->
 
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:id="@+id/ed_emailnguoithue"
             android:layout_marginTop="15dp"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:paddingTop="30dp"
-                android:id="@+id/ed_emailnguoithue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -106,12 +107,12 @@
             android:hint="CMND/CCCD"
             app:counterMaxLength="12"
             app:counterEnabled="true"
+            android:id="@+id/ed_cccdnguoithue"
             android:layout_marginTop="15dp"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:paddingTop="30dp"
-                android:id="@+id/ed_cccdnguoithue"
                 android:maxLength="12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

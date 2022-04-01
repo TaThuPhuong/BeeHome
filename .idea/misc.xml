@@ -117,8 +117,10 @@
         <entry key="app/src/main/res/layout/dialog_info_suco.xml" value="0.1105072463768116" />
         <entry key="app/src/main/res/layout/dialog_sua_dich_vu.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/dialog_sua_nguoithue.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.15070921985815602" />
-        <entry key="app/src/main/res/layout/dialog_them_phong.xml" value="0.10740740740740741" />
+        <entry key="app/src/main/res/layout/dialog_them_nguoithue.xml" value="0.125" />
+        <entry key="app/src/main/res/layout/dialog_them_phong.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.14361702127659576" />
+        <entry key="app/src/main/res/layout/fragment_phong.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/item_nguoithue.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.23641304347826086" />
         <entry key="app/src/main/res/layout/row_hopdong.xml" value="0.23641304347826086" />

@@ -1,6 +1,8 @@
 package net.fpl.beehome.model;
 
-public class NguoiThue {
+import java.io.Serializable;
+
+public class NguoiThue implements Serializable {
     String ID_thanhvien;
     String ID_phong;
     String HoTen;
