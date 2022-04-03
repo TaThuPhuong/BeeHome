@@ -151,6 +151,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/tim_300"
                 android:text="Đăng nhập"
+                android:textAllCaps="false"
                 android:padding="10dp"
                 app:cornerRadius="10dp" />
 

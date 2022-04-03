@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
         ab = getSupportActionBar();
-        setTitle("Xin chào ");
+        setTitle("Trang Chủ");
 //        bottom menu
         bnavigation = findViewById(R.id.bottomnav);
         bnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString(Admin.TB_NAME, "tb_admin");
             bundle.putString(Admin.COL_PASS, admin.getPassword());
             loadFragment(new HomeFragment());
-            setTitle("Xin chào");
             HomeFragment homeFragment = new HomeFragment();
             manager.beginTransaction()
                     .replace(R.id.nav_host_fragment_content_main, homeFragment)
@@ -91,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
             bundle.putString(NguoiThue.COL_SDT, user);
             bundle.putString(NguoiThue.COL_PASS, nguoiThue.getPassword());
             bnavigation.setVisibility(View.GONE);
-            setTitle("Xin chào");
             loadFragment(new HomeNguoiThueFragment());
             HomeNguoiThueFragment homeFragment = new HomeNguoiThueFragment();
             manager.beginTransaction()
