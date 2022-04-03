@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_tenDV"
-            android:textSize="16dp"
+            android:textSize="18dp"
             android:textStyle="bold"
             android:padding="5dp"/>
 
@@ -48,14 +48,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tv_chiSo"
-            android:textSize="16dp"
+            android:textSize="18dp"
             android:textStyle="bold"
             android:padding="5dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tên dịch vụ:"
+            android:text="Giá dịch vụ:"
             android:textSize="16dp"/>
 
         <com.google.android.material.textfield.TextInputLayout

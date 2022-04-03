@@ -47,9 +47,6 @@ public class DichVuActivity extends AppCompatActivity {
     DichVu dichVu;
     DichVuAdapter dichVuAdapter;
     ArrayList<DichVu> list;
-    public static final String URL_SERVER = "http://192.168.0.102:3000";
-
-
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -58,8 +55,6 @@ public class DichVuActivity extends AppCompatActivity {
 
         dichVuDAO = new DichVuDAO(this);
         dichVuAdapter = new DichVuAdapter(dichVuDAO, list);
-
-        addDichVu();
 
         rcv_dichVu = findViewById(R.id.rcv_dichVu);
         fab_dichVu = findViewById(R.id.fab_dichVu);
@@ -72,24 +67,6 @@ public class DichVuActivity extends AppCompatActivity {
                 dichVuAdapter.showDialog(DichVuActivity.this, 0 , 0);
             }
         });
-
-    }
-
-    public void addDichVu(){
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//
-//
-//        DichVu dichVu = new DichVu("Điện", 3000, "Kw");
-//        db.collection(DichVu.TB_NAME).document("DV - Dien").set(dichVu, SetOptions.merge());
-//
-//        DichVu dichVu1 = new DichVu("Nước", 20000, "Khối nước");
-//        db.collection(DichVu.TB_NAME).document("DV - Nuoc").set(dichVu1, SetOptions.merge());
-//
-//        DichVu dichVu2 = new DichVu("Vệ sinh", 20000, "Người");
-//        db.collection(DichVu.TB_NAME).document("DV - Ve sinh").set(dichVu2, SetOptions.merge());
-//
-//        DichVu dichVu3 = new DichVu("Mạng", 200000, "Phòng");
-//        db.collection(DichVu.TB_NAME).document("DV - Mang").set(dichVu3, SetOptions.merge());
 
     }
 
@@ -106,8 +83,6 @@ public class DichVuActivity extends AppCompatActivity {
                         Log.e("TAG", "onComplete: "+snapshot.getId() + " / " + snapshot.getData());
                         list.add(dichVu);
                         dichVuAdapter.notifyDataSetChanged();
-
-
                 }
             }
         });
