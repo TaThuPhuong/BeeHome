@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,9 +53,10 @@ public class Login_Activity extends AppCompatActivity {
     Admin admin;
     NguoiThue nguoiThue;
     PhongFragment phongFragment;
-    ProgressDialog progressDialog;
+    ProgressBarLoading progressBarLoading;
 
     public void init() {
+        fb = FirebaseFirestore.getInstance();
         edNguoidung = findViewById(R.id.ed_sdt);
         edMatkhau = findViewById(R.id.ed_pass);
         btnDangNhap = findViewById(R.id.btn_dangnhap);
@@ -63,11 +65,11 @@ public class Login_Activity extends AppCompatActivity {
         tvQuenMK = findViewById(R.id.tv_quen_mk);
         constraintLayout = findViewById(R.id.aniLogin);
         phongFragment = new PhongFragment();
-        fb = FirebaseFirestore.getInstance();
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
         animation = AnimationUtils.loadAnimation(this, R.anim.login);
         constraintLayout.startAnimation(animation);
-        progressDialog = new ProgressDialog(this);
+        progressBarLoading = new ProgressBarLoading(Login_Activity.this);
+
     }
 
     @Override
@@ -76,6 +78,7 @@ public class Login_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         init();
+        getAdmin("admin");
 
         phongFragment.setUnErr(edNguoidung);
         phongFragment.setUnErr(edMatkhau);
@@ -94,7 +97,7 @@ public class Login_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 String pass = edMatkhau.getEditText().getText().toString();
                 String user = edNguoidung.getEditText().getText().toString();
-                Log.d("zzzzzzzz", "onClick: " + user);
+                progressBarLoading.showLoading();
 
 
                 if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pass)) {
@@ -106,51 +109,46 @@ public class Login_Activity extends AppCompatActivity {
                     }
                     return;
                 } else {
-                    if (user.equals("admin")) {
-                        getAdmin(user);
-//                        Log.d("TAG", "onClick: " + admin.toString());
-                    } else {
-                        getNguoiThue(user);
+                    getNguoiThue(user);
 //                        Log.d("TAG", "onClick: " + nguoiThue.toString());
-                    }
-                    progressDialog.show();
+                }
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (admin == null && nguoiThue == null) {
-                                edNguoidung.setError("Sai tên đăng nhập");
-                                progressDialog.dismiss();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d("TAG", "onClick: " + admin.toString());
+
+                        if (admin == null && nguoiThue == null) {
+                            edNguoidung.setError("Sai tên đăng nhập hoặc mật khẩu");
+                            progressBarLoading.hideLoaing();
+                        } else {
+                            if (user.equals("admin") && admin.getPassword().equals(pass)) {
+                                progressBarLoading.hideLoaing();
+                                Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                                intent.putExtra("user", user);
+                                intent.putExtra("ad", admin);
+                                startActivity(intent);
+                                nhoMatKhau(chk.isChecked(), user, pass);
+                                Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
+
+                            } else if (!user.equals("admin") && nguoiThue.getPassword().equals(pass)) {
+                                progressBarLoading.hideLoaing();
+                                Intent intent = new Intent(Login_Activity.this, MainNguoiThueActivity.class);
+                                intent.putExtra("user", user);
+                                intent.putExtra("nt", nguoiThue);
+                                startActivity(intent);
+                                nhoMatKhau(chk.isChecked(), user, pass);
+                                Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
+
                             } else {
-                                if (admin != null && admin.getPassword().equals(pass)) {
-                                    progressDialog.dismiss();
-                                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                                    intent.putExtra("user", user);
-                                    intent.putExtra("ad", admin);
-                                    startActivity(intent);
-                                    nhoMatKhau(chk.isChecked(), user, pass);
-                                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
-
-                                } else if (nguoiThue != null && nguoiThue.getPassword().equals(pass)) {
-                                    progressDialog.dismiss();
-                                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                                    intent.putExtra("user", user);
-                                    intent.putExtra("nt", nguoiThue);
-                                    startActivity(intent);
-                                    nhoMatKhau(chk.isChecked(), user, pass);
-                                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    edMatkhau.setError("Sai mật khẩu");
-                                    progressDialog.dismiss();
-                                }
+                                edMatkhau.setError("Sai mật khẩu");
+                                progressBarLoading.hideLoaing();
                             }
                         }
-                    }, 2300);
+                    }
+                }, 3000);
 
-                }
             }
-
         });
         btnClear.setOnClickListener(new View.OnClickListener() {
             @Override

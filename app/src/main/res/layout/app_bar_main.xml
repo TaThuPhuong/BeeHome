@@ -12,6 +12,7 @@
         android:theme="@style/Theme.BeeHome.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
+            android:gravity="center"
             android:id="@+id/toolbar_hoa_don"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
