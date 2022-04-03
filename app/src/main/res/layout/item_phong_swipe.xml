@@ -108,15 +108,15 @@
         android:padding="10dp">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/img_phong" />
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_room" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
             android:orientation="vertical">
 
             <TextView

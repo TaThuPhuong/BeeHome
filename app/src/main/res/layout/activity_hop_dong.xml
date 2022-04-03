@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_hd_avt"
+    android:background="@drawable/background2"
     tools:context=".HopDongActivity">
 
 
@@ -51,8 +51,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/tim_400"
         android:src="@drawable/ic_add"
+        app:tint="@color/white"
+        app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="@+id/sw_rv"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />

@@ -4,22 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -28,20 +23,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.model.Admin;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.ui.phong.PhongFragment;
 
-import java.util.ArrayList;
-
 public class Login_Activity extends AppCompatActivity {
     TextInputLayout edNguoidung, edMatkhau;
-    Button btnDangNhap, btnClear;
+    Button btnDangNhap;
     CheckBox chk;
     TextView tvQuenMK;
     Animation animation;
@@ -57,8 +47,7 @@ public class Login_Activity extends AppCompatActivity {
     public void init() {
         edNguoidung = findViewById(R.id.ed_sdt);
         edMatkhau = findViewById(R.id.ed_pass);
-        btnDangNhap = findViewById(R.id.btn_dangnhap);
-        btnClear = findViewById(R.id.btn_clear);
+        btnDangNhap = findViewById(R.id.btn_login);
         chk = findViewById(R.id.chk_remember);
         tvQuenMK = findViewById(R.id.tv_quen_mk);
         constraintLayout = findViewById(R.id.aniLogin);
@@ -146,19 +135,13 @@ public class Login_Activity extends AppCompatActivity {
                                 }
                             }
                         }
-                    }, 2300);
+                    }, 3000);
 
                 }
             }
 
         });
-        btnClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edMatkhau.getEditText().setText("");
-                edNguoidung.getEditText().setText("");
-            }
-        });
+
         tvQuenMK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

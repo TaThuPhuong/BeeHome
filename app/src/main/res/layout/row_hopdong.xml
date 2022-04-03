@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/bg_row_hdsc"
-    android:layout_marginBottom="3dp">
+    android:layout_marginBottom="5dp">
 
     <LinearLayout
         android:id="@+id/bottom_wrapper"
