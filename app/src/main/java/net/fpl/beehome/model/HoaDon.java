@@ -1,7 +1,10 @@
 package net.fpl.beehome.model;
 
+import java.util.Date;
+
 public class HoaDon {
-    private String  IDHoaDon,IDPhong,NgayGD,GhiChu;
+    private Date NgayGD;
+    private String  IDHoaDon,IDPhong,GhiChu;
     private int TongHD,SoDienCuoi,SoNuocCuoi,TrangThaiHD,giamGia;
 
 
@@ -11,7 +14,7 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String IDHoaDon, String IDPhong, String ngayGD, String ghiChu, int tongHD, int soDienCuoi, int soNuocCuoi, int trangThaiHD) {
+    public HoaDon(String IDHoaDon, String IDPhong, Date ngayGD, String ghiChu, int tongHD, int soDienCuoi, int soNuocCuoi, int trangThaiHD) {
         this.IDHoaDon = IDHoaDon;
         this.IDPhong = IDPhong;
         NgayGD = ngayGD;
@@ -38,11 +41,11 @@ public class HoaDon {
         this.IDPhong = IDPhong;
     }
 
-    public String getNgayGD() {
+    public Date getNgayGD() {
         return NgayGD;
     }
 
-    public void setNgayGD(String ngayGD) {
+    public void setNgayGD(Date ngayGD) {
         NgayGD = ngayGD;
     }
 

@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#D6D6D6"
-    android:padding="10dp"
     tools:context=".ui.thongKe.thongKeFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#D6D6D6"
+        android:padding="10dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +37,6 @@
             android:text="Tổng doanh thu của dãy trọ"
             android:textSize="22sp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
             android:textStyle="bold"
             android:textColor="#F06C008A"/>
 
@@ -48,6 +47,7 @@
             android:background="#DCDCDC" />
         
         <TextView
+            android:id="@+id/tv_total"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="100.000.000 đ"
@@ -78,7 +78,6 @@
             android:text="Doanh thu theo tháng"
             android:textSize="22sp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
             android:textStyle="bold"
             android:textColor="#F06C008A"/>
 
@@ -178,6 +177,20 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="250dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Tìm kiếm"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_rd_search"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -185,9 +198,10 @@
             android:background="#DCDCDC" />
 
         <TextView
+            android:id="@+id/tv_total_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="100.000.000 đ"
+            android:text="0 đ"
             android:textSize="30sp"
             android:textStyle="bold"
             android:gravity="center"

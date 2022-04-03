@@ -6,6 +6,18 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
 
+<!---->
+    <color name="tim_50">#F4E3FD</color>
+    <color name="tim_100">#DDBBF2</color>
+    <color name="tim_200">#C590E7</color>
+    <color name="tim_300">#AD64DB</color>
+    <color name="tim_400">#9B42D3</color>
+    <color name="tim_500">#9B1ED0</color>
+    <color name="tim_600">#8B1ECA</color>
+    <color name="chu_xanh">#002795</color>
+
+
+<!---->
 
     <color name="colorPrimary">#FF6D00</color>
     <color name="tab_background">#00BFA5</color>
