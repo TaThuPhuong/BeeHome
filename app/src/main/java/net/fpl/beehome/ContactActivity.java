@@ -59,7 +59,7 @@ public class ContactActivity extends AppCompatActivity {
                 list.clear();
                 for (DocumentSnapshot snapshot : value){
                     NguoiThue nguoiThue = snapshot.toObject(NguoiThue.class);
-                    LienHe lienHe = new LienHe(nguoiThue.getHoTen(), nguoiThue.getSDT());
+                    LienHe lienHe = new LienHe(nguoiThue.getHoTen(), nguoiThue.getSdt());
                     list.add(lienHe);
                     messageAdapter.notifyDataSetChanged();
                 }
