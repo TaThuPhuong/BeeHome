@@ -66,7 +66,7 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
     CountryCodePicker ccp;
     FirebaseAuth fba;
     SwipeRefreshLayout swipeRefreshLayout1;
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
