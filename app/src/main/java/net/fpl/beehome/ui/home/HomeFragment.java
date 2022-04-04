@@ -121,6 +121,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), SuCoActivity.class);
+                intent.putExtra("quyen", "admin");
                 startActivity(intent);
             }
         });
