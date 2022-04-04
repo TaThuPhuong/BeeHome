@@ -80,7 +80,7 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ed_email"
+                android:id="@+id/ed_sdt"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,85 +89,55 @@
                 app:hintEnabled="false">
 
                 <EditText
+                    android:id="@+id/ed_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_dialog_addhd"
                     android:gravity="center_vertical"
-                    android:hint="Nhập email"
+                    android:hint="Nhập số điện  thoại hoặc username"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey_dam" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ed_pass"
+                android:id="@+id/ed_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 app:errorEnabled="true"
                 app:hintEnabled="false"
-                app:passwordToggleEnabled="true">
+             >
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_dialog_addhd"
                     android:gravity="center_vertical"
-                    android:hint="@string/nhap_pass"
-                    android:inputType="textPassword"
+                    android:hint="Nhập email"
                     android:paddingVertical="14dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/grey_dam" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/chk_remember"
-            android:layout_width="wrap_content"
+
+        <Button
+            android:id="@+id/btn_khoi_phuc"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="12dp"
-            android:buttonTint="@color/purple_200"
-            android:text="@string/luumatkhau"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout2" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="357dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="31dp"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_quen_mk">
-
-            <Button
-                android:id="@+id/btn_dangnhap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/tim_300"
-                android:text="Đăng nhập"
-                android:textAllCaps="false"
-                android:padding="10dp"
-                app:cornerRadius="10dp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_quen_mk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="72dp"
-            android:text="@string/quenmatkhau"
-            android:textColor="@color/red"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toEndOf="@+id/chk_remember"
+            android:layout_marginHorizontal="40dp"
+            android:backgroundTint="@color/tim_300"
+            android:padding="10dp"
+            android:text="Khôi phục mật khẩu"
+            android:textAllCaps="false"
+            app:cornerRadius="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

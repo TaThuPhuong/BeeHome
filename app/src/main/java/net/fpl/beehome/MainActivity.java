@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         nv = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar_hoa_don);
         Intent intent = getIntent();
-        user = intent.getStringExtra("user");
+        user = intent.getStringExtra("email");
         bundle = new Bundle();
         Log.d("TAG", "onCreate: " + user);
         //        set toolbar thay the cho actionBar
@@ -71,12 +71,14 @@ public class MainActivity extends AppCompatActivity {
         tvName = view.findViewById(R.id.tv_name);
 
         admin = (Admin) intent.getSerializableExtra("ad");
-        tvName.setText(admin.getHoTen());
-        bundle.putString(Admin.TB_NAME, "tb_admin");
-        bundle.putString(Admin.COL_PASS, admin.getPassword());
+        if (admin != null) {
+            tvName.setText(admin.getHoTen());
+            bundle.putString(Admin.TB_NAME, "tb_admin");
+            bundle.putString(Admin.COL_PASS, admin.getPassword());
+        }
+
         loadFragment(new HomeFragment());
         setTitle("Trang chủ");
-
 
 
 //                Dieu huong Navigation
@@ -84,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.nav_trang_chu:
-                    setTitle("Xin chào");
+                    setTitle("Trang chủ");
                     HomeFragment homeFragment = new HomeFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, homeFragment).commit();
                     break;

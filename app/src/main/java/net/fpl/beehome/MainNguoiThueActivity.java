@@ -53,7 +53,7 @@ public class MainNguoiThueActivity extends AppCompatActivity {
         bnavigation = findViewById(R.id.bottomnav);
 
         Intent intent = getIntent();
-        user = intent.getStringExtra("user");
+        user = intent.getStringExtra("email");
         bundle = new Bundle();
         Log.d("TAG", "onCreate: " + user);
         //        set toolbar thay the cho actionBar
@@ -68,11 +68,13 @@ public class MainNguoiThueActivity extends AppCompatActivity {
                 .commit();
         view = nv.inflateHeaderView(R.layout.nav_header_main);
         tvName = view.findViewById(R.id.tv_name);
-
         nguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
-        tvName.setText(nguoiThue.getHoTen());
-        bundle.putString(Admin.TB_NAME, "tb_admin");
-        bundle.putString(Admin.COL_PASS, nguoiThue.getPassword());
+        if (nguoiThue != null) {
+            tvName.setText(nguoiThue.getHoTen());
+//        bundle.putString(NguoiThue.TB_NGUOITHUE, "tb_nguoi_thue");
+//        bundle.putString(NguoiThue.COL_PASS, nguoiThue.getPassword());
+        }
+
         loadFragment(new HomeNguoiThueFragment());
         bnavigation.setVisibility(View.GONE);
 
@@ -91,7 +93,7 @@ public class MainNguoiThueActivity extends AppCompatActivity {
                     setTitle("Đổi mật khẩu");
                     DoiMatKhauFragment matKhauFragment = new DoiMatKhauFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, matKhauFragment).commit();
-                    matKhauFragment.setArguments(bundle);
+//                    matKhauFragment.setArguments(bundle);
                     break;
 
                 case R.id.nav_gT:
