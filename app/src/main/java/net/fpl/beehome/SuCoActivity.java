@@ -1,21 +1,21 @@
 package net.fpl.beehome;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.app.Dialog;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,12 +29,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.Adapter.SuCo.SuCoAdapter;
-import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.model.SuCo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 
 public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
@@ -62,6 +60,12 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         suCoAdapter = new SuCoAdapter(arr, arrphong, SuCoActivity.this, fb);
         rv_cs.setAdapter(suCoAdapter);
+        Intent intent = getIntent();
+        String quyen = intent.getStringExtra("quyen");
+
+        if (quyen.equalsIgnoreCase("admin")){
+            btn_add.setVisibility(View.GONE);
+        }
 
 
         swipeRefreshLayout.setOnRefreshListener(this);

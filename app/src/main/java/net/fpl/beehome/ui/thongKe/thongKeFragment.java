@@ -4,7 +4,6 @@ package net.fpl.beehome.ui.thongKe;
 import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import com.google.firebase.firestore.SetOptions;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.HoaDon;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,9 +36,10 @@ import java.util.Date;
 public class thongKeFragment extends Fragment {
 
     LinearLayout layoutTuNgay, layoutDenNgay;
-    TextView tvTuNgay, tvDenNgay, tvTotal, tvTotalMonth;
+    TextView tvTuNgay, tvDenNgay, tvTotal, tvTotalMonth, tvSearch;
     SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     FirebaseFirestore db;
+    Collection collection;
 
     int total = 0;
     int totalMonth = 0;
@@ -56,6 +55,7 @@ public class thongKeFragment extends Fragment {
         tvDenNgay = v.findViewById(R.id.tv_denNgay);
         tvTotal = v.findViewById(R.id.tv_total);
         tvTotalMonth = v.findViewById(R.id.tv_total_month);
+        tvSearch = v.findViewById(R.id.tv_search);
 
         HoaDon hoaDon = null;
         try {
@@ -107,11 +107,6 @@ public class thongKeFragment extends Fragment {
         int month = c.get(Calendar.MONTH);
         int date = c.get(Calendar.DATE);
 
-        Date date1 = Calendar.getInstance().getTime();
-
-        tvTuNgay.setText(sdf.format(date1));
-        tvDenNgay.setText(sdf.format(date1));
-
         layoutTuNgay.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -120,11 +115,6 @@ public class thongKeFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         tvTuNgay.setText( i2 + "-"  + i1 + "-" + i);
-                        if (TextUtils.isEmpty(tvDenNgay.getText().toString())){
-                            return;
-                        } else {
-                            query();
-                        }
                     }
                 }, year, month, date);
                 dialog.show();
@@ -138,35 +128,29 @@ public class thongKeFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                         tvDenNgay.setText( i2 + "-"  + i1 + "-" + i);
-                        if (TextUtils.isEmpty(tvTuNgay.getText().toString())){
-                            return;
-                        } else {
-                            query();
-                        }
                     }
                 }, year, month, date);
                 dialog.show();
             }
         });
 
-        return v;
-    }
+        tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Date strTuNgay = null;
+                try {
+                    strTuNgay = sdf.parse(tvTuNgay.getText().toString().trim());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
-    public void query(){
-        Date strTuNgay = null;
-        try {
-            strTuNgay = sdf.parse(tvTuNgay.getText().toString().trim());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Date strDenNgay = null;
-        try {
-            strDenNgay = sdf.parse(tvDenNgay.getText().toString().trim());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        db.collection(HoaDon.TB_NAME).orderBy("ngayGD").startAt(strTuNgay).endAt(strDenNgay)
+                Date strDenNgay = null;
+                try {
+                    strDenNgay = sdf.parse(tvDenNgay.getText().toString().trim());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                db.collection(HoaDon.TB_NAME).orderBy("ngayGD").startAt(strTuNgay).endAt(strDenNgay)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -178,6 +162,9 @@ public class thongKeFragment extends Fragment {
                         tvTotalMonth.setText(String.valueOf(totalMonth) + " đ");
                     }
                 });
-    }
+            }
+        });
 
+        return v;
+    }
 }

@@ -22,7 +22,7 @@
                 android:background="@drawable/bg_rd_top_20dp"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Thêm phòng"
+                android:text="Sửa thông tin phòng"
                 android:textColor="@color/white"
                 android:textSize="30dp"
 

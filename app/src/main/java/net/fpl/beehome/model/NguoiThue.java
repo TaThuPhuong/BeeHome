@@ -3,74 +3,64 @@ package net.fpl.beehome.model;
 import java.io.Serializable;
 
 public class NguoiThue implements Serializable {
-    String ID_thanhvien;
-    String ID_phong;
-    String HoTen;
-    String SDT;
-    String Password;
+    String id_thanhvien;
+    String id_phong;
+    String hoTen;
+    String sdt;
+    String password;
     String email;
-    String CCCD;
+    String cccd;
 
-    public static final String TB_NGUOITHUE = "tb_Nguoithue";
-    public static final String COL_ID_THANHVIEN = "ID_thanhvien";
+    public static final String TB_NGUOITHUE = "tb_nguoiThue";
+    public static final String COL_ID_THANHVIEN = "id_thanhvien";
     public static final String COL_ID_PHONG = "id_phong";
-    public static final String COL_HOTEN = "HoTen";
-    public static final String COL_SDT = "SDT";
-    public static final String COL_PASS = "Password";
+    public static final String COL_HOTEN = "hoTen";
+    public static final String COL_SDT = "sdt";
+    public static final String COL_PASS = "password";
     public static final String COL_EMAIL = "email";
-    public static final String COL_CCCD = "CCCD";
+    public static final String COL_CCCD = "cccd";
 
     public NguoiThue() {
     }
 
-    public NguoiThue(String ID_thanhvien, String ID_phong, String hoTen, String SDT, String password, String email, String CCCD) {
-        this.ID_thanhvien = ID_thanhvien;
-        this.ID_phong = ID_phong;
-        HoTen = hoTen;
-        this.SDT = SDT;
-        Password = password;
-        this.email = email;
-        this.CCCD = CCCD;
+    public String getId_thanhvien() {
+        return id_thanhvien;
     }
 
-    public String getID_thanhvien() {
-        return ID_thanhvien;
+    public void setId_thanhvien(String id_thanhvien) {
+        this.id_thanhvien = id_thanhvien;
     }
 
-    public void setID_thanhvien(String ID_thanhvien) {
-        this.ID_thanhvien = ID_thanhvien;
+    public String getId_phong() {
+        return id_phong;
     }
 
-    public String getID_phong() {
-        return ID_phong;
-    }
-
-    public void setID_phong(String ID_phong) {
-        this.ID_phong = ID_phong;
+    public void setId_phong(String id_phong) {
+        this.id_phong = id_phong;
     }
 
     public String getHoTen() {
-        return HoTen;
+        return hoTen;
     }
 
     public void setHoTen(String hoTen) {
-        HoTen = hoTen;
+        this.hoTen = hoTen;
     }
 
-    public String getSDT() {
-        return SDT;
+    public String getSdt() {
+        return sdt;
     }
 
-    public void setSDT(String SDT) {
-        this.SDT = SDT;
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getEmail() {
@@ -81,24 +71,24 @@ public class NguoiThue implements Serializable {
         this.email = email;
     }
 
-    public String getCCCD() {
-        return CCCD;
+    public String getCccd() {
+        return cccd;
     }
 
-    public void setCCCD(String CCCD) {
-        this.CCCD = CCCD;
+    public void setCccd(String cccd) {
+        this.cccd = cccd;
     }
 
     @Override
     public String toString() {
         return "NguoiThue{" +
-                "ID_thanhvien='" + ID_thanhvien + '\'' +
-                ", ID_phong='" + ID_phong + '\'' +
-                ", HoTen='" + HoTen + '\'' +
-                ", SDT='" + SDT + '\'' +
-                ", Password='" + Password + '\'' +
+                "id_thanhvien='" + id_thanhvien + '\'' +
+                ", id_phong='" + id_phong + '\'' +
+                ", hoTen='" + hoTen + '\'' +
+                ", sdt='" + sdt + '\'' +
+                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", CCCD='" + CCCD + '\'' +
+                ", cccd='" + cccd + '\'' +
                 '}';
     }
 }

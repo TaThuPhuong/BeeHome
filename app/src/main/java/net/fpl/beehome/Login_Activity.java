@@ -4,30 +4,43 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.model.Admin;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.ui.phong.PhongFragment;
+
+import java.util.ArrayList;
 
 public class Login_Activity extends AppCompatActivity {
     TextInputLayout edNguoidung, edMatkhau;
@@ -42,21 +55,27 @@ public class Login_Activity extends AppCompatActivity {
     Admin admin;
     NguoiThue nguoiThue;
     PhongFragment phongFragment;
-    ProgressDialog progressDialog;
+    ProgressBarLoading progressBarLoading;
+    ArrayList<NguoiThue> lsNguoiThue;
+    ArrayList<Admin> lsAdmin;
+
 
     public void init() {
-        edNguoidung = findViewById(R.id.ed_sdt);
+        fb = FirebaseFirestore.getInstance();
+        fba = FirebaseAuth.getInstance();
+        edNguoidung = findViewById(R.id.ed_email);
         edMatkhau = findViewById(R.id.ed_pass);
-        btnDangNhap = findViewById(R.id.btn_login);
+        btnDangNhap = findViewById(R.id.btn_dangnhap);
         chk = findViewById(R.id.chk_remember);
         tvQuenMK = findViewById(R.id.tv_quen_mk);
         constraintLayout = findViewById(R.id.aniLogin);
         phongFragment = new PhongFragment();
-        fb = FirebaseFirestore.getInstance();
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
         animation = AnimationUtils.loadAnimation(this, R.anim.login);
         constraintLayout.startAnimation(animation);
-        progressDialog = new ProgressDialog(this);
+        progressBarLoading = new ProgressBarLoading(Login_Activity.this);
+        getAllAdmin();
+        getAllNguoiThue();
     }
 
     @Override
@@ -82,101 +101,136 @@ public class Login_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String pass = edMatkhau.getEditText().getText().toString();
-                String user = edNguoidung.getEditText().getText().toString();
-                Log.d("zzzzzzzz", "onClick: " + user);
+                String email = edNguoidung.getEditText().getText().toString();
 
 
-                if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pass)) {
-                    if (TextUtils.isEmpty(user)) {
-                        edNguoidung.setError("Nhập tên đăng nhập hoặc số điện thoại");
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
+                    if (TextUtils.isEmpty(email)) {
+                        edNguoidung.setError("Nhập email");
                     }
                     if (TextUtils.isEmpty(pass)) {
                         edMatkhau.setError("Nhập mật khẩu");
                     }
                     return;
                 } else {
-                    if (user.equals("admin")) {
-                        getAdmin(user);
-//                        Log.d("TAG", "onClick: " + admin.toString());
-                    } else {
-                        getNguoiThue(user);
-//                        Log.d("TAG", "onClick: " + nguoiThue.toString());
-                    }
-                    progressDialog.show();
+                    for (NguoiThue nt : lsNguoiThue
+                    ) {
+                        if (nt.getEmail().equalsIgnoreCase(email)) {
+                            nguoiThue = nt;
+                            Log.d("TAG", "onComplete: " + nguoiThue.toString());
 
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (admin == null && nguoiThue == null) {
-                                edNguoidung.setError("Sai tên đăng nhập");
-                                progressDialog.dismiss();
-                            } else {
-                                if (admin != null && admin.getPassword().equals(pass)) {
-                                    progressDialog.dismiss();
-                                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                                    intent.putExtra("user", user);
-                                    intent.putExtra("ad", admin);
-                                    startActivity(intent);
-                                    nhoMatKhau(chk.isChecked(), user, pass);
-                                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
-
-                                } else if (nguoiThue != null && nguoiThue.getPassword().equals(pass)) {
-                                    progressDialog.dismiss();
-                                    Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                                    intent.putExtra("user", user);
-                                    intent.putExtra("nt", nguoiThue);
-                                    startActivity(intent);
-                                    nhoMatKhau(chk.isChecked(), user, pass);
-                                    Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    edMatkhau.setError("Sai mật khẩu");
-                                    progressDialog.dismiss();
-                                }
-                            }
+                            break;
                         }
-                    }, 3000);
+                    }
+                    for (Admin ad : lsAdmin) {
+                        if (ad.getEmail().equals(email)) {
+                            admin = ad;
+                            break;
+                        }
+                    }
+                    if (email.equals("hienpvph18604@fpt.edu.vn") || email.equals("phuongta15099@gmail.com")
+                            || email.equals("tienbxph18636@fpt.edu.vn") || email.equals("cuongvvph18550@fpt.edu.vn") ||
+                            email.equals("tuvmph18579@fpt.edu.vn")) {
+                        progressBarLoading.showLoading();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                fba.signInWithEmailAndPassword(email, pass)
+                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                progressBarLoading.hideLoaing();
+                                                Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                                                intent.putExtra("email", email);
+                                                intent.putExtra("ad", admin);
+                                                startActivity(intent);
+                                                nhoMatKhau(chk.isChecked(), email, pass);
+                                                Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
 
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                edMatkhau.setError("Sai mật khẩu");
+                                            }
+                                        });
+                            }
+                        }, 200);
+
+                    } else {
+                        progressBarLoading.showLoading();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                fba.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (nguoiThue != null) {
+                                            Intent intent = new Intent(Login_Activity.this, MainNguoiThueActivity.class);
+                                            intent.putExtra("email", email);
+                                            intent.putExtra("nt", nguoiThue);
+                                            startActivity(intent);
+                                            nhoMatKhau(chk.isChecked(), email, pass);
+                                            Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            progressBarLoading.hideLoaing();
+                                            edNguoidung.setError("Sai email");
+                                            return;
+                                        }
+                                    }
+                                })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                progressBarLoading.hideLoaing();
+                                                edMatkhau.setError("Sai mật khẩu");
+                                            }
+                                        });
+                            }
+                        }, 200);
+
+                    }
                 }
             }
-
         });
 
         tvQuenMK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(Login_Activity.this, QuenMatKhauActivity.class));
             }
         });
     }
 
-    public void getAdmin(String str) {
-        fb.collection(Admin.TB_NAME).document(str)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            admin = task.getResult().toObject(Admin.class);
-                        }
-                    }
-                });
-//        return admin;
+    public ArrayList<Admin> getAllAdmin() {
+        lsAdmin = new ArrayList<>();
+        fb.collection(Admin.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (Admin ad : value.toObjects(Admin.class)
+                ) {
+                    lsAdmin.add(ad);
+                }
+            }
+        });
+        return lsAdmin;
     }
 
-    public void getNguoiThue(String str) {
-        fb.collection(NguoiThue.TB_NGUOITHUE).document(str)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            nguoiThue = task.getResult().toObject(NguoiThue.class);
-//                            Log.d("TAG", "onComplete: " + nguoiThue.toString());
-                        }
-                    }
-                });
-//        return nguoiThue;
+    public ArrayList<NguoiThue> getAllNguoiThue() {
+        lsNguoiThue = new ArrayList<>();
+        fb.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (NguoiThue nt : value.toObjects(NguoiThue.class)
+                ) {
+                    lsNguoiThue.add(nt);
+                    Log.d("TAG", "onEvent: "+nt.toString());
+                }
+            }
+        });
+
+        return lsNguoiThue;
     }
 
     private void nhoMatKhau(boolean b, String user, String pass) {

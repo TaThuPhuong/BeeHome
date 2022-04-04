@@ -2,6 +2,7 @@ package net.fpl.beehome;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -313,7 +314,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         objHopDong.setId_chu_tro("1");
 
                         objHopDong.setId_phong(objPhong.getIDPhong());
-                        objHopDong.setId_thanh_vien(objNguoiThue.getID_thanhvien());
+                        objHopDong.setId_thanh_vien(objNguoiThue.getId_thanhvien());
                         objHopDong.setKyHan(Integer.parseInt(sp_kyhan.getSelectedItem()+""));
                         objHopDong.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
                         objHopDong.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());
@@ -328,7 +329,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                                     public void onSuccess(Void unused) {
                                         fb.collection(Phong.TB_NAME).document(objPhong.getIDPhong())
                                                 .update(Phong.COL_TRANG_THAI, "Đang thuê");
-                                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getID_thanhvien())
+                                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getId_thanhvien())
                                                 .update(NguoiThue.COL_ID_PHONG, objPhong.getIDPhong());
                                         Toast.makeText(HopDongActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                                         hopDongAdapter.notifyDataSetChanged();
@@ -426,14 +427,14 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 arr.clear();
                 for(QueryDocumentSnapshot document : value){
                     NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
-                    if(objNguoiThue.getID_phong().equalsIgnoreCase("Trống")){
+                    if(objNguoiThue.getId_phong().equalsIgnoreCase("Trống")){
                         arr.add(objNguoiThue);
                     }
                 }
                 if(arr.size() == 0){
                     NguoiThue obj = new NguoiThue();
                     obj.setHoTen("Trống");
-                    obj.setID_phong("Trống");
+                    obj.setId_phong("Trống");
                     arr.add(obj);
                 }
             }

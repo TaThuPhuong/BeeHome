@@ -23,11 +23,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import net.fpl.beehome.model.Admin;
-import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.ui.doiMatKhau.DoiMatKhauFragment;
 import net.fpl.beehome.ui.gioiThieu.GioiThieuFragment;
 import net.fpl.beehome.ui.home.HomeFragment;
-import net.fpl.beehome.ui.home.HomeNguoiThueFragment;
 import net.fpl.beehome.ui.phong.PhongFragment;
 import net.fpl.beehome.ui.thongKe.thongKeFragment;
 
@@ -39,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     NavigationView nv;
     TextView tvName;
     Admin admin;
-    NguoiThue nguoiThue;
     Bundle bundle;
     BottomNavigationView bnavigation;
     String user;
@@ -53,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
         nv = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar_hoa_don);
         Intent intent = getIntent();
-        user = intent.getStringExtra("user");
+        user = intent.getStringExtra("email");
         bundle = new Bundle();
         Log.d("TAG", "onCreate: " + user);
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
         ab = getSupportActionBar();
-        setTitle("Xin chào ");
+        setTitle("Trang chủ");
 //        bottom menu
         bnavigation = findViewById(R.id.bottomnav);
         bnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -73,31 +70,15 @@ public class MainActivity extends AppCompatActivity {
         view = nv.inflateHeaderView(R.layout.nav_header_main);
         tvName = view.findViewById(R.id.tv_name);
 
-        if (user.equals("admin")) {
-            admin = (Admin) intent.getSerializableExtra("ad");
+        admin = (Admin) intent.getSerializableExtra("ad");
+        if (admin != null) {
             tvName.setText(admin.getHoTen());
             bundle.putString(Admin.TB_NAME, "tb_admin");
             bundle.putString(Admin.COL_PASS, admin.getPassword());
-            loadFragment(new HomeFragment());
-            setTitle("Xin chào");
-            HomeFragment homeFragment = new HomeFragment();
-            manager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main, homeFragment)
-                    .commit();
-
-        } else {
-            nguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
-            tvName.setText(nguoiThue.getHoTen());
-            bundle.putString(NguoiThue.COL_SDT, user);
-            bundle.putString(NguoiThue.COL_PASS, nguoiThue.getPassword());
-            bnavigation.setVisibility(View.GONE);
-            setTitle("Xin chào");
-            loadFragment(new HomeNguoiThueFragment());
-            HomeNguoiThueFragment homeFragment = new HomeNguoiThueFragment();
-            manager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_content_main, homeFragment)
-                    .commit();
         }
+
+        loadFragment(new HomeFragment());
+        setTitle("Trang chủ");
 
 
 //                Dieu huong Navigation
@@ -105,17 +86,11 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.nav_trang_chu:
-                    if (user.equals("admin")) {
-                        setTitle("Xin chào");
-                        HomeFragment homeFragment = new HomeFragment();
-                        manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, homeFragment).commit();
-                        break;
-                    } else {
-                        setTitle("Xin chào");
-                        HomeNguoiThueFragment homeNguoiThueFragment = new HomeNguoiThueFragment();
-                        manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, homeNguoiThueFragment).commit();
-                        break;
-                    }
+                    setTitle("Trang chủ");
+                    HomeFragment homeFragment = new HomeFragment();
+                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, homeFragment).commit();
+                    break;
+
 
                 case R.id.nav_doiMatKhau:
                     setTitle("Đổi mật khẩu");
@@ -213,5 +188,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public Admin getAdmin() {
+        return admin;
     }
 }
