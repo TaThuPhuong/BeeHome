@@ -7,10 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 
 import net.fpl.beehome.R;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,17 +29,24 @@ public class HoaDonMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hoa_don_main);
+        //lấy thời gian hiện tại
+        Time today = new Time(Time.getCurrentTimezone());
+        today.setToNow();
 
         toolbar = findViewById(R.id.toolbar_hoa_don);
 
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
         ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_date);
+        ab.setHomeAsUpIndicator(R.drawable.ic_date3);
         ab.setDisplayHomeAsUpEnabled(true);
-        setTitle("");
-
-
+        //set thời gian là tháng, năm này
+        int t = 1+today.month;
+        if(t<10){
+            setTitle("0"+t + "-"+today.year);
+        }else {
+            setTitle(t + "-"+today.year);
+        }
 
     }
 
