@@ -1,5 +1,14 @@
 package net.fpl.beehome;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,15 +19,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -26,10 +26,7 @@ import net.fpl.beehome.model.Admin;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.ui.doiMatKhau.DoiMatKhauFragment;
 import net.fpl.beehome.ui.gioiThieu.GioiThieuFragment;
-import net.fpl.beehome.ui.home.HomeFragment;
 import net.fpl.beehome.ui.home.HomeNguoiThueFragment;
-import net.fpl.beehome.ui.phong.PhongFragment;
-import net.fpl.beehome.ui.thongKe.thongKeFragment;
 
 public class MainNguoiThueActivity extends AppCompatActivity {
 
@@ -61,7 +58,7 @@ public class MainNguoiThueActivity extends AppCompatActivity {
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
         ab = getSupportActionBar();
-        setTitle("Xin chào ");
+        setTitle("Trang Chủ");
 
         FragmentManager manager = getSupportFragmentManager();
         HomeNguoiThueFragment h_fragment = new HomeNguoiThueFragment();
@@ -76,7 +73,6 @@ public class MainNguoiThueActivity extends AppCompatActivity {
         bundle.putString(Admin.TB_NAME, "tb_admin");
         bundle.putString(Admin.COL_PASS, nguoiThue.getPassword());
         loadFragment(new HomeNguoiThueFragment());
-        setTitle("Xin chào");
         bnavigation.setVisibility(View.GONE);
 
 //                Dieu huong Navigation
@@ -155,5 +151,9 @@ public class MainNguoiThueActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public NguoiThue getNguoiThue() {
+        return nguoiThue;
     }
 }

@@ -9,25 +9,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import net.fpl.beehome.model.Admin;
-import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.ui.doiMatKhau.DoiMatKhauFragment;
 import net.fpl.beehome.ui.gioiThieu.GioiThieuFragment;
-import net.fpl.beehome.ui.phong.PhongFragment;
 import net.fpl.beehome.ui.home.HomeFragment;
+import net.fpl.beehome.ui.phong.PhongFragment;
 import net.fpl.beehome.ui.thongKe.thongKeFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
         ab = getSupportActionBar();
-        setTitle("Xin chào ");
+        setTitle("Trang chủ");
 //        bottom menu
         bnavigation = findViewById(R.id.bottomnav);
         bnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString(Admin.TB_NAME, "tb_admin");
         bundle.putString(Admin.COL_PASS, admin.getPassword());
         loadFragment(new HomeFragment());
-        setTitle("Xin chào");
+        setTitle("Trang chủ");
 
 
 
@@ -187,5 +186,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    public Admin getAdmin() {
+        return admin;
     }
 }

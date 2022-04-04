@@ -1,21 +1,14 @@
 package net.fpl.beehome;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -137,6 +130,7 @@ public class Login_Activity extends AppCompatActivity {
                                 Intent intent = new Intent(Login_Activity.this, MainNguoiThueActivity.class);
                                 intent.putExtra("user", user);
                                 intent.putExtra("nt", nguoiThue);
+
                                 startActivity(intent);
                                 nhoMatKhau(chk.isChecked(), user, pass);
                                 Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();

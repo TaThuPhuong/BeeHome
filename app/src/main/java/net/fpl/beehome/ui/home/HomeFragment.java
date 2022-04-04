@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import net.fpl.beehome.Adapter.SlideAdapter;
 import net.fpl.beehome.DichVuActivity;
 import net.fpl.beehome.HopDongActivity;
+import net.fpl.beehome.MainActivity;
 import net.fpl.beehome.MessageActivity;
 import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
@@ -35,6 +37,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     CardView btnDichVu, btnNguoiThue, btnHoaDon, btnSuCo, btnHopDong, btnHuongDan;
     FloatingActionButton button;
+    MainActivity mainActivity;
+    TextView tv_hl_nd;
 
     ViewPager2 viewPager2;
     Handler handler = new Handler();
@@ -61,6 +65,10 @@ public class HomeFragment extends Fragment {
         btnHuongDan = view.findViewById(R.id.btn_huong_dan);
         button = view.findViewById(R.id.floating_action_button);
         viewPager2 = view.findViewById(R.id.vpg);
+        tv_hl_nd = view.findViewById(R.id.tv_hl_nd);
+        mainActivity = (MainActivity) getActivity();
+        tv_hl_nd.setText(mainActivity.getAdmin().getHoTen());
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

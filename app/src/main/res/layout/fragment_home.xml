@@ -49,7 +49,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_margin="5dp"
-                        android:src="@drawable/ic_hopdong" />
+                        android:src="@drawable/logo2" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -66,9 +66,10 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tv_hl_nd"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Bui Xuan Tien"
+                            android:text="abc"
                             android:textSize="18dp"
                             android:textStyle="bold" />
 
@@ -86,36 +87,36 @@
                 android:paddingTop="10dp">
                 <GridLayout
                     android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:columnCount="2"
                     android:rowCount="3"
+                    android:layout_gravity="center_horizontal"
                     android:alignmentMode="alignMargins"
                     android:columnOrderPreserved="false"
                     >
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_dich_vu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
                         app:cardElevation="10dp"
                         app:cardCornerRadius="12dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="20dp"
                         >
                         <LinearLayout
-                            android:padding="5dp"
                             android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
                             <ImageView
-                                android:src="@drawable/ic_hopdong"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"/>
+                                android:src="@drawable/ic_service_tim"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"/>
                             <TextView
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="8dp"
                                 android:text="Dịch vụ"
                                 android:textSize="18dp"
                                 android:textColor="@color/tim_400"
@@ -126,26 +127,25 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_nguoi_thue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
                         app:cardElevation="10dp"
                         app:cardCornerRadius="12dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="20dp"
                         >
                         <LinearLayout
-                            android:padding="5dp"
                             android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
                             <ImageView
-                                android:src="@drawable/ic_hopdong"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"/>
+                                android:src="@drawable/ic_baseline_supervised_user_circle_24"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"/>
                             <TextView
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="8dp"
                                 android:text="Người thuê"
                                 android:textSize="18dp"
                                 android:textColor="@color/tim_400"
@@ -156,26 +156,25 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_hoa_don"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
                         app:cardElevation="10dp"
                         app:cardCornerRadius="12dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="20dp"
                         >
                         <LinearLayout
-                            android:padding="5dp"
                             android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
                             <ImageView
-                                android:src="@drawable/ic_hopdong"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"/>
+                                android:src="@drawable/ic_bill"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"/>
                             <TextView
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="8dp"
                                 android:text="Hóa đơn"
                                 android:textSize="18dp"
                                 android:textColor="@color/tim_400"
@@ -186,27 +185,26 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btn_su_co"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
                         app:cardElevation="10dp"
                         app:cardCornerRadius="12dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="20dp"
                         >
                         <LinearLayout
 
-                            android:padding="5dp"
                             android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
                             <ImageView
-                                android:src="@drawable/ic_hopdong"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"/>
+                                android:src="@drawable/ic_report"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"/>
                             <TextView
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="8dp"
                                 android:text="Sự cố"
                                 android:textSize="18dp"
                                 android:textColor="@color/tim_400"
@@ -217,26 +215,25 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/brn_hop_dong"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
                         app:cardElevation="10dp"
                         app:cardCornerRadius="12dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="20dp"
                         >
                         <LinearLayout
-                            android:padding="5dp"
                             android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
                             <ImageView
                                 android:src="@drawable/ic_hopdong"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"/>
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"/>
                             <TextView
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="8dp"
                                 android:text="Hợp đồng"
                                 android:textSize="18dp"
                                 android:textColor="@color/tim_400"
@@ -253,20 +250,19 @@
                         android:layout_rowWeight="1"
                         app:cardElevation="10dp"
                         app:cardCornerRadius="12dp"
-                        android:layout_margin="15dp"
+                        android:layout_margin="20dp"
                         >
                         <LinearLayout
-                            android:padding="5dp"
                             android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
                             <ImageView
-                                android:src="@drawable/ic_hopdong"
+                                android:src="@drawable/ic_huongdan"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"/>
                             <TextView
-                                android:layout_marginTop="12dp"
+                                android:layout_marginTop="8dp"
                                 android:text="Hướng dẫn"
                                 android:textSize="18dp"
                                 android:textColor="@color/tim_400"
