@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import net.fpl.beehome.MessageActivity;
+import net.fpl.beehome.ContactActivity;
 import net.fpl.beehome.R;
 
 public class HomeNguoiThueFragment extends Fragment {
@@ -42,7 +42,7 @@ public class HomeNguoiThueFragment extends Fragment {
     }
     public void showDialogMessage(){
 
-        startActivity(new Intent(HomeNguoiThueFragment.this.getContext(), MessageActivity.class));
+        startActivity(new Intent(HomeNguoiThueFragment.this.getContext(), ContactActivity.class));
 
     }
 }

@@ -41,6 +41,8 @@
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_mess.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_search.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/bg_rd_top_20dp.xml" value="0.152" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/ic_baseline_call_24.xml" value="0.152" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/ic_contact.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/drawable/ic_service.xml" value="0.152" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/acitivity_dich_vu.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/activity_fragment_one.xml" value="0.22826086956521738" />
@@ -68,6 +70,7 @@
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_phong.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_thong_ke.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/fragment_thu_chi.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/item_contact.xml" value="0.2" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/item_dich_vu.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/item_mesage.xml" value="0.4" />
         <entry key="..\:/Users/Admin/Documents/GitHub/BeeHome/app/src/main/res/layout/row_hopdong.xml" value="0.22780797101449277" />

@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.fpl.beehome.HopDongActivity;
-import net.fpl.beehome.MessageActivity;
+import net.fpl.beehome.ContactActivity;
 import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.SuCoActivity;
@@ -108,7 +108,7 @@ public class HomeFragment extends Fragment {
 
     public void showDialogMessage(){
 
-        startActivity(new Intent(HomeFragment.this.getContext(), MessageActivity.class));
+        startActivity(new Intent(HomeFragment.this.getContext(), ContactActivity.class));
 
     }
 
