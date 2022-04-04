@@ -1,6 +1,8 @@
 package net.fpl.beehome;
 
 import android.app.AlertDialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -9,6 +11,8 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +21,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,6 +55,8 @@ public class NguoiThue_Activity extends AppCompatActivity {
     FirebaseFirestore firestore;
     TextInputLayout ed_ten, ed_sodt, ed_email, ed_cccd;
     RecyclerView rc_nguoithue;
+    Toolbar toolbar;
+    SearchView searchView;
     Button btn_them, btn_huy;
     NguoiThueDAO nguoiThueDAO;
     NguoiThueSwip nguoiThueSwip;
@@ -63,12 +71,13 @@ public class NguoiThue_Activity extends AppCompatActivity {
         rc_nguoithue = findViewById(R.id.rc_nguoithue);
         ccp = (CountryCodePicker) findViewById(R.id.cpp);
         fladd = findViewById(R.id.fl_nguoithue);
+        toolbar = findViewById(R.id.toolbar_nguoithue);
         firestore = FirebaseFirestore.getInstance();
         fba = FirebaseAuth.getInstance();
         nguoiThueDAO = new NguoiThueDAO(firestore, getBaseContext());
         ArrayList<NguoiThue> list = getall();
         nguoiThueSwip = new NguoiThueSwip(list, NguoiThue_Activity.this, firestore);
-
+        setSupportActionBar(toolbar);
         rc_nguoithue.setAdapter(nguoiThueSwip);
 
         fladd.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +180,28 @@ public class NguoiThue_Activity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search,menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));         searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                nguoiThueSwip.getFilter().filter(query );
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                nguoiThueSwip.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
     }
 
     public static boolean isEmail(CharSequence charSequence) {

@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,19 +41,22 @@ import net.fpl.beehome.model.SuCo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueViewHolder> {
+public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueViewHolder> implements Filterable {
     ArrayList<NguoiThue> arr;
     Context context;
     FirebaseFirestore fb;
+    ArrayList<NguoiThue> arr1;
 
     public NguoiThueSwip(ArrayList<NguoiThue> arr, Context context, FirebaseFirestore fb) {
         this.arr = arr;
         this.context = context;
         this.fb = fb;
+        this.arr1 = arr;
     }
 
     @Override
@@ -116,24 +121,29 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getId_thanhvien())
-                                .delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(context, "Xóa Thành Công", Toast.LENGTH_SHORT).show();
-                                        notifyDataSetChanged();
-                                        mItemManger.closeAllItems();
-
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(context, "Xóa Thất Bại", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                        dialog.dismiss();
+                        if (objNguoiThue.getId_phong().equals("Trống")){
+                            fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getId_thanhvien())
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(context, "Xóa Thành Công", Toast.LENGTH_SHORT).show();
+                                            notifyDataSetChanged();
+                                            mItemManger.closeAllItems();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(context, "Xóa Thất Bại", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                            dialog.dismiss();
+                        }else {
+                            Toast.makeText(context, "Đã Có Phòng Không Thể Xóa", Toast.LENGTH_SHORT).show();
+                            mItemManger.closeAllItems();
+                            dialog.dismiss();
+                        }
                     }
                 });
                 btn_cancel.setOnClickListener(new View.OnClickListener() {
@@ -339,5 +349,34 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
             tv_info = itemView.findViewById(R.id.tv_infonguoithue);
 
         }
+    }
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if (search.isEmpty()){
+                    arr = arr1;
+                }else {
+                    ArrayList<NguoiThue> nguoiThues = new ArrayList<>();
+                    for (NguoiThue nguoiThue1 : arr1){
+                        if (nguoiThue1.getHoTen().toLowerCase().contains(search.toLowerCase())){
+                            nguoiThues.add(nguoiThue1);
+                        }
+                    }
+                    arr = nguoiThues;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = arr;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                arr = (ArrayList<NguoiThue>)filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }
