@@ -42,7 +42,7 @@ import java.util.ArrayList;
 
 public class Login_Activity extends AppCompatActivity {
     TextInputLayout edNguoidung, edMatkhau;
-    Button btnDangNhap, btnClear;
+    Button btnDangNhap;
     CheckBox chk;
     TextView tvQuenMK;
     Animation animation;
@@ -54,13 +54,13 @@ public class Login_Activity extends AppCompatActivity {
     NguoiThue nguoiThue;
     PhongFragment phongFragment;
     ProgressBarLoading progressBarLoading;
+    ArrayList<NguoiThue> lsNguoiThue;
 
     public void init() {
         fb = FirebaseFirestore.getInstance();
         edNguoidung = findViewById(R.id.ed_sdt);
         edMatkhau = findViewById(R.id.ed_pass);
         btnDangNhap = findViewById(R.id.btn_dangnhap);
-        btnClear = findViewById(R.id.btn_clear);
         chk = findViewById(R.id.chk_remember);
         tvQuenMK = findViewById(R.id.tv_quen_mk);
         constraintLayout = findViewById(R.id.aniLogin);
@@ -69,7 +69,8 @@ public class Login_Activity extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(this, R.anim.login);
         constraintLayout.startAnimation(animation);
         progressBarLoading = new ProgressBarLoading(Login_Activity.this);
-
+        getAdmin();
+        getAllNguoiThue();
     }
 
     @Override
@@ -78,7 +79,6 @@ public class Login_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         init();
-        getAdmin("admin");
 
         phongFragment.setUnErr(edNguoidung);
         phongFragment.setUnErr(edMatkhau);
@@ -97,7 +97,6 @@ public class Login_Activity extends AppCompatActivity {
             public void onClick(View v) {
                 String pass = edMatkhau.getEditText().getText().toString();
                 String user = edNguoidung.getEditText().getText().toString();
-                progressBarLoading.showLoading();
 
 
                 if (TextUtils.isEmpty(user) || TextUtils.isEmpty(pass)) {
@@ -109,20 +108,22 @@ public class Login_Activity extends AppCompatActivity {
                     }
                     return;
                 } else {
-                    getNguoiThue(user);
-//                        Log.d("TAG", "onClick: " + nguoiThue.toString());
+                    for (NguoiThue nt : lsNguoiThue
+                         ) {
+                        if(nt.getSDT().equals(nt.getSDT())){
+                            nguoiThue =nt;
+                        }
+                    }
                 }
-
+                progressBarLoading.showLoading();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("TAG", "onClick: " + admin.toString());
-
                         if (admin == null && nguoiThue == null) {
                             edNguoidung.setError("Sai tên đăng nhập hoặc mật khẩu");
                             progressBarLoading.hideLoaing();
                         } else {
-                            if (user.equals("admin") && admin.getPassword().equals(pass)) {
+                            if (admin!= null && admin.getPassword().equals(pass)) {
                                 progressBarLoading.hideLoaing();
                                 Intent intent = new Intent(Login_Activity.this, MainActivity.class);
                                 intent.putExtra("user", user);
@@ -131,7 +132,7 @@ public class Login_Activity extends AppCompatActivity {
                                 nhoMatKhau(chk.isChecked(), user, pass);
                                 Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
 
-                            } else if (!user.equals("admin") && nguoiThue.getPassword().equals(pass)) {
+                            } else if (nguoiThue.getPassword().equals(pass)) {
                                 progressBarLoading.hideLoaing();
                                 Intent intent = new Intent(Login_Activity.this, MainNguoiThueActivity.class);
                                 intent.putExtra("user", user);
@@ -150,13 +151,7 @@ public class Login_Activity extends AppCompatActivity {
 
             }
         });
-        btnClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                edMatkhau.getEditText().setText("");
-                edNguoidung.getEditText().setText("");
-            }
-        });
+
         tvQuenMK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,8 +160,8 @@ public class Login_Activity extends AppCompatActivity {
         });
     }
 
-    public void getAdmin(String str) {
-        fb.collection(Admin.TB_NAME).document(str)
+    public void getAdmin() {
+        fb.collection(Admin.TB_NAME).document("admin")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -192,6 +187,21 @@ public class Login_Activity extends AppCompatActivity {
                     }
                 });
 //        return nguoiThue;
+    }
+
+    public ArrayList<NguoiThue> getAllNguoiThue() {
+        lsNguoiThue = new ArrayList<>();
+        fb.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (NguoiThue nt : value.toObjects(NguoiThue.class)
+                ) {
+                    lsNguoiThue.add(nt);
+                }
+            }
+        });
+
+        return lsNguoiThue;
     }
 
     private void nhoMatKhau(boolean b, String user, String pass) {

@@ -25,6 +25,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -49,8 +52,10 @@ public class NguoiThue_Activity extends AppCompatActivity {
     Button btn_them, btn_huy;
     NguoiThueDAO nguoiThueDAO;
     NguoiThueSwip nguoiThueSwip;
-    ArrayList<NguoiThue> arr ;
+    ArrayList<NguoiThue> arr;
     CountryCodePicker ccp;
+    FirebaseAuth fba;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +64,10 @@ public class NguoiThue_Activity extends AppCompatActivity {
         ccp = (CountryCodePicker) findViewById(R.id.cpp);
         fladd = findViewById(R.id.fl_nguoithue);
         firestore = FirebaseFirestore.getInstance();
-        nguoiThueDAO = new NguoiThueDAO(firestore,getBaseContext());
+        fba = FirebaseAuth.getInstance();
+        nguoiThueDAO = new NguoiThueDAO(firestore, getBaseContext());
         ArrayList<NguoiThue> list = getall();
-        nguoiThueSwip = new NguoiThueSwip(list,NguoiThue_Activity.this,firestore);
+        nguoiThueSwip = new NguoiThueSwip(list, NguoiThue_Activity.this, firestore);
 
         rc_nguoithue.setAdapter(nguoiThueSwip);
 
@@ -73,25 +79,25 @@ public class NguoiThue_Activity extends AppCompatActivity {
         });
     }
 
-    public ArrayList<Phong> getIDPhong() {
-        ArrayList<Phong> ls = new ArrayList<>();
-        firestore.collection(Phong.TB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-                    Phong phong = documentSnapshot.toObject(Phong.class);
-                    if (phong.getTrangThai().equals("Đang thuê")){
-                        ls.add(phong);
-                    }
-
-                    Log.d("zzzzzzzz", "onComplete: " + documentSnapshot.getId());
-                }
-            }
-        });
-        Log.d("zzzzzzzz", "onComplete: " + ls.size());
-
-        return ls;
-    }
+//    public ArrayList<Phong> getIDPhong() {
+//        ArrayList<Phong> ls = new ArrayList<>();
+//        firestore.collection(Phong.TB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+//                    Phong phong = documentSnapshot.toObject(Phong.class);
+//                    if (phong.getTrangThai().equals("Đang thuê")) {
+//                        ls.add(phong);
+//                    }
+//
+//                    Log.d("zzzzzzzz", "onComplete: " + documentSnapshot.getId());
+//                }
+//            }
+//        });
+//        Log.d("zzzzzzzz", "onComplete: " + ls.size());
+//
+//        return ls;
+//    }
 
     private void opendialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -121,7 +127,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
             public void onClick(View view) {
 //ccp.getFullNumber() +
                 String ten = ed_ten.getEditText().getText().toString();
-                String sodt =  ed_sodt.getEditText().getText().toString();
+                String sodt = ed_sodt.getEditText().getText().toString();
                 String email = ed_email.getEditText().getText().toString();
                 String cccd = ed_cccd.getEditText().getText().toString();
                 setUnErrNguoiThue(ed_ten);
@@ -132,17 +138,16 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 if (TextUtils.isEmpty(ten)) {
                     ed_ten.setError("Không Được Để Trống Tên");
                     return;
-                }else if (!isNumber(sodt)){
+                } else if (!isNumber(sodt)) {
                     ed_sodt.setError("Không Đúng Số Điện Thoại");
                     return;
-                }else if (!isEmail(email)){
+                } else if (!isEmail(email)) {
                     ed_email.setError("Không Đúng Định Dạng Email");
                     return;
-                }else if (cccd.length() != 12 ){
+                } else if (cccd.length() < 12) {
                     ed_cccd.setError("Căn Cước 12 Số");
                     return;
-                }
-                else {
+                } else {
                     NguoiThue nguoiThue = new NguoiThue();
                     nguoiThue.setID_thanhvien(sodt);
                     nguoiThue.setHoTen(ten);
@@ -152,15 +157,13 @@ public class NguoiThue_Activity extends AppCompatActivity {
                     nguoiThue.setEmail(email);
                     nguoiThue.setCCCD(cccd);
 
-                    if (checkIDNguoiThue(nguoiThue) != null){
-                        Toast.makeText(NguoiThue_Activity.this, "Số Điện Thoại Trùng Lặp", Toast.LENGTH_SHORT).show();
+                    if (checkIDNguoiThue(nguoiThue) != null) {
+                        ed_sodt.setError("Số điện thoại đã được đăng ký");
                         return;
-                    }
-                    else if (checkCMND(nguoiThue) != null){
-                        Toast.makeText(NguoiThue_Activity.this, "Trùng Căn Cước Công Dân", Toast.LENGTH_SHORT).show();
+                    } else if (checkCMND(nguoiThue) != null) {
+                        ed_cccd.setError("Số CCCD đã được đăng ký");
                         return;
-                    }
-                    else {
+                    } else {
                         themNguoiThue(nguoiThue);
                     }
                 }
@@ -169,10 +172,12 @@ public class NguoiThue_Activity extends AppCompatActivity {
         });
         dialog.show();
     }
-    public static boolean isEmail(CharSequence charSequence){
+
+    public static boolean isEmail(CharSequence charSequence) {
         return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
     }
-    public static boolean isNumber(String input){
+
+    public static boolean isNumber(String input) {
         Pattern b = Pattern.compile("(84|0[3|5|7|8|9])+([0-9]{8})\\b");
         Matcher m = b.matcher(input);
         return m.matches();
@@ -184,6 +189,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+                        themAuth(nguoiThue);
                         Toast.makeText(NguoiThue_Activity.this, "Thêm Thành Công", Toast.LENGTH_SHORT).show();
                         nguoiThueSwip.notifyDataSetChanged();
                     }
@@ -195,14 +201,21 @@ public class NguoiThue_Activity extends AppCompatActivity {
                     }
                 });
     }
-    public ArrayList<NguoiThue> getall(){
+
+    private void themAuth(NguoiThue nguoiThue) {
+        Log.d("TAG", "onComplete: " + nguoiThue.getEmail() + nguoiThue.getPassword());
+
+        fba.createUserWithEmailAndPassword(nguoiThue.getEmail(), nguoiThue.getPassword());
+    }
+
+    public ArrayList<NguoiThue> getall() {
         arr = new ArrayList<>();
         firestore.collection(NguoiThue.TB_NGUOITHUE)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                         arr.clear();
-                        for (QueryDocumentSnapshot documentSnapshot : value){
+                        for (QueryDocumentSnapshot documentSnapshot : value) {
                             NguoiThue objNguoiThue = documentSnapshot.toObject(NguoiThue.class);
                             arr.add(objNguoiThue);
                             nguoiThueSwip.notifyDataSetChanged();
@@ -211,24 +224,27 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 });
         return arr;
     }
-    public NguoiThue checkIDNguoiThue(NguoiThue nguoiThue){
-        for (NguoiThue nguoiThue1 : arr){
-            if (nguoiThue.getSDT().equals(nguoiThue1.getSDT())){
+
+    public NguoiThue checkIDNguoiThue(NguoiThue nguoiThue) {
+        for (NguoiThue nguoiThue1 : arr) {
+            if (nguoiThue.getSDT().equals(nguoiThue1.getSDT())) {
                 Toast.makeText(this, "Trùng Số Điện Thoại", Toast.LENGTH_SHORT).show();
                 return nguoiThue1;
             }
         }
         return null;
     }
-    public NguoiThue checkCMND(NguoiThue nguoiThue){
-        for (NguoiThue nguoiThue1 : arr){
-            if (nguoiThue.getCCCD().equals(nguoiThue1.getCCCD())){
+
+    public NguoiThue checkCMND(NguoiThue nguoiThue) {
+        for (NguoiThue nguoiThue1 : arr) {
+            if (nguoiThue.getCCCD().equals(nguoiThue1.getCCCD())) {
                 Toast.makeText(this, "Trùng Căn Cước Công Dân", Toast.LENGTH_SHORT).show();
                 return nguoiThue1;
             }
         }
         return null;
     }
+
     public void setUnErrNguoiThue(TextInputLayout textInputLayout) {
         textInputLayout.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
