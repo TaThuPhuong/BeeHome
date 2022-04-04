@@ -48,7 +48,7 @@ public class thongKeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_thong_ke, container, false);
-
+//
 //        layoutTuNgay = v.findViewById(R.id.layout_tuNgay);
 //        layoutDenNgay = v.findViewById(R.id.layout_denNgay);
 //        tvTuNgay = v.findViewById(R.id.tv_tuNgay);

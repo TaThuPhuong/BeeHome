@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     swipe:leftEdgeSwipeOffset="0dp"
+    android:layout_marginBottom="5dp"
     swipe:rightEdgeSwipeOffset="0dp">
 
     <LinearLayout
@@ -73,8 +74,8 @@
     android:id="@+id/layout_dichVu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
-    android:background="@drawable/bg_gradient_violet_top_right"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/bg_row_hdsc"
     android:orientation="horizontal">
 
     <ImageView
@@ -82,7 +83,7 @@
         android:layout_height="52dp"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/service"/>
+        android:src="@drawable/ic_service"/>
 
     <LinearLayout
         android:layout_width="match_parent"
