@@ -110,7 +110,7 @@ public class Login_Activity extends AppCompatActivity {
                 } else {
                     for (NguoiThue nt : lsNguoiThue
                          ) {
-                        if(nt.getSDT().equals(nt.getSDT())){
+                        if(nt.getSdt().equals(nt.getSdt())){
                             nguoiThue =nt;
                         }
                     }

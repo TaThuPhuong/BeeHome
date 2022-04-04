@@ -149,13 +149,13 @@ public class NguoiThue_Activity extends AppCompatActivity {
                     return;
                 } else {
                     NguoiThue nguoiThue = new NguoiThue();
-                    nguoiThue.setID_thanhvien(sodt);
+                    nguoiThue.setId_thanhvien(sodt);
                     nguoiThue.setHoTen(ten);
-                    nguoiThue.setID_phong("Trống");
-                    nguoiThue.setSDT(sodt);
+                    nguoiThue.setId_phong("Trống");
+                    nguoiThue.setSdt(sodt);
                     nguoiThue.setPassword(sodt);
                     nguoiThue.setEmail(email);
-                    nguoiThue.setCCCD(cccd);
+                    nguoiThue.setCccd(cccd);
 
                     if (checkIDNguoiThue(nguoiThue) != null) {
                         ed_sodt.setError("Số điện thoại đã được đăng ký");
@@ -184,7 +184,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
     }
 
     private void themNguoiThue(NguoiThue nguoiThue) {
-        firestore.collection(NguoiThue.TB_NGUOITHUE).document(nguoiThue.getSDT())
+        firestore.collection(NguoiThue.TB_NGUOITHUE).document(nguoiThue.getSdt())
                 .set(nguoiThue)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -227,7 +227,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
 
     public NguoiThue checkIDNguoiThue(NguoiThue nguoiThue) {
         for (NguoiThue nguoiThue1 : arr) {
-            if (nguoiThue.getSDT().equals(nguoiThue1.getSDT())) {
+            if (nguoiThue.getSdt().equals(nguoiThue1.getSdt())) {
                 Toast.makeText(this, "Trùng Số Điện Thoại", Toast.LENGTH_SHORT).show();
                 return nguoiThue1;
             }
@@ -237,7 +237,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
 
     public NguoiThue checkCMND(NguoiThue nguoiThue) {
         for (NguoiThue nguoiThue1 : arr) {
-            if (nguoiThue.getCCCD().equals(nguoiThue1.getCCCD())) {
+            if (nguoiThue.getCccd().equals(nguoiThue1.getCccd())) {
                 Toast.makeText(this, "Trùng Căn Cước Công Dân", Toast.LENGTH_SHORT).show();
                 return nguoiThue1;
             }

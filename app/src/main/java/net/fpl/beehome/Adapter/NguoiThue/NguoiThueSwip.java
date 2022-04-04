@@ -66,8 +66,8 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         final NguoiThue objNguoiThue = arr.get(position);
 
         viewHolder.tv_tennguoithue.setText("Tên : " + objNguoiThue.getHoTen());
-        viewHolder.tv_phongnguoithue.setText("Phòng : "+objNguoiThue.getID_phong());
-        viewHolder.tv_sdtnguoithue.setText("SĐT : "+ objNguoiThue.getSDT());
+        viewHolder.tv_phongnguoithue.setText("Phòng : "+objNguoiThue.getId_phong());
+        viewHolder.tv_sdtnguoithue.setText("SĐT : "+ objNguoiThue.getSdt());
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper));
@@ -116,7 +116,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getID_thanhvien())
+                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getId_thanhvien())
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -169,9 +169,9 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 ed_suaemail.setError(null);
                 ed_suacccd.setError(null);
                 ed_suaten.getEditText().setText(objNguoiThue.getHoTen());
-                ed_suasdt.getEditText().setText(objNguoiThue.getSDT());
+                ed_suasdt.getEditText().setText(objNguoiThue.getSdt());
                 ed_suaemail.getEditText().setText(objNguoiThue.getEmail());
-                ed_suacccd.getEditText().setText(objNguoiThue.getCCCD());
+                ed_suacccd.getEditText().setText(objNguoiThue.getCccd());
 
                 btn_update.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -219,7 +219,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                                 p.put(NguoiThue.COL_SDT,sdt);
                                 p.put(NguoiThue.COL_EMAIL,email);
                                 p.put(NguoiThue.COL_CCCD,cccd);
-                                fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getSDT()).update(p);
+                                fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getSdt()).update(p);
                                 mItemManger.closeAllItems();
                                 notifyDataSetChanged();
                                 dialog.dismiss();
@@ -243,7 +243,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 dialog.setContentView(R.layout.dialog_info_nguoithue);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 TextView tv_info = dialog.findViewById(R.id.tv_info_nguoithue);
-                tv_info.setText("Tên: "+objNguoiThue.getHoTen() + "\nPhòng : " +objNguoiThue.getID_phong() + "\nEmail : "+ objNguoiThue.getEmail() + "\nSĐT : "+objNguoiThue.getSDT() + "\nCCCD : "+objNguoiThue.getCCCD());
+                tv_info.setText("Tên: "+objNguoiThue.getHoTen() + "\nPhòng : " +objNguoiThue.getId_phong() + "\nEmail : "+ objNguoiThue.getEmail() + "\nSĐT : "+objNguoiThue.getSdt() + "\nCCCD : "+objNguoiThue.getCccd());
                 mItemManger.closeAllItems();
                 dialog.show();
             }
@@ -262,14 +262,14 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
     public boolean checkSDTNguoiThue(NguoiThue nguoiThue){
         ArrayList<NguoiThue> arrayList = new ArrayList<>();
         for (NguoiThue nguoiThue2 : arr){
-            if (!nguoiThue2.getSDT().equals(nguoiThue.getSDT())){
+            if (!nguoiThue2.getSdt().equals(nguoiThue.getSdt())){
                 arrayList.add(nguoiThue2);
             }
         }
 
         for (int i = 0; i < arrayList.size(); i++){
            NguoiThue objNguoithue =  arrayList.get(i);
-            if (objNguoithue.getSDT().equals(nguoiThue.getSDT())){
+            if (objNguoithue.getSdt().equals(nguoiThue.getSdt())){
                 Toast.makeText(context, "Trùng SĐT", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -279,13 +279,13 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
     public boolean checkCMND(NguoiThue nguoiThue){
         ArrayList<NguoiThue> arrayList = new ArrayList<>();
         for (NguoiThue nguoiThue1 : arr){
-            if (!nguoiThue1.getCCCD().equals(nguoiThue.getCCCD())){
+            if (!nguoiThue1.getCccd().equals(nguoiThue.getCccd())){
                 arrayList.add(nguoiThue1);
             }
         }
         for (int i = 0 ; i < arrayList.size(); i++){
             NguoiThue objNguoiThue = arrayList.get(i);
-            if (objNguoiThue.getCCCD().equals(nguoiThue.getCCCD())){
+            if (objNguoiThue.getCccd().equals(nguoiThue.getCccd())){
                 Toast.makeText(context, "Trùng Căn Cước Công Dân", Toast.LENGTH_SHORT).show();
                 return false;
             }
