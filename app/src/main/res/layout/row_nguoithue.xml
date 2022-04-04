@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe"
+    android:background="@drawable/bg_row_hdsc"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginBottom="3dp">
+    android:layout_margin="5dp"
+    >
 
     <LinearLayout
         android:id="@+id/bottom_wrapper"
@@ -100,36 +103,44 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <ImageView
-            android:layout_margin="12dp"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/img_user" />
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/ic_accout" />
+
         <TextView
-            android:layout_marginTop="20dp"
+            android:textSize="16dp"
             android:id="@+id/tv_tennguoithue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
-            android:text="Tên Người Thuê" />
+            android:layout_marginTop="20dp"
+            android:text="Tên Người Thuê"
+            android:textColor="@color/purple_200"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_phongnguoithue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
-            android:layout_marginTop="40dp"
-            android:text="Phòng - 201" />
+            android:layout_marginTop="55dp"
+            android:text="Phòng -" />
 
         <TextView
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="290dp"
             android:id="@+id/tv_sdtnguoithue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Số Điện Thoại"/>
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="55dp"
+            android:text="Số Điện Thoại" />
 
 
 

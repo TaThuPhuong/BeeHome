@@ -150,6 +150,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
+                        mItemManger.closeAllItems();
                     }
                 });
                 dialog.show();
@@ -207,15 +208,6 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                             ed_suacccd.setError("Căn Cước 12 Số");
                             return;
                         } else {
-//                            NguoiThue nguoiThue = new NguoiThue();
-//                            nguoiThue.setID_thanhvien(sdt);
-//                            nguoiThue.setHoTen(ten);
-//                            nguoiThue.setID_phong("Trống");
-//                            nguoiThue.setSDT(sdt);
-//                            nguoiThue.setPassword(sdt);
-//                            nguoiThue.setEmail(email);
-//                            nguoiThue.setCCCD(cccd);
-
                             if (checkSDTNguoiThue(objNguoiThue) != true) {
                                 ed_suasdt.setError("Số Điện Thoại Trùng Lặp");
                                 return;
@@ -242,6 +234,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
+                        mItemManger.closeAllItems();
                     }
                 });
             }
