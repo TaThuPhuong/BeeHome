@@ -103,7 +103,7 @@ public class Login_Activity extends AppCompatActivity {
                 String pass = edMatkhau.getEditText().getText().toString();
                 String email = edNguoidung.getEditText().getText().toString();
 
-
+//          kiểm tra chống
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
                     if (TextUtils.isEmpty(email)) {
                         edNguoidung.setError("Nhập email");
@@ -132,63 +132,54 @@ public class Login_Activity extends AppCompatActivity {
                             || email.equals("tienbxph18636@fpt.edu.vn") || email.equals("cuongvvph18550@fpt.edu.vn") ||
                             email.equals("tuvmph18579@fpt.edu.vn")) {
                         progressBarLoading.showLoading();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                fba.signInWithEmailAndPassword(email, pass)
-                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                progressBarLoading.hideLoaing();
-                                                Intent intent = new Intent(Login_Activity.this, MainActivity.class);
-                                                intent.putExtra("email", email);
-                                                intent.putExtra("ad", admin);
-                                                startActivity(intent);
-                                                nhoMatKhau(chk.isChecked(), email, pass);
-                                                Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
-
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                edMatkhau.setError("Sai mật khẩu");
-                                            }
-                                        });
-                            }
-                        }, 200);
-
-                    } else {
-                        progressBarLoading.showLoading();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                fba.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        fba.signInWithEmailAndPassword(email, pass)
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (nguoiThue != null) {
+                                        if (task.isSuccessful()) {
+                                            progressBarLoading.hideLoaing();
+                                            Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                                            intent.putExtra("email", email);
+                                            intent.putExtra("ad", admin);
+                                            startActivity(intent);
+                                            nhoMatKhau(chk.isChecked(), email, pass);
+                                            Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressBarLoading.hideLoaing();
+                                        edMatkhau.setError("Sai mật khẩu");
+                                        return;
+                                    }
+                                });
+                    } else {
+                        progressBarLoading.showLoading();
+                        fba.signInWithEmailAndPassword(email, pass)
+                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            progressBarLoading.hideLoaing();
                                             Intent intent = new Intent(Login_Activity.this, MainNguoiThueActivity.class);
                                             intent.putExtra("email", email);
                                             intent.putExtra("nt", nguoiThue);
                                             startActivity(intent);
                                             nhoMatKhau(chk.isChecked(), email, pass);
                                             Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            progressBarLoading.hideLoaing();
-                                            edNguoidung.setError("Sai email");
-                                            return;
                                         }
                                     }
                                 })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                progressBarLoading.hideLoaing();
-                                                edMatkhau.setError("Sai mật khẩu");
-                                            }
-                                        });
-                            }
-                        }, 200);
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        progressBarLoading.hideLoaing();
+                                        edMatkhau.setError("Sai mật khẩu");
+                                        return;
+                                    }
+                                });
 
                     }
                 }
@@ -225,7 +216,7 @@ public class Login_Activity extends AppCompatActivity {
                 for (NguoiThue nt : value.toObjects(NguoiThue.class)
                 ) {
                     lsNguoiThue.add(nt);
-                    Log.d("TAG", "onEvent: "+nt.toString());
+                    Log.d("TAG", "onEvent: " + nt.toString());
                 }
             }
         });

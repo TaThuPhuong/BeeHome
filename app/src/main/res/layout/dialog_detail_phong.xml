@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@drawable/bg_rd_ok"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_room" />
+
+        <TextView
+            android:id="@+id/tv_so_phong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Phòng 101"
+            android:textColor="@color/chu_xanh"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_gia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Giá phòng : 1800000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_vat_tu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đồ dùng: Giường,Tủ,Bếp" />
+
+    <TextView
+        android:id="@+id/tv_trang_thai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Trạng thái: Trống" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số điện hiện tại : 8"
+        android:id="@+id/tv_so_dien"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số nước hiện tại : 10"
+        android:id="@+id/tv_so_nuoc"
+        />
+</LinearLayout>

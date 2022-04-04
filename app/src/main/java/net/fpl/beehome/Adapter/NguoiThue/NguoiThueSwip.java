@@ -29,6 +29,8 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
@@ -51,6 +53,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
     Context context;
     FirebaseFirestore fb;
     ArrayList<NguoiThue> arr1;
+    FirebaseUser user;
 
     public NguoiThueSwip(ArrayList<NguoiThue> arr, Context context, FirebaseFirestore fb) {
         this.arr = arr;
@@ -71,8 +74,8 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         final NguoiThue objNguoiThue = arr.get(position);
 
         viewHolder.tv_tennguoithue.setText("Tên : " + objNguoiThue.getHoTen());
-        viewHolder.tv_phongnguoithue.setText("Phòng : "+objNguoiThue.getId_phong());
-        viewHolder.tv_sdtnguoithue.setText("SĐT : "+ objNguoiThue.getSdt());
+        viewHolder.tv_phongnguoithue.setText("Phòng : " + objNguoiThue.getId_phong());
+        viewHolder.tv_sdtnguoithue.setText("SĐT : " + objNguoiThue.getSdt());
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper));
@@ -121,7 +124,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (objNguoiThue.getId_phong().equals("Trống")){
+                        if (objNguoiThue.getId_phong().equals("Trống")) {
                             fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getId_thanhvien())
                                     .delete()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -139,7 +142,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                                         }
                                     });
                             dialog.dismiss();
-                        }else {
+                        } else {
                             Toast.makeText(context, "Đã Có Phòng Không Thể Xóa", Toast.LENGTH_SHORT).show();
                             mItemManger.closeAllItems();
                             dialog.dismiss();
@@ -173,7 +176,6 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 ed_suacccd = view.findViewById(R.id.ed_suacccdnguoithue);
                 btn_update = view.findViewById(R.id.btn_updatenguoithue);
                 btn_xoa = view.findViewById(R.id.btn_xoanguoithue);
-
                 ed_suaten.setError(null);
                 ed_suasdt.setError(null);
                 ed_suaemail.setError(null);
@@ -182,7 +184,6 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 ed_suasdt.getEditText().setText(objNguoiThue.getSdt());
                 ed_suaemail.getEditText().setText(objNguoiThue.getEmail());
                 ed_suacccd.getEditText().setText(objNguoiThue.getCccd());
-
                 btn_update.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -222,14 +223,14 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                             } else if (checkCMND(objNguoiThue) != true) {
                                 ed_suacccd.setError("Trùng Căn Cước Công Dân");
                                 return;
-                            }
-                        else {
+                            } else {
                                 Map<String, Object> p = new HashMap<>();
-                                p.put(NguoiThue.COL_HOTEN,ten);
-                                p.put(NguoiThue.COL_SDT,sdt);
-                                p.put(NguoiThue.COL_EMAIL,email);
-                                p.put(NguoiThue.COL_CCCD,cccd);
+                                p.put(NguoiThue.COL_HOTEN, ten);
+                                p.put(NguoiThue.COL_SDT, sdt);
+                                p.put(NguoiThue.COL_EMAIL, email);
+                                p.put(NguoiThue.COL_CCCD, cccd);
                                 fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getSdt()).update(p);
+
                                 mItemManger.closeAllItems();
                                 notifyDataSetChanged();
                                 dialog.dismiss();
@@ -253,7 +254,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 dialog.setContentView(R.layout.dialog_info_nguoithue);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 TextView tv_info = dialog.findViewById(R.id.tv_info_nguoithue);
-                tv_info.setText("Tên: "+objNguoiThue.getHoTen() + "\nPhòng : " +objNguoiThue.getId_phong() + "\nEmail : "+ objNguoiThue.getEmail() + "\nSĐT : "+objNguoiThue.getSdt() + "\nCCCD : "+objNguoiThue.getCccd());
+                tv_info.setText("Tên: " + objNguoiThue.getHoTen() + "\nPhòng : " + objNguoiThue.getId_phong() + "\nEmail : " + objNguoiThue.getEmail() + "\nSĐT : " + objNguoiThue.getSdt() + "\nCCCD : " + objNguoiThue.getCccd());
                 mItemManger.closeAllItems();
                 dialog.show();
             }
@@ -261,47 +262,52 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
 
         mItemManger.bindView(viewHolder.itemView, position);
     }
-    public static boolean isEmail(CharSequence charSequence){
+
+    public static boolean isEmail(CharSequence charSequence) {
         return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
     }
-    public static boolean isNumber(String input){
+
+    public static boolean isNumber(String input) {
         Pattern b = Pattern.compile("(84|0[3|5|7|8|9])+([0-9]{8})\\b");
         Matcher m = b.matcher(input);
         return m.matches();
     }
-    public boolean checkSDTNguoiThue(NguoiThue nguoiThue){
+
+    public boolean checkSDTNguoiThue(NguoiThue nguoiThue) {
         ArrayList<NguoiThue> arrayList = new ArrayList<>();
-        for (NguoiThue nguoiThue2 : arr){
-            if (!nguoiThue2.getSdt().equals(nguoiThue.getSdt())){
+        for (NguoiThue nguoiThue2 : arr) {
+            if (!nguoiThue2.getSdt().equals(nguoiThue.getSdt())) {
                 arrayList.add(nguoiThue2);
             }
         }
 
-        for (int i = 0; i < arrayList.size(); i++){
-           NguoiThue objNguoithue =  arrayList.get(i);
-            if (objNguoithue.getSdt().equals(nguoiThue.getSdt())){
+        for (int i = 0; i < arrayList.size(); i++) {
+            NguoiThue objNguoithue = arrayList.get(i);
+            if (objNguoithue.getSdt().equals(nguoiThue.getSdt())) {
                 Toast.makeText(context, "Trùng SĐT", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
         return true;
     }
-    public boolean checkCMND(NguoiThue nguoiThue){
+
+    public boolean checkCMND(NguoiThue nguoiThue) {
         ArrayList<NguoiThue> arrayList = new ArrayList<>();
-        for (NguoiThue nguoiThue1 : arr){
-            if (!nguoiThue1.getCccd().equals(nguoiThue.getCccd())){
+        for (NguoiThue nguoiThue1 : arr) {
+            if (!nguoiThue1.getCccd().equals(nguoiThue.getCccd())) {
                 arrayList.add(nguoiThue1);
             }
         }
-        for (int i = 0 ; i < arrayList.size(); i++){
+        for (int i = 0; i < arrayList.size(); i++) {
             NguoiThue objNguoiThue = arrayList.get(i);
-            if (objNguoiThue.getCccd().equals(nguoiThue.getCccd())){
+            if (objNguoiThue.getCccd().equals(nguoiThue.getCccd())) {
                 Toast.makeText(context, "Trùng Căn Cước Công Dân", Toast.LENGTH_SHORT).show();
                 return false;
             }
         }
         return true;
     }
+
     public void setUnErrNguoithue(TextInputLayout textInputLayout) {
         textInputLayout.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -333,16 +339,17 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         return R.id.swipe;
     }
 
-    public class NguoiThueViewHolder extends RecyclerView.ViewHolder{
+    public class NguoiThueViewHolder extends RecyclerView.ViewHolder {
         TextView tv_tennguoithue, tv_phongnguoithue, tv_sdtnguoithue;
         SwipeLayout swipeLayout;
         LinearLayout tv_del, tv_edit, tv_info;
+
         public NguoiThueViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_tennguoithue = itemView.findViewById(R.id.tv_tennguoithue);
             tv_phongnguoithue = itemView.findViewById(R.id.tv_phongnguoithue);
             tv_sdtnguoithue = itemView.findViewById(R.id.tv_sdtnguoithue);
-            swipeLayout =itemView.findViewById(R.id.swipe);
+            swipeLayout = itemView.findViewById(R.id.swipe);
 
             tv_del = itemView.findViewById(R.id.tv_deletenguoithue);
             tv_edit = itemView.findViewById(R.id.tv_editnguoithue);
@@ -350,18 +357,19 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
 
         }
     }
+
     @Override
     public Filter getFilter() {
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String search = charSequence.toString();
-                if (search.isEmpty()){
+                if (search.isEmpty()) {
                     arr = arr1;
-                }else {
+                } else {
                     ArrayList<NguoiThue> nguoiThues = new ArrayList<>();
-                    for (NguoiThue nguoiThue1 : arr1){
-                        if (nguoiThue1.getHoTen().toLowerCase().contains(search.toLowerCase())){
+                    for (NguoiThue nguoiThue1 : arr1) {
+                        if (nguoiThue1.getHoTen().toLowerCase().contains(search.toLowerCase())) {
                             nguoiThues.add(nguoiThue1);
                         }
                     }
@@ -374,7 +382,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                arr = (ArrayList<NguoiThue>)filterResults.values;
+                arr = (ArrayList<NguoiThue>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
