@@ -41,6 +41,7 @@ public class MainNguoiThueActivity extends AppCompatActivity {
     String user;
     BottomNavigationView bnavigation;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,4 +157,6 @@ public class MainNguoiThueActivity extends AppCompatActivity {
     public NguoiThue getNguoiThue() {
         return nguoiThue;
     }
+
+
 }

@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment {
         viewPager2 = view.findViewById(R.id.vpg);
         tv_hl_nd = view.findViewById(R.id.tv_hl_nd);
         mainActivity = (MainActivity) getActivity();
+
         tv_hl_nd.setText(mainActivity.getAdmin().getHoTen());
 
 

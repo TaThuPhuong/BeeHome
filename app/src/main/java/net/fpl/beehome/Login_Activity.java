@@ -103,7 +103,7 @@ public class Login_Activity extends AppCompatActivity {
                 } else {
                     for (NguoiThue nt : lsNguoiThue
                          ) {
-                        if(nt.getSdt().equals(nt.getSdt())){
+                        if(nt.getSdt().equals(user)){
                             nguoiThue =nt;
                         }
                     }
