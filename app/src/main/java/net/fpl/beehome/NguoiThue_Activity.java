@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -50,7 +52,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class NguoiThue_Activity extends AppCompatActivity {
+public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     FloatingActionButton fladd;
     FirebaseFirestore firestore;
     TextInputLayout ed_ten, ed_sodt, ed_email, ed_cccd;
@@ -63,12 +65,14 @@ public class NguoiThue_Activity extends AppCompatActivity {
     ArrayList<NguoiThue> arr;
     CountryCodePicker ccp;
     FirebaseAuth fba;
+    SwipeRefreshLayout swipeRefreshLayout1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nguoi_thue);
         rc_nguoithue = findViewById(R.id.rc_nguoithue);
+        swipeRefreshLayout1 = findViewById(R.id.sw_rv_nguoithue);
         ccp = (CountryCodePicker) findViewById(R.id.cpp);
         fladd = findViewById(R.id.fl_nguoithue);
         toolbar = findViewById(R.id.toolbar_nguoithue);
@@ -79,6 +83,7 @@ public class NguoiThue_Activity extends AppCompatActivity {
         nguoiThueSwip = new NguoiThueSwip(list, NguoiThue_Activity.this, firestore);
         setSupportActionBar(toolbar);
         rc_nguoithue.setAdapter(nguoiThueSwip);
+        swipeRefreshLayout1.setOnRefreshListener(this);
 
         fladd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,26 +92,6 @@ public class NguoiThue_Activity extends AppCompatActivity {
             }
         });
     }
-
-//    public ArrayList<Phong> getIDPhong() {
-//        ArrayList<Phong> ls = new ArrayList<>();
-//        firestore.collection(Phong.TB_NAME).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-//                    Phong phong = documentSnapshot.toObject(Phong.class);
-//                    if (phong.getTrangThai().equals("Đang thuê")) {
-//                        ls.add(phong);
-//                    }
-//
-//                    Log.d("zzzzzzzz", "onComplete: " + documentSnapshot.getId());
-//                }
-//            }
-//        });
-//        Log.d("zzzzzzzz", "onComplete: " + ls.size());
-//
-//        return ls;
-//    }
 
     private void opendialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -295,5 +280,16 @@ public class NguoiThue_Activity extends AppCompatActivity {
                 }
             }
         });
+    }
+    @Override
+    public void onRefresh() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                nguoiThueSwip.notifyDataSetChanged();
+                swipeRefreshLayout1.setRefreshing(false);
+            }
+        }, 1000);
     }
 }

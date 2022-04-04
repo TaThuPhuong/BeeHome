@@ -9,19 +9,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
@@ -35,6 +45,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
     ArrayList<HoaDon> arr;
     Context context;
     FirebaseFirestore fb;
+    ArrayList<String> arrTenPhong ;
     ArrayList<Phong> arrphong;
     ArrayList<HopDong> arrhopdong;
     ArrayList<DichVu> arrdichvu;
@@ -192,169 +203,61 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 mItemManger.closeAllItems();
             }
         });
-//        viewHolder.tv_edit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-//                dialog.setContentView(R.layout.dialog_edit_hopdong);
-//                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
-//                Spinner sp_phong = dialog.findViewById(R.id.sp_hd_phong);
-//                Spinner sp_tvien = dialog.findViewById(R.id.sp_hd_tvien);
-//                Button btn_add = dialog.findViewById(R.id.btn_add);
-//                TextInputLayout ed_kyhan = dialog.findViewById(R.id.ed_kyhan);
-//                TextInputLayout ed_ngayky = dialog.findViewById(R.id.ed_ngaykyhd);
-//                TextInputLayout ed_ngaybd = dialog.findViewById(R.id.ed_ngaybd);
-//                TextInputLayout ed_ngaykt = dialog.findViewById(R.id.ed_ngaykt);
-//                TextInputLayout ed_songuoithue = dialog.findViewById(R.id.ed_songuoithue);
-//
-//                ed_kyhan.setError(null);
-//                ed_ngaybd.setError(null);
-//                ed_ngaykt.setError(null);
-//                ed_ngayky.setError(null);
-//                ed_songuoithue.setError(null);
-//
-//                SpinnerPhongAdapter phongAdapter = new SpinnerPhongAdapter(arrphong);
-//                sp_phong.setAdapter(phongAdapter);
-//                SpinnerNguoiThueAdapter nguoiThueAdapter = new SpinnerNguoiThueAdapter(arrnguoithue);
-//                sp_tvien.setAdapter(nguoiThueAdapter);
-//
-//
-//                Calendar calendar = Calendar.getInstance();
-//                final int y = calendar.get(Calendar.YEAR);
-//                final int m = calendar.get(Calendar.MONTH);
-//                final int d = calendar.get(Calendar.DAY_OF_MONTH);
-//                ed_ngayky.getEditText().setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        DatePickerDialog dialog1 = new DatePickerDialog(context, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
-//                            @Override
-//                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-//                                String date = i +"-" + i1 +"-" + i2;
-//                                ed_ngayky.getEditText().setText(date);
-//                            }
-//                        },y,m,d);
-//                        dialog1.show();
-//                    }
-//                });
-//                ed_ngaybd.getEditText().setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        DatePickerDialog dialog1 = new DatePickerDialog(context, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
-//                            @Override
-//                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-//                                String date = i +"-" + i1 +"-" + i2;
-//                                ed_ngaybd.getEditText().setText(date);
-//                            }
-//                        },y,m,d);
-//                        dialog1.show();
-//                    }
-//                });
-//                ed_ngaykt.getEditText().setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        DatePickerDialog dialog1 = new DatePickerDialog(context, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
-//                            @Override
-//                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-//                                String date = i +"-" + i1 +"-" + i2;
-//                                ed_ngaykt.getEditText().setText(date);
-//                            }
-//                        },y,m,d);
-//                        dialog1.show();
-//                    }
-//                });
-//
-//                ed_kyhan.getEditText().setText(objHoaDon.getKyHan());
-//                ed_ngayky.getEditText().setText(objHoaDon.getNgayKiHD());
-//                ed_ngaykt.getEditText().setText(objHoaDon.getNgayKetThuc());
-//                ed_ngaybd.getEditText().setText(objHoaDon.getNgayBatDau());
-//                ed_songuoithue.getEditText().setText(objHoaDon.getSoNguoiThue().toString());
-//
-//                for(int j = 0; j <arrphong.size(); j++){
-//                    Phong tmp = arrphong.get(j);
-//                    if(tmp.getIDPhong() == objHoaDon.getId_phong()){
-//                        sp_phong.setSelection(j);
-//                        sp_phong.setSelected(true);
-//                        break;
-//                    }
-//                }
-//                for(int j = 0; j <arrnguoithue.size(); j++){
-//                    NguoiThue tmp = arrnguoithue.get(j);
-//                    if(tmp.getID_thanhvien() == objHoaDon.getId_thanh_vien()){
-//                        sp_tvien.setSelection(j);
-//                        sp_tvien.setSelected(true);
-//                        break;
-//                    }
-//                }
-//
-//                btn_add.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        String edkyhan = ed_kyhan.getEditText().getText().toString();
-//                        String ednbd = ed_ngaybd.getEditText().getText().toString();
-//                        String ednkt = ed_ngaykt.getEditText().getText().toString();
-//                        String ednky = ed_ngayky.getEditText().getText().toString();
-//                        String edsn = ed_songuoithue.getEditText().getText().toString();
-//
-//                        if(edkyhan.length() == 0){
-//                            ed_kyhan.setError("Trường không được bỏ trống");
-//                            return;
-//                        }else if(ednky.length()==0){
-//                            ed_ngayky.setError("Trường không được bỏ trống");
-//                            return;
-//                        }else if(ednbd.length()==0){
-//                            ed_ngaybd.setError("Trường không được bỏ trống");
-//                            return;
-//                        }else if(ednkt.length()==0){
-//                            ed_ngaykt.setError("Trường không được bỏ trống");
-//                            return;
-//                        }else if(edsn.length()==0){
-//                            ed_songuoithue.setError("Trường không được bỏ trống");
-//                            return;
-//                        }else if(!checkDateFormat(ednky)){
-//                            ed_ngayky.setError("Sai định dạng");
-//                            return;
-//                        }else if(!checkDateFormat(ednbd)){
-//                            ed_ngaybd.setError("Sai định dạng");
-//                            return;
-//                        }else if(!checkDateFormat(ednkt)){
-//                            ed_ngaykt.setError("Sai định dạng");
-//                            return;
-//                        }
-//
-//                        Phong objPhong = (Phong) sp_phong.getSelectedItem();
-//                        NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
-//                        objHoaDon.setId_chu_tro("1");
-//                        objHoaDon.setId_phong(objPhong.getIDPhong());
-//                        objHoaDon.setId_thanh_vien(objNguoiThue.getID_thanhvien());
-//                        objHoaDon.setKyHan(ed_kyhan.getEditText().getText().toString());
-//                        objHoaDon.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
-//                        objHoaDon.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());
-//                        objHoaDon.setNgayKetThuc(ed_ngaykt.getEditText().getText().toString());
-//                        objHoaDon.setSoNguoiThue(Double.parseDouble(ed_songuoithue.getEditText().getText().toString()));
-//
-//                        fb.collection(HopDong.TB_NAME).document(objHoaDon.getId_hop_dong())
-//                                .set(objHoaDon)
-//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        arr.set(index, objHoaDon);
-//                                        notifyDataSetChanged();
-//                                        mItemManger.closeAllItems();
-//                                        Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                })
-//                                .addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//                        dialog.dismiss();
-//                    }
-//                });
-//                dialog.show();
-//            }
-//        });
+        viewHolder.tv_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+                dialog.setContentView(R.layout.dialog_hoa_don_sua);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
+                dialog.show();
+
+                //                ánh xạ
+                Spinner sp_phong = dialog.findViewById(R.id.spn_Phong);
+                TextInputLayout L_hd_thang = dialog.findViewById(R.id.L_thang_hd);
+                TextInputLayout L_hd_han = dialog.findViewById(R.id.L_han_hd);
+                TextInputLayout L_dien_moi = dialog.findViewById(R.id.L_dien_moi);
+                TextInputLayout L_nuoc_moi = dialog.findViewById(R.id.L_nuoc_moi);
+                TextInputLayout L_giam_gia = dialog.findViewById(R.id.L_giamGia);
+
+
+                TextInputEditText hd_thang = dialog.findViewById(R.id.thang_hd);
+                TextInputEditText hd_han = dialog.findViewById(R.id.han_hd);
+                TextInputEditText dien_cu = dialog.findViewById(R.id.dien_cu);
+                TextInputEditText dien_moi = dialog.findViewById(R.id.dien_moi);
+                TextInputEditText nuoc_cu = dialog.findViewById(R.id.nuoc_cu);
+                TextInputEditText nuoc_moi = dialog.findViewById(R.id.nuoc_moi);
+                TextInputEditText tienPhong = dialog.findViewById(R.id.tienPhong);
+                TextInputEditText tienDV = dialog.findViewById(R.id.tienDV);
+                TextInputEditText giamGia = dialog.findViewById(R.id.giamGia);
+
+                LinearLayout lnLDien = dialog.findViewById(R.id.lnLDien);
+                LinearLayout lnLNuoc = dialog.findViewById(R.id.lnLNuoc);
+
+                ImageButton chotDien = dialog.findViewById(R.id.chotDien);
+                ImageButton chotNuoc = dialog.findViewById(R.id.chotNuoc);
+
+                TextView tvDien = dialog.findViewById(R.id.tvDien);
+                TextView tvNuoc = dialog.findViewById(R.id.tvNuoc);
+                TextView errAll = dialog.findViewById(R.id.errTongHop);
+                MaterialTextView tvTongHop = dialog.findViewById(R.id.tongHop);
+
+                TextView tongTien = dialog.findViewById(R.id.tongTien);
+                TextInputLayout ghiChu = dialog.findViewById(R.id.ghiChuHD);
+
+                Button clear = dialog.findViewById(R.id.btnClear);
+                Button add = dialog.findViewById(R.id.btnAddHd);
+
+
+                hd_thang.setError(null);
+                hd_han.setError(null);
+                L_dien_moi.setError(null);
+                L_nuoc_moi.setError(null);
+                nuoc_moi.setError(null);
+                L_giam_gia.setError(null);
+
+
+            }
+        });
         mItemManger.bindView(viewHolder.itemView, position);
     }
 
@@ -386,6 +289,23 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
             tv_edit = itemView.findViewById(R.id.tv_edit);
             tv_info = itemView.findViewById(R.id.tv_info);
         }
+    }
+
+    public ArrayList<String> getTenPhong(){
+        ArrayList<String> arrTenPhong = new ArrayList<>();
+        fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arrTenPhong.clear();
+                for(QueryDocumentSnapshot document : value){
+                    Phong objPhong = document.toObject(Phong.class);
+                    if(objPhong.getTrangThai().equalsIgnoreCase("Đang Thuê")) {
+                        arrTenPhong.add(objPhong.getIDPhong());
+                    }
+                }
+            }
+        });
+        return arrTenPhong;
     }
 
 

@@ -9,41 +9,46 @@
     tools:context=".NguoiThue_Activity">
 
     <androidx.appcompat.widget.Toolbar
-        app:title="Tìm Kiếm"
-        android:background="@color/tim_100"
         android:id="@+id/toolbar_nguoithue"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintBottom_toTopOf="@+id/rc_nguoithue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/tim_600"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:title="Tìm Kiếm"
+        app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sw_rv_nguoithue"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_nguoithue"
+        app:layout_constraintBottom_toBottomOf="parent"
         >
 
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_nguoithue"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="94dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_nguoithue" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_nguoithue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fl_nguoithue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="39dp"
-        android:backgroundTint="@color/purple_200"
+        android:layout_marginBottom="68dp"
+        android:backgroundTint="@color/tim_600"
         android:src="@drawable/ic_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rc_nguoithue" />
+        app:layout_constraintBottom_toBottomOf="@+id/sw_rv_nguoithue"
+        android:layout_marginRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingLeft="5dp"
-
     android:background="@drawable/bg_row_hdsc"
     android:layout_marginBottom="3dp">
 
