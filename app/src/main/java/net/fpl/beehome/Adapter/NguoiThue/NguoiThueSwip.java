@@ -6,6 +6,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,17 +31,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.DAO.NguoiThueDAO;
+import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.model.SuCo;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueViewHolder> {
     ArrayList<NguoiThue> arr;
     Context context;
-    NguoiThueDAO nguoiThueDAO;
     FirebaseFirestore fb;
 
     public NguoiThueSwip(ArrayList<NguoiThue> arr, Context context, FirebaseFirestore fb) {
@@ -58,8 +66,8 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         final NguoiThue objNguoiThue = arr.get(position);
 
         viewHolder.tv_tennguoithue.setText("Tên : " + objNguoiThue.getHoTen());
-        viewHolder.tv_phongnguoithue.setText("Phòng : "+objNguoiThue.getID_phong());
-        viewHolder.tv_sdtnguoithue.setText("SĐT : "+ objNguoiThue.getSDT());
+        viewHolder.tv_phongnguoithue.setText("Phòng : "+objNguoiThue.getId_phong());
+        viewHolder.tv_sdtnguoithue.setText("SĐT : "+ objNguoiThue.getSdt());
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper));
@@ -108,7 +116,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getID_thanhvien())
+                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getId_thanhvien())
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -146,11 +154,88 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 builder.setView(view);
                 AlertDialog dialog = builder.create();
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
                 dialog.show();
+                TextInputLayout ed_suaten, ed_suasdt, ed_suaemail, ed_suacccd;
+                Button btn_update, btn_xoa;
+                ed_suaten = view.findViewById(R.id.ed_suahotennguoithue);
+                ed_suasdt = view.findViewById(R.id.ed_suasdtnguoithue);
+                ed_suaemail = view.findViewById(R.id.ed_suaemailnguoithue);
+                ed_suacccd = view.findViewById(R.id.ed_suacccdnguoithue);
+                btn_update = view.findViewById(R.id.btn_updatenguoithue);
+                btn_xoa = view.findViewById(R.id.btn_xoanguoithue);
+
+                ed_suaten.setError(null);
+                ed_suasdt.setError(null);
+                ed_suaemail.setError(null);
+                ed_suacccd.setError(null);
+                ed_suaten.getEditText().setText(objNguoiThue.getHoTen());
+                ed_suasdt.getEditText().setText(objNguoiThue.getSdt());
+                ed_suaemail.getEditText().setText(objNguoiThue.getEmail());
+                ed_suacccd.getEditText().setText(objNguoiThue.getCccd());
+
+                btn_update.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String ten = ed_suaten.getEditText().getText().toString();
+                        String sdt = ed_suasdt.getEditText().getText().toString();
+                        String email = ed_suaemail.getEditText().getText().toString();
+                        String cccd = ed_suacccd.getEditText().getText().toString();
+                        setUnErrNguoithue(ed_suaten);
+                        setUnErrNguoithue(ed_suasdt);
+                        setUnErrNguoithue(ed_suaemail);
+                        setUnErrNguoithue(ed_suacccd);
+                        if (TextUtils.isEmpty(ten)) {
+                            ed_suaten.setError("Không Được Để Trống Tên");
+                            return;
+                        } else if (!isNumber(sdt)) {
+                            ed_suasdt.setError("Không Đúng Số Điện Thoại");
+                            return;
+                        } else if (!isEmail(email)) {
+                            ed_suaemail.setError("Không Đúng Định Dạng Email");
+                            return;
+                        } else if (cccd.length() != 12) {
+                            ed_suacccd.setError("Căn Cước 12 Số");
+                            return;
+                        } else {
+//                            NguoiThue nguoiThue = new NguoiThue();
+//                            nguoiThue.setID_thanhvien(sdt);
+//                            nguoiThue.setHoTen(ten);
+//                            nguoiThue.setID_phong("Trống");
+//                            nguoiThue.setSDT(sdt);
+//                            nguoiThue.setPassword(sdt);
+//                            nguoiThue.setEmail(email);
+//                            nguoiThue.setCCCD(cccd);
+
+                            if (checkSDTNguoiThue(objNguoiThue) != true) {
+                                ed_suasdt.setError("Số Điện Thoại Trùng Lặp");
+                                return;
+                            } else if (checkCMND(objNguoiThue) != true) {
+                                ed_suacccd.setError("Trùng Căn Cước Công Dân");
+                                return;
+                            }
+                        else {
+                                Map<String, Object> p = new HashMap<>();
+                                p.put(NguoiThue.COL_HOTEN,ten);
+                                p.put(NguoiThue.COL_SDT,sdt);
+                                p.put(NguoiThue.COL_EMAIL,email);
+                                p.put(NguoiThue.COL_CCCD,cccd);
+                                fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getSdt()).update(p);
+                                mItemManger.closeAllItems();
+                                notifyDataSetChanged();
+                                dialog.dismiss();
+                                Toast.makeText(context, "Update Thành Công", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+                btn_xoa.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
-
         viewHolder.tv_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,13 +243,74 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 dialog.setContentView(R.layout.dialog_info_nguoithue);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 TextView tv_info = dialog.findViewById(R.id.tv_info_nguoithue);
-                tv_info.setText("Tên: "+objNguoiThue.getHoTen() + "\nPhòng : " +objNguoiThue.getID_phong() + "\nEmail : "+ objNguoiThue.getEmail() + "\nSĐT : "+objNguoiThue.getSDT() + "\nCCCD : "+objNguoiThue.getCCCD());
+                tv_info.setText("Tên: "+objNguoiThue.getHoTen() + "\nPhòng : " +objNguoiThue.getId_phong() + "\nEmail : "+ objNguoiThue.getEmail() + "\nSĐT : "+objNguoiThue.getSdt() + "\nCCCD : "+objNguoiThue.getCccd());
                 mItemManger.closeAllItems();
                 dialog.show();
             }
         });
 
         mItemManger.bindView(viewHolder.itemView, position);
+    }
+    public static boolean isEmail(CharSequence charSequence){
+        return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
+    }
+    public static boolean isNumber(String input){
+        Pattern b = Pattern.compile("(84|0[3|5|7|8|9])+([0-9]{8})\\b");
+        Matcher m = b.matcher(input);
+        return m.matches();
+    }
+    public boolean checkSDTNguoiThue(NguoiThue nguoiThue){
+        ArrayList<NguoiThue> arrayList = new ArrayList<>();
+        for (NguoiThue nguoiThue2 : arr){
+            if (!nguoiThue2.getSdt().equals(nguoiThue.getSdt())){
+                arrayList.add(nguoiThue2);
+            }
+        }
+
+        for (int i = 0; i < arrayList.size(); i++){
+           NguoiThue objNguoithue =  arrayList.get(i);
+            if (objNguoithue.getSdt().equals(nguoiThue.getSdt())){
+                Toast.makeText(context, "Trùng SĐT", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkCMND(NguoiThue nguoiThue){
+        ArrayList<NguoiThue> arrayList = new ArrayList<>();
+        for (NguoiThue nguoiThue1 : arr){
+            if (!nguoiThue1.getCccd().equals(nguoiThue.getCccd())){
+                arrayList.add(nguoiThue1);
+            }
+        }
+        for (int i = 0 ; i < arrayList.size(); i++){
+            NguoiThue objNguoiThue = arrayList.get(i);
+            if (objNguoiThue.getCccd().equals(nguoiThue.getCccd())){
+                Toast.makeText(context, "Trùng Căn Cước Công Dân", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
+    }
+    public void setUnErrNguoithue(TextInputLayout textInputLayout) {
+        textInputLayout.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (textInputLayout.getEditText().getText().toString().length() != 0) {
+                    textInputLayout.setError(null);
+                }
+            }
+        });
     }
 
     @Override

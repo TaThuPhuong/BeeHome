@@ -10,6 +10,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -119,6 +121,10 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                 //when user's hand released.
             }
         });
+        Animation animation = AnimationUtils.loadAnimation(mContext.getApplicationContext(), R.anim.item);
+        viewHolder.tvInfo.startAnimation(animation);
+        viewHolder.tvDelete.startAnimation(animation);
+        viewHolder.tvEdit.startAnimation(animation);
         // update phòng
         viewHolder.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override

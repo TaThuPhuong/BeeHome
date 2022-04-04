@@ -1,5 +1,15 @@
 package net.fpl.beehome;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,44 +22,38 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-
 import net.fpl.beehome.model.Admin;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.ui.doiMatKhau.DoiMatKhauFragment;
 import net.fpl.beehome.ui.gioiThieu.GioiThieuFragment;
-import net.fpl.beehome.ui.phong.PhongFragment;
 import net.fpl.beehome.ui.home.HomeFragment;
+import net.fpl.beehome.ui.home.HomeNguoiThueFragment;
+import net.fpl.beehome.ui.phong.PhongFragment;
 import net.fpl.beehome.ui.thongKe.thongKeFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainNguoiThueActivity extends AppCompatActivity {
+
     DrawerLayout drawer;
     Toolbar toolbar;
     ActionBar ab;
     View view;
     NavigationView nv;
     TextView tvName;
-    Admin admin;
+    NguoiThue nguoiThue;
     Bundle bundle;
-    BottomNavigationView bnavigation;
     String user;
+    BottomNavigationView bnavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_nguoi_thue);
 
         drawer = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar_hoa_don);
+        bnavigation = findViewById(R.id.bottomnav);
+
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
         bundle = new Bundle();
@@ -58,27 +62,22 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ab = getSupportActionBar();
         setTitle("Xin chào ");
-//        bottom menu
-        bnavigation = findViewById(R.id.bottomnav);
-        bnavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
 
         FragmentManager manager = getSupportFragmentManager();
-        HomeFragment h_fragment = new HomeFragment();
+        HomeNguoiThueFragment h_fragment = new HomeNguoiThueFragment();
         manager.beginTransaction()
                 .replace(R.id.nav_host_fragment_content_main, h_fragment)
                 .commit();
         view = nv.inflateHeaderView(R.layout.nav_header_main);
         tvName = view.findViewById(R.id.tv_name);
 
-        admin = (Admin) intent.getSerializableExtra("ad");
-        tvName.setText(admin.getHoTen());
+        nguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
+        tvName.setText(nguoiThue.getHoTen());
         bundle.putString(Admin.TB_NAME, "tb_admin");
-        bundle.putString(Admin.COL_PASS, admin.getPassword());
-        loadFragment(new HomeFragment());
+        bundle.putString(Admin.COL_PASS, nguoiThue.getPassword());
+        loadFragment(new HomeNguoiThueFragment());
         setTitle("Xin chào");
-
-
+        bnavigation.setVisibility(View.GONE);
 
 //                Dieu huong Navigation
         nv.setNavigationItemSelectedListener((item) -> {
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.nav_trang_chu:
                     setTitle("Xin chào");
-                    HomeFragment homeFragment = new HomeFragment();
+                    HomeNguoiThueFragment homeFragment = new HomeNguoiThueFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, homeFragment).commit();
                     break;
 
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.sub_Logout:
-                    startActivity(new Intent(MainActivity.this, Login_Activity.class));
+                    startActivity(new Intent(MainNguoiThueActivity.this, Login_Activity.class));
                     finish();
                     break;
             }
@@ -133,37 +132,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    fragment = new HomeFragment();
-                    setTitle("Xin chào");
-                    loadFragment(fragment);
-                    ab.show();
-                    return true;
-                case R.id.nav_phòng:
-                    setTitle("Phòng");
-                    fragment = new PhongFragment();
-                    loadFragment(fragment);
-                    ab.hide();
-                    return true;
-                case R.id.nav_thuChi:
-                    setTitle("Thống kê");
-                    fragment = new thongKeFragment();
-                    loadFragment(fragment);
-                    ab.show();
-                    return true;
-            }
-
-            return false;
-        }
-    };
 
     private void loadFragment(Fragment fragment) {
         // load fragment

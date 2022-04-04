@@ -34,8 +34,8 @@ public class NguoiThueAdapter extends RecyclerView.Adapter<NguoiThueAdapter.Nguo
     public void onBindViewHolder(@NonNull NguoiThueViewHodel holder, int position) {
         final NguoiThue objNguoiThue = arr.get(position);
         holder.tv_name.setText("Tên : "+objNguoiThue.getHoTen());
-        holder.tv_phong.setText("Phòng : "+objNguoiThue.getID_phong());
-        holder.tv_sdt.setText("SDT : "+objNguoiThue.getSDT());
+        holder.tv_phong.setText("Phòng : "+objNguoiThue.getId_phong());
+        holder.tv_sdt.setText("SDT : "+objNguoiThue.getSdt());
     }
 
     @Override

@@ -350,7 +350,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 }
                 for(int j = 0; j <arrnguoithue.size(); j++){
                     NguoiThue tmp = arrnguoithue.get(j);
-                    if(tmp.getID_thanhvien() == objHopDong.getId_thanh_vien()){
+                    if(tmp.getId_thanhvien() == objHopDong.getId_thanh_vien()){
                         sp_tvien.setSelection(j);
                         sp_tvien.setSelected(true);
                         break;
@@ -408,7 +408,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                         NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
                         objHopDong.setId_chu_tro("1");
                         objHopDong.setId_phong(objPhong.getIDPhong());
-                        objHopDong.setId_thanh_vien(objNguoiThue.getID_thanhvien());
+                        objHopDong.setId_thanh_vien(objNguoiThue.getId_thanhvien());
                         objHopDong.setKyHan(Integer.parseInt(sp_kyhan.getSelectedItem()+""));
                         objHopDong.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
                         objHopDong.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());
@@ -422,7 +422,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                                     public void onSuccess(Void aVoid) {
                                         fb.collection(Phong.TB_NAME).document(objPhong.getIDPhong())
                                                 .update(Phong.COL_TRANG_THAI, "Đang thuê");
-                                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getID_thanhvien())
+                                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getId_thanhvien())
                                                 .update(NguoiThue.COL_ID_PHONG, objPhong.getIDPhong());
                                         arr.set(index, objHopDong);
                                         notifyDataSetChanged();

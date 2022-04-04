@@ -27,11 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Họ và tên"
+            android:id="@+id/ed_suahotennguoithue"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:paddingTop="30dp"
-                android:id="@+id/ed_suahotennguoithue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -41,38 +41,57 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.hbb20.CountryCodePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cpp"
+            app:ccp_autoDetectCountry="true"
+            app:ccp_showNameCode="true"
+            />
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Số Điện Thoại"
             app:counterMaxLength="10"
             app:counterEnabled="true"
-            android:layout_marginTop="15dp"
+            android:id="@+id/ed_suasdtnguoithue"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
-
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_suasdtnguoithue"
                 android:paddingTop="30dp"
-                android:maxLength="10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:inputType="number"
+                android:hint="Số Điện Thoại"
+                android:maxLength="10"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
+            <!--            <EditText-->
+            <!--                android:paddingLeft="10dp"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:maxLength="10"-->
+            <!--                android:id="@+id/ed_sdtnguoithue"-->
+            <!--                android:background="@color/white"-->
+            <!--                android:textSize="25dp"-->
+            <!--                android:editable="false"-->
+            <!--                android:hint = " phone "-->
+            <!--                android:inputType = "phone"-->
+            <!--                android:singleLine = "true"-->
+            <!--                />-->
 
         </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+            android:id="@+id/ed_suaemailnguoithue"
             android:layout_marginTop="15dp"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:paddingTop="30dp"
-                android:id="@+id/ed_suaemailnguoithue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -88,12 +107,12 @@
             android:hint="CMND/CCCD"
             app:counterMaxLength="12"
             app:counterEnabled="true"
+            android:id="@+id/ed_suacccdnguoithue"
             android:layout_marginTop="15dp"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:paddingTop="30dp"
-                android:id="@+id/ed_suacccdnguoithue"
                 android:maxLength="12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,7 +137,7 @@
                 android:text="Update" />
 
             <Button
-                android:id="@+id/btn_huynguoithue"
+                android:id="@+id/btn_xoanguoithue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
