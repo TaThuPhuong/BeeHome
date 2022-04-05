@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,9 +38,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationView nv;
     TextView tvName;
     Admin admin;
-    Bundle bundle;
     BottomNavigationView bnavigation;
-    String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +49,6 @@ public class MainActivity extends AppCompatActivity {
         nv = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar_hoa_don);
         Intent intent = getIntent();
-        user = intent.getStringExtra("email");
-        bundle = new Bundle();
-        Log.d("TAG", "onCreate: " + user);
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
         ab = getSupportActionBar();
@@ -73,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
         admin = (Admin) intent.getSerializableExtra("ad");
         if (admin != null) {
             tvName.setText(admin.getHoTen());
-            bundle.putString(Admin.TB_NAME, "tb_admin");
-            bundle.putString(Admin.COL_PASS, admin.getPassword());
         }
 
         loadFragment(new HomeFragment());
@@ -89,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     setTitle("Trang chủ");
                     HomeFragment homeFragment = new HomeFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, homeFragment).commit();
+
                     break;
 
 
@@ -96,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                     setTitle("Đổi mật khẩu");
                     DoiMatKhauFragment matKhauFragment = new DoiMatKhauFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, matKhauFragment).commit();
-                    matKhauFragment.setArguments(bundle);
                     break;
 
                 case R.id.nav_gT:
@@ -144,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     fragment = new HomeFragment();
-                    setTitle("Xin chào");
+                    setTitle("Trang chủ");
                     loadFragment(fragment);
                     ab.show();
                     return true;

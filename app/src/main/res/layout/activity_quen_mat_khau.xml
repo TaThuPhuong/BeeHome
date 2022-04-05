@@ -80,26 +80,6 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ed_sdt"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                app:errorEnabled="true"
-                app:hintEnabled="false">
-
-                <EditText
-                    android:id="@+id/ed_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_dialog_addhd"
-                    android:gravity="center_vertical"
-                    android:hint="Nhập số điện  thoại hoặc username"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey_dam" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ed_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

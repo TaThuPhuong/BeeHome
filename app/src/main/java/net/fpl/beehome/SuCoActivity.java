@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.Adapter.SuCo.SuCoAdapter;
+import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.model.SuCo;
 
@@ -40,8 +42,8 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
     RecyclerView rv_cs;
     FirebaseFirestore fb;
     SwipeRefreshLayout swipeRefreshLayout;
-
-
+    ArrayList<SuCo> arr;
+    NguoiThue objNguoiThue;
     SuCoAdapter suCoAdapter;
 
     @Override
@@ -54,17 +56,23 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         fb = FirebaseFirestore.getInstance();
         swipeRefreshLayout = findViewById(R.id.sw_rv);
 
-        ArrayList<SuCo> arr = getAll();
-        ArrayList<Phong> arrphong = getSPPHong();
         rv_cs.setLayoutManager(new LinearLayoutManager(this));
 
-        suCoAdapter = new SuCoAdapter(arr, arrphong, SuCoActivity.this, fb);
-        rv_cs.setAdapter(suCoAdapter);
+
+
         Intent intent = getIntent();
         String quyen = intent.getStringExtra("quyen");
+        objNguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
 
         if (quyen.equalsIgnoreCase("admin")){
             btn_add.setVisibility(View.GONE);
+            arr = getAll();
+            suCoAdapter = new SuCoAdapter(arr, objNguoiThue, SuCoActivity.this, fb);
+            rv_cs.setAdapter(suCoAdapter);
+        }else{
+            arr = getSuCoPhong(objNguoiThue.getId_phong());
+            suCoAdapter = new SuCoAdapter(arr, objNguoiThue, SuCoActivity.this, fb);
+            rv_cs.setAdapter(suCoAdapter);
         }
 
 
@@ -91,20 +99,16 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                 dialog.setContentView(R.layout.dialog_add_sc);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 TextInputLayout ed_mota = dialog.findViewById(R.id.ed_mota);
-                TextInputLayout ed_ngbao = dialog.findViewById(R.id.ed_ngaybaocao) ;
+                TextInputLayout ed_ngbao = dialog.findViewById(R.id.ed_ngaybaocao);
+                TextView tv_phong = dialog.findViewById(R.id.tv_p_d);
+                tv_phong.setText(objNguoiThue.getId_phong());
                 Button btn_bc = dialog.findViewById(R.id.btn_bc);
-                Spinner sp_phong = dialog.findViewById(R.id.sp_hd_phong);
-
-                SpinnerPhongAdapter spinnerPhongAdapter = new SpinnerPhongAdapter(arrphong);
-                sp_phong.setAdapter(spinnerPhongAdapter);
 
                 Calendar calendar = Calendar.getInstance();
                 final int y = calendar.get(Calendar.YEAR);
                 final int m = calendar.get(Calendar.MONTH);
                 final int d = calendar.get(Calendar.DAY_OF_MONTH);
                 ed_ngbao.getEditText().setText(y +"/"+m+"/"+d);
-
-
 
                 btn_bc.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -113,17 +117,18 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                         if(ed_mota.getEditText().getText().toString().length()==0 || ed_mota.getEditText().getText().toString().length()<5){
                             ed_mota.setError("Độ dài ký tự không hợp lệ (5 đến 30 ký tự)");
                             return;
+                        }else if(!checkMT(ed_mota.getEditText().getText().toString())){
+                            ed_mota.setError("Bạn đã báo cáo sự cố này rồi");
+                            return;
                         }
 
                         SuCo objSuCo = new SuCo();
-                        Phong objPhong = (Phong) sp_phong.getSelectedItem();
-                        objSuCo.setId_suco(objPhong.getIDPhong() + ed_mota.getEditText().getText().toString());
-                        objSuCo.setId_suco(objPhong.getIDPhong()+ed_mota.getEditText().getText().toString()+ed_ngbao.getEditText().getText().toString());
-                        objSuCo.setId_phong(objPhong.getIDPhong());
+                        objSuCo.setId_suco(tv_phong.getText().toString()+ed_mota.getEditText().getText().toString());
+                        objSuCo.setId_phong(tv_phong.getText().toString());
                         objSuCo.setMoTa(ed_mota.getEditText().getText().toString());
                         objSuCo.setNgayBaoCao(ed_ngbao.getEditText().getText().toString());
 
-                        fb.collection(SuCo.TB_NAME).document()
+                        fb.collection(SuCo.TB_NAME).document(tv_phong.getText().toString()+ed_mota.getEditText().getText().toString())
                                 .set(objSuCo)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -178,20 +183,33 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         return arr;
     }
 
-    public ArrayList<Phong> getSPPHong(){
-        ArrayList<Phong> arr = new ArrayList<>();
-        fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+    public ArrayList<SuCo> getSuCoPhong(String idphong){
+        ArrayList<SuCo> arr = new ArrayList<>();
+
+        fb.collection(SuCo.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arr.clear();
-                for(QueryDocumentSnapshot document : value){
-                    Phong objPhong = document.toObject(Phong.class);
-                    if(objPhong.getTrangThai().equalsIgnoreCase("Đang thuê")) {
-                        arr.add(objPhong);
+                for (QueryDocumentSnapshot document : value) {
+                    SuCo objSuCo = document.toObject(SuCo.class);
+                    if(objSuCo.getId_phong().equalsIgnoreCase(idphong)){
+                        arr.add(objSuCo);
+                        Log.d("aaaaaaa", document.getId() + " => " + document.getData());
                     }
                 }
+                suCoAdapter.notifyDataSetChanged();
             }
         });
         return arr;
+    }
+
+    public boolean checkMT(String str){
+        for(SuCo objSuCo : arr){
+            if(objSuCo.getMoTa().equalsIgnoreCase(str)){
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -4,6 +4,8 @@
     android:id="@+id/swipe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_row_hdsc"
+    android:layout_marginBottom="5dp"
     swipe:leftEdgeSwipeOffset="0dp"
     swipe:rightEdgeSwipeOffset="0dp">
 
@@ -23,7 +25,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="8dp"
-            android:background="@color/profileEditTextColor"
+            android:background="@color/bg_if"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="32dp"
@@ -50,7 +52,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
-            android:background="#8BC34A"
+            android:background="@color/bg_ed"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="32dp"
@@ -76,7 +78,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
-            android:background="@color/red"
+            android:background="@color/bg_del"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="32dp"
@@ -101,12 +103,11 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_marginVertical="5dp"
-        android:background="@color/white"
         android:id="@+id/ll_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp">
+       >
 
         <ImageView
             android:layout_width="70dp"
@@ -122,6 +123,9 @@
 
             <TextView
                 android:id="@+id/tv_phong"
+                android:textColor="@color/tim_400"
+                android:textSize="18dp"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phòng - 101" />
@@ -130,6 +134,7 @@
                 android:id="@+id/tv_trang_thai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Trống" />
 
         </LinearLayout>

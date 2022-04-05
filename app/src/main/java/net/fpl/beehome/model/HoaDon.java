@@ -1,7 +1,10 @@
 package net.fpl.beehome.model;
 
+import java.util.Date;
+
 public class HoaDon {
-    private String  IDHoaDon,IDPhong,NgayGD,GhiChu,HanGD,ThangHD;
+    private String  IDHoaDon,IDPhong,GhiChu;
+    private Date HanGD,ThangHD,NgayGD;
     private int TongHD;
     private int SoDienCuoi;
     private int SoNuocCuoi;
@@ -11,13 +14,9 @@ public class HoaDon {
     private int tienPhong;
     private int tienDV,tienNuoc,tienDien,tienDVC;
 
-    public String getThangHD() {
-        return ThangHD;
-    }
 
-    public void setThangHD(String thangHD) {
-        ThangHD = thangHD;
-    }
+
+
 
     public int getTienNuoc() {
         return tienNuoc;
@@ -48,15 +47,23 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String IDHoaDon, String IDPhong, String ngayGD, String ghiChu, int tongHD, int soDienCuoi, int soNuocCuoi, int trangThaiHD) {
+    public HoaDon(String IDHoaDon, String IDPhong, String ghiChu, Date hanGD, Date thangHD, Date ngayGD, int tongHD, int soDienCuoi, int soNuocCuoi, int trangThaiHD, int giamGia, int tienPhong, int tienDV, int tienNuoc, int tienDien, int tienDVC) {
         this.IDHoaDon = IDHoaDon;
         this.IDPhong = IDPhong;
-        NgayGD = ngayGD;
         GhiChu = ghiChu;
+        HanGD = hanGD;
+        ThangHD = thangHD;
+        NgayGD = ngayGD;
         TongHD = tongHD;
         SoDienCuoi = soDienCuoi;
         SoNuocCuoi = soNuocCuoi;
         TrangThaiHD = trangThaiHD;
+        this.giamGia = giamGia;
+        this.tienPhong = tienPhong;
+        this.tienDV = tienDV;
+        this.tienNuoc = tienNuoc;
+        this.tienDien = tienDien;
+        this.tienDVC = tienDVC;
     }
 
     public String getIDHoaDon() {
@@ -75,11 +82,11 @@ public class HoaDon {
         this.IDPhong = IDPhong;
     }
 
-    public String getNgayGD() {
+    public Date getNgayGD() {
         return NgayGD;
     }
 
-    public void setNgayGD(String ngayGD) {
+    public void setNgayGD(Date ngayGD) {
         NgayGD = ngayGD;
     }
 
@@ -131,12 +138,21 @@ public class HoaDon {
         this.giamGia = giamGia;
     }
 
-    public String getHanGD() {
+
+    public Date getHanGD() {
         return HanGD;
     }
 
-    public void setHanGD(String hanGD) {
+    public void setHanGD(Date hanGD) {
         HanGD = hanGD;
+    }
+
+    public Date getThangHD() {
+        return ThangHD;
+    }
+
+    public void setThangHD(Date thangHD) {
+        ThangHD = thangHD;
     }
 
     public int getTienPhong() {

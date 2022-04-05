@@ -81,7 +81,9 @@ public class HomeFragment extends Fragment {
         btnDichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), DichVuActivity.class));
+                Intent intent = new Intent(getActivity(), DichVuActivity.class);
+                intent.putExtra("quyen", "admin");
+                startActivity(intent);
             }
         });
 

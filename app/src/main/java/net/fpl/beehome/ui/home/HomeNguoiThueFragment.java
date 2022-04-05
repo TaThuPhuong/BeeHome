@@ -108,7 +108,9 @@ public class HomeNguoiThueFragment extends Fragment {
         btnDichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), DichVuActivity.class));
+                Intent intent = new Intent(getActivity(), DichVuActivity.class);
+                intent.putExtra("quyen", "user");
+                startActivity(intent);
             }
         });
 
@@ -125,6 +127,7 @@ public class HomeNguoiThueFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), SuCoActivity.class);
                 intent.putExtra("quyen", "user");
+                intent.putExtra("nt", mainActivity.getNguoiThue());
                 startActivity(intent);
             }
         });

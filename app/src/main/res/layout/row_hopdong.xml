@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="8dp"
-            android:background="@color/profileEditTextColor"
+            android:background="@color/bg_if"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="32dp"
@@ -48,7 +48,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
-            android:background="#8BC34A"
+            android:background="@color/bg_ed"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="32dp"
@@ -74,7 +74,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
-            android:background="@color/red"
+            android:background="@color/bg_del"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="32dp"
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:text="Hop Dong"
                 android:textSize="18dp"
-                android:textColor="@color/purple_200"
+                android:textColor="@color/tim_300"
                 android:textStyle="bold"/>
             <TextView
                 android:id="@+id/tv_ngayky"

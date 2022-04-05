@@ -4,6 +4,7 @@ import static android.view.View.VISIBLE;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -48,6 +49,8 @@ import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.Phong;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -61,10 +64,11 @@ public class HoaDonChuaThanhToan extends Fragment {
     ArrayList<String> arrTenPhong ;
     ArrayList<DichVu> arrDichVu;
     HoaDonAdapter adapterhd;
-    SwipeRefreshLayout swipeRefreshLayout;
+    SimpleDateFormat dfm = new SimpleDateFormat("dd/MM/yyyy");
+    Intent i;
     String tenP;
-    String month_han,year_han,month_thang,year_thang, thang,han,ngayGD;
-    int tienSoDien, tienSoNuoc,tienNuoc,tienDien,tongTienPhong,TongtienDV,tongHD,dienMoi,nuocMoi, tienDVPhong = 0;
+    String  idThang,thang,han;
+    int tienSoDien, tienSoNuoc,tienNuoc,tienDien,tongTienPhong,TongtienDV,tongHD,dienMoi,nuocMoi, tienDVPhong = 0,month_han,year_han,month_thang,year_thang;
 
     @Nullable
     @Override
@@ -84,7 +88,7 @@ public class HoaDonChuaThanhToan extends Fragment {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                adapterhd = new HoaDonAdapter(arr,getContext(),fb);
+                adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
                 adapterhd.notifyDataSetChanged();
 
                 Log.d("TAG", "onCreateView: "+arr.size());
@@ -150,11 +154,10 @@ public class HoaDonChuaThanhToan extends Fragment {
                 L_giam_gia.setError(null);
 
 
-
-                Calendar calendar = Calendar.getInstance();
-                final int y = calendar.get(Calendar.YEAR);
-                final int m = calendar.get(Calendar.MONTH);
-                final int d = calendar.get(Calendar.DAY_OF_MONTH);
+                final Calendar calendar = Calendar.getInstance();
+                int d = calendar.get(Calendar.DAY_OF_MONTH);
+                int m = calendar.get(Calendar.MONTH);
+                int y = calendar.get(Calendar.YEAR);
 
                 for(int z =0; z<arrDichVu.size();z++){
                     if(arrDichVu.get(z).getDonVi().equals("Phòng")){
@@ -167,47 +170,35 @@ public class HoaDonChuaThanhToan extends Fragment {
                 hd_thang.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DatePickerDialog dialog1 = new DatePickerDialog(getContext(), R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),R.style.datePicker,new DatePickerDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                month_thang = String.valueOf(i1+1);
-                                year_thang = String.valueOf(i);
-
-
-                                if(month_thang.length() == 1){
-                                    month_thang = "0"+month_thang;
-                                }
-                                thang = month_thang+"."+year_thang;
-                                hd_thang.setText(month_thang + "-" + i);
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                final String thangHD = dayOfMonth + "/" + (month + 1) + "/" + year;
+                                month_thang = month + 1;
+                                year_thang = year;
+                                hd_thang.setText(thangHD);
+                                idThang = month_thang+"."+year_thang;
+                                thang = hd_thang.getText().toString();
                             }
-                        },y,m,d);
-                        dialog1.show();
+                        }, y, m, d);
+                        datePickerDialog.show();
                     }
                 });
 
                 hd_han.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DatePickerDialog dialog1 = new DatePickerDialog(getContext(), R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),R.style.datePicker,new DatePickerDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                month_han = String.valueOf(i1+1);
-                                year_han = String.valueOf(i);
-                                String day = String.valueOf(i2);
-
-                                if(month_han.length() == 1){
-                                    month_han = "0"+month_han;
-                                }
-                                if(String.valueOf(i2).length() == 1){
-                                    day = "0"+i2;
-                                }
-
-                                han = month_han+"/"+year_han;
-
-                                hd_han.setText(day+"-"+month_han + "-" + i);
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                final String hanGD = dayOfMonth + "/" + (month + 1) + "/" + year;
+                                month_han = month + 1;
+                                year_han = year;
+                                hd_han.setText(hanGD);
+                                han = hd_han.getText().toString();
                             }
-                        },y,m,d);
-                        dialog1.show();
+                        }, y, m, d);
+                        datePickerDialog.show();
 
                     }
                 });
@@ -329,20 +320,28 @@ public class HoaDonChuaThanhToan extends Fragment {
                     public void onClick(View view) {
 
 
-                        if(month_han.equals(month_thang) ){
+                        if(month_han - month_thang == 0){
                             L_hd_han.setError("Hạn thanh toán phải sau thời điểm tháng");
-                        }else if(!year_han.equals(year_thang)){
+                        }else if(year_han - year_thang > 1){
                             L_hd_han.setError("Hạn thanh toán quá xa");
                         }else if(tongHD == 0){
                             tvTongHop.setError("");
                             errAll.setVisibility(VISIBLE);
                         }else{
                                 HoaDon objHoaDon = new HoaDon();
-                                objHoaDon.setIDHoaDon(tenP+"."+thang);
-                                objHoaDon.setThangHD(thang);
+                                objHoaDon.setIDHoaDon(tenP+"."+idThang);
+                                try {
+                                objHoaDon.setThangHD(dfm.parse(thang));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                                try {
+                                objHoaDon.setHanGD(dfm.parse(han));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                                 objHoaDon.setTongHD(tongHD);
                                 objHoaDon.setIDPhong(tenP);
-                                objHoaDon.setHanGD(han);
                                 objHoaDon.setSoDienCuoi(dienMoi);
                                 objHoaDon.setSoNuocCuoi(nuocMoi);
                                 objHoaDon.setTrangThaiHD(0);
@@ -353,7 +352,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                                 objHoaDon.setTienDien(tienDien);
                                 objHoaDon.setTienNuoc(tienNuoc);
                                 objHoaDon.setTienDVC(tienDVPhong);
-                                objHoaDon.setNgayGD("Unpaid");
+                                objHoaDon.setNgayGD(null);
 
                                 if (checkIDHD(objHoaDon) != null) {
                                     L_hd_thang.setError("Phòng đã có hóa đơn của tháng "+thang+"! Mời bạn chọn lại!");
@@ -364,14 +363,14 @@ public class HoaDonChuaThanhToan extends Fragment {
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void unused) {
-                                                    Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getContext(), "Thêm hóa đơn thành công", Toast.LENGTH_SHORT).show();
                                                     adapterhd.notifyDataSetChanged();
                                                     dialog.dismiss();
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Thêm hóa đơn thất bại", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }

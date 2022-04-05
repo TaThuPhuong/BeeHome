@@ -37,8 +37,6 @@ public class MainNguoiThueActivity extends AppCompatActivity {
     NavigationView nv;
     TextView tvName;
     NguoiThue nguoiThue;
-    Bundle bundle;
-    String user;
     BottomNavigationView bnavigation;
 
 
@@ -53,9 +51,6 @@ public class MainNguoiThueActivity extends AppCompatActivity {
         bnavigation = findViewById(R.id.bottomnav);
 
         Intent intent = getIntent();
-        user = intent.getStringExtra("email");
-        bundle = new Bundle();
-        Log.d("TAG", "onCreate: " + user);
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
         ab = getSupportActionBar();
@@ -71,8 +66,6 @@ public class MainNguoiThueActivity extends AppCompatActivity {
         nguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
         if (nguoiThue != null) {
             tvName.setText(nguoiThue.getHoTen());
-//        bundle.putString(NguoiThue.TB_NGUOITHUE, "tb_nguoi_thue");
-//        bundle.putString(NguoiThue.COL_PASS, nguoiThue.getPassword());
         }
 
         loadFragment(new HomeNguoiThueFragment());

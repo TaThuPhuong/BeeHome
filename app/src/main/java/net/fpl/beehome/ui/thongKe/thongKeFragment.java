@@ -48,14 +48,13 @@ public class thongKeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_thong_ke, container, false);
-//
-//        layoutTuNgay = v.findViewById(R.id.layout_tuNgay);
-//        layoutDenNgay = v.findViewById(R.id.layout_denNgay);
-//        tvTuNgay = v.findViewById(R.id.tv_tuNgay);
-//        tvDenNgay = v.findViewById(R.id.tv_denNgay);
-//        tvTotal = v.findViewById(R.id.tv_total);
-//        tvTotalMonth = v.findViewById(R.id.tv_total_month);
-//        tvSearch = v.findViewById(R.id.tv_search);
+
+        layoutTuNgay = v.findViewById(R.id.layout_tuNgay);
+        layoutDenNgay = v.findViewById(R.id.layout_denNgay);
+        tvTuNgay = v.findViewById(R.id.tv_tuNgay);
+        tvDenNgay = v.findViewById(R.id.tv_denNgay);
+        tvTotal = v.findViewById(R.id.tv_total);
+        tvTotalMonth = v.findViewById(R.id.tv_total_month);
 //
 //        HoaDon hoaDon = null;
 //        try {
@@ -81,89 +80,89 @@ public class thongKeFragment extends Fragment {
 //        } catch (ParseException e) {
 //            e.printStackTrace();
 //        }
-//
-//        db = FirebaseFirestore.getInstance();
+
+        db = FirebaseFirestore.getInstance();
 //        db.collection(HoaDon.TB_NAME).document("hoaDon1").set(hoaDon, SetOptions.merge());
 //        db.collection(HoaDon.TB_NAME).document("hoaDon2").set(hoaDon1,SetOptions.merge());
 //        db.collection(HoaDon.TB_NAME).document("hoaDon3").set(hoaDon2,SetOptions.merge());
 //        db.collection(HoaDon.TB_NAME).document("hoaDon4").set(hoaDon3,SetOptions.merge());
-//
-////        collection = (Collection) db.collection(HoaDon.TB_NAME);
-//
-//        db.collection("tb_hoaDon").addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                for (DocumentSnapshot snapshot : value){
-//                    HoaDon hoaDon = snapshot.toObject(HoaDon.class);
-//                    total += hoaDon.getTongHD();
-//                }
-//                tvTotal.setText(String.valueOf(total) + " đ");
-//            }
-//        });
-//
-//
-//        Calendar c = Calendar.getInstance();
-//        int year = c.get(Calendar.YEAR);
-//        int month = c.get(Calendar.MONTH);
-//        int date = c.get(Calendar.DATE);
-//
-//        layoutTuNgay.setOnClickListener(new View.OnClickListener() {
-//            @RequiresApi(api = Build.VERSION_CODES.N)
-//            @Override
-//            public void onClick(View view) {
-//                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-//                        tvTuNgay.setText( i2 + "-"  + i1 + "-" + i);
-//                    }
-//                }, year, month, date);
-//                dialog.show();
-//            }
-//        });
-//
-//        layoutDenNgay.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-//                        tvDenNgay.setText( i2 + "-"  + i1 + "-" + i);
-//                    }
-//                }, year, month, date);
-//                dialog.show();
-//            }
-//        });
-//
-//        tvSearch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Date strTuNgay = null;
-//                try {
-//                    strTuNgay = sdf.parse(tvTuNgay.getText().toString().trim());
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                Date strDenNgay = null;
-//                try {
-//                    strDenNgay = sdf.parse(tvDenNgay.getText().toString().trim());
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//                db.collection(HoaDon.TB_NAME).orderBy("ngayGD").startAt(strTuNgay).endAt(strDenNgay)
-//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                        totalMonth = 0;
-//                        for (DocumentSnapshot snapshot : value){
-//                            HoaDon hoaDon = snapshot.toObject(HoaDon.class);
-//                            totalMonth += hoaDon.getTongHD();
-//                        }
-//                        tvTotalMonth.setText(String.valueOf(totalMonth) + " đ");
-//                    }
-//                });
-//            }
-//        });
+
+//        collection = (Collection) db.collection(HoaDon.TB_NAME);
+
+        db.collection("tb_hoaDon").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentSnapshot snapshot : value){
+                    HoaDon hoaDon = snapshot.toObject(HoaDon.class);
+                    total += hoaDon.getTongHD();
+                }
+                tvTotal.setText(String.valueOf(total) + " đ");
+            }
+        });
+
+
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int date = c.get(Calendar.DATE);
+
+        layoutTuNgay.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        tvTuNgay.setText( i2 + "-"  + i1 + "-" + i);
+                    }
+                }, year, month, date);
+                dialog.show();
+            }
+        });
+
+        layoutDenNgay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        tvDenNgay.setText( i2 + "-"  + i1 + "-" + i);
+                    }
+                }, year, month, date);
+                dialog.show();
+            }
+        });
+
+        tvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Date strTuNgay = null;
+                try {
+                    strTuNgay = sdf.parse(tvTuNgay.getText().toString().trim());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Date strDenNgay = null;
+                try {
+                    strDenNgay = sdf.parse(tvDenNgay.getText().toString().trim());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                db.collection(HoaDon.TB_NAME).orderBy("ngayGD").startAt(strTuNgay).endAt(strDenNgay)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        totalMonth = 0;
+                        for (DocumentSnapshot snapshot : value){
+                            HoaDon hoaDon = snapshot.toObject(HoaDon.class);
+                            totalMonth += hoaDon.getTongHD();
+                        }
+                        tvTotalMonth.setText(String.valueOf(totalMonth) + " đ");
+                    }
+                });
+            }
+        });
 
         return v;
     }
