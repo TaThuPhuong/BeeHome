@@ -66,7 +66,7 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
     CountryCodePicker ccp;
     FirebaseAuth fba;
     SwipeRefreshLayout swipeRefreshLayout1;
-
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,7 +147,6 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
                     nguoiThue.setHoTen(ten);
                     nguoiThue.setId_phong("Trống");
                     nguoiThue.setSdt(sodt);
-                    nguoiThue.setPassword(sodt);
                     nguoiThue.setEmail(email);
                     nguoiThue.setCccd(cccd);
 
@@ -205,7 +204,7 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        themAuth(nguoiThue);
+//                        themAuth(nguoiThue);
                         Toast.makeText(NguoiThue_Activity.this, "Thêm Thành Công", Toast.LENGTH_SHORT).show();
                         nguoiThueSwip.notifyDataSetChanged();
                     }
@@ -218,11 +217,11 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
                 });
     }
 
-    private void themAuth(NguoiThue nguoiThue) {
-        Log.d("TAG", "onComplete: " + nguoiThue.getEmail() + nguoiThue.getPassword());
-
-        fba.createUserWithEmailAndPassword(nguoiThue.getEmail(), nguoiThue.getPassword());
-    }
+//    private void themAuth(NguoiThue nguoiThue) {
+//        Log.d("TAG", "onComplete: " + nguoiThue.getEmail() + nguoiThue.getPassword());
+//
+//        fba.createUserWithEmailAndPassword(nguoiThue.getEmail(), nguoiThue.getPassword());
+//    }
 
     public ArrayList<NguoiThue> getall() {
         arr = new ArrayList<>();

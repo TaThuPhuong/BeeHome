@@ -173,37 +173,34 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 Button btn_update, btn_xoa;
                 ed_suaten = view.findViewById(R.id.ed_suahotennguoithue);
                 ed_suasdt = view.findViewById(R.id.ed_suasdtnguoithue);
-                ed_suaemail = view.findViewById(R.id.ed_suaemailnguoithue);
+//                ed_suaemail = view.findViewById(R.id.ed_suaemailnguoithue);
                 ed_suacccd = view.findViewById(R.id.ed_suacccdnguoithue);
                 btn_update = view.findViewById(R.id.btn_updatenguoithue);
                 btn_xoa = view.findViewById(R.id.btn_xoanguoithue);
                 ed_suaten.setError(null);
                 ed_suasdt.setError(null);
-                ed_suaemail.setError(null);
+//                ed_suaemail.setError(null);
                 ed_suacccd.setError(null);
                 ed_suaten.getEditText().setText(objNguoiThue.getHoTen());
                 ed_suasdt.getEditText().setText(objNguoiThue.getSdt());
-                ed_suaemail.getEditText().setText(objNguoiThue.getEmail());
+//                ed_suaemail.getEditText().setText(objNguoiThue.getEmail());
                 ed_suacccd.getEditText().setText(objNguoiThue.getCccd());
                 btn_update.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String ten = ed_suaten.getEditText().getText().toString();
                         String sdt = ed_suasdt.getEditText().getText().toString();
-                        String email = ed_suaemail.getEditText().getText().toString();
+//                        String email = ed_suaemail.getEditText().getText().toString();
                         String cccd = ed_suacccd.getEditText().getText().toString();
                         setUnErrNguoithue(ed_suaten);
                         setUnErrNguoithue(ed_suasdt);
-                        setUnErrNguoithue(ed_suaemail);
+//                        setUnErrNguoithue(ed_suaemail);
                         setUnErrNguoithue(ed_suacccd);
                         if (TextUtils.isEmpty(ten)) {
                             ed_suaten.setError("Không Được Để Trống Tên");
                             return;
                         } else if (!isNumber(sdt)) {
                             ed_suasdt.setError("Không Đúng Số Điện Thoại");
-                            return;
-                        } else if (!isEmail(email)) {
-                            ed_suaemail.setError("Không Đúng Định Dạng Email");
                             return;
                         } else if (cccd.length() != 12) {
                             ed_suacccd.setError("Căn Cước 12 Số");
@@ -219,7 +216,6 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                                 Map<String, Object> p = new HashMap<>();
                                 p.put(NguoiThue.COL_HOTEN, ten);
                                 p.put(NguoiThue.COL_SDT, sdt);
-                                p.put(NguoiThue.COL_EMAIL, email);
                                 p.put(NguoiThue.COL_CCCD, cccd);
                                 fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getSdt()).update(p);
 
@@ -256,9 +252,9 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         mItemManger.bindView(viewHolder.itemView, position);
     }
 
-    public static boolean isEmail(CharSequence charSequence) {
-        return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
-    }
+//    public static boolean isEmail(CharSequence charSequence) {
+//        return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
+//    }
 
     public static boolean isNumber(String input) {
         Pattern b = Pattern.compile("(84|0[3|5|7|8|9])+([0-9]{8})\\b");

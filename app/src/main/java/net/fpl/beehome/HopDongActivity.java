@@ -122,6 +122,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1=i1+1;
                                 String month = String.valueOf(i1);
                                 String day = String.valueOf(i2);
 
@@ -144,6 +145,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1=i1+1;
                                 String monthbd = String.valueOf(i1);
                                 String daybd = String.valueOf(i2);
 

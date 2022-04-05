@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.fpl.beehome.ContactActivity;
+import net.fpl.beehome.MessageActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.LienHe;
 
@@ -34,11 +35,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MessageV
     private Animation animationUp, animationDown;
     private final int COUNTDOWN_RUNNING_TIME = 500;
     private static final int REQUEST_CALL = 1;
-    private Activity activity;
+    private Context context;
 
-    public ContactAdapter(ArrayList<LienHe> list, Activity activity) {
+    public ContactAdapter(ArrayList<LienHe> list, Context context) {
         this.list = list;
-        this.activity = activity;
+        this.context = context;
     }
 
     @NonNull
@@ -59,6 +60,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MessageV
         holder.imgMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, MessageActivity.class);
+                context.startActivity(intent);
             }
         });
         holder.imgCall.setOnClickListener(new View.OnClickListener() {
@@ -120,14 +123,14 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MessageV
     }
 
     public void makePhoneCall(String...phone){
-        if (ContextCompat.checkSelfPermission(activity,
+        if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions((Activity) activity,
+            ActivityCompat.requestPermissions((Activity) context,
                     new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
         } else {
             String dial = "tel: " + phone;
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(dial));
-            activity.startActivity(intent);
+            context.startActivity(intent);
         }
     }
 
