@@ -136,7 +136,7 @@ public class Login_Activity extends AppCompatActivity {
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
+                                        if (admin != null && task.isSuccessful()) {
                                             progressBarLoading.hideLoaing();
                                             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
                                             intent.putExtra("email", email);
@@ -161,7 +161,7 @@ public class Login_Activity extends AppCompatActivity {
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
+                                        if (nguoiThue != null && task.isSuccessful()) {
                                             progressBarLoading.hideLoaing();
                                             Intent intent = new Intent(Login_Activity.this, MainNguoiThueActivity.class);
                                             intent.putExtra("email", email);

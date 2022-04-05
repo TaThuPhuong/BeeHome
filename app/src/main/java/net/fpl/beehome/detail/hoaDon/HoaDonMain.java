@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.DatePicker;
 
 import net.fpl.beehome.R;
+import net.fpl.beehome.detail.hoaDon.Tab.HoaDonChuaThanhToan;
 
 
 import java.text.SimpleDateFormat;
@@ -24,6 +25,7 @@ public class HoaDonMain extends AppCompatActivity {
 
     int mYear, mMouth, mDay;
     SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+    Bundle bundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +43,11 @@ public class HoaDonMain extends AppCompatActivity {
         ab.setHomeAsUpIndicator(R.drawable.ic_date3);
         ab.setDisplayHomeAsUpEnabled(true);
         //set thời gian là tháng, năm này
-        int t = 1+today.month;
-        if(t<10){
-            setTitle("0"+t + "-"+today.year);
-        }else {
-            setTitle(t + "-"+today.year);
+        int t = 1 + today.month;
+        if (t < 10) {
+            setTitle("0" + t + "-" + today.year);
+        } else {
+            setTitle(t + "-" + today.year);
         }
 
     }

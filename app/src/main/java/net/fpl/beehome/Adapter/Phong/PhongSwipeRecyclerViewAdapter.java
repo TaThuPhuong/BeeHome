@@ -143,7 +143,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                     @Override
                     public void onClick(View view) {
                         if (phong.getTrangThai().equalsIgnoreCase("Đang thuê")) {
-                            fragment.thongBao("Phòng đang thuê không thể xóa");
+                            Toast.makeText(mContext, "Đã xóa", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         } else {
                             fb.collection(Phong.TB_NAME).document(phong.getIDPhong())
@@ -400,6 +400,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                     p.put(Phong.COL_SO_DIEN_DAU, Integer.parseInt(soDienDau));
                     p.put(Phong.COL_SO_NUOC_DAU, Integer.parseInt(soNuocDau));
                     fb.collection(Phong.TB_NAME).document(phong.getIDPhong()).update(p);
+                    Toast.makeText(mContext, "Đã cập nhập", Toast.LENGTH_SHORT).show();
                     notifyDataSetChanged();
                     dialog.dismiss();
                 }
