@@ -56,13 +56,13 @@ public class DichVuActivity extends AppCompatActivity {
             list = getAll2();
             dichVuAdapter2 = new DichVuAdapter2(list);
             rcv_dichVu.setAdapter(dichVuAdapter2);
+            fab_dichVu.setVisibility(View.GONE);
         }
 
 
         fab_dichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fab_dichVu.setVisibility(View.GONE);
                 dichVuAdapter.showDialog(DichVuActivity.this, 0 , 0);
             }
         });
