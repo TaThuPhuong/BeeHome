@@ -1,5 +1,6 @@
 package net.fpl.beehome;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,7 +8,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +37,7 @@ public class ContactActivity extends AppCompatActivity {
 
     RecyclerView rcvMess;
     ArrayList<LienHe> list;
-    ContactAdapter messageAdapter;
+    ContactAdapter contactAdapter;
     private Animation animationUp, animationDown;
 
     @Override
@@ -43,7 +46,7 @@ public class ContactActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact);
 
         list = new ArrayList<>();
-        messageAdapter = new ContactAdapter(list);
+        contactAdapter = new ContactAdapter(list, this);
         rcvMess = findViewById(R.id.rcv_contact);
         animationDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.down);
         animationUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.up);
@@ -59,13 +62,25 @@ public class ContactActivity extends AppCompatActivity {
                 list.clear();
                 for (DocumentSnapshot snapshot : value){
                     NguoiThue nguoiThue = snapshot.toObject(NguoiThue.class);
-                    LienHe lienHe = new LienHe(nguoiThue.getHoTen(), nguoiThue.getSDT());
+                    LienHe lienHe = new LienHe(nguoiThue.getHoTen(), nguoiThue.getSdt());
                     list.add(lienHe);
-                    messageAdapter.notifyDataSetChanged();
+                    contactAdapter.notifyDataSetChanged();
                 }
             }
         });
-        messageAdapter = new ContactAdapter(list);
-        rcvMess.setAdapter(messageAdapter);
+        contactAdapter = new ContactAdapter(list, ContactActivity.this);
+        rcvMess.setAdapter(contactAdapter);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                contactAdapter.makePhoneCall();
+            } else {
+                Toast.makeText(this, "Vui lòng cấp quyền gọi điện", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

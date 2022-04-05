@@ -20,9 +20,9 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.fpl.beehome.Adapter.SlideAdapter;
+import net.fpl.beehome.ContactActivity;
 import net.fpl.beehome.DichVuActivity;
 import net.fpl.beehome.MainNguoiThueActivity;
-import net.fpl.beehome.MessageActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.SuCoActivity;
 import net.fpl.beehome.detail.hoaDon.HoaDonMain;
@@ -134,7 +134,7 @@ public class HomeNguoiThueFragment extends Fragment {
 
     public void showDialogMessage(){
 
-        startActivity(new Intent(HomeNguoiThueFragment.this.getContext(), MessageActivity.class));
+        startActivity(new Intent(HomeNguoiThueFragment.this.getContext(), ContactActivity.class));
 
     }
 
