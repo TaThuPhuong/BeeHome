@@ -214,6 +214,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                         DatePickerDialog dialog1 = new DatePickerDialog(context, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1=i1+1;
                                 String monthbd = String.valueOf(i1);
                                 String daybd = String.valueOf(i2);
 
@@ -236,6 +237,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                         DatePickerDialog dialog1 = new DatePickerDialog(context, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                i1=i1+1;
                                 String monthbd = String.valueOf(i1);
                                 String daybd = String.valueOf(i2);
 

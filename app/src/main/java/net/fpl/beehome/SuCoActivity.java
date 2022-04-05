@@ -30,6 +30,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.Adapter.SuCo.SuCoAdapter;
+import net.fpl.beehome.Adapter.SuCo.SuCoAdapter2;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.model.SuCo;
@@ -45,6 +46,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
     ArrayList<SuCo> arr;
     NguoiThue objNguoiThue;
     SuCoAdapter suCoAdapter;
+    SuCoAdapter2 suCoAdapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +68,9 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         if (quyen.equalsIgnoreCase("admin")){
             btn_add.setVisibility(View.GONE);
-            arr = getAll();
-            suCoAdapter = new SuCoAdapter(arr, objNguoiThue, SuCoActivity.this, fb);
-            rv_cs.setAdapter(suCoAdapter);
+            arr = getAll2();
+            suCoAdapter2 = new SuCoAdapter2(arr, objNguoiThue, SuCoActivity.this, fb);
+            rv_cs.setAdapter(suCoAdapter2);
         }else{
             arr = getSuCoPhong(objNguoiThue.getId_phong());
             suCoAdapter = new SuCoAdapter(arr, objNguoiThue, SuCoActivity.this, fb);
@@ -108,7 +110,8 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                 final int y = calendar.get(Calendar.YEAR);
                 final int m = calendar.get(Calendar.MONTH);
                 final int d = calendar.get(Calendar.DAY_OF_MONTH);
-                ed_ngbao.getEditText().setText(y +"/"+m+"/"+d);
+
+                ed_ngbao.getEditText().setText(y +"/"+(m+1)+"/"+d);
 
                 btn_bc.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -127,6 +130,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                         objSuCo.setId_phong(tv_phong.getText().toString());
                         objSuCo.setMoTa(ed_mota.getEditText().getText().toString());
                         objSuCo.setNgayBaoCao(ed_ngbao.getEditText().getText().toString());
+
 
                         fb.collection(SuCo.TB_NAME).document(tv_phong.getText().toString()+ed_mota.getEditText().getText().toString())
                                 .set(objSuCo)
@@ -164,7 +168,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         },1000);
     }
 
-    public ArrayList<SuCo> getAll(){
+    public ArrayList<SuCo> getAll2(){
         ArrayList<SuCo> arr = new ArrayList<>();
 
         fb.collection(SuCo.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -176,7 +180,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                     arr.add(objSuCo);
                     Log.d("aaaaaaa", document.getId() + " => " + document.getData());
                 }
-                suCoAdapter.notifyDataSetChanged();
+                suCoAdapter2.notifyDataSetChanged();
             }
         });
 
