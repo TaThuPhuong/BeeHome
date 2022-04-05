@@ -92,11 +92,13 @@ public class Login_Activity extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBarLoading.showLoading();
                 String pass = edMatkhau.getEditText().getText().toString();
                 String email = edNguoidung.getEditText().getText().toString();
 
 //          kiểm tra chống
                 if (TextUtils.isEmpty(email) || TextUtils.isEmpty(pass)) {
+                    progressBarLoading.hideLoaing();
                     if (TextUtils.isEmpty(email)) {
                         edNguoidung.setError("Nhập email");
                     }
@@ -120,6 +122,11 @@ public class Login_Activity extends AppCompatActivity {
                             break;
                         }
                     }
+                    if (admin == null && nguoiThue == null) {
+                        progressBarLoading.hideLoaing();
+                        edNguoidung.setError("Sai email");
+                        return;
+                    }
                     if (email.equals("hienpvph18604@fpt.edu.vn") || email.equals("phuongta15099@gmail.com")
                             || email.equals("tienbxph18636@fpt.edu.vn") || email.equals("cuongvvph18550@fpt.edu.vn") ||
                             email.equals("tuvmph18579@fpt.edu.vn")) {
@@ -128,7 +135,7 @@ public class Login_Activity extends AppCompatActivity {
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
+                                        if (admin != null && task.isSuccessful()) {
                                             progressBarLoading.hideLoaing();
                                             mySharedPreferences.getDN(MySharedPreferences.NgDung,"Admin");
                                             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
@@ -154,7 +161,7 @@ public class Login_Activity extends AppCompatActivity {
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
+                                        if (nguoiThue != null && task.isSuccessful()) {
                                             progressBarLoading.hideLoaing();
                                             mySharedPreferences.getDN(MySharedPreferences.NgDung,"ngThue");
                                             Intent intent = new Intent(Login_Activity.this, MainNguoiThueActivity.class);

@@ -29,17 +29,11 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
-import net.fpl.beehome.DAO.NguoiThueDAO;
-import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.NguoiThue;
-import net.fpl.beehome.model.Phong;
-import net.fpl.beehome.model.SuCo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +47,6 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
     Context context;
     FirebaseFirestore fb;
     ArrayList<NguoiThue> arr1;
-    FirebaseUser user;
 
     public NguoiThueSwip(ArrayList<NguoiThue> arr, Context context, FirebaseFirestore fb) {
         this.arr = arr;

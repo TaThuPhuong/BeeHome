@@ -44,9 +44,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.hbb20.CountryCodePicker;
 
 import net.fpl.beehome.Adapter.NguoiThue.NguoiThueSwip;
-import net.fpl.beehome.DAO.NguoiThueDAO;
 import net.fpl.beehome.model.NguoiThue;
-import net.fpl.beehome.model.Phong;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -60,7 +58,6 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
     Toolbar toolbar;
     SearchView searchView;
     Button btn_them, btn_huy;
-    NguoiThueDAO nguoiThueDAO;
     NguoiThueSwip nguoiThueSwip;
     ArrayList<NguoiThue> arr;
     CountryCodePicker ccp;
@@ -78,7 +75,6 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
         toolbar = findViewById(R.id.toolbar_nguoithue);
         firestore = FirebaseFirestore.getInstance();
         fba = FirebaseAuth.getInstance();
-        nguoiThueDAO = new NguoiThueDAO(firestore, getBaseContext());
         ArrayList<NguoiThue> list = getall();
         nguoiThueSwip = new NguoiThueSwip(list, NguoiThue_Activity.this, firestore);
         setSupportActionBar(toolbar);

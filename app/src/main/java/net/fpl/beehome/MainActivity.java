@@ -24,6 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import net.fpl.beehome.model.Admin;
+import net.fpl.beehome.ui.doiEmail.DoiEmailFragment;
 import net.fpl.beehome.ui.doiMatKhau.DoiMatKhauFragment;
 import net.fpl.beehome.ui.gioiThieu.GioiThieuFragment;
 import net.fpl.beehome.ui.home.HomeFragment;
@@ -83,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                     setTitle("Trang chủ");
                     HomeFragment homeFragment = new HomeFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, homeFragment).commit();
-
                     break;
 
 
@@ -92,7 +92,11 @@ public class MainActivity extends AppCompatActivity {
                     DoiMatKhauFragment matKhauFragment = new DoiMatKhauFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, matKhauFragment).commit();
                     break;
-
+                case R.id.nav_update_email:
+                    setTitle("Đổi email");
+                    DoiEmailFragment doiEmailFragment = new DoiEmailFragment();
+                    manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, doiEmailFragment).commit();
+                    break;
                 case R.id.nav_gT:
                     setTitle("Giới thiệu");
                     GioiThieuFragment gioiThieuFragment = new GioiThieuFragment();
