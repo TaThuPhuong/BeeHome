@@ -4,22 +4,24 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.fpl.beehome.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    private final List<MessageList> messageLists;
     private final Context context;
+    ArrayList<String> list;
 
-    public MessageAdapter(List<MessageList> messageLists, Context context) {
-        this.messageLists = messageLists;
+    public MessageAdapter(Context context, ArrayList<String> list) {
         this.context = context;
+        this.list = list;
     }
 
     @NonNull
@@ -35,13 +37,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public int getItemCount() {
-        return messageLists.size();
+        return list.size();
     }
 
     class MessageViewHolder extends RecyclerView.ViewHolder{
 
+        TextView tvMess;
+
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvMess = itemView.findViewById(R.id.tv_mess);
         }
     }
 }
