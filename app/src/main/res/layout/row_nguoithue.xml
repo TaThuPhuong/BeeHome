@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_marginBottom="5dp"
     >
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="8dp"
-            android:background="@color/profileEditTextColor"
+            android:background="@color/bg_if"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="32dp"
@@ -50,7 +50,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
-            android:background="#8BC34A"
+            android:background="@color/bg_ed"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="32dp"
@@ -76,7 +76,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
-            android:background="@color/red"
+            android:background="@color/bg_del"
             android:layout_weight="1">
             <ImageView
                 android:layout_width="32dp"
@@ -100,7 +100,7 @@
 
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -109,43 +109,50 @@
         <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_margin="5dp"
             android:src="@drawable/ic_accout" />
 
-        <TextView
-            android:textSize="16dp"
-            android:id="@+id/tv_tennguoithue"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="20dp"
-            android:text="Tên Người Thuê"
-            android:textColor="@color/purple_200"
-            android:textStyle="bold" />
+            android:layout_gravity="center_vertical">
 
-        <TextView
+            <TextView
+                android:id="@+id/tv_tennguoithue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên Người Thuê"
+                android:textColor="@color/tim_300"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
-            android:id="@+id/tv_phongnguoithue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="55dp"
-            android:text="Phòng -" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="7dp">
 
-        <TextView
-            android:id="@+id/tv_sdtnguoithue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="250dp"
-            android:layout_marginTop="55dp"
-            android:text="Số Điện Thoại" />
+                <TextView
+                    android:id="@+id/tv_phongnguoithue"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+
+                    android:text="Phòng -"
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_sdtnguoithue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số Điện Thoại"
+                    android:textSize="16dp"/>
+            </LinearLayout>
+        </LinearLayout>
 
 
-
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </com.daimajia.swipe.SwipeLayout>

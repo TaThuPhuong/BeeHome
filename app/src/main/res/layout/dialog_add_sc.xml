@@ -13,18 +13,25 @@
         android:textStyle="bold"
         android:textSize="24dp"
         android:gravity="center"
-        android:background="@color/purple_200"
+        android:background="@color/tim_400"
         android:padding="15dp"
         android:textColor="@color/white"/>
 
-    <Spinner
-        android:background="@drawable/style_spinner_hd"
-        android:id="@+id/sp_hd_phong"
+    <TextView
+        android:id="@+id/tv_p_d"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"/>
+        android:layout_marginEnd="24dp"
+        android:text="12356"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:paddingLeft="17dp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_tv_dsc"
+        />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -62,9 +69,9 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/purple_200"
-        app:boxStrokeColor="@color/purple_200"
-        app:hintTextColor="@color/purple_200"
+        android:backgroundTint="@color/tim_300"
+        app:boxStrokeColor="@color/tim_300"
+        app:hintTextColor="@color/tim_300"
         app:startIconDrawable="@drawable/ic_day"
         android:hint="Ngày báo cáo"
         app:boxCornerRadiusBottomEnd="16dp"
@@ -89,7 +96,7 @@
         android:text="Báo Cáo"
         android:textSize="20dp"
         android:padding="10dp"
-        android:backgroundTint="@color/purple_200"
+        android:backgroundTint="@color/tim_300"
         android:shadowRadius="@integer/google_play_services_version"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"

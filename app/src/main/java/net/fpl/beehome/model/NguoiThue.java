@@ -7,7 +7,6 @@ public class NguoiThue implements Serializable {
     String id_phong;
     String hoTen;
     String sdt;
-    String password;
     String email;
     String cccd;
 
@@ -16,11 +15,19 @@ public class NguoiThue implements Serializable {
     public static final String COL_ID_PHONG = "id_phong";
     public static final String COL_HOTEN = "hoTen";
     public static final String COL_SDT = "sdt";
-    public static final String COL_PASS = "password";
     public static final String COL_EMAIL = "email";
     public static final String COL_CCCD = "cccd";
 
     public NguoiThue() {
+    }
+
+    public NguoiThue(String id_thanhvien, String id_phong, String hoTen, String sdt, String email, String cccd) {
+        this.id_thanhvien = id_thanhvien;
+        this.id_phong = id_phong;
+        this.hoTen = hoTen;
+        this.sdt = sdt;
+        this.email = email;
+        this.cccd = cccd;
     }
 
     public String getId_thanhvien() {
@@ -55,14 +62,6 @@ public class NguoiThue implements Serializable {
         this.sdt = sdt;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -86,7 +85,6 @@ public class NguoiThue implements Serializable {
                 ", id_phong='" + id_phong + '\'' +
                 ", hoTen='" + hoTen + '\'' +
                 ", sdt='" + sdt + '\'' +
-                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", cccd='" + cccd + '\'' +
                 '}';

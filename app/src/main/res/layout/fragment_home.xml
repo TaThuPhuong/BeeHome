@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="210dp"
                 android:paddingStart="20dp"
+                android:layout_marginTop="5dp"
                 android:paddingEnd="20dp" />
 
             <androidx.cardview.widget.CardView
@@ -293,7 +294,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_marginEnd="28dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="82dp"
         android:backgroundTint="@color/tim_400"
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

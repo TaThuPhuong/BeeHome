@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -137,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     fragment = new HomeFragment();
-                    setTitle("Xin chào");
+                    setTitle("Trang chủ");
                     loadFragment(fragment);
                     ab.show();
                     return true;
