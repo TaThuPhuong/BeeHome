@@ -162,8 +162,6 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_edit_hopdong);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
-                Spinner sp_phong = dialog.findViewById(R.id.sp_hd_phong);
-                Spinner sp_tvien = dialog.findViewById(R.id.sp_hd_tvien);
                 Spinner sp_kyhan = dialog.findViewById(R.id.sp_hd_kyhan);
 
                 Button btn_add = dialog.findViewById(R.id.btn_add);
@@ -173,30 +171,20 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 TextInputLayout ed_songuoithue = dialog.findViewById(R.id.ed_songuoithue);
                 TextView tv_er_p = dialog.findViewById(R.id.tv_er_phong);
                 TextView tv_er_ngthue = dialog.findViewById(R.id.tv_er_ngthue);
+                TextView tv_p_d = dialog.findViewById(R.id.tv_p_d);
+                TextView tv_p_nt = dialog.findViewById(R.id.tv_p_nt);
+
+                tv_p_d.setText(objHopDong.getId_phong());
 
                 ed_ngaybd.setError(null);
                 ed_ngaykt.setError(null);
                 ed_ngayky.setError(null);
                 ed_songuoithue.setError(null);
 
-                SpinnerPhongAdapter phongAdapter = new SpinnerPhongAdapter(arrphong);
-                sp_phong.setAdapter(phongAdapter);
-                if(arrphong.size() == 0){
-                    Phong obj = new Phong();
-                    obj.setSoPhong("Trống");
-                    arrphong.add(obj);
-                    phongAdapter.notifyDataSetChanged();
-                    sp_phong.setSelection(1);
-                }
-
-                SpinnerNguoiThueAdapter nguoiThueAdapter = new SpinnerNguoiThueAdapter(arrnguoithue);
-                sp_tvien.setAdapter(nguoiThueAdapter);
-                if(arrnguoithue.size() == 0){
-                    NguoiThue obj = new NguoiThue();
-                    obj.setHoTen("Trống");
-                    arrnguoithue.add(obj);
-                    nguoiThueAdapter.notifyDataSetChanged();
-                    sp_tvien.setSelection(1);
+                for (NguoiThue objNguoiThue : arrnguoithue){
+                    if(objNguoiThue.getId_phong().equalsIgnoreCase(objHopDong.getId_thanh_vien())){
+                        tv_p_nt.setText(objNguoiThue.getId_phong());
+                    }
                 }
 
                 Calendar calendar = Calendar.getInstance();
@@ -342,22 +330,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 ed_ngaybd.getEditText().setText(objHopDong.getNgayBatDau());
                 ed_songuoithue.getEditText().setText(objHopDong.getSoNguoiThue().toString());
 
-                for(int j = 0; j <arrphong.size(); j++){
-                    Phong tmp = arrphong.get(j);
-                    if(tmp.getIDPhong() == objHopDong.getId_phong()){
-                        sp_phong.setSelection(j);
-                        sp_phong.setSelected(true);
-                        break;
-                    }
-                }
-                for(int j = 0; j <arrnguoithue.size(); j++){
-                    NguoiThue tmp = arrnguoithue.get(j);
-                    if(tmp.getId_thanhvien() == objHopDong.getId_thanh_vien()){
-                        sp_tvien.setSelection(j);
-                        sp_tvien.setSelected(true);
-                        break;
-                    }
-                }
+
                 for(int j = 0; j <arrkyhan.size(); j++){
                     int tmp = arrkyhan.get(j);
                     if(tmp == objHopDong.getKyHan()){
@@ -375,15 +348,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                         String ednky = ed_ngayky.getEditText().getText().toString();
                         String edsn = ed_songuoithue.getEditText().getText().toString();
 
-                        if(sp_phong.getSelectedItem().toString().equalsIgnoreCase("Trống")){
-                            tv_er_p.setTextSize(14);
-                            tv_er_p.setText("Không có phòng trống");
-                            return;
-                        }else if(sp_tvien.getSelectedItem().toString().equalsIgnoreCase("Trống")){
-                            tv_er_ngthue.setTextSize(14);
-                            tv_er_ngthue.setText("Không có người thuê");
-                            return;
-                        }else if(ednky.length()==0){
+                        if(ednky.length()==0){
                             ed_ngayky.setError("Trường không được bỏ trống");
                             return;
                         }else if(ednbd.length()==0){
@@ -406,11 +371,9 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                             return;
                         }
 
-                        Phong objPhong = (Phong) sp_phong.getSelectedItem();
-                        NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
                         objHopDong.setId_chu_tro("1");
-                        objHopDong.setId_phong(objPhong.getIDPhong());
-                        objHopDong.setId_thanh_vien(objNguoiThue.getId_thanhvien());
+                        objHopDong.setId_phong(tv_p_d.getText().toString());
+                        objHopDong.setId_thanh_vien(tv_p_nt.getText().toString());
                         objHopDong.setKyHan(Integer.parseInt(sp_kyhan.getSelectedItem()+""));
                         objHopDong.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
                         objHopDong.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());
@@ -422,10 +385,10 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        fb.collection(Phong.TB_NAME).document(objPhong.getIDPhong())
+                                        fb.collection(Phong.TB_NAME).document(objHopDong.getId_phong())
                                                 .update(Phong.COL_TRANG_THAI, "Đang thuê");
-                                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getId_thanhvien())
-                                                .update(NguoiThue.COL_ID_PHONG, objPhong.getIDPhong());
+                                        fb.collection(NguoiThue.TB_NGUOITHUE).document(objHopDong.getId_thanh_vien())
+                                                .update(NguoiThue.COL_ID_PHONG, objHopDong.getId_phong());
                                         arr.set(index, objHopDong);
                                         notifyDataSetChanged();
                                         mItemManger.closeAllItems();
