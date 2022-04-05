@@ -29,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.Adapter.SuCo.SuCoAdapter;
+import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.model.SuCo;
 
@@ -40,8 +41,8 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
     RecyclerView rv_cs;
     FirebaseFirestore fb;
     SwipeRefreshLayout swipeRefreshLayout;
-
-
+    ArrayList<SuCo> arr;
+    NguoiThue objNguoiThue;
     SuCoAdapter suCoAdapter;
 
     @Override
@@ -54,17 +55,24 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         fb = FirebaseFirestore.getInstance();
         swipeRefreshLayout = findViewById(R.id.sw_rv);
 
-        ArrayList<SuCo> arr = getAll();
         ArrayList<Phong> arrphong = getSPPHong();
         rv_cs.setLayoutManager(new LinearLayoutManager(this));
 
-        suCoAdapter = new SuCoAdapter(arr, arrphong, SuCoActivity.this, fb);
-        rv_cs.setAdapter(suCoAdapter);
+
+
         Intent intent = getIntent();
         String quyen = intent.getStringExtra("quyen");
+        objNguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
 
         if (quyen.equalsIgnoreCase("admin")){
             btn_add.setVisibility(View.GONE);
+            arr = getAll();
+            suCoAdapter = new SuCoAdapter(arr, arrphong, SuCoActivity.this, fb);
+            rv_cs.setAdapter(suCoAdapter);
+        }else{
+            arr = getSuCoPhong(objNguoiThue.getId_phong());
+            suCoAdapter = new SuCoAdapter(arr, arrphong, SuCoActivity.this, fb);
+            rv_cs.setAdapter(suCoAdapter);
         }
 
 
@@ -190,6 +198,26 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                         arr.add(objPhong);
                     }
                 }
+            }
+        });
+        return arr;
+    }
+
+    public ArrayList<SuCo> getSuCoPhong(String idphong){
+        ArrayList<SuCo> arr = new ArrayList<>();
+
+        fb.collection(SuCo.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for (QueryDocumentSnapshot document : value) {
+                    SuCo objSuCo = document.toObject(SuCo.class);
+                    if(objSuCo.getId_phong().equalsIgnoreCase(idphong)){
+                        arr.add(objSuCo);
+                        Log.d("aaaaaaa", document.getId() + " => " + document.getData());
+                    }
+                }
+                suCoAdapter.notifyDataSetChanged();
             }
         });
         return arr;
