@@ -204,7 +204,7 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-//                        themAuth(nguoiThue);
+                        themAuth(nguoiThue);
                         Toast.makeText(NguoiThue_Activity.this, "Thêm Thành Công", Toast.LENGTH_SHORT).show();
                         nguoiThueSwip.notifyDataSetChanged();
                     }
@@ -217,11 +217,11 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
                 });
     }
 
-//    private void themAuth(NguoiThue nguoiThue) {
-//        Log.d("TAG", "onComplete: " + nguoiThue.getEmail() + nguoiThue.getPassword());
-//
-//        fba.createUserWithEmailAndPassword(nguoiThue.getEmail(), nguoiThue.getPassword());
-//    }
+    private void themAuth(NguoiThue nguoiThue) {
+        Log.d("TAG", "onComplete: " + nguoiThue.getEmail() + nguoiThue.getSdt());
+
+        fba.createUserWithEmailAndPassword(nguoiThue.getEmail(), nguoiThue.getSdt());
+    }
 
     public ArrayList<NguoiThue> getall() {
         arr = new ArrayList<>();

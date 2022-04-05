@@ -6,12 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 
+import net.fpl.beehome.MainActivity;
+import net.fpl.beehome.MainNguoiThueActivity;
 import net.fpl.beehome.R;
+import net.fpl.beehome.detail.hoaDon.Tab.HoaDonChuaThanhToan;
+import net.fpl.beehome.model.Admin;
+import net.fpl.beehome.model.NguoiThue;
 
 
 import java.text.SimpleDateFormat;
@@ -22,7 +29,12 @@ public class HoaDonMain extends AppCompatActivity {
     Toolbar toolbar;
     ActionBar ab;
 
+    MainActivity activity;
+    MainNguoiThueActivity mainNguoiThueActivity;
+    Admin admin;
+    NguoiThue nguoiThue;
     int mYear, mMouth, mDay;
+    String quyen;
     SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
 
     @Override
@@ -37,16 +49,25 @@ public class HoaDonMain extends AppCompatActivity {
 
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
-        ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_date3);
-        ab.setDisplayHomeAsUpEnabled(true);
+//        ab = getSupportActionBar();
+//        ab.setHomeAsUpIndicator(R.drawable.ic_date3);
+//        ab.setDisplayHomeAsUpEnabled(true);
+        setTitle("Hóa Đơn");
+
+        activity = new MainActivity();
+        mainNguoiThueActivity = new MainNguoiThueActivity();
+
+        admin = activity.getAdmin();
+        nguoiThue = mainNguoiThueActivity.getNguoiThue();
+
         //set thời gian là tháng, năm này
-        int t = 1+today.month;
-        if(t<10){
-            setTitle("0"+t + "-"+today.year);
-        }else {
-            setTitle(t + "-"+today.year);
-        }
+//        int t = 1+today.month;
+//        if(t<10){
+//            setTitle("0"+t + "-"+today.year);
+//        }else {
+//            setTitle(t + "-"+today.year);
+//        }
+
 
     }
 
