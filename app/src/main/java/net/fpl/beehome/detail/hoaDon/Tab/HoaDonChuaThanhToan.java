@@ -5,6 +5,7 @@ import static android.view.View.VISIBLE;
 
 
 import static net.fpl.beehome.MySharedPreferences.NgDung;
+import static net.fpl.beehome.MySharedPreferences.USER_KEY;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -51,6 +52,7 @@ import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
 import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
+import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 
 import java.text.ParseException;
@@ -70,12 +72,13 @@ public class HoaDonChuaThanhToan extends Fragment {
     ArrayList<Phong> arrPhong ;
     ArrayList<String> arrTenPhong ;
     ArrayList<DichVu> arrDichVu;
+    ArrayList<NguoiThue> arrNguoiThue;
     HoaDonAdapter adapterhd;
     HoaDonNguoiThueAdapter adapternt;
     SimpleDateFormat dfm = new SimpleDateFormat("dd/MM/yyyy");
 
     String tenP,quyen;
-    String  idThang,thang,han;
+    String  idThang,thang,han,idP,hoTen;
     int tienSoDien, tienSoNuoc,tienNuoc,tienDien,tongTienPhong,TongtienDV,tongHD,dienMoi,nuocMoi, tienDVPhong = 0,month_han,year_han,month_thang,year_thang;
 
 
@@ -86,6 +89,7 @@ public class HoaDonChuaThanhToan extends Fragment {
         View v = inflater.inflate(R.layout.hoa_don_chua_thanh_toan, container, false);
         SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
         String user = pref.getString(NgDung,"");
+        hoTen = pref.getString(USER_KEY,"");
 
         fb = FirebaseFirestore.getInstance();
         fab = v.findViewById(R.id.btn_them_hdon);
@@ -97,9 +101,8 @@ public class HoaDonChuaThanhToan extends Fragment {
         arrDichVu = getAllDichVu();
         arrPhong = getAllPhong();
         arrTenPhong = getTenPhong();
+        arrNguoiThue = getAllNguoiThue();
 
-        Log.d("idP", "onCreateView: "+arrPhong.toString());
-        Log.d("idP", "onCreateView: "+arrTenPhong);
 
         if(user.equalsIgnoreCase("Admin"))
         {
@@ -109,7 +112,6 @@ public class HoaDonChuaThanhToan extends Fragment {
                     adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
                     adapterhd.notifyDataSetChanged();
 
-                    Log.d("TAG", "onCreateView: "+arr.size());
                     recyclerView.setAdapter(adapterhd);
 
                 }
@@ -389,8 +391,8 @@ public class HoaDonChuaThanhToan extends Fragment {
                                                     Toast.makeText(getContext(), "Thêm hóa đơn thành công", Toast.LENGTH_SHORT).show();
                                                     adapterhd.notifyDataSetChanged();
                                                     Map<String, Object> p = new HashMap<>();
-                                                    p.put(Phong.COL_SO_DIEN_DAU, dienMoi);
-                                                    p.put(Phong.COL_SO_NUOC_DAU, nuocMoi);
+                                                    p.put(Phong.COL_SO_DIEN_DAU, objHoaDon.getSoDienCuoi());
+                                                    p.put(Phong.COL_SO_NUOC_DAU, objHoaDon.getSoNuocCuoi());
                                                     fb.collection(Phong.TB_NAME).document(tenP).update(p);
                                                     dialog.dismiss();
                                                 }
@@ -432,7 +434,14 @@ public class HoaDonChuaThanhToan extends Fragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    adapternt = new HoaDonNguoiThueAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
+                    for(int z =0; z<arrNguoiThue.size();z++){
+                        if(arrNguoiThue.get(z).getEmail().equalsIgnoreCase(hoTen)){
+                            idP = arrNguoiThue.get(z).getId_phong();
+                        }
+                    }
+
+                    arr = getHoaDonPhong(idP);
+                    adapternt = new HoaDonNguoiThueAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu,arrNguoiThue);
                     adapternt.notifyDataSetChanged();
 
                     Log.d("TAG", "onCreateView: "+arr.size());
@@ -454,6 +463,47 @@ public class HoaDonChuaThanhToan extends Fragment {
 //    }
 
 
+    public ArrayList<HoaDon> getHoaDonPhong(String idphong){
+        ArrayList<HoaDon> arr = new ArrayList<>();
+        for(int z =0; z<arrNguoiThue.size();z++){
+            if(arrNguoiThue.get(z).getEmail().equalsIgnoreCase(hoTen)){
+                idP = arrNguoiThue.get(z).getId_phong();
+            }
+        }
+
+        fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for (QueryDocumentSnapshot document : value) {
+                    HoaDon xHoaDon = document.toObject(HoaDon.class);
+                    if(xHoaDon.getIDPhong().equalsIgnoreCase(idphong)){
+                        if(xHoaDon.getTrangThaiHD() == 0) {
+                            arr.add(xHoaDon);
+                        }
+                    }
+                }
+                adapternt.notifyDataSetChanged();
+            }
+        });
+        return arr;
+    }
+    public ArrayList<NguoiThue> getAllNguoiThue(){
+        ArrayList<NguoiThue> arrarrngthue = new ArrayList<>();
+        fb.collection(NguoiThue.TB_NGUOITHUE)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        arrarrngthue.clear();
+                        for (QueryDocumentSnapshot document : value) {
+                            NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
+                            arrarrngthue.add(objNguoiThue);
+
+                        }
+                    }
+                });
+        return arrarrngthue;
+    }
     public HoaDon checkIDHD(HoaDon z) {
         for (HoaDon xyz : arrHD) {
             if (z.getIDHoaDon().equalsIgnoreCase(xyz.getIDHoaDon())) {

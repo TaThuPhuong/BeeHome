@@ -223,6 +223,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                     ngayGD.setText(dfm.format(objHoaDon.getNgayGD()));
                 }else {
                     trangThai.setText("Quá Hạn Thanh Toán");
+                    ngayGD.setText("UnPaid");
                 }
 
                 ghiChu.setText(objHoaDon.getGhiChu());

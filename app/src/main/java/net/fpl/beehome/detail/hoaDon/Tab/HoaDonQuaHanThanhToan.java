@@ -2,6 +2,7 @@ package net.fpl.beehome.detail.hoaDon.Tab;
 
 import static android.content.Context.MODE_PRIVATE;
 import static net.fpl.beehome.MySharedPreferences.NgDung;
+import static net.fpl.beehome.MySharedPreferences.USER_KEY;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
 import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
+import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 public class HoaDonQuaHanThanhToan extends Fragment {
     FirebaseFirestore fb;
     RecyclerView recyclerView;
+    ArrayList<NguoiThue> arrNguoiThue;
     ArrayList<HoaDon> arr;
     ArrayList<HoaDon> arrHD;
     ArrayList<HopDong> arrHopDong;
@@ -43,12 +46,14 @@ public class HoaDonQuaHanThanhToan extends Fragment {
     ArrayList<DichVu> arrDichVu;
     HoaDonAdapter adapterhd;
     HoaDonNguoiThueAdapter adapternt;
+    String idP;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.hoa_don_qua_han_thanh_toan, container, false);
         SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
         String user = pref.getString(NgDung,"");
+        String hoTen = pref.getString(USER_KEY,"");
         fb = FirebaseFirestore.getInstance();
         recyclerView = v.findViewById(R.id.recyclerView_hdqhtt);
         arr = getAllHoaDon();
@@ -57,6 +62,7 @@ public class HoaDonQuaHanThanhToan extends Fragment {
         arrDichVu = getAllDichVu();
         arrPhong = getAllPhong();
         arrTenPhong = getTenPhong();
+        arrNguoiThue = getAllNguoiThue();
         if(user.equalsIgnoreCase("Admin")){
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -72,7 +78,14 @@ public class HoaDonQuaHanThanhToan extends Fragment {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    adapternt = new HoaDonNguoiThueAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
+                    for(int z =0; z<arrNguoiThue.size();z++){
+                        if(arrNguoiThue.get(z).getEmail().equalsIgnoreCase(hoTen)){
+                            idP = arrNguoiThue.get(z).getId_phong();
+                        }
+                    }
+
+                    arr = getHoaDonPhong(idP);
+                    adapternt = new HoaDonNguoiThueAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu,arrNguoiThue);
                     adapternt.notifyDataSetChanged();
 
                     Log.d("TAG", "onCreateView: "+arr.size());
@@ -85,6 +98,43 @@ public class HoaDonQuaHanThanhToan extends Fragment {
         return v;
     }
 
+    public ArrayList<HoaDon> getHoaDonPhong(String idphong){
+        ArrayList<HoaDon> arr = new ArrayList<>();
+
+        fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for (QueryDocumentSnapshot document : value) {
+                    HoaDon xHoaDon = document.toObject(HoaDon.class);
+                    if(xHoaDon.getIDPhong().equals(idphong)){
+                        if(xHoaDon.getTrangThaiHD() == 2) {
+                            arr.add(xHoaDon);
+                        }
+                        Log.d("HD", document.getId() + " => " + document.getData());
+                    }
+                }
+                adapternt.notifyDataSetChanged();
+            }
+        });
+        return arr;
+    }
+    public ArrayList<NguoiThue> getAllNguoiThue(){
+        ArrayList<NguoiThue> arrarrngthue = new ArrayList<>();
+        fb.collection(NguoiThue.TB_NGUOITHUE)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        arrarrngthue.clear();
+                        for (QueryDocumentSnapshot document : value) {
+                            NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
+                            arrarrngthue.add(objNguoiThue);
+
+                        }
+                    }
+                });
+        return arrarrngthue;
+    }
 
     public ArrayList<String> getTenPhong(){
         ArrayList<String> arrTenPhong = new ArrayList<>();
