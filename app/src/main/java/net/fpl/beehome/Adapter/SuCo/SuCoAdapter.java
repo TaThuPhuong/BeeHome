@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.R;
 import net.fpl.beehome.SuCoActivity;
+import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.model.SuCo;
 
@@ -34,13 +35,13 @@ public class SuCoAdapter extends RecyclerSwipeAdapter<SuCoAdapter.SuCoViewHolder
     ArrayList<SuCo> arr;
     Context context;
     FirebaseFirestore fb;
-    ArrayList<Phong> arrphong;
+    NguoiThue objNguoiThue;
 
-    public SuCoAdapter(ArrayList<SuCo> arr, ArrayList<Phong> arrphong, Context context, FirebaseFirestore fb) {
+    public SuCoAdapter(ArrayList<SuCo> arr, NguoiThue objNguoiThue, Context context, FirebaseFirestore fb) {
         this.arr = arr;
         this.context = context;
         this.fb = fb;
-        this.arrphong = arrphong;
+        this.objNguoiThue = objNguoiThue;
     }
 
     @Override
@@ -145,27 +146,35 @@ public class SuCoAdapter extends RecyclerSwipeAdapter<SuCoAdapter.SuCoViewHolder
                 TextInputLayout ed_mota = dialog.findViewById(R.id.ed_mota);
                 TextInputLayout ed_ngbao = dialog.findViewById(R.id.ed_ngaybaocao) ;
                 Button btn_bc = dialog.findViewById(R.id.btn_bc);
-                Spinner sp_phong = dialog.findViewById(R.id.sp_hd_phong);
+                TextView tv_phong = dialog.findViewById(R.id.tv_p_d);
+                Button btn_cancel = dialog.findViewById(R.id.btn_cancel_bc);
+                tv_phong.setText(objNguoiThue.getId_phong());
 
-                SpinnerPhongAdapter spinnerPhongAdapter = new SpinnerPhongAdapter(arrphong);
-                sp_phong.setAdapter(spinnerPhongAdapter);
 
                 ed_mota.getEditText().setText(objSuCo.getMoTa());
                 ed_ngbao.getEditText().setText(objSuCo.getNgayBaoCao());
-                for(int j = 0; j <arrphong.size(); j++){
-                    Phong tmp = arrphong.get(j);
-                    if(tmp.getIDPhong() == objSuCo.getId_phong()){
-                        sp_phong.setSelection(j);
-                        sp_phong.setSelected(true);
-                        break;
+
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        mItemManger.closeAllItems();
                     }
-                }
+                });
 
                 btn_bc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Phong objPhong = (Phong) sp_phong.getSelectedItem();
-                        objSuCo.setId_phong(objPhong.getIDPhong());
+
+                        if(ed_mota.getEditText().getText().toString().length()==0 || ed_mota.getEditText().getText().toString().length()<5){
+                            ed_mota.setError("Độ dài ký tự không hợp lệ (5 đến 30 ký tự)");
+                            return;
+                        }else if(!checkMT(ed_mota.getEditText().getText().toString())){
+                            ed_mota.setError("Bạn đã báo cáo sự cố này rồi");
+                            return;
+                        }
+
+                        objSuCo.setId_phong(objNguoiThue.getId_phong());
                         objSuCo.setMoTa(ed_mota.getEditText().getText().toString());
                         objSuCo.setNgayBaoCao(ed_ngbao.getEditText().getText().toString());
                         fb.collection(SuCo.TB_NAME).document(objSuCo.getId_suco())
@@ -188,6 +197,7 @@ public class SuCoAdapter extends RecyclerSwipeAdapter<SuCoAdapter.SuCoViewHolder
                         dialog.dismiss();
                     }
                 });
+
                 dialog.show();
             }
         });
@@ -234,5 +244,14 @@ public class SuCoAdapter extends RecyclerSwipeAdapter<SuCoAdapter.SuCoViewHolder
             tv_info = itemView.findViewById(R.id.tv_info);
 
         }
+    }
+
+    public boolean checkMT(String str){
+        for(SuCo objSuCo : arr){
+            if(objSuCo.getMoTa().equalsIgnoreCase(str)){
+                return false;
+            }
+        }
+        return true;
     }
 }
