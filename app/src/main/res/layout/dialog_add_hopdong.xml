@@ -225,7 +225,8 @@
             android:shadowRadius="@integer/google_play_services_version"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"/>
 
     </LinearLayout>
 

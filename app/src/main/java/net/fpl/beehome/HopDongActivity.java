@@ -157,6 +157,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                                 }
 
                                 ed_ngaybd.getEditText().setText(i + "-" +monthbd + "-" + daybd);
+
                                 if(Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1 > 12){
                                     int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1) - 12 ;
                                     int iyearkt = i+1;
