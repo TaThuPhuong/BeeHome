@@ -1,14 +1,26 @@
 package net.fpl.beehome.Adapter.hoaDon;
 
 
+import static android.view.View.VISIBLE;
+
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -39,22 +51,33 @@ import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.Phong;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonViewHolder> {
     ArrayList<HoaDon> arr;
     Context context;
     FirebaseFirestore fb;
     ArrayList<String> arrTenPhong ;
-    ArrayList<Phong> arrphong;
+    ArrayList<Phong> arrPhong;
     ArrayList<HopDong> arrhopdong;
-    ArrayList<DichVu> arrdichvu;
+    ArrayList<DichVu> arrDichVu;
+    SimpleDateFormat dfm = new SimpleDateFormat("dd/MM/yyyy");
+    String tenP;
+    String thang,han,ngayGD;
+    int tienSoDien, tienSoNuoc,tienNuoc,tienDien,tongTienPhong,TongtienDV,tongHD,dienMoi,nuocMoi, tienDVPhong = 0,month_han,year_han,month_thang,year_thang;
 
 
-    public HoaDonAdapter(ArrayList<HoaDon> arr, Context context, FirebaseFirestore fb) {
+    public HoaDonAdapter(ArrayList<HoaDon> arr, Context context, FirebaseFirestore fb, ArrayList<String> arrTenPhong, ArrayList<Phong> arrPhong, ArrayList<HopDong> arrhopdong, ArrayList<DichVu> arrDichVu) {
         this.arr = arr;
         this.context = context;
         this.fb = fb;
+        this.arrTenPhong = arrTenPhong;
+        this.arrPhong = arrPhong;
+        this.arrhopdong = arrhopdong;
+        this.arrDichVu = arrDichVu;
     }
 
     @Override
@@ -178,22 +201,22 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 TextView ghiChu = dialog.findViewById(R.id.tv_ghiChuHD);
 
                 idPhong.setText(objHoaDon.getIDPhong());
-                thangHD.setText(objHoaDon.getThangHD());
                 tienPhong.setText(objHoaDon.getTienPhong()+"");
                 tienDV.setText(objHoaDon.getTienDV()+"");
                 giamGia.setText(objHoaDon.getGiamGia()+"");
                 tongHD.setText(objHoaDon.getTongHD()+"");
-                hanHD.setText(objHoaDon.getHanGD());
                 if(objHoaDon.getTrangThaiHD() == 0){
                     trangThai.setText("Chưa Thanh Toán");
                     trangThai.setTextColor(R.color.red);
+                    ngayGD.setText("UnPaid");
                 }else {
                     trangThai.setText("Đã Thanh Toán");
+                    ngayGD.setText(dfm.format(objHoaDon.getThangHD()));
                 }
 
-                ngayGD.setText(objHoaDon.getNgayGD());
                 ghiChu.setText(objHoaDon.getGhiChu());
-                thangHD.setText(objHoaDon.getThangHD());
+                thangHD.setText(dfm.format(objHoaDon.getThangHD()));
+                hanHD.setText(dfm.format(objHoaDon.getHanGD()));
                 tienDien.setText(objHoaDon.getTienDien()+"");
                 tienNuoc.setText(objHoaDon.getTienNuoc()+"");
                 tienDVchung.setText(objHoaDon.getTienDVC()+"");
@@ -206,13 +229,13 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
         viewHolder.tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                dialog.setContentView(R.layout.dialog_hoa_don_sua);
-                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setView(R.layout.dialog_hoa_don_sua);
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
                 //                ánh xạ
-                Spinner sp_phong = dialog.findViewById(R.id.spn_Phong);
                 TextInputLayout L_hd_thang = dialog.findViewById(R.id.L_thang_hd);
                 TextInputLayout L_hd_han = dialog.findViewById(R.id.L_han_hd);
                 TextInputLayout L_dien_moi = dialog.findViewById(R.id.L_dien_moi);
@@ -229,6 +252,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 TextInputEditText tienPhong = dialog.findViewById(R.id.tienPhong);
                 TextInputEditText tienDV = dialog.findViewById(R.id.tienDV);
                 TextInputEditText giamGia = dialog.findViewById(R.id.giamGia);
+                TextInputEditText idP = dialog.findViewById(R.id.tenP);
 
                 LinearLayout lnLDien = dialog.findViewById(R.id.lnLDien);
                 LinearLayout lnLNuoc = dialog.findViewById(R.id.lnLNuoc);
@@ -244,6 +268,8 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 TextView tongTien = dialog.findViewById(R.id.tongTien);
                 TextInputLayout ghiChu = dialog.findViewById(R.id.ghiChuHD);
 
+                CheckBox tinhTrang = dialog.findViewById(R.id.tinhTrang);
+
                 Button clear = dialog.findViewById(R.id.btnClear);
                 Button add = dialog.findViewById(R.id.btnAddHd);
 
@@ -255,6 +281,211 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 nuoc_moi.setError(null);
                 L_giam_gia.setError(null);
 
+                idP.setText(objHoaDon.getIDPhong());
+                tenP = idP.getText().toString();
+                for(int x = 0; x<arrPhong.size(); x++){
+                    if (arrPhong.get(x).getIDPhong().equals(objHoaDon.getIDPhong())){
+                        Phong objPhong = arrPhong.get(x);
+                        dien_cu.setText(objPhong.getSoDienDau()+"");
+                        nuoc_cu.setText(objPhong.getSoNuocDau()+"");
+                        tienPhong.setText(objPhong.getGiaPhong()+"");
+
+                    }
+                }
+                lnLDien.setVisibility(View.INVISIBLE);
+                lnLNuoc.setVisibility(View.INVISIBLE);
+
+                hd_thang.setText(dfm.format(objHoaDon.getThangHD()));
+                String idThang = dfm.format(objHoaDon.getThangHD());
+
+                hd_han.setText(dfm.format(objHoaDon.getHanGD()));
+
+                dien_moi.setText(objHoaDon.getSoDienCuoi()+"");
+                nuoc_moi.setText(objHoaDon.getSoNuocCuoi()+"");
+                giamGia.setText(objHoaDon.getGiamGia()+"");
+
+                Calendar calendar = Calendar.getInstance();
+                final int y = calendar.get(Calendar.YEAR);
+                final int m = calendar.get(Calendar.MONTH);
+                final int d = calendar.get(Calendar.DAY_OF_MONTH);
+
+                for(int z =0; z<arrDichVu.size();z++){
+                    if(arrDichVu.get(z).getDonVi().equals("Phòng")){
+                        tienDVPhong += arrDichVu.get(z).getGia();
+                    }
+                }
+
+                tienDV.setText(tienDVPhong+"");
+
+                hd_thang.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(context,R.style.datePicker,new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                final String thangHD = dayOfMonth + "/" + (month + 1) + "/" + year;
+                                month_thang = month + 1;
+                                year_thang = year;
+                                hd_thang.setText(thangHD);
+                                thang = hd_thang.getText().toString();
+                            }
+                        }, y, m, d);
+                        datePickerDialog.show();
+                    }
+                });
+
+                chotDien.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(!dien_moi.getText().toString().isEmpty()){
+                            lnLDien.setVisibility(VISIBLE);
+                            Log.d("zzzzzz", "tienDien " + arrDichVu);
+                            for(int x =0; x<arrDichVu.size();x++){
+                                if(arrDichVu.get(x).getTenDichVu().equals("Điện")){
+                                    tienSoDien = arrDichVu.get(x).getGia();
+                                }
+                            }
+                            dienMoi = Integer.parseInt(String.valueOf(dien_moi.getText()));
+                            int dienCu = Integer.parseInt(String.valueOf(dien_cu.getText()));
+                            if(dienMoi < dienCu){
+                                L_dien_moi.setError("Số điện mới phải > số điện cũ");
+                            }else {
+                                L_dien_moi.setError(null);
+                                int sLDien = dienMoi - dienCu;
+
+                                tienDien = sLDien * tienSoDien;
+                                tvDien.setText(tienDien+"");
+
+                                TongtienDV = tienDien+tienNuoc+tienDVPhong;
+                                tienDV.setText(TongtienDV+"");
+                            }
+
+//
+
+
+                        }
+
+                    }
+                });
+
+                chotNuoc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        L_nuoc_moi.setError(null);
+                        if(!nuoc_moi.getText().toString().isEmpty()){
+                            lnLNuoc.setVisibility(VISIBLE);
+                            for(int x =0; x<arrDichVu.size();x++){
+                                if(arrDichVu.get(x).getTenDichVu().equals("Nước")){
+                                    tienSoNuoc = arrDichVu.get(x).getGia();
+                                }
+                            }
+                            int nuocCu = Integer.parseInt(String.valueOf(nuoc_cu.getText()));
+                            nuocMoi = Integer.parseInt(String.valueOf(nuoc_moi.getText()));
+                            int sLNuoc = nuocMoi - nuocCu;
+
+                            tienNuoc = sLNuoc * tienSoNuoc;
+
+                            tvNuoc.setText(tienNuoc+"");
+                            TongtienDV = tienDien+tienNuoc+tienDVPhong;
+                            tienDV.setText(TongtienDV+"");
+                        }
+
+                    }
+                });
+
+                tvTongHop.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        errAll.setVisibility(View.INVISIBLE);
+                        if(giamGia.getText().toString().isEmpty()){
+                            L_giam_gia.setError("Nếu không có hãy nhập 0");
+                        }else if (lnLDien.getVisibility() != VISIBLE ) {
+                            L_dien_moi.setError("Hãy chốt điện!");
+                            L_giam_gia.setError(null);
+                        }else if(lnLNuoc.getVisibility() != VISIBLE){
+                            L_giam_gia.setError(null);
+                            L_nuoc_moi.setError("Hãy chốt nước!");
+                        }else{
+                            L_giam_gia.setError(null);
+                            TongtienDV = tienDien+tienNuoc+tienDVPhong;
+                            tienDV.setText(TongtienDV+"");
+                            int gGia = Integer.parseInt(String.valueOf(giamGia.getText()));
+                            tongTienPhong = Integer.parseInt(String.valueOf(tienPhong.getText()));
+                            tongHD = TongtienDV+tongTienPhong-gGia;
+                            tongTien.setText(tongHD+"");
+
+                        }
+
+                    }
+                });
+
+
+
+
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(tongHD == 0){
+                            tvTongHop.setError("");
+                            errAll.setVisibility(VISIBLE);
+                        }else{
+                            HoaDon x = new HoaDon();
+                            x.setIDHoaDon(objHoaDon.getIDHoaDon());
+                            x.setTongHD(tongHD);
+                            x.setIDPhong(tenP);
+                            x.setThangHD(objHoaDon.getThangHD());
+                            x.setHanGD(objHoaDon.getHanGD());
+                            x.setSoDienCuoi(dienMoi);
+                            x.setSoNuocCuoi(nuocMoi);
+                            if(tinhTrang.isChecked()){
+                                x.setTrangThaiHD(1);
+                                x.setNgayGD(calendar.getTime());
+                            }
+
+                            x.setTienDV(TongtienDV);
+                            x.setTienPhong(tongTienPhong);
+                            x.setGiamGia(Integer.parseInt(String.valueOf(giamGia.getText())));
+                            x.setGhiChu(String.valueOf(ghiChu.getEditText().getText()));
+                            x.setTienDien(tienDien);
+                            x.setTienNuoc(tienNuoc);
+                            x.setTienDVC(tienDVPhong);
+
+
+                                fb.collection(HoaDon.TB_NAME).document(x.getIDHoaDon())
+                                        .set(x)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                arr.set(index, x);
+                                                notifyDataSetChanged();
+                                                mItemManger.closeAllItems();
+                                                Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                                                dialog.dismiss();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
+
+                        }
+                    }
+
+
+
+
+                });
+                notifyDataSetChanged();
+
+                clear.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
             }
         });
@@ -306,6 +537,30 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
             }
         });
         return arrTenPhong;
+    }
+
+    public ArrayList<Phong> getAllPhong(){
+        ArrayList<Phong> arrPhong = new ArrayList<>();
+        fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arrPhong.clear();
+                for(QueryDocumentSnapshot document : value){
+                    Phong objPhong = document.toObject(Phong.class);
+                    arrPhong.add(objPhong);
+                }
+            }
+        });
+        return arrPhong;
+    }
+
+    public HoaDon checkIDHD(HoaDon z) {
+        for (HoaDon xyz : arr) {
+            if (z.getIDHoaDon().equalsIgnoreCase(xyz.getIDHoaDon())) {
+                return xyz;
+            }
+        }
+        return null;
     }
 
 
