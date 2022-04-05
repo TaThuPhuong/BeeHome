@@ -121,10 +121,6 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                 //when user's hand released.
             }
         });
-        Animation animation = AnimationUtils.loadAnimation(mContext.getApplicationContext(), R.anim.item);
-        viewHolder.tvInfo.startAnimation(animation);
-        viewHolder.tvDelete.startAnimation(animation);
-        viewHolder.tvEdit.startAnimation(animation);
         // update phòng
         viewHolder.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +173,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         viewHolder.tvInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                showDetail(phong);
             }
         });
         mItemManger.bindView(viewHolder.itemView, position);
@@ -195,7 +191,27 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
 
     // Dialog thông tin chi tiết phòng
     public void showDetail(Phong phong) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        View view = View.inflate(mContext, R.layout.dialog_detail_phong, null);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        TextView tvPhong, tvGia, tvVatTu, tvTrangThai, tvSoDien, tvSoNuoc;
+        tvSoDien = view.findViewById(R.id.tv_so_dien);
+        tvSoNuoc = view.findViewById(R.id.tv_so_nuoc);
+        tvGia = view.findViewById(R.id.tv_gia);
+        tvPhong = view.findViewById(R.id.tv_so_phong);
+        tvVatTu = view.findViewById(R.id.tv_vat_tu);
+        tvTrangThai = view.findViewById(R.id.tv_trang_thai);
 
+        tvSoDien.setText("Số điện: " + phong.getSoDienDau());
+        tvSoNuoc.setText("Số nước: " + phong.getSoNuocDau());
+        tvGia.setText("Giá: " + phong.getGiaPhong());
+        tvVatTu.setText("Đồ dùng: " + phong.getVatTu());
+        tvPhong.setText("Phòng - " + phong.getSoPhong());
+        tvTrangThai.setText("Trạng thái: " + phong.getTrangThai());
+        mauTrangThai(phong.getTrangThai(), tvTrangThai);
     }
 
     // Dialog sửa thông tin phòng
