@@ -1,6 +1,11 @@
 package net.fpl.beehome.Adapter.LienHe;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +15,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import net.fpl.beehome.ContactActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.LienHe;
 
@@ -24,16 +33,12 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MessageV
     private ArrayList<LienHe> list;
     private Animation animationUp, animationDown;
     private final int COUNTDOWN_RUNNING_TIME = 500;
+    private static final int REQUEST_CALL = 1;
+    private Activity activity;
 
-    public ContactAdapter(ArrayList<LienHe> list, Animation animationUp, Animation animationDown) {
+    public ContactAdapter(ArrayList<LienHe> list, Activity activity) {
         this.list = list;
-        this.animationDown = animationDown;
-        this.animationUp = animationUp;
-        notifyDataSetChanged();
-    }
-
-    public ContactAdapter(ArrayList<LienHe> list) {
-        this.list = list;
+        this.activity = activity;
     }
 
     @NonNull
@@ -50,6 +55,18 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MessageV
 
         holder.tvName.setText(lienHe.getName());
         holder.tvPhone.setText(lienHe.getNumberPhone());
+        String phone = holder.tvPhone.getText().toString();
+        holder.imgMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+        holder.imgCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makePhoneCall(phone);
+            }
+        });
         holder.layoutItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +105,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MessageV
     public class MessageViewHolder extends RecyclerView.ViewHolder{
         private TextView tvName, tvPhone;
         private LinearLayout layoutItem,layoutExpand;
+        private ImageView imgCall, imgMessage;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +114,20 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MessageV
             tvPhone = itemView.findViewById(R.id.tv_phone);
             layoutItem = itemView.findViewById(R.id.layout_item);
             layoutExpand = itemView.findViewById(R.id.layout_expand);
+            imgCall = itemView.findViewById(R.id.img_call);
+            imgMessage = itemView.findViewById(R.id.img_message);
+        }
+    }
+
+    public void makePhoneCall(String...phone){
+        if (ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions((Activity) activity,
+                    new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+        } else {
+            String dial = "tel: " + phone;
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(dial));
+            activity.startActivity(intent);
         }
     }
 

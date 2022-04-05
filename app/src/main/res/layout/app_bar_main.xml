@@ -16,7 +16,7 @@
             android:id="@+id/toolbar_hoa_don"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/tim_500"
             app:menu="@menu/menu_toolbar_right"
             app:popupTheme="@style/Theme.BeeHome.PopupOverlay" />
 

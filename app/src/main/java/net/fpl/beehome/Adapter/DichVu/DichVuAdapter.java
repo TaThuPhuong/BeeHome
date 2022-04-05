@@ -1,11 +1,9 @@
 package net.fpl.beehome.Adapter.DichVu;
 
 
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,8 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -25,20 +23,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
-import net.fpl.beehome.DAO.DichVuDAO;
-import net.fpl.beehome.DichVuActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,15 +39,17 @@ import java.util.Map;
 
 public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuViewHolder> {
 
-    DichVuDAO dichVuDAO;
     ArrayList<DichVu> list;
+    Context context;
+    FirebaseFirestore db;
 
     public static final String TAG = "123";
 
 
-    public DichVuAdapter(DichVuDAO dichVuDAO, ArrayList<DichVu> list) {
-        this.dichVuDAO = dichVuDAO;
+    public DichVuAdapter(ArrayList<DichVu> list, Context context, FirebaseFirestore db) {
         this.list = list;
+        this.context = context;
+        this.db = db;
     }
 
     @NonNull
@@ -195,7 +190,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
                     String gia = edGia.getText().toString().trim();
 
                     if (ten.equals("") || gia.equals("")) {
-                        dichVuDAO.thongbao(1, "Điền đầy đủ các thông tin");
+                        Toast.makeText(context, "Vui lòng điền đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
                         return;
                     } else {
                         DichVu dichVu = new DichVu();
@@ -203,7 +198,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
                         dichVu.setDonVi((String) spinner.getSelectedItem());
                         dichVu.setGia(Integer.parseInt(gia));
 
-                        dichVuDAO.insertDichVu(dichVu);
+                        insertDichVu(dichVu);
                         dialog.dismiss();
                         notifyDataSetChanged();
                     }
@@ -232,7 +227,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
                 @Override
                 public void onClick(View view) {
                     dialog.dismiss();
-                    dichVuDAO.deleteDichVu(dichVu);
+                    deleteDichVu(dichVu);
                 }
             });
 
@@ -282,12 +277,12 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
                 public void onClick(View view) {
                     String strGia = edGia.getText().toString();
                     if (TextUtils.isEmpty(strGia)){
-                        dichVuDAO.thongbao(1, "Vui lòng điền đầy đủ thông tin");
+                        Toast.makeText(context, "Vui lòng điền đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
                         return;
                     }else {
                         dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
 
-                        dichVuDAO.updateDichVu(dichVu);
+                        updateDichVu(dichVu);
                         notifyDataSetChanged();
                         alertDialog.dismiss();
                     }
@@ -302,5 +297,72 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             });
     }
 
+    public void insertDichVu(DichVu dichVu){
 
+        Map<String, Object> map = new HashMap<>();
+        map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
+        map.put(DichVu.COL_GIA, dichVu.getGia());
+        map.put(DichVu.COL_DONVI, dichVu.getDonVi());
+
+        db.collection(DichVu.TB_NAME).document("DV - " + dichVu.getTenDichVu()).set(map)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void updateDichVu(DichVu dichVu){
+
+        Map<String, Object> map = new HashMap<>();
+        map.put(DichVu.COL_GIA, dichVu.getGia());
+
+        db.collection(DichVu.TB_NAME).document("DV - " + dichVu.getTenDichVu()).update(map)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+    }
+
+
+    public void deleteDichVu(DichVu dichVu){
+
+        Map<String, Object> map = new HashMap<>();
+        map.put(DichVu.COL_NAME, FieldValue.delete());
+        map.put(DichVu.COL_GIA, FieldValue.delete());
+        map.put(DichVu.COL_DONVI, FieldValue.delete());
+
+        db.collection(DichVu.TB_NAME).document("DV - " + dichVu.getTenDichVu()).delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                        Log.e("TAG", "onFailure: " + dichVu.toString());
+                    }
+                });;
+        db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).update(map);
+    }
 }

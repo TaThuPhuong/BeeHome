@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -62,6 +63,7 @@ public class QuenMatKhauActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(QuenMatKhauActivity.this, "Đã gửi link khôi phục mật khẩu tới email " + email, Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(QuenMatKhauActivity.this, Login_Activity.class));
                                     }
                                 }
                             });
