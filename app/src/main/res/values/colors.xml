@@ -15,9 +15,14 @@
     <color name="tim_500">#9B1ED0</color>
     <color name="tim_600">#8B1ECA</color>
     <color name="chu_xanh">#002795</color>
+    <color name="bg_ed">#C590E7</color>
+    <color name="bg_if">#707070</color>
+    <color name="bg_del">#cd2457</color>
+    
 
 
-<!---->
+
+    <!---->
 
     <color name="colorPrimary">#FF6D00</color>
     <color name="tab_background">#00BFA5</color>

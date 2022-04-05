@@ -55,38 +55,37 @@ public class thongKeFragment extends Fragment {
         tvDenNgay = v.findViewById(R.id.tv_denNgay);
         tvTotal = v.findViewById(R.id.tv_total);
         tvTotalMonth = v.findViewById(R.id.tv_total_month);
-        tvSearch = v.findViewById(R.id.tv_search);
-
-        HoaDon hoaDon = null;
-        try {
-            hoaDon = new HoaDon("hoaDon1", "P201", sdf.parse("12-02-2022"), "Da xong", 2000000, 12, 23, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        HoaDon hoaDon1 = null;
-        try {
-            hoaDon1 = new HoaDon("hoaDon2", "P202", sdf.parse("13-02-2022"), "Da xong", 3000000, 12, 23, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        HoaDon hoaDon2 = null;
-        try {
-            hoaDon2 = new HoaDon("hoaDon3", "P203", sdf.parse("14-02-2022"), "Da xong", 4000000, 12, 23, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        HoaDon hoaDon3 = null;
-        try {
-            hoaDon3 = new HoaDon("hoaDon4", "P204", sdf.parse("15-02-2022"), "Da xong", 5000000, 12, 23, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//
+//        HoaDon hoaDon = null;
+//        try {
+//            hoaDon = new HoaDon("hoaDon1", "P201", sdf.parse("12-02-2022"), "Da xong", 2000000, 12, 23, 1);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        HoaDon hoaDon1 = null;
+//        try {
+//            hoaDon1 = new HoaDon("hoaDon2", "P202", sdf.parse("13-02-2022"), "Da xong", 3000000, 12, 23, 1);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        HoaDon hoaDon2 = null;
+//        try {
+//            hoaDon2 = new HoaDon("hoaDon3", "P203", sdf.parse("14-02-2022"), "Da xong", 4000000, 12, 23, 1);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        HoaDon hoaDon3 = null;
+//        try {
+//            hoaDon3 = new HoaDon("hoaDon4", "P204", sdf.parse("15-02-2022"), "Da xong", 5000000, 12, 23, 1);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
 
         db = FirebaseFirestore.getInstance();
-        db.collection(HoaDon.TB_NAME).document("hoaDon1").set(hoaDon, SetOptions.merge());
-        db.collection(HoaDon.TB_NAME).document("hoaDon2").set(hoaDon1,SetOptions.merge());
-        db.collection(HoaDon.TB_NAME).document("hoaDon3").set(hoaDon2,SetOptions.merge());
-        db.collection(HoaDon.TB_NAME).document("hoaDon4").set(hoaDon3,SetOptions.merge());
+//        db.collection(HoaDon.TB_NAME).document("hoaDon1").set(hoaDon, SetOptions.merge());
+//        db.collection(HoaDon.TB_NAME).document("hoaDon2").set(hoaDon1,SetOptions.merge());
+//        db.collection(HoaDon.TB_NAME).document("hoaDon3").set(hoaDon2,SetOptions.merge());
+//        db.collection(HoaDon.TB_NAME).document("hoaDon4").set(hoaDon3,SetOptions.merge());
 
 //        collection = (Collection) db.collection(HoaDon.TB_NAME);
 

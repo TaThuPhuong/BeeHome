@@ -93,6 +93,8 @@
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/bg_gradient_violet_top_right.xml" value="0.2385" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/bg_grey_rd_20.xml" value="0.2385" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/bg_tv_hopdong.xml" value="0.2" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/corners_botnav.xml" value="0.1315" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/ic_accout.xml" value="0.1695" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/ic_baseline_supervised_user_circle_24.xml" value="0.2385" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/ic_bill.xml" value="0.2385" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/ic_hopdong.xml" value="0.126" />
@@ -101,7 +103,9 @@
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/ic_room.xml" value="0.1385" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/ic_service.xml" value="0.135" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/ic_service_tim.xml" value="0.2385" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/ic_suco.xml" value="0.1695" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/ic_user.xml" value="0.2385" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/item_selected_botnav.xml" value="0.2385" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable/side_nav_bar.xml" value="0.1895" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/acitivity_dich_vu.xml" value="0.1" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_fragment_one.xml" value="0.12092391304347826" />
@@ -120,13 +124,16 @@
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_edit_hopdong.xml" value="0.1693840579710145" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/dialog_info_suco.xml" value="0.14671052631578949" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.264" />
-        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_home_nguoi_thue.xml" value="0.1" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/fragment_phong.xml" value="0.2" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/item_dich_vu.xml" value="0.16" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/item_dich_vu2.xml" value="0.1" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/item_phong_spinner.xml" value="0.13858695652173914" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/item_phong_swipe.xml" value="0.264" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/nav_header_main.xml" value="0.14671052631578949" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_hopdong.xml" value="0.264" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_nguoithue.xml" value="0.264" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_suco.xml" value="0.264" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/slide_item_img.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/menu/activity_main_drawer.xml" value="0.14671052631578949" />
