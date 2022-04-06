@@ -127,9 +127,7 @@ public class Login_Activity extends AppCompatActivity {
                         edNguoidung.setError("Sai email");
                         return;
                     }
-                    if (email.equals("hienpvph18604@fpt.edu.vn") || email.equals("phuongta15099@gmail.com")
-                            || email.equals("tienbxph18636@fpt.edu.vn") || email.equals("cuongvvph18550@fpt.edu.vn") ||
-                            email.equals("tuvmph18579@fpt.edu.vn")) {
+                    if (admin != null) {
                         progressBarLoading.showLoading();
                         fba.signInWithEmailAndPassword(email, pass)
                                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
