@@ -37,8 +37,10 @@
         android:layout_margin="10dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#CC91F6"
-        android:tint="@color/white"
+        android:backgroundTint="@color/tim_400"
+        android:src="@drawable/ic_add"
+        app:borderWidth="0dp"
+        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />
