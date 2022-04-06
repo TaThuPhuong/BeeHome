@@ -10,7 +10,7 @@
         android:id="@+id/tv_mess"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="message"
+        android:text="Message"
         android:textSize="26sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -28,6 +28,7 @@
         app:layout_constraintBottom_toTopOf="@id/rcv_mess"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:id="@+id/rcv_mess"
         android:layout_width="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

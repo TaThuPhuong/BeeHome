@@ -109,14 +109,6 @@ public class thongKeFragment extends Fragment {
                     }
                 }, y, m, d);
                 datePickerDialog.show();
-//                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-//                        tvTuNgay.setText( i2 + " - "  + (i1+1) + " - " + i);
-//                        query();
-//                    }
-//                }, year, month, date);
-//                dialog.show();
             }
         });
 
@@ -135,14 +127,6 @@ public class thongKeFragment extends Fragment {
                     }
                 }, y, m, d);
                 datePickerDialog.show();
-//                DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-//                        tvDenNgay.setText( i2 + " - "  + (i1+1) + " - " + i);
-//                        query();
-//                    }
-//                }, year, month, date);
-//                dialog.show();
             }
         });
 
@@ -151,11 +135,13 @@ public class thongKeFragment extends Fragment {
             public void onClick(View view) {
                 String bd = layoutTuNgay.getText().toString();
                 String kt = layoutDenNgay.getText().toString();
-
+                totalMonth = 0;
                 for (int i = 0; i < arrHD.size(); i++) {
                     try {
                         if (arrHD.get(i).getNgayGD().compareTo(sdf.parse(bd)) >= 0 && arrHD.get(i).getNgayGD().compareTo(sdf.parse(kt)) <= 0) {
                             totalMonth += arrHD.get(i).getTongHD();
+                            Log.e("TAG", "onClick: " + arrHD.get(i).getNgayGD());
+                            Log.e("TAG", "onClick: " + arrHD.get(i).getTongHD() );
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -185,44 +171,4 @@ public class thongKeFragment extends Fragment {
         });
         return arr;
     }
-
-//    public void query(){
-//        Date strTuNgay = null;
-//        try {
-//            strTuNgay = sdf.parse(tvTuNgay.getText().toString().trim());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Date strDenNgay = null;
-//        try {
-//            strDenNgay = sdf.parse(tvDenNgay.getText().toString().trim());
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Date finalStrDenNgay = strDenNgay;
-//        Date finalStrTuNgay = strTuNgay;
-//        db.collection(HoaDon.TB_NAME).orderBy("ngayGD")
-////                .whereGreaterThanOrEqualTo("ngayGD", finalStrTuNgay)
-////                        .whereLessThanOrEqualTo("ngayGD", finalStrDenNgay)
-//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                        totalMonth = 0;
-//                        for (DocumentSnapshot snapshot : value) {
-//                            HoaDon hoaDon = snapshot.toObject(HoaDon.class);
-//                            Log.e("TAG", "onEvent: ngayFor: " + hoaDon.getNgayGD());
-//                            Log.e("TAG", "onEvent: tienFor: " + hoaDon.getTongHD());
-//                            Log.e("TAG", "onEvent: " + finalStrDenNgay + "/" + finalStrTuNgay);
-//                            if (hoaDon.getTrangThaiHD() == 1 ) {
-//                                totalMonth += hoaDon.getTongHD();
-//                                Log.e("TAG", "onEvent: ngayIf: " + hoaDon.getNgayGD());
-//                                Log.e("TAG", "onEvent: tienIf: " + hoaDon.getTongHD());
-//                            }
-//                        }
-//                        tvTotalMonth.setText(String.valueOf(totalMonth) + " đ");
-//                    }
-//                });
-//    }
 }

@@ -1,8 +1,7 @@
 package net.fpl.beehome;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -13,14 +12,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.Timestamp;
 import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firestore.v1.Value;
 
 import net.fpl.beehome.Adapter.Message.MessageAdapter;
+import net.fpl.beehome.model.Mess;
 
 import java.util.ArrayList;
 
@@ -30,9 +33,9 @@ public class MessageActivity extends AppCompatActivity {
     TextView tv_mess;
     EditText ed_mess;
     ImageView img_mess;
-    ArrayList<String> list;
+    ArrayList<Mess> list;
     MessageAdapter messageAdapter;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,7 @@ public class MessageActivity extends AppCompatActivity {
         tv_mess = findViewById(R.id.tv_mess);
         ed_mess = findViewById(R.id.ed_mess);
         img_mess = findViewById(R.id.img_send);
-        list = new ArrayList<>();
+        list = new ArrayList<Mess>();
         messageAdapter = new MessageAdapter(this, list);
         rcvMess.setAdapter(messageAdapter);
 
@@ -54,7 +57,9 @@ public class MessageActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(strMess)){
                     return;
                 } else {
-                    addMess(strMess);
+                    db.collection("Mesaage").document().set(new Mess(strMess));
+                    rcvMess.scrollToPosition(list.size()-1);
+                    ed_mess.setText("");
                     Log.e("TAG", "onClick: " + list.size() );
                 }
             }
@@ -62,26 +67,17 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-    public void addMess(String strMess){
-        DatabaseReference reference = database.getReference("mess");
-        reference.setValue(strMess);
-    }
-
     public void getMess(){
-        DatabaseReference reference = database.getReference("mess");
-        reference.addValueEventListener(new ValueEventListener() {
+        db.collection("Mesaage").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String strMess = dataSnapshot.getValue(String.class);
-                    list.add(strMess);
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                list.clear();
+                for (QueryDocumentSnapshot snapshot : value){
+                    Mess strmess = snapshot.toObject(Mess.class);
+                    list.add(strmess);
+                    messageAdapter.notifyDataSetChanged();
                 }
-                messageAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+                rcvMess.setAdapter(messageAdapter);
             }
         });
     }
@@ -90,6 +86,5 @@ public class MessageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getMess();
-        rcvMess.setAdapter(messageAdapter);
     }
 }

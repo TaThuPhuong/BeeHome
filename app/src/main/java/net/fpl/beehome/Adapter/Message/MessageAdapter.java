@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.fpl.beehome.R;
+import net.fpl.beehome.model.Mess;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,9 @@ import java.util.List;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
     private final Context context;
-    ArrayList<String> list;
+    ArrayList<Mess> list;
 
-    public MessageAdapter(Context context, ArrayList<String> list) {
+    public MessageAdapter(Context context, ArrayList<Mess> list) {
         this.context = context;
         this.list = list;
     }
@@ -32,7 +33,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
+        Mess mess = list.get(position);
 
+        holder.tvMess.setText(mess.getMess());
     }
 
     @Override
@@ -42,7 +45,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     class MessageViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvMess;
+        public TextView tvMess;
 
         public MessageViewHolder(@NonNull View itemView) {
             super(itemView);
