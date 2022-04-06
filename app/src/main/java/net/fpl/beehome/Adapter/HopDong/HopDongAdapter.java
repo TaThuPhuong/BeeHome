@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
@@ -24,9 +25,14 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.R;
+import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
@@ -109,10 +115,22 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 Button btn_delete = dialog.findViewById(R.id.btn_delete);
                 Button btn_cancel = dialog.findViewById(R.id.btn_cancel);
+                ArrayList<HoaDon> arrhd = getListHD(objHopDong.getId_phong());
 
                 btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        for(HoaDon objHoaDon : arrhd){
+                            if(objHoaDon.getTrangThaiHD() != 1){
+                                Toast.makeText(view.getContext(), "Vui lòng thanh toán hóa đơn trước khi xóa", Toast.LENGTH_SHORT).show();
+                                mItemManger.closeAllItems();
+                                dialog.dismiss();
+                                return;
+                            }
+                        }
+
+
+
                         fb.collection(Phong.TB_NAME).document(objHopDong.getId_phong()).update(Phong.COL_TRANG_THAI, "Trống");
                         fb.collection(NguoiThue.TB_NGUOITHUE).document(objHopDong.getId_thanh_vien()).update(NguoiThue.COL_ID_PHONG, "Trống");
                         fb.collection(HopDong.TB_NAME).document(objHopDong.getId_hop_dong())
@@ -120,10 +138,9 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        mItemManger.closeAllItems();
                                         Toast.makeText(context, "Xóa Thành công", Toast.LENGTH_SHORT).show();
                                         notifyDataSetChanged();
-                                        mItemManger.closeAllItems();
-
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -450,4 +467,22 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
         }
     }
 
+
+    public ArrayList<HoaDon> getListHD(String str){
+        ArrayList<HoaDon> arr = new ArrayList<>();
+        fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for(QueryDocumentSnapshot document : value){
+                    HoaDon objHoaDon = document.toObject(HoaDon.class);
+                    if(objHoaDon.getIDPhong().equalsIgnoreCase(str)){
+                        arr.add(objHoaDon);
+                        notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+        return arr;
+    }
 }
