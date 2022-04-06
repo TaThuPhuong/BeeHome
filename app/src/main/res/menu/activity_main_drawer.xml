@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_key"
             android:title="@string/mnu_rePass" />
         <item
+            android:id="@+id/nav_update_email"
+            android:icon="@drawable/mail"
+            android:title="Cập nhập email" />
+        <item
             android:id="@+id/nav_gT"
             android:icon="@drawable/ic_user"
             android:title="@string/menu_gT" />

@@ -2,10 +2,12 @@ package net.fpl.beehome;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,7 +43,9 @@ public class MessageActivity extends AppCompatActivity {
         tv_mess = findViewById(R.id.tv_mess);
         ed_mess = findViewById(R.id.ed_mess);
         img_mess = findViewById(R.id.img_send);
+        list = new ArrayList<>();
         messageAdapter = new MessageAdapter(this, list);
+        rcvMess.setAdapter(messageAdapter);
 
         img_mess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +55,7 @@ public class MessageActivity extends AppCompatActivity {
                     return;
                 } else {
                     addMess(strMess);
+                    Log.e("TAG", "onClick: " + list.size() );
                 }
             }
         });
@@ -67,7 +72,11 @@ public class MessageActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    String strMess = dataSnapshot.getValue(String.class);
+                    list.add(strMess);
+                }
+                messageAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -81,5 +90,6 @@ public class MessageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getMess();
+        rcvMess.setAdapter(messageAdapter);
     }
 }

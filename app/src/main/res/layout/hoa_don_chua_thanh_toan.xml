@@ -1,71 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="5dp"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background2"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        android:padding="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="330dp"
-            android:layout_height="50dp"
-            app:hintEnabled="false">
-
-            <EditText
-                android:id="@+id/ed_tim_hoa_don"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/background_edttext2"
-                android:hint="Nhập phòng cần tìm kiếm hóa đơn"
-                android:padding="14dp"
-                android:textColorHint="@color/grey_dam" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <ImageButton
-            android:id="@+id/btn_tim_hoa_don"
-            android:layout_width="60dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="7dp"
-            android:background="@drawable/bg_ui"
-            android:src="@drawable/ic_baseline_search_24" />
-
-    </LinearLayout>
-
-<!--    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-<!--        android:id="@+id/sw_rv"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-
-<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">-->
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/recyclerView_hd"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_marginTop="98dp"-->
-<!--            android:orientation="vertical"-->
-<!--            android:padding="5dp"-->
-<!--            android:layout_marginBottom="55dp"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--            />-->
-
-
-<!--    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/sw_rv"
@@ -73,13 +15,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_hd"
@@ -100,8 +37,10 @@
         android:layout_margin="10dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="#CC91F6"
-        android:tint="@color/white"
+        android:backgroundTint="@color/tim_400"
+        android:src="@drawable/ic_add"
+        app:borderWidth="0dp"
+        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />

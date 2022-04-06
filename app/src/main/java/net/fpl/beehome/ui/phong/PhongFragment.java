@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -119,38 +120,19 @@ public class PhongFragment extends Fragment {
         return lsPhong;
     }
 
-    public void thongBao(String mess) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        View view = View.inflate(getContext(), R.layout.dialog_thong_bao, null);
-        builder.setView(view);
-        TextView tvMess = view.findViewById(R.id.tv_thong_bao);
-        TextView btnOK = view.findViewById(R.id.btn_ok);
-        tvMess.setText(mess);
-        Dialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        dialog.show();
-        btnOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
-    }
-
     public void themPhong(Phong phong) {
         fb.collection(Phong.TB_NAME).document(phong.getIDPhong())
                 .set(phong)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        thongBao("Thêm thành công");
+                        Toast.makeText(getContext(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        thongBao("Thêm thất bại");
+                        Toast.makeText(getContext(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

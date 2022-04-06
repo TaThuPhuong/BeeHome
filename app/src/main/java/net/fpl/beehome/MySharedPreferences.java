@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class MySharedPreferences {
+
     // Ghi nhớ tài khoản, mật khẩu đăng nhập trước đó
     private static final String MSP = "MSP_EMAIL_PASSWORD";
     public static final String USER_KEY = "user";
     public static final String PASSWORD_KEY = "password";
     public static final String STATUS_KEY = "status";
+    public static String NgDung = "ngThue";
     private Context context;
 
 
@@ -41,6 +43,15 @@ public class MySharedPreferences {
         SharedPreferences preferences = context.getSharedPreferences(MSP, Context.MODE_PRIVATE);
         return preferences.getString(key, "");
     }
+
+    public String getDN(String key,String nThue) {
+        SharedPreferences preferences = context.getSharedPreferences(MSP, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(key, nThue);
+        editor.commit();
+        return preferences.getString(key, nThue);
+    }
+
     public String getPassword(String key) {
         SharedPreferences preferences = context.getSharedPreferences(MSP, Context.MODE_PRIVATE);
         return preferences.getString(key, "");
