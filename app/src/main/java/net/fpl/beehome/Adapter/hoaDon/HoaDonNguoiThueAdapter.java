@@ -38,6 +38,7 @@ import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
 import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
+import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 
 import java.text.SimpleDateFormat;
@@ -52,13 +53,10 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
     ArrayList<Phong> arrPhong;
     ArrayList<HopDong> arrhopdong;
     ArrayList<DichVu> arrDichVu;
+    ArrayList<NguoiThue> arrNguoiThue;
     SimpleDateFormat dfm = new SimpleDateFormat("dd/MM/yyyy");
-    String tenP;
-    String thang,han,ngayGD;
-    int tienSoDien, tienSoNuoc,tienNuoc,tienDien,tongTienPhong,TongtienDV,tongHD,dienMoi,nuocMoi, tienDVPhong = 0,month_han,year_han,month_thang,year_thang;
 
-
-    public HoaDonNguoiThueAdapter(ArrayList<HoaDon> arr, Context context, FirebaseFirestore fb, ArrayList<String> arrTenPhong, ArrayList<Phong> arrPhong, ArrayList<HopDong> arrhopdong, ArrayList<DichVu> arrDichVu) {
+    public HoaDonNguoiThueAdapter(ArrayList<HoaDon> arr, Context context, FirebaseFirestore fb, ArrayList<String> arrTenPhong, ArrayList<Phong> arrPhong, ArrayList<HopDong> arrhopdong, ArrayList<DichVu> arrDichVu, ArrayList<NguoiThue> arrNguoiThue) {
         this.arr = arr;
         this.context = context;
         this.fb = fb;
@@ -66,6 +64,7 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
         this.arrPhong = arrPhong;
         this.arrhopdong = arrhopdong;
         this.arrDichVu = arrDichVu;
+        this.arrNguoiThue = arrNguoiThue;
     }
 
     @Override
@@ -155,6 +154,7 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
                     ngayGD.setText(dfm.format(objHoaDon.getNgayGD()));
                 }else {
                     trangThai.setText("Quá Hạn Thanh Toán");
+                    ngayGD.setText("UnPaid");
                 }
 
                 ghiChu.setText(objHoaDon.getGhiChu());

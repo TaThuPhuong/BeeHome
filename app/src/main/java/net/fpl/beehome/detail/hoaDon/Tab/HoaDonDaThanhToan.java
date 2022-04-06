@@ -32,7 +32,6 @@ import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
-import net.fpl.beehome.model.SuCo;
 
 import java.util.ArrayList;
 
@@ -68,10 +67,7 @@ public class HoaDonDaThanhToan extends Fragment {
         arrPhong = getAllPhong();
         arrTenPhong = getTenPhong();
         arrNguoiThue = getAllNguoiThue();
-        Log.d("idP", "onCreateView: "+getAllNguoiThue());
-        Log.d("idP", "onCreateView: "+arrNguoiThue .size());
 
-        Log.d("HD", "onCreateView: "+hoTen);
         if(user.equalsIgnoreCase("Admin")){
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -79,59 +75,36 @@ public class HoaDonDaThanhToan extends Fragment {
                     adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
                     adapterhd.notifyDataSetChanged();
 
-                    Log.d("hddttrcv", "onCreateView: "+arr.size());
                     recyclerView.setAdapter(adapterhd);
 
                 }
             },100);
+
+
         }else {
-            for(int z =0; z<arrNguoiThue.size();z++){
-                if(arrNguoiThue.get(z).getEmail().equalsIgnoreCase(hoTen)){
-                    idP = arrNguoiThue.get(z).getId_phong();
-
-                }
-            }
-        Log.d("idP", "onCreateView: "+idP);
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
+                    for(int z =0; z<arrNguoiThue.size();z++){
+                        if(arrNguoiThue.get(z).getEmail().equalsIgnoreCase(hoTen)){
+                            idP = arrNguoiThue.get(z).getId_phong();
+                        }
+                    }
 
                     arr = getHoaDonPhong(idP);
-                    adapternt = new HoaDonNguoiThueAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
+                    adapternt = new HoaDonNguoiThueAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu,arrNguoiThue);
                     adapternt.notifyDataSetChanged();
-
-                    Log.d("TAG", "onCreateView: "+arr.size());
                     recyclerView.setAdapter(adapternt);
 
                 }
             },100);
-        }
+}
 
 
         return v;
     }
 
-    public ArrayList<HoaDon> getHoaDonPhong(String idphong){
-        ArrayList<HoaDon> arr = new ArrayList<>();
 
-        fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                arr.clear();
-                for (QueryDocumentSnapshot document : value) {
-                    HoaDon xHoaDon = document.toObject(HoaDon.class);
-                    if(xHoaDon.getIDPhong().equalsIgnoreCase(idphong)){
-                        arr.add(xHoaDon);
-                        Log.d("HD", document.getId() + " => " + document.getData());
-                    }
-                }
-                adapternt.notifyDataSetChanged();
-            }
-        });
-        return arr;
-    }
 
     public ArrayList<String> getTenPhong(){
         ArrayList<String> arrTenPhong = new ArrayList<>();
@@ -165,6 +138,26 @@ public class HoaDonDaThanhToan extends Fragment {
         return arrPhong;
     }
 
+    public ArrayList<HoaDon> getHoaDonPhong(String idphong){
+        ArrayList<HoaDon> arr = new ArrayList<>();
+
+        fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for (QueryDocumentSnapshot document : value) {
+                    HoaDon xHoaDon = document.toObject(HoaDon.class);
+                    if(xHoaDon.getIDPhong().equalsIgnoreCase(idphong)){
+                        if(xHoaDon.getTrangThaiHD() == 1) {
+                            arr.add(xHoaDon);
+                        }
+                    }
+                }
+                adapternt.notifyDataSetChanged();
+            }
+        });
+        return arr;
+    }
     public ArrayList<NguoiThue> getAllNguoiThue(){
         ArrayList<NguoiThue> arrarrngthue = new ArrayList<>();
         fb.collection(NguoiThue.TB_NGUOITHUE)

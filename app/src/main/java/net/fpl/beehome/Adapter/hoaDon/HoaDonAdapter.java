@@ -223,6 +223,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                     ngayGD.setText(dfm.format(objHoaDon.getNgayGD()));
                 }else {
                     trangThai.setText("Quá Hạn Thanh Toán");
+                    ngayGD.setText("UnPaid");
                 }
 
                 ghiChu.setText(objHoaDon.getGhiChu());
@@ -441,8 +442,8 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                                                 mItemManger.closeAllItems();
                                                 Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
                                                 Map<String, Object> p = new HashMap<>();
-                                                p.put(Phong.COL_SO_DIEN_DAU, dienMoi);
-                                                p.put(Phong.COL_SO_NUOC_DAU, nuocMoi);
+                                                p.put(Phong.COL_SO_DIEN_DAU, objHoaDon.getSoDienCuoi());
+                                                p.put(Phong.COL_SO_NUOC_DAU, objHoaDon.getSoNuocCuoi());
                                                 fb.collection(Phong.TB_NAME).document(tenP).update(p);
                                                 notifyDataSetChanged();
 
