@@ -67,23 +67,21 @@ public class thongKeFragment extends Fragment {
         tvSearch = v.findViewById(R.id.tv_search);
         arrHD = getAllHoaDon();
 
-
-
-//        db.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                for (DocumentSnapshot snapshot : value){
-//                    HoaDon hoaDon = snapshot.toObject(HoaDon.class);
-//                    if (hoaDon.getTrangThaiHD() == 1){
-//                        total += hoaDon.getTongHD();
-//                        Log.e("TAG", "onEvent: trang thai: " + hoaDon.getTrangThaiHD() );
-//                        Log.e("TAG", "onEvent: ngay gd: " + hoaDon.getNgayGD());
-//                        Log.e("TAG", "onEvent: tien: " + hoaDon.getTongHD() );
-//                    }
-//                }
-//                tvTotal.setText(String.valueOf(total) + " đ");
-//            }
-//        });
+        db.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                for (DocumentSnapshot snapshot : value){
+                    HoaDon hoaDon = snapshot.toObject(HoaDon.class);
+                    if (hoaDon.getTrangThaiHD() == 1){
+                        total += hoaDon.getTongHD();
+                        Log.e("TAG", "onEvent: trang thai: " + hoaDon.getTrangThaiHD() );
+                        Log.e("TAG", "onEvent: ngay gd: " + hoaDon.getNgayGD());
+                        Log.e("TAG", "onEvent: tien: " + hoaDon.getTongHD() );
+                    }
+                }
+                tvTotal.setText(String.valueOf(total) + " đ");
+            }
+        });
 
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -157,13 +155,13 @@ public class thongKeFragment extends Fragment {
                 for (int i = 0; i < arrHD.size(); i++) {
                     try {
                         if (arrHD.get(i).getNgayGD().compareTo(sdf.parse(bd)) >= 0 && arrHD.get(i).getNgayGD().compareTo(sdf.parse(kt)) <= 0) {
-                            total += arrHD.get(i).getTongHD();
+                            totalMonth += arrHD.get(i).getTongHD();
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 }
-                tvTotal.setText(total+"");
+                tvTotalMonth.setText(totalMonth+"đ");
             }
         });
 
@@ -187,6 +185,7 @@ public class thongKeFragment extends Fragment {
         });
         return arr;
     }
+
 //    public void query(){
 //        Date strTuNgay = null;
 //        try {
