@@ -67,7 +67,16 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MessageV
         holder.imgCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makePhoneCall(phone);
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions((Activity) context,
+                            new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                } else {
+                    String dial = "tel: " + phone;
+                    Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:"+list.get(holder.getAdapterPosition()).getNumberPhone()));
+                    context.startActivity(intent);
+                }
             }
         });
         holder.layoutItem.setOnClickListener(new View.OnClickListener() {
@@ -119,18 +128,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.MessageV
             layoutExpand = itemView.findViewById(R.id.layout_expand);
             imgCall = itemView.findViewById(R.id.img_call);
             imgMessage = itemView.findViewById(R.id.img_message);
-        }
-    }
-
-    public void makePhoneCall(String...phone){
-        if (ContextCompat.checkSelfPermission(context,
-                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions((Activity) context,
-                    new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-        } else {
-            String dial = "tel: " + phone;
-            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(dial));
-            context.startActivity(intent);
         }
     }
 

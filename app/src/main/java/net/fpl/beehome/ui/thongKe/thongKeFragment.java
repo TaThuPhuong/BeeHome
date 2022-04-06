@@ -61,10 +61,11 @@ public class thongKeFragment extends Fragment {
         tvDenNgay = v.findViewById(R.id.tv_denNgay);
         tvTotal = v.findViewById(R.id.tv_total);
         tvTotalMonth = v.findViewById(R.id.tv_total_month);
+        tvSearch = v.findViewById(R.id.tv_search);
 
         db = FirebaseFirestore.getInstance();
 
-        db.collection("tb_hoaDon").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (DocumentSnapshot snapshot : value){
@@ -98,12 +99,8 @@ public class thongKeFragment extends Fragment {
                 DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        tvTuNgay.setText( i2 + "-"  + (i1+1) + "-" + i);
-                        if (TextUtils.isEmpty(tvDenNgay.getText().toString())){
-                            return;
-                        } else {
-                            query();
-                        }
+                        tvTuNgay.setText( i2 + " - "  + (i1+1) + " - " + i);
+                        query();
                     }
                 }, year, month, date);
                 dialog.show();
@@ -116,12 +113,8 @@ public class thongKeFragment extends Fragment {
                 DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        tvDenNgay.setText( i2 + "-"  + (i1+1) + "-" + i);
-                        if (TextUtils.isEmpty(tvTuNgay.getText().toString())){
-                            return;
-                        } else {
-                            query();
-                        }
+                        tvDenNgay.setText( i2 + " - "  + (i1+1) + " - " + i);
+                        query();
                     }
                 }, year, month, date);
                 dialog.show();
@@ -130,7 +123,6 @@ public class thongKeFragment extends Fragment {
 
         return v;
     }
-
     public void query(){
         Date strTuNgay = null;
         try {
@@ -145,20 +137,29 @@ public class thongKeFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        db.collection(HoaDon.TB_NAME)
-                .whereGreaterThanOrEqualTo("ngayGD",  strTuNgay)
-                .whereLessThanOrEqualTo("ngayGD", strDenNgay)
-                .orderBy("ngayGD")
-                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots){
-                    HoaDon hoaDon = snapshot.toObject(HoaDon.class);
-                    totalMonth += hoaDon.getTongHD();
-                }
-                tvTotalMonth.setText(total + "đ");
-            }
-        });
-    }
 
+        Date finalStrDenNgay = strDenNgay;
+        Date finalStrTuNgay = strTuNgay;
+        db.collection(HoaDon.TB_NAME).orderBy("ngayGD")
+//                .whereGreaterThanOrEqualTo("ngayGD", finalStrTuNgay)
+//                        .whereLessThanOrEqualTo("ngayGD", finalStrDenNgay)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        totalMonth = 0;
+                        for (DocumentSnapshot snapshot : value) {
+                            HoaDon hoaDon = snapshot.toObject(HoaDon.class);
+                            Log.e("TAG", "onEvent: ngayFor: " + hoaDon.getNgayGD());
+                            Log.e("TAG", "onEvent: tienFor: " + hoaDon.getTongHD());
+                            Log.e("TAG", "onEvent: " + finalStrDenNgay + "/" + finalStrTuNgay);
+                            if (hoaDon.getTrangThaiHD() == 1 ) {
+                                totalMonth += hoaDon.getTongHD();
+                                Log.e("TAG", "onEvent: ngayIf: " + hoaDon.getNgayGD());
+                                Log.e("TAG", "onEvent: tienIf: " + hoaDon.getTongHD());
+                            }
+                        }
+                        tvTotalMonth.setText(String.valueOf(totalMonth) + " đ");
+                    }
+                });
+    }
 }
