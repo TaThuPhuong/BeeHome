@@ -437,17 +437,16 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-//                                                arr.set(index, hoaDon);
-                                                notifyDataSetChanged();
-                                                mItemManger.closeAllItems();
-                                                Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+
                                                 Map<String, Object> p = new HashMap<>();
                                                 p.put(Phong.COL_SO_DIEN_DAU, objHoaDon.getSoDienCuoi());
                                                 p.put(Phong.COL_SO_NUOC_DAU, objHoaDon.getSoNuocCuoi());
                                                 fb.collection(Phong.TB_NAME).document(tenP).update(p);
                                                 notifyDataSetChanged();
-
+                                                mItemManger.closeAllItems();
+                                                Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
                                                 dialog.dismiss();
+
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -455,19 +454,9 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                                         Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-
-
-
-
-
                         }
 
-
-
-
                 });
-                notifyDataSetChanged();
-
                 clear.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

@@ -419,6 +419,7 @@
                     app:hintTextColor="@color/purple_200">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:enabled="false"
                         android:id="@+id/giamGia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -54,12 +54,18 @@ public class HoaDonDaThanhToan extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.hoa_don_da_thanh_toan, container, false);
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
         String user = pref.getString(NgDung,"");
         String hoTen = pref.getString(USER_KEY,"");
 
         fb = FirebaseFirestore.getInstance();
-        recyclerView = v.findViewById(R.id.recyclerView_hdctt);
+        recyclerView = view.findViewById(R.id.recyclerView_hdctt);
         arr = getAllHoaDon();
         arrHD = getHoaDon();
         arrHopDong = getAllHopDong();
@@ -74,7 +80,6 @@ public class HoaDonDaThanhToan extends Fragment {
                 public void run() {
                     adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
                     adapterhd.notifyDataSetChanged();
-
                     recyclerView.setAdapter(adapterhd);
 
                 }
@@ -98,13 +103,10 @@ public class HoaDonDaThanhToan extends Fragment {
 
                 }
             },100);
-}
+        }
 
 
-        return v;
     }
-
-
 
     public ArrayList<String> getTenPhong(){
         ArrayList<String> arrTenPhong = new ArrayList<>();

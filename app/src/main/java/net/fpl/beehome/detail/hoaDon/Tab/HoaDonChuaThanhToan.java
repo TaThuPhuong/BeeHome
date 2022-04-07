@@ -51,6 +51,7 @@ import net.fpl.beehome.Adapter.hoaDon.HoaDonNguoiThueAdapter;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
 import net.fpl.beehome.model.HoaDon;
+import net.fpl.beehome.model.HoaDonChiTiet;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
@@ -68,6 +69,7 @@ public class HoaDonChuaThanhToan extends Fragment {
     RecyclerView recyclerView;
     ArrayList<HoaDon> arr;
     ArrayList<HoaDon> arrHD;
+    ArrayList<HoaDonChiTiet> arrHDCT;
     ArrayList<HopDong> arrHopDong;
     ArrayList<Phong> arrPhong ;
     ArrayList<String> arrTenPhong ;
@@ -77,7 +79,7 @@ public class HoaDonChuaThanhToan extends Fragment {
     HoaDonNguoiThueAdapter adapternt;
     SimpleDateFormat dfm = new SimpleDateFormat("dd/MM/yyyy");
 
-    String tenP,quyen;
+    String tenP;
     String  idThang,thang,han,idP,hoTen;
     int tienSoDien, tienSoNuoc,tienNuoc,tienDien,tongTienPhong,TongtienDV,tongHD,dienMoi,nuocMoi, tienDVPhong = 0,month_han,year_han,month_thang,year_thang;
 
@@ -102,7 +104,7 @@ public class HoaDonChuaThanhToan extends Fragment {
         arrPhong = getAllPhong();
         arrTenPhong = getTenPhong();
         arrNguoiThue = getAllNguoiThue();
-
+        arrHDCT = getAllHoaDonCT();
 
         if(user.equalsIgnoreCase("Admin"))
         {
@@ -161,9 +163,6 @@ public class HoaDonChuaThanhToan extends Fragment {
 
                     Button clear = dialog.findViewById(R.id.btnClear);
                     Button add = dialog.findViewById(R.id.btnAddHd);
-
-
-
 
 
                     hd_thang.setError(null);
@@ -608,6 +607,22 @@ public class HoaDonChuaThanhToan extends Fragment {
             }
         });
         return arrHD;
+    }
+
+    public ArrayList<HoaDonChiTiet> getAllHoaDonCT(){
+        ArrayList<HoaDonChiTiet> arrHDCT = new ArrayList<>();
+        fb.collection(HoaDonChiTiet.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arrHDCT.clear();
+                for(QueryDocumentSnapshot document : value){
+                    HoaDonChiTiet objHoaDonCT = document.toObject(HoaDonChiTiet.class);
+                    arrHDCT.add(objHoaDonCT);
+
+                }
+            }
+        });
+        return arrHDCT;
     }
 
 
