@@ -101,7 +101,7 @@ public class thongKeFragment extends Fragment {
                 int d = calendar.get(Calendar.DAY_OF_MONTH);
                 int m = calendar.get(Calendar.MONTH);
                 int y = calendar.get(Calendar.YEAR);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.datePicker, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         String NgayDau = dayOfMonth + "/" + (month + 1) + "/" + year;
@@ -119,7 +119,7 @@ public class thongKeFragment extends Fragment {
                 int d = calendar.get(Calendar.DAY_OF_MONTH);
                 int m = calendar.get(Calendar.MONTH);
                 int y = calendar.get(Calendar.YEAR);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.datePicker, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         String NgayCuoi = dayOfMonth + "/" + (month + 1) + "/" + year;

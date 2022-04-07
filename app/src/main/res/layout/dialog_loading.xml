@@ -5,13 +5,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.jpardogo.android.googleprogressbar.library.GoogleProgressBar
-        android:id="@+id/pb_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginVertical="10dp"
-        app:type="nexus_rotation_cross" />
+<!--    <com.jpardogo.android.googleprogressbar.library.GoogleProgressBar-->
+<!--        android:id="@+id/pb_loading"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginVertical="10dp"-->
+<!--        app:type="chrome_floating_circles"-->
+<!--        />-->
 
 <!--    <TextView-->
 <!--        android:layout_width="wrap_content"-->
@@ -20,4 +21,13 @@
 <!--        android:layout_marginVertical="5dp"-->
 <!--        android:textColor="@color/white"-->
 <!--        android:text="Đang đăng nhập ..." />-->
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imglogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="304dp"
+        android:src="@drawable/logo_unbg_white"
+        android:layout_gravity="center"
+        android:layout_marginVertical="10dp"
+        />
+    </LinearLayout>

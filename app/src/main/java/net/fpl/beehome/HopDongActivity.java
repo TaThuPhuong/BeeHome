@@ -296,6 +296,9 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         }else if(edsn.length()==0){
                             ed_songuoithue.setError("Trường không được bỏ trống");
                             return;
+                        }else if(Integer.parseInt(edsn)<1){
+                            ed_songuoithue.setError("Số người thuê phải lớn hơn 1");
+                            return;
                         }else if(ednbd.length() >= 2){
                             ed_songuoithue.setError("Nhập tối da 1 ký tự");
                         }
