@@ -47,14 +47,14 @@ public class HoaDonQuaHanThanhToan extends Fragment {
     ArrayList<DichVu> arrDichVu;
     HoaDonAdapter adapterhd;
     HoaDonNguoiThueAdapter adapternt;
-    String idP;
+    String idP,user;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.hoa_don_qua_han_thanh_toan, container, false);
         fb = FirebaseFirestore.getInstance();
         SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
-        String user = pref.getString(NgDung,"");
+        user = pref.getString(NgDung,"");
         String hoTen = pref.getString(USER_KEY,"");
         fb = FirebaseFirestore.getInstance();
         recyclerView = v.findViewById(R.id.recyclerView_hdqhtt);
@@ -64,31 +64,26 @@ public class HoaDonQuaHanThanhToan extends Fragment {
         llm.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(llm);
 //        recyclerView.setAdapter(adapterhd);
-//        arr = getAllHoaDon();
-//        arrHD = getHoaDon();
-//        arrHopDong = getAllHopDong();
-//        arrDichVu = getAllDichVu();
-//        arrPhong = getAllPhong();
-//        arrTenPhong = getTenPhong();
-//        arrNguoiThue = getAllNguoiThue();
+        arr = getAllHoaDon();
+        arrHD = getHoaDon();
+        arrHopDong = getAllHopDong();
+        arrDichVu = getAllDichVu();
+        arrPhong = getAllPhong();
+        arrTenPhong = getTenPhong();
+        arrNguoiThue = getAllNguoiThue();
         if(user.equalsIgnoreCase("Admin")){
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    adapterhd = new HoaDonAdapter(getAllHoaDon(),getContext(),fb,getTenPhong(),getAllPhong(),getAllHopDong(),getAllDichVu());
+
+                    adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
+
                     adapterhd.notifyDataSetChanged();
 
                     recyclerView.setAdapter(adapterhd);
 
-                }
-            },100);
         }else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
                     for(int z =0; z<arrNguoiThue.size();z++){
                         if(arrNguoiThue.get(z).getEmail().equalsIgnoreCase(hoTen)){
                             idP = arrNguoiThue.get(z).getId_phong();
+                            Log.d("idP", "onCreateView: "+idP);
                         }
                     }
 
@@ -99,8 +94,6 @@ public class HoaDonQuaHanThanhToan extends Fragment {
                     Log.d("TAG", "onCreateView: "+arr.size());
                     recyclerView.setAdapter(adapternt);
 
-                }
-            },100);
         }
 
         return v;
@@ -122,7 +115,6 @@ public class HoaDonQuaHanThanhToan extends Fragment {
                         Log.d("HD", document.getId() + " => " + document.getData());
                     }
                 }
-                adapternt.notifyDataSetChanged();
             }
         });
         return arr;
@@ -216,7 +208,13 @@ public class HoaDonQuaHanThanhToan extends Fragment {
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
                     if(objHoaDon.getTrangThaiHD() == 2) {
                         arr.add(objHoaDon);
-                        adapterhd.notifyDataSetChanged();
+                        if(user.equalsIgnoreCase("Admin"))
+                        {
+                            adapterhd.notifyDataSetChanged();
+                        }
+                        else {
+                            adapternt.notifyDataSetChanged();
+                        }
                     }
 
                 }
@@ -234,9 +232,15 @@ public class HoaDonQuaHanThanhToan extends Fragment {
                 for(QueryDocumentSnapshot document : value){
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
                     arrHD.add(objHoaDon);
-                    adapterhd.notifyDataSetChanged();
+                    if(user.equalsIgnoreCase("Admin"))
+                    {
+                        adapterhd.notifyDataSetChanged();
+                    }
+                    else {
+                        adapternt.notifyDataSetChanged();
+                    }
                 }
-                adapterhd.notifyDataSetChanged();
+
             }
         });
         return arrHD;

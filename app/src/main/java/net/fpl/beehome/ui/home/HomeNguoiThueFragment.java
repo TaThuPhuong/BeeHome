@@ -120,6 +120,7 @@ public class HomeNguoiThueFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), HoaDonMain.class);
                 intent.putExtra("quyen", "user");
+                intent.putExtra("nt", mainActivity.getNguoiThue());
                 startActivity(intent);
             }
         });

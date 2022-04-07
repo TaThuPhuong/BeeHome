@@ -48,7 +48,7 @@ public class HoaDonDaThanhToan extends Fragment {
     ArrayList<DichVu> arrDichVu;
     HoaDonAdapter adapterhd;
     HoaDonNguoiThueAdapter adapternt;
-    String idP;
+    String idP,user;
 
 
     @Nullable
@@ -62,41 +62,39 @@ public class HoaDonDaThanhToan extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
+        user = pref.getString(NgDung,"");
+        String hoTen = pref.getString(USER_KEY,"");
 
         recyclerView = view.findViewById(R.id.recyclerView_hdctt);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
-//        arr = getAllHoaDon();
-//        arrHD = getHoaDon();
-//        arrHopDong = getAllHopDong();
-//        arrDichVu = getAllDichVu();
-//        arrPhong = getAllPhong();
-//        arrTenPhong = getTenPhong();
-//        arrNguoiThue = getAllNguoiThue();
-//        HoaDonDaThanhToan hddtt= new HoaDonDaThanhToan();
+        arr = getAllHoaDon();
+        arrHD = getHoaDon();
+        arrHopDong = getAllHopDong();
+        arrDichVu = getAllDichVu();
+        arrPhong = getAllPhong();
+        arrTenPhong = getTenPhong();
+        arrNguoiThue = getAllNguoiThue();
 
-        SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
-        String user = pref.getString(NgDung,"");
-        String hoTen = pref.getString(USER_KEY,"");
+
 
         if(user.equalsIgnoreCase("Admin")){
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    adapterhd = new HoaDonAdapter(getAllHoaDon(),getContext(),FirebaseFirestore.getInstance(),getTenPhong(),getAllPhong(),getAllHopDong(),getAllDichVu());
+//            new Handler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+                    adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
                     adapterhd.notifyDataSetChanged();
                     recyclerView.setAdapter(adapterhd);
 
-                }
-            },100);
+//                }
+//            },100);
 
 
         }else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+
                     for(int z =0; z<arrNguoiThue.size();z++){
                         if(arrNguoiThue.get(z).getEmail().equalsIgnoreCase(hoTen)){
                             idP = arrNguoiThue.get(z).getId_phong();
@@ -108,8 +106,6 @@ public class HoaDonDaThanhToan extends Fragment {
                     adapternt.notifyDataSetChanged();
                     recyclerView.setAdapter(adapternt);
 
-                }
-            },100);
         }
 
 
@@ -242,9 +238,15 @@ public class HoaDonDaThanhToan extends Fragment {
                 for(QueryDocumentSnapshot document : value){
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
                     arrHD.add(objHoaDon);
-                    adapterhd.notifyDataSetChanged();
+                    if(user.equalsIgnoreCase("Admin"))
+                    {
+                        adapterhd.notifyDataSetChanged();
+                    }
+                    else {
+                        adapternt.notifyDataSetChanged();
+                    }
                 }
-                adapterhd.notifyDataSetChanged();
+
             }
         });
         return arrHD;
