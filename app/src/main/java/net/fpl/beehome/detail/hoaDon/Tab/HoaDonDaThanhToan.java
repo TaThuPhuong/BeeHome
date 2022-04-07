@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.EventListener;
@@ -54,27 +55,38 @@ public class HoaDonDaThanhToan extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.hoa_don_da_thanh_toan, container, false);
+        fb = FirebaseFirestore.getInstance();
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        recyclerView = view.findViewById(R.id.recyclerView_hdctt);
+
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(llm);
+//        arr = getAllHoaDon();
+//        arrHD = getHoaDon();
+//        arrHopDong = getAllHopDong();
+//        arrDichVu = getAllDichVu();
+//        arrPhong = getAllPhong();
+//        arrTenPhong = getTenPhong();
+//        arrNguoiThue = getAllNguoiThue();
+//        HoaDonDaThanhToan hddtt= new HoaDonDaThanhToan();
+
         SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
         String user = pref.getString(NgDung,"");
         String hoTen = pref.getString(USER_KEY,"");
-
-        fb = FirebaseFirestore.getInstance();
-        recyclerView = v.findViewById(R.id.recyclerView_hdctt);
-        arr = getAllHoaDon();
-        arrHD = getHoaDon();
-        arrHopDong = getAllHopDong();
-        arrDichVu = getAllDichVu();
-        arrPhong = getAllPhong();
-        arrTenPhong = getTenPhong();
-        arrNguoiThue = getAllNguoiThue();
 
         if(user.equalsIgnoreCase("Admin")){
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
+                    adapterhd = new HoaDonAdapter(getAllHoaDon(),getContext(),FirebaseFirestore.getInstance(),getTenPhong(),getAllPhong(),getAllHopDong(),getAllDichVu());
                     adapterhd.notifyDataSetChanged();
-
                     recyclerView.setAdapter(adapterhd);
 
                 }
@@ -98,13 +110,10 @@ public class HoaDonDaThanhToan extends Fragment {
 
                 }
             },100);
-}
+        }
 
 
-        return v;
     }
-
-
 
     public ArrayList<String> getTenPhong(){
         ArrayList<String> arrTenPhong = new ArrayList<>();
@@ -215,6 +224,7 @@ public class HoaDonDaThanhToan extends Fragment {
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
                     if(objHoaDon.getTrangThaiHD() == 1) {
                         arr.add(objHoaDon);
+                        adapterhd.notifyDataSetChanged();
                     }
 
                 }
@@ -232,8 +242,9 @@ public class HoaDonDaThanhToan extends Fragment {
                 for(QueryDocumentSnapshot document : value){
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
                     arrHD.add(objHoaDon);
-
+                    adapterhd.notifyDataSetChanged();
                 }
+                adapterhd.notifyDataSetChanged();
             }
         });
         return arrHD;

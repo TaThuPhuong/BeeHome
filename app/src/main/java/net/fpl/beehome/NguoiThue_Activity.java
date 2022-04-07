@@ -167,7 +167,8 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
         getMenuInflater().inflate(R.menu.menu_search,menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));         searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -278,7 +279,6 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
     }
     @Override
     public void onRefresh() {
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
