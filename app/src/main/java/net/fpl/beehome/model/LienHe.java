@@ -1,9 +1,26 @@
 package net.fpl.beehome.model;
 
-public class LienHe {
+import java.io.Serializable;
+
+public class LienHe implements Serializable {
 
     private String name;
     private String numberPhone;
+    private boolean check;
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
+    public LienHe(String name, String numberPhone, boolean check) {
+        this.name = name;
+        this.numberPhone = numberPhone;
+        this.check = check;
+    }
 
     public String getName() {
         return name;
@@ -24,8 +41,12 @@ public class LienHe {
     public LienHe() {
     }
 
-    public LienHe(String name, String numberPhone) {
-        this.name = name;
-        this.numberPhone = numberPhone;
+    @Override
+    public String toString() {
+        return "LienHe{" +
+                "name='" + name + '\'' +
+                ", numberPhone='" + numberPhone + '\'' +
+                ", check=" + check +
+                '}';
     }
 }

@@ -3,6 +3,7 @@ package net.fpl.beehome.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,8 +140,11 @@ public class HomeNguoiThueFragment extends Fragment {
     }
 
     public void showDialogMessage(){
-
-        startActivity(new Intent(HomeNguoiThueFragment.this.getContext(), ContactActivity.class));
+        Intent intent = new Intent(HomeNguoiThueFragment.this.getContext(), ContactActivity.class);
+        intent.putExtra("user", mainActivity.getNguoiThue());
+        intent.putExtra("quyen", "nt");
+        Log.e("TAG", "onClick: " + mainActivity.getNguoiThue() );
+        startActivity(intent);
 
     }
 

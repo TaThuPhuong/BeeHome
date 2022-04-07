@@ -4,6 +4,7 @@ package net.fpl.beehome.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,7 @@ public class HomeFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialogMessage();
+                showMessage();
             }
         });
 
@@ -168,9 +169,13 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public void showDialogMessage(){
+    public void showMessage(){
 
-        startActivity(new Intent(HomeFragment.this.getContext(), ContactActivity.class));
+        Intent intent = new Intent(HomeFragment.this.getContext(), ContactActivity.class);
+        intent.putExtra("admin", mainActivity.getAdmin());
+        intent.putExtra("quyen", "admin");
+        Log.e("TAG", "showDialogMessage: name send: " + mainActivity.getAdmin().getHoTen());
+        startActivity(intent);
 
     }
 

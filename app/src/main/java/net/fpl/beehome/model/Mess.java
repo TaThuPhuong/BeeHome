@@ -1,6 +1,8 @@
 package net.fpl.beehome.model;
 
 public class Mess {
+    private String mess, sdt;
+
     public String getMess() {
         return mess;
     }
@@ -9,12 +11,19 @@ public class Mess {
         this.mess = mess;
     }
 
-    private String mess;
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
 
     public Mess() {
     }
 
-    public Mess(String mess) {
+    public Mess(String mess, String sdt) {
         this.mess = mess;
+        this.sdt = sdt;
     }
 }
