@@ -3,10 +3,11 @@ package net.fpl.beehome.model;
 import java.io.Serializable;
 
 public class Admin implements Serializable {
-    private String hoTen,email;
+    private String hoTen,email,sdt;
     public final static String TB_NAME = "tb_admin";
     public final static String COL_HO_TEN = "hoTen";
     public final static String COL_EMAIL = "email";
+    public final static String COL_SDT = "sdt";
 
     public Admin() {
     }
@@ -14,6 +15,19 @@ public class Admin implements Serializable {
     public Admin(String hoTen, String email) {
         this.hoTen = hoTen;
         this.email = email;
+    }
+
+    public Admin(String hoTen, String email, String sdt) {
+        this.hoTen = hoTen;
+        this.email = email;
+        this.sdt = sdt;
+    }
+
+    public String getSdt(){
+        return sdt;
+    }
+    public void setSdt(String sdt){
+        this.sdt = sdt;
     }
 
     public String getHoTen() {
@@ -37,6 +51,7 @@ public class Admin implements Serializable {
         return "Admin{" +
                 "hoTen='" + hoTen + '\'' +
                 ", email='" + email + '\'' +
+                ", sdt='" + sdt + '\'' +
                 '}';
     }
 }

@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         tvName = view.findViewById(R.id.tv_name);
 
         admin = (Admin) intent.getSerializableExtra("ad");
+        Log.e("TAG", "onCreate: " + admin );
         if (admin != null) {
             tvName.setText(admin.getHoTen());
         }

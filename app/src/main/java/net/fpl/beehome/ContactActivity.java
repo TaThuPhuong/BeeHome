@@ -1,13 +1,12 @@
 package net.fpl.beehome;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,55 +20,77 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import net.fpl.beehome.Adapter.LienHe.ContactAdapter;
+import net.fpl.beehome.Adapter.LienHe.ContactAdminAdapter;
+import net.fpl.beehome.Adapter.LienHe.ContactUserAdapter;
+import net.fpl.beehome.model.Admin;
 import net.fpl.beehome.model.LienHe;
 import net.fpl.beehome.model.NguoiThue;
 
-import org.json.JSONObject;
-
-import java.net.Socket;
 import java.util.ArrayList;
-
-import io.socket.emitter.Emitter;
 
 
 public class ContactActivity extends AppCompatActivity {
 
-    RecyclerView rcvMess;
+    RecyclerView rcvContact;
     ArrayList<LienHe> list;
-    ContactAdapter contactAdapter;
+    ArrayList<NguoiThue> listUser;
+    ArrayList<Admin> listAdmin;
+    ContactUserAdapter contactUserAdapter;
+    ContactAdminAdapter contactAdminAdapter;
     private Animation animationUp, animationDown;
+    String quyen;
+    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
 
-        list = new ArrayList<>();
-        contactAdapter = new ContactAdapter(list, this);
-        rcvMess = findViewById(R.id.rcv_contact);
+        listUser = new ArrayList<>();
+        listAdmin = new ArrayList<>();
+        rcvContact = findViewById(R.id.rcv_contact);
         animationDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.down);
         animationUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.up);
-    }
+        tv = findViewById(R.id.tv);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                list.clear();
-                for (DocumentSnapshot snapshot : value){
-                    NguoiThue nguoiThue = snapshot.toObject(NguoiThue.class);
-                    LienHe lienHe = new LienHe(nguoiThue.getHoTen(), nguoiThue.getSdt());
-                    list.add(lienHe);
-                    contactAdapter.notifyDataSetChanged();
+        Intent intent = getIntent();
+        quyen = intent.getStringExtra("quyen");
+        Admin admin = (Admin) intent.getSerializableExtra("admin");
+        NguoiThue nguoiThue = (NguoiThue) intent.getSerializableExtra("user");
+
+        if (quyen.equalsIgnoreCase("admin")){
+            tv.setText("Chat với người thuê");
+            FirebaseFirestore db1 = FirebaseFirestore.getInstance();
+            db1.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    listUser.clear();
+                    for (DocumentSnapshot snapshot : value){
+                        NguoiThue nguoiThue = snapshot.toObject(NguoiThue.class);
+                        listUser.add(nguoiThue);
+                        contactUserAdapter.notifyDataSetChanged();
+                    }
                 }
-            }
-        });
-        contactAdapter = new ContactAdapter(list, ContactActivity.this);
-        rcvMess.setAdapter(contactAdapter);
+            });
+            contactUserAdapter = new ContactUserAdapter(listUser, admin, this);
+            rcvContact.setAdapter(contactUserAdapter);
+        } else {
+            tv.setText("Chat với admin");
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection(Admin.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    listAdmin.clear();
+                    for (DocumentSnapshot snapshot : value){
+                        Admin admin = snapshot.toObject(Admin.class);
+                        listAdmin.add(admin);
+                        contactAdminAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
+            contactAdminAdapter = new ContactAdminAdapter(listAdmin, this, nguoiThue);
+            rcvContact.setAdapter(contactAdminAdapter);
+        }
     }
 
     @Override
