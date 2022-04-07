@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
-                android:text="Đăng nhập"
+                android:text="Đăng Nhập"
                 android:textColor="@color/tim_400"
                 android:textSize="24dp"
                 android:textStyle="bold" />
@@ -144,7 +144,7 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bg_login_gradian"
+            android:background="@drawable/background_btn_login"
             android:elevation="20dp"
             android:shadowColor="@color/tim_100"
             android:text="Đăng nhập"
