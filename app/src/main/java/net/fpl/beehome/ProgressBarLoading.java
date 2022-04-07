@@ -5,6 +5,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 
 public class ProgressBarLoading {
@@ -21,6 +24,9 @@ public class ProgressBarLoading {
         dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(R.layout.dialog_loading);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        ImageView img = dialog.findViewById(R.id.imglogo);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.bounce);
+        img.startAnimation(animation);
         dialog.show();
     }
 

@@ -130,15 +130,17 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                         }
 
 
-
+                        mItemManger.closeAllItems();
                         fb.collection(Phong.TB_NAME).document(objHopDong.getId_phong()).update(Phong.COL_TRANG_THAI, "Trống");
                         fb.collection(NguoiThue.TB_NGUOITHUE).document(objHopDong.getId_thanh_vien()).update(NguoiThue.COL_ID_PHONG, "Trống");
+                        for(HoaDon objHoaDon : arrhd){
+                            fb.collection(HoaDon.TB_NAME).document(objHoaDon.getIDHoaDon()).delete();
+                        }
                         fb.collection(HopDong.TB_NAME).document(objHopDong.getId_hop_dong())
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        mItemManger.closeAllItems();
                                         Toast.makeText(context, "Xóa Thành công", Toast.LENGTH_SHORT).show();
                                         notifyDataSetChanged();
                                     }

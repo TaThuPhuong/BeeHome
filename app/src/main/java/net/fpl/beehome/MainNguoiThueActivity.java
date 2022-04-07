@@ -77,7 +77,7 @@ public class MainNguoiThueActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.nav_trang_chu:
-                    setTitle("Xin chào");
+                    setTitle("Trang chủ");
                     HomeNguoiThueFragment homeFragment = new HomeNguoiThueFragment();
                     manager.beginTransaction().replace(R.id.nav_host_fragment_content_main, homeFragment).commit();
                     break;

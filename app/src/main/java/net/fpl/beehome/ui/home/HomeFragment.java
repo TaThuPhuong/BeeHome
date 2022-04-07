@@ -30,6 +30,7 @@ import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.SuCoActivity;
 import net.fpl.beehome.detail.hoaDon.HoaDonMain;
+import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.SlideItem;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class HomeFragment extends Fragment {
     FloatingActionButton button;
     MainActivity mainActivity;
     TextView tv_hl_nd;
+    NguoiThue nguoiThue;
 
     ViewPager2 viewPager2;
     Handler handler = new Handler();
@@ -102,6 +104,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), HoaDonMain.class);
                 intent.putExtra("quyen", "admin");
+                intent.putExtra("ad", mainActivity.getAdmin());
                 startActivity(intent);
             }
         });
@@ -193,5 +196,8 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         handler.postDelayed(slideRunnable, 2000);
+    }
+    public NguoiThue getNguoiThue() {
+        return nguoiThue;
     }
 }

@@ -46,6 +46,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.R;
+import net.fpl.beehome.detail.hoaDon.Tab.HoaDonChuaThanhToan;
 import net.fpl.beehome.model.DichVu;
 import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
@@ -68,9 +69,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
     ArrayList<DichVu> arrDichVu;
     SimpleDateFormat dfm = new SimpleDateFormat("dd/MM/yyyy");
     String tenP;
-    String thang,han,ngayGD;
-    int tienSoDien, tienSoNuoc,tienNuoc,tienDien,tongTienPhong,TongtienDV,tongHD,dienMoi,nuocMoi, tienDVPhong = 0,month_han,year_han,month_thang,year_thang;
-
+    int tienDVPhong = 0;
 
     public HoaDonAdapter(ArrayList<HoaDon> arr, Context context, FirebaseFirestore fb, ArrayList<String> arrTenPhong, ArrayList<Phong> arrPhong, ArrayList<HopDong> arrhopdong, ArrayList<DichVu> arrDichVu) {
         this.arr = arr;
@@ -81,6 +80,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
         this.arrhopdong = arrhopdong;
         this.arrDichVu = arrDichVu;
     }
+
 
     @Override
     public HoaDonAdapter.HoaDonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -405,8 +405,6 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
 //                });
 
 
-
-
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -437,17 +435,16 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-//                                                arr.set(index, hoaDon);
-                                                notifyDataSetChanged();
-                                                mItemManger.closeAllItems();
-                                                Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
+
                                                 Map<String, Object> p = new HashMap<>();
                                                 p.put(Phong.COL_SO_DIEN_DAU, objHoaDon.getSoDienCuoi());
                                                 p.put(Phong.COL_SO_NUOC_DAU, objHoaDon.getSoNuocCuoi());
                                                 fb.collection(Phong.TB_NAME).document(tenP).update(p);
                                                 notifyDataSetChanged();
-
+                                                mItemManger.closeAllItems();
+                                                Toast.makeText(context, "Sửa thành công", Toast.LENGTH_SHORT).show();
                                                 dialog.dismiss();
+
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -455,19 +452,10 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                                         Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-
-
-
-
-
+                        notifyDataSetChanged();
                         }
 
-
-
-
                 });
-                notifyDataSetChanged();
-
                 clear.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

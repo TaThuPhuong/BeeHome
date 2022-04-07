@@ -9,6 +9,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +41,8 @@ public class Login_Activity extends AppCompatActivity {
     Button btnDangNhap;
     CheckBox chk;
     TextView tvQuenMK;
-    Animation animation;
+    Animation animation, animation2 ;
+
     ConstraintLayout constraintLayout;
     MySharedPreferences mySharedPreferences;
     FirebaseFirestore fb;
@@ -50,6 +53,7 @@ public class Login_Activity extends AppCompatActivity {
     ProgressBarLoading progressBarLoading;
     ArrayList<NguoiThue> lsNguoiThue;
     ArrayList<Admin> lsAdmin;
+    ImageView logo, img1;
 
 
     public void init() {
@@ -57,14 +61,22 @@ public class Login_Activity extends AppCompatActivity {
         fba = FirebaseAuth.getInstance();
         edNguoidung = findViewById(R.id.ed_email);
         edMatkhau = findViewById(R.id.ed_pass);
+        logo = findViewById(R.id.img_logo);
+        img1 = findViewById(R.id.img1);
+
         btnDangNhap = findViewById(R.id.btn_dangnhap);
         chk = findViewById(R.id.chk_remember);
         tvQuenMK = findViewById(R.id.tv_quen_mk);
         constraintLayout = findViewById(R.id.aniLogin);
         phongFragment = new PhongFragment();
         mySharedPreferences = new MySharedPreferences(getApplicationContext());
-        animation = AnimationUtils.loadAnimation(this, R.anim.login);
+        animation = AnimationUtils.loadAnimation(this, R.anim.frombottom);
+        animation2 = AnimationUtils.loadAnimation(this, R.anim.fromtop);
+
         constraintLayout.startAnimation(animation);
+        img1.startAnimation(animation2);
+        logo.startAnimation(animation2);
+
         progressBarLoading = new ProgressBarLoading(Login_Activity.this);
         getAllAdmin();
         getAllNguoiThue();
