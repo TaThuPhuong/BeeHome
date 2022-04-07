@@ -25,8 +25,7 @@
             android:layout_marginTop="98dp"
             android:layout_marginBottom="55dp"
             android:orientation="vertical"
-            android:padding="5dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:padding="5dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

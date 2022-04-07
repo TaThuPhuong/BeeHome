@@ -360,6 +360,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:enabled="false"
                         android:id="@+id/tienPhong"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
