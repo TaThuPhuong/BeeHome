@@ -53,6 +53,8 @@ import net.fpl.beehome.model.HoaDonChiTiet;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.Phong;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,6 +72,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
     ArrayList<DichVu> arrDichVu;
 
     SimpleDateFormat dfm = new SimpleDateFormat("dd/MM/yyyy");
+    final NumberFormat formatter = new DecimalFormat("#,###,###,###");
     String tenP;
     int tienDVPhong = 0;
 
@@ -100,11 +103,19 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
             viewHolder.tv_edit.setVisibility(View.INVISIBLE);
         }
 
-        viewHolder.tongHD.setText(objHoaDon.getTongHD() + "");
-        viewHolder.phong.setText(objHoaDon.getIDPhong());
-        viewHolder.tienNha.setText(objHoaDon.getTienPhong() + "");
-        viewHolder.tienDv.setText(objHoaDon.getTienDV() + "");
-        viewHolder.giamGia.setText(objHoaDon.getGiamGia() + "");
+        viewHolder.tongHD.setText(formatter.format(objHoaDon.getTongHD())+" VNĐ");
+        viewHolder.phong.setText("Phòng: "+objHoaDon.getIDPhong());
+        viewHolder.hdthang.setText(dfm.format(objHoaDon.getThangHD()));
+        if(objHoaDon.getTrangThaiHD() == 0){
+            viewHolder.trangthai.setText("Chưa thanh toán");
+            viewHolder.trangthai.setTextColor(Color.parseColor("#cd2457"));
+        }else if(objHoaDon.getTrangThaiHD() == 1){
+            viewHolder.trangthai.setText("Đã thanh toán");
+            viewHolder.trangthai.setTextColor(Color.parseColor("#92db64"));
+        }else{
+            viewHolder.trangthai.setText("Quá hạn");
+            viewHolder.trangthai.setTextColor(Color.parseColor("#cd2457"));
+        }
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper_hd));
@@ -200,7 +211,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
             public void onClick(View view) {
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_hoa_don_info);
-                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 TextView idPhong = dialog.findViewById(R.id.tv_idPhongHD);
                 TextView thangHD = dialog.findViewById(R.id.tv_thangHD);
                 TextView tienPhong = dialog.findViewById(R.id.tv_tienPhongHD);
@@ -250,7 +261,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setView(R.layout.dialog_hoa_don_sua);
                 AlertDialog dialog = builder.create();
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 dialog.show();
 
                 //                ánh xạ
@@ -485,7 +496,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
     }
 
     public class HoaDonViewHolder extends RecyclerView.ViewHolder {
-        TextView tongHD, phong, tienNha, tienDv, giamGia;
+        TextView tongHD,phong,hdthang,trangthai;
         SwipeLayout swipeLayout;
         LinearLayout tv_del, tv_edit, tv_info;
 
@@ -493,9 +504,8 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
             super(itemView);
             tongHD = itemView.findViewById(R.id.tv_tongHD);
             phong = itemView.findViewById(R.id.tv_idPhongHD);
-            tienNha = itemView.findViewById(R.id.tv_tienPhongHD);
-            tienDv = itemView.findViewById(R.id.tv_tienDvHD);
-            giamGia = itemView.findViewById(R.id.tv_giamGiaHD);
+            hdthang = itemView.findViewById(R.id.tv_hdthang);
+            trangthai = itemView.findViewById(R.id.tv_tt);
 
             swipeLayout = itemView.findViewById(R.id.swipe_hd);
 
