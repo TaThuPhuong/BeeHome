@@ -19,68 +19,98 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_rd_top_20dp"
+                android:background="@color/tim_400"
                 android:gravity="center"
-                android:padding="10dp"
-                android:text="Sửa thông tin phòng"
+                android:padding="15dp"
+                android:text="Sửa Thông Tin Phòng"
                 android:textColor="@color/white"
                 android:textSize="30dp"
 
                 />
 
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ed_so_phong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/tim_300"
+                app:boxStrokeColor="@color/tim_300"
+                app:hintTextColor="@color/tim_300"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
                 android:hint="Số phòng"
-                android:enabled="false"
-                app:hintTextColor="#5F098E">
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="number" />
-
+                    android:inputType="number"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ed_gia_phong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/tim_300"
+                app:boxStrokeColor="@color/tim_300"
+                app:hintTextColor="@color/tim_300"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
                 android:hint="Giá phòng"
                 app:errorEnabled="true"
-                app:hintTextColor="#5F098E">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ed_vat_tu"
+                android:id="@+id/ed_vattu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/tim_300"
+                app:boxStrokeColor="@color/tim_300"
+                app:hintTextColor="@color/tim_300"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
                 android:hint="Vật tư"
                 app:errorEnabled="true"
-                app:hintTextColor="#5F098E">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_vattu"
+                    android:id="@+id/ed_vat_tu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:enabled="false" />
+                    android:enabled="false"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="25dp"
                 android:background="@color/white"
                 android:columnCount="3">
 
@@ -127,10 +157,11 @@
             </GridLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -196,38 +227,45 @@
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/tim_300"
+                app:boxStrokeColor="@color/tim_300"
+                app:hintTextColor="@color/tim_300"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
                 android:hint="Trạng thái"
-                app:hintTextColor="#5F098E">
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_trang_thai"
+                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:enabled="false" />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <RadioGroup
                 android:id="@+id/rdgTrangThai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:layout_marginStart="25dp"
                 android:checkedButton="@id/rdo_trong"
                 android:orientation="horizontal">
-
-                <!--                <RadioButton-->
-                <!--                    android:id="@+id/rdo_dang_thue"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:buttonTint="#7D0E95"-->
-                <!--                    android:text="Đang thuê" />-->
 
                 <RadioButton
                     android:id="@+id/rdo_trong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:buttonTint="#7D0E95"
                     android:text="Trống" />
 
@@ -243,52 +281,74 @@
                 android:id="@+id/ed_so_dien_dau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/tim_300"
+                app:boxStrokeColor="@color/tim_300"
+                app:hintTextColor="@color/tim_300"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
                 android:hint="Số điện đầu"
                 app:errorEnabled="true"
-                app:hintTextColor="#5F098E">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ed_so_nuoc_dau"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/tim_300"
+                app:boxStrokeColor="@color/tim_300"
+                app:hintTextColor="@color/tim_300"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
                 android:hint="Số nước đầu"
                 app:errorEnabled="true"
-                app:hintTextColor="#5F098E">
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_white_rd_bottom_20dp"
                 android:gravity="center"
-                android:paddingVertical="20dp">
+                android:paddingVertical="20dp"
+                android:weightSum="2">
 
                 <Button
                     android:id="@+id/btn_them_phong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
-                    android:text="Lưu"
+                    android:text="Sửa"
+                    android:backgroundTint="@color/tim_400"
+                    android:layout_weight="1"
                     android:textAllCaps="false" />
 
                 <Button
+                    android:layout_weight="1"
                     android:id="@+id/btn_huy"
                     android:layout_width="wrap_content"
+                    android:backgroundTint="@color/tim_400"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     android:text="Hủy"

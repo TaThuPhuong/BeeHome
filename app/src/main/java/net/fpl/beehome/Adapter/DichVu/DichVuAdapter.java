@@ -33,6 +33,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.DichVu;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +46,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
     FirebaseFirestore db;
 
     public static final String TAG = "123";
-
+    final NumberFormat fm = new DecimalFormat("#,###,###");
 
     public DichVuAdapter(ArrayList<DichVu> list, Context context, FirebaseFirestore db) {
         this.list = list;
@@ -69,9 +71,10 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
     public void onBindViewHolder(@NonNull DichVuViewHolder holder, int position) {
 
         DichVu dichVu = list.get(position);
+        final int index = position;
 
         holder.tv_tenDV.setText("Tên dịch vụ: " + dichVu.getTenDichVu());
-        holder.tv_gia.setText("Giá: " + String.valueOf(dichVu.getGia()) + " đ / " + dichVu.getDonVi());
+        holder.tv_gia.setText("Giá: " + fm.format(dichVu.getGia()) + " VND / " + dichVu.getDonVi());
 
         holder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         // Drag From Left
@@ -118,7 +121,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         holder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialog(view.getContext(), 1, position);
+                showDialog(view.getContext(), 1, index);
                 mItemManger.closeAllItems();
 
             }
@@ -127,13 +130,13 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         holder.tvEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showDialogSua(view.getContext(), dichVu, position);
+                showDialogSua(view.getContext(), dichVu, index);
                 mItemManger.closeAllItems();
             }
         });
 
         // mItemManger is member in RecyclerSwipeAdapter Class
-        mItemManger.bindView(holder.itemView, position);
+        mItemManger.bindView(holder.itemView, index);
 
     }
 
@@ -170,7 +173,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             View view = View.inflate(context, R.layout.dialog_them_dich_vu, null);
             builder.setView(view);
             AlertDialog dialog = builder.create();
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
             dialog.show();
 
             EditText edTenDichVu = dialog.findViewById(R.id.ed_tenDichVu);
@@ -213,12 +216,12 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             });
             dialog.show();
         }  else {
-            View view = View.inflate(context, R.layout.dialog_xoa, null);
+            View view = View.inflate(context, R.layout.dialog_delete_dichvu, null);
             builder.setView(view);
-            TextView tvCo = view.findViewById(R.id.tv_co);
-            TextView tvKhong = view.findViewById(R.id.tv_khong);
+            Button tvCo = view.findViewById(R.id.btn_delete);
+            Button tvKhong = view.findViewById(R.id.btn_cancel);
             AlertDialog dialog = builder.create();
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
             dialog.show();
 
             DichVu dichVu = list.get(i);
@@ -252,7 +255,8 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             Button btnHuy = view.findViewById(R.id.btn_huy);
 
             AlertDialog alertDialog = builder.create();
-            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
+
             alertDialog.show();
 
             TextView tv_chiSo = view.findViewById(R.id.tv_chiSo);

@@ -8,20 +8,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Xóa Người Thuê"
+        android:text="Xóa Dịch Vụ"
         android:textStyle="bold"
         android:textSize="24dp"
         android:gravity="center"
-        android:background="@color/tim_400"
+        android:background="@color/tim_500"
         android:padding="15dp"
         android:textColor="@color/white"
         android:layout_marginBottom="5dp"/>
-
+    
     <TextView
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bạn có chắc chắn muốn xóa người thuê này không?"
+        android:text="Bạn có chắc chắn muốn xóa dịch vụ này không?"
         android:textSize="18dp"
         android:textStyle="bold"
         android:padding="15dp"
@@ -36,19 +35,19 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp">
         <Button
-            android:id="@+id/btn_deletenguoithue"
+            android:id="@+id/btn_delete"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/tim_400"
+            android:backgroundTint="@color/tim_500"
             android:layout_marginLeft="45dp"
             android:textSize="16dp"
             android:text="Xác Nhận"/>
 
         <Button
-            android:id="@+id/btn_cancelnguoithue"
+            android:id="@+id/btn_cancel"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/tim_400"
+            android:backgroundTint="@color/tim_500"
             android:layout_marginLeft="40dp"
             android:textSize="16dp"
             android:text="Hủy Bỏ"/>

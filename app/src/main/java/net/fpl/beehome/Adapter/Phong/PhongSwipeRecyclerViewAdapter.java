@@ -59,13 +59,13 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
     public void mauTrangThai(String trangThai, TextView tv) {
         switch (trangThai) {
             case "Đang thuê":
-                tv.setTextColor(Color.parseColor("#000000"));
+                tv.setTextColor(Color.parseColor("#92db64"));
                 break;
             case "Trống":
-                tv.setTextColor(Color.parseColor("#FF0000"));
+                tv.setTextColor(Color.parseColor("#cd2457"));
                 break;
             case "Đang sửa chữa":
-                tv.setTextColor(Color.parseColor("#5EA3CD"));
+                tv.setTextColor(Color.parseColor("#707070"));
                 break;
         }
     }
@@ -134,11 +134,11 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
             @Override
             public void onClick(View view) {
                 Dialog dialog = new Dialog(mContext, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                dialog.setContentView(R.layout.dialog_xoa);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.setContentView(R.layout.dialog_delete_phong);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 dialog.show();
-                TextView tvDelete = dialog.findViewById(R.id.tv_co);
-                TextView tvCancel = dialog.findViewById(R.id.tv_khong);
+                Button tvDelete = dialog.findViewById(R.id.btn_delete);
+                Button tvCancel = dialog.findViewById(R.id.btn_cancel);
                 tvDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -151,9 +151,9 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
+                                            mItemManger.closeAllItems();
                                             Toast.makeText(mContext, "Xóa Thành công", Toast.LENGTH_SHORT).show();
                                             notifyDataSetChanged();
-                                            mItemManger.closeAllItems();
                                             dialog.dismiss();
                                         }
                                     });
@@ -220,7 +220,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         View view = View.inflate(mContext, R.layout.dialog_sua_phong, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
         dialog.show();
         TextInputLayout edSoPhong, edGiaPhong, edVatTu, edSoNuocDau, edSoDienDau;
         EditText ed_VatTu, edTrangThai;
@@ -230,8 +230,8 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         RadioGroup rdgTrangThai;
         edSoPhong = view.findViewById(R.id.ed_so_phong);
         edGiaPhong = view.findViewById(R.id.ed_gia_phong);
-        edVatTu = view.findViewById(R.id.ed_vat_tu);
-        ed_VatTu = view.findViewById(R.id.ed_vattu);
+        edVatTu = view.findViewById(R.id.ed_vattu);
+        ed_VatTu = view.findViewById(R.id.ed_vat_tu);
         edTrangThai = view.findViewById(R.id.ed_trang_thai);
         edSoDienDau = view.findViewById(R.id.ed_so_dien_dau);
         edSoNuocDau = view.findViewById(R.id.ed_so_nuoc_dau);
@@ -372,6 +372,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String strVatTu = edVatTu.getEditText().getText().toString();
                 String giaPhong = edGiaPhong.getEditText().getText().toString();
                 String strTrangThai = edTrangThai.getText().toString();
@@ -391,6 +392,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                     if (TextUtils.isEmpty(soNuocDau)) {
                         edSoNuocDau.setError("Số nước hiện tại không được để trống");
                     }
+                    mItemManger.closeAllItems();
                     return;
                 } else {
                     Map<String, Object> p = new HashMap<>();
@@ -400,6 +402,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
                     p.put(Phong.COL_SO_DIEN_DAU, Integer.parseInt(soDienDau));
                     p.put(Phong.COL_SO_NUOC_DAU, Integer.parseInt(soNuocDau));
                     fb.collection(Phong.TB_NAME).document(phong.getIDPhong()).update(p);
+                    mItemManger.closeAllItems();
                     Toast.makeText(mContext, "Đã cập nhập", Toast.LENGTH_SHORT).show();
                     notifyDataSetChanged();
                     dialog.dismiss();
@@ -410,6 +413,7 @@ public class PhongSwipeRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongSwi
         btnHuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 dialog.dismiss();
             }
         });

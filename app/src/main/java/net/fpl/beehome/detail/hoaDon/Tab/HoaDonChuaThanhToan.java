@@ -137,7 +137,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setView(R.layout.dialog_hoa_don_them);
                     AlertDialog dialog = builder.create();
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                     dialog.show();
 
 //                ánh xạ
