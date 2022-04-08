@@ -69,7 +69,8 @@ public class MessageActivity extends AppCompatActivity {
         Admin adminGui = (Admin) intent.getSerializableExtra("admin_gui");
 
         if (adminGui != null) {
-        db.child(adminGui.getSdt() + nguoiThue.getSdt()).addValueEventListener(new ValueEventListener() {
+            tv_mess.setText(nguoiThue.getHoTen());
+            db.child(adminGui.getSdt() + nguoiThue.getSdt()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
@@ -87,9 +88,7 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
-            img_mess.setOnClickListener(new View.OnClickListener()
-
-            {
+            img_mess.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick (View view){
                     String strMess = ed_mess.getText().toString().trim();
@@ -115,6 +114,7 @@ public class MessageActivity extends AppCompatActivity {
                 }
             });
         } else {
+            tv_mess.setText(admin.getHoTen());
             db.child(nguoiThueGui.getSdt() + admin.getSdt()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {

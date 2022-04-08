@@ -59,7 +59,6 @@ public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.
             return new ContactUserViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ContactUserViewHolder holder, int position) {
         NguoiThue user = this.list.get(position);
