@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:background="@drawable/bg_rd_mess"
+        android:background="@drawable/bg_rd_receiver_mess"
         android:padding="10dp"
         android:text="@string/app_name"
         android:textColor="@color/black" />
