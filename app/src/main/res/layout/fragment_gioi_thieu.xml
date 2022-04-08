@@ -116,8 +116,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="280dp"
-                android:background="@drawable/bg_ui"
-                android:orientation="horizontal">
+                android:background="@drawable/bg_hdon"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp">
 
                 <TextView
                     android:layout_width="134dp"

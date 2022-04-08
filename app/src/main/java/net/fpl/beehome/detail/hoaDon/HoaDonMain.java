@@ -50,18 +50,19 @@ public class HoaDonMain extends AppCompatActivity {
         today.setToNow();
 
         toolbar = findViewById(R.id.toolbar_hoa_don);
-
         Intent intent = getIntent();
-        nguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
-        Log.d("arrHDP", "onViewCreated: "+nguoiThue);
+        String quyen = intent.getStringExtra("quyen");
+        if(quyen.equalsIgnoreCase("nt")){
+            nguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
+            Log.d("arrHDP", "onViewCreated: "+nguoiThue);
+        }
+
         //        set toolbar thay the cho actionBar
         setSupportActionBar(toolbar);
 //        ab = getSupportActionBar();
 //        ab.setHomeAsUpIndicator(R.drawable.ic_date3);
 //        ab.setDisplayHomeAsUpEnabled(true);
         setTitle("Hóa Đơn");
-
-
 
 
 
@@ -100,4 +101,5 @@ public class HoaDonMain extends AppCompatActivity {
 //        d.show();
 //        return super.onOptionsItemSelected(item);
 //    }
+
 }
