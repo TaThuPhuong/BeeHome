@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,10 +75,9 @@ public class HoaDonChuaThanhToan extends Fragment {
     ArrayList<HoaDon> arr;
     ArrayList<HoaDon> arrHDP;
     ArrayList<HoaDon> arrHD;
-    ArrayList<HoaDonChiTiet> arrHDCT;
     ArrayList<HopDong> arrHopDong;
-    ArrayList<Phong> arrPhong ;
-    ArrayList<String> arrTenPhong ;
+    ArrayList<Phong> arrPhong;
+    ArrayList<String> arrTenPhong;
     ArrayList<DichVu> arrDichVu;
     ArrayList<NguoiThue> arrNguoiThue;
     HoaDonAdapter adapterhd;
@@ -86,12 +86,9 @@ public class HoaDonChuaThanhToan extends Fragment {
     HoaDonMain main;
     NguoiThue objNguoiThue;
 
-    FirebaseUser ngDung;
-
-    String tenP,user,email;
-    String  idThang,thang,han,idP,hoTen;
-    int tienSoDien, tienSoNuoc,tienNuoc,tienDien,tongTienPhong,TongtienDV,tongHD,dienMoi,nuocMoi, tienDVPhong = 0,month_han,year_han,month_thang,year_thang;
-
+    String tenP, user;
+    String idThang, thang, han, idP;
+    int tienSoDien, tienSoNuoc, tienNuoc, tienDien, tongTienPhong, TongtienDV, tongHD, dienMoi, nuocMoi, tienDVPhong = 0, month_han, year_han, month_thang, year_thang;
 
 
     @Nullable
@@ -105,55 +102,38 @@ public class HoaDonChuaThanhToan extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        check xem admin hay ng thuê
+        SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD", MODE_PRIVATE);
+        user = pref.getString(NgDung, "");
 
-        ngDung = FirebaseAuth.getInstance().getCurrentUser();
-        email = ngDung.getEmail();
-        main = (HoaDonMain) getActivity();
-        objNguoiThue = main.getNguoiThue();
-
-        SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
-        user = pref.getString(NgDung,"");
-
-
-
+//        ánh xạ
         fb = FirebaseFirestore.getInstance();
         fab = view.findViewById(R.id.btn_them_hdon);
         recyclerView = view.findViewById(R.id.recyclerView_hd);
 
-        LinearLayoutManager llm = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+//        setl layout cho recyclerView
+        LinearLayoutManager llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
 
-
+//        tạo các arr
         arr = getAllHoaDon();
-
         arrHopDong = getAllHopDong();
         arrDichVu = getAllDichVu();
         arrPhong = getAllPhong();
         arrTenPhong = getTenPhong();
         arrNguoiThue = getAllNguoiThue();
 
-        for(int z =0; z<arrNguoiThue.size();z++){
-            if(arrNguoiThue.get(z).getEmail().equalsIgnoreCase(email)){
-                idP = arrNguoiThue.get(z).getId_phong();
-                break;
-            }
-        }
-
-        arrHDP = getHoaDonPhong(idP);
-
-        if(user.equalsIgnoreCase("Admin"))
-        {
-                    adapterhd = new HoaDonAdapter(arr,getContext(),fb,getTenPhong(),getAllPhong(),getAllHopDong(),getAllDichVu());
-
-                    adapterhd.notifyDataSetChanged();
-
-                    recyclerView.setAdapter(adapterhd);
-
-
+        if (user.equalsIgnoreCase("Admin")) {
+//            set adapter
+            adapterhd = new HoaDonAdapter(arr, getContext(), fb, getTenPhong(), getAllPhong(), getAllHopDong(), getAllDichVu());
+            adapterhd.notifyDataSetChanged();
+            recyclerView.setAdapter(adapterhd);
+//
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+//                    tạo dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setView(R.layout.dialog_hoa_don_them);
                     AlertDialog dialog = builder.create();
@@ -188,6 +168,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                     TextView tvDien = dialog.findViewById(R.id.tvDien);
                     TextView tvNuoc = dialog.findViewById(R.id.tvNuoc);
                     TextView errAll = dialog.findViewById(R.id.errTongHop);
+
                     MaterialTextView tvTongHop = dialog.findViewById(R.id.tongHop);
 
                     TextView tongTien = dialog.findViewById(R.id.tongTien);
@@ -196,7 +177,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                     Button clear = dialog.findViewById(R.id.btnClear);
                     Button add = dialog.findViewById(R.id.btnAddHd);
 
-
+//set lỗi
                     hd_thang.setError(null);
                     hd_han.setError(null);
                     L_dien_moi.setError(null);
@@ -204,42 +185,44 @@ public class HoaDonChuaThanhToan extends Fragment {
                     nuoc_moi.setError(null);
                     L_giam_gia.setError(null);
 
-
+//lấy ngày
                     final Calendar calendar = Calendar.getInstance();
                     int d = calendar.get(Calendar.DAY_OF_MONTH);
                     int m = calendar.get(Calendar.MONTH);
                     int y = calendar.get(Calendar.YEAR);
 
-                    for(int z =0; z<arrDichVu.size();z++){
-                        if(arrDichVu.get(z).getDonVi().equals("Phòng")){
+// lấy tiền dịch vụ theo phòng
+                    for (int z = 0; z < arrDichVu.size(); z++) {
+                        if (arrDichVu.get(z).getDonVi().equals("Phòng")) {
                             tienDVPhong += arrDichVu.get(z).getGia();
                         }
                     }
 
-                    tienDV.setText(tienDVPhong+"");
+                    tienDV.setText(tienDVPhong + "");
 
+// lấy hóa đơn tháng
                     hd_thang.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),R.style.datePicker,new DatePickerDialog.OnDateSetListener() {
+                            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.datePicker, new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                     final String thangHD = dayOfMonth + "/" + (month + 1) + "/" + year;
                                     month_thang = month + 1;
                                     year_thang = year;
                                     hd_thang.setText(thangHD);
-                                    idThang = month_thang+"."+year_thang;
+                                    idThang = month_thang + "." + year_thang;
                                     thang = hd_thang.getText().toString();
                                 }
                             }, y, m, d);
                             datePickerDialog.show();
                         }
                     });
-
+//lấy hạn hóa đơn
                     hd_han.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),R.style.datePicker,new DatePickerDialog.OnDateSetListener() {
+                            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.datePicker, new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                                     final String hanGD = dayOfMonth + "/" + (month + 1) + "/" + year;
@@ -247,30 +230,29 @@ public class HoaDonChuaThanhToan extends Fragment {
                                     year_han = year;
                                     hd_han.setText(hanGD);
                                     han = hd_han.getText().toString();
+                                    L_hd_han.setError("Hạn thanh toán quá xa");
                                 }
                             }, y, m, d);
                             datePickerDialog.show();
-
                         }
                     });
-
+//set adapter cho spinner
                     ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, arrTenPhong);
                     sp_phong.setAdapter(arrayAdapter);
                     sp_phong.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                             tenP = adapterView.getItemAtPosition(position).toString();
-                            for(int x = 0; x<arrPhong.size(); x++){
-                                if (arrPhong.get(x).getIDPhong().equalsIgnoreCase(tenP)){
+                            for (int x = 0; x < arrPhong.size(); x++) {
+                                if (arrPhong.get(x).getIDPhong().equalsIgnoreCase(tenP)) {
                                     Phong objPhong = arrPhong.get(x);
-                                    dien_cu.setText(objPhong.getSoDienDau()+"");
-                                    nuoc_cu.setText(objPhong.getSoNuocDau()+"");
-                                    tienPhong.setText(objPhong.getGiaPhong()+"");
+                                    dien_cu.setText(objPhong.getSoDienDau() + "");
+                                    nuoc_cu.setText(objPhong.getSoNuocDau() + "");
+                                    tienPhong.setText(objPhong.getGiaPhong() + "");
                                 }
                             }
                             lnLDien.setVisibility(View.INVISIBLE);
                             lnLNuoc.setVisibility(View.INVISIBLE);
-
                         }
 
                         @Override
@@ -278,89 +260,82 @@ public class HoaDonChuaThanhToan extends Fragment {
 
                         }
                     });
-
+//chốt điện
                     chotDien.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if(!dien_moi.getText().toString().isEmpty()){
+                            if (!dien_moi.getText().toString().isEmpty()) {
                                 lnLDien.setVisibility(VISIBLE);
                                 Log.d("zzzzzz", "tienDien " + arrDichVu);
-                                for(int x =0; x<arrDichVu.size();x++){
-                                    if(arrDichVu.get(x).getTenDichVu().equals("Điện")){
+                                for (int x = 0; x < arrDichVu.size(); x++) {
+                                    if (arrDichVu.get(x).getTenDichVu().equals("Điện")) {
                                         tienSoDien = arrDichVu.get(x).getGia();
                                     }
                                 }
                                 dienMoi = Integer.parseInt(String.valueOf(dien_moi.getText()));
                                 int dienCu = Integer.parseInt(String.valueOf(dien_cu.getText()));
-                                if(dienMoi < dienCu){
+                                if (dienMoi < dienCu) {
                                     L_dien_moi.setError("Số điện mới phải > số điện cũ");
-                                }else {
+                                } else {
                                     L_dien_moi.setError(null);
                                     int sLDien = dienMoi - dienCu;
 
                                     tienDien = sLDien * tienSoDien;
-                                    tvDien.setText(tienDien+"");
+                                    tvDien.setText(tienDien + "");
 
-                                    TongtienDV = tienDien+tienNuoc+tienDVPhong;
-                                    tienDV.setText(TongtienDV+"");
+                                    TongtienDV = tienDien + tienNuoc + tienDVPhong;
+                                    tienDV.setText(TongtienDV + "");
                                 }
-
-//
-
-
                             }
 
                         }
                     });
-
+//chốt nước
                     chotNuoc.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             L_nuoc_moi.setError(null);
-                            if(!nuoc_moi.getText().toString().isEmpty()){
+                            if (!nuoc_moi.getText().toString().isEmpty()) {
                                 lnLNuoc.setVisibility(VISIBLE);
-                                for(int x =0; x<arrDichVu.size();x++){
-                                    if(arrDichVu.get(x).getTenDichVu().equals("Nước")){
+                                for (int x = 0; x < arrDichVu.size(); x++) {
+                                    if (arrDichVu.get(x).getTenDichVu().equals("Nước")) {
                                         tienSoNuoc = arrDichVu.get(x).getGia();
                                     }
                                 }
                                 int nuocCu = Integer.parseInt(String.valueOf(nuoc_cu.getText()));
                                 nuocMoi = Integer.parseInt(String.valueOf(nuoc_moi.getText()));
                                 int sLNuoc = nuocMoi - nuocCu;
-
                                 tienNuoc = sLNuoc * tienSoNuoc;
 
-                                tvNuoc.setText(tienNuoc+"");
-                                TongtienDV = tienDien+tienNuoc+tienDVPhong;
-                                tienDV.setText(TongtienDV+"");
+                                tvNuoc.setText(tienNuoc + "");
+                                TongtienDV = tienDien + tienNuoc + tienDVPhong;
+                                tienDV.setText(TongtienDV + "");
                             }
 
                         }
                     });
-
+//tổng hợp hóa đơn
                     tvTongHop.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             errAll.setVisibility(View.INVISIBLE);
-                            if(giamGia.getText().toString().isEmpty()){
+                            if (giamGia.getText().toString().isEmpty()) {
                                 L_giam_gia.setError("Nếu không có hãy nhập 0");
-                            }else if (lnLDien.getVisibility() != VISIBLE ) {
+                            } else if (lnLDien.getVisibility() != VISIBLE) {
                                 L_dien_moi.setError("Hãy chốt điện!");
                                 L_giam_gia.setError(null);
-                            }else if(lnLNuoc.getVisibility() != VISIBLE){
+                            } else if (lnLNuoc.getVisibility() != VISIBLE) {
                                 L_giam_gia.setError(null);
                                 L_nuoc_moi.setError("Hãy chốt nước!");
-                            }else{
+                            } else {
                                 L_giam_gia.setError(null);
-                                TongtienDV = tienDien+tienNuoc+tienDVPhong;
-                                tienDV.setText(TongtienDV+"");
+                                TongtienDV = tienDien + tienNuoc + tienDVPhong;
+                                tienDV.setText(TongtienDV + "");
                                 int gGia = Integer.parseInt(String.valueOf(giamGia.getText()));
                                 tongTienPhong = Integer.parseInt(String.valueOf(tienPhong.getText()));
-                                tongHD = TongtienDV+tongTienPhong-gGia;
-                                tongTien.setText(tongHD+"");
-
+                                tongHD = TongtienDV + tongTienPhong - gGia;
+                                tongTien.setText(tongHD + "");
                             }
-
                         }
                     });
 
@@ -368,19 +343,18 @@ public class HoaDonChuaThanhToan extends Fragment {
                     add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            if (TextUtils.isEmpty(thang) || TextUtils.isEmpty(han)) {
 
-
-                            if(month_han - month_thang == 0){
+                            } else if (month_han - month_thang == 0) {
                                 L_hd_han.setError("Hạn thanh toán phải sau thời điểm tháng");
-                            }else if(year_han - year_thang > 1){
+                            } else if (year_han - year_thang > 1) {
                                 L_hd_han.setError("Hạn thanh toán quá xa");
-                            }else if(tongHD == 0){
+                            } else if (tongHD == 0) {
                                 tvTongHop.setError("");
                                 errAll.setVisibility(VISIBLE);
-                            }else{
-
+                            } else {
                                 HoaDon objHoaDon = new HoaDon();
-                                objHoaDon.setIDHoaDon(tenP+"."+idThang);
+                                objHoaDon.setIDHoaDon(tenP + "." + idThang);
                                 try {
                                     objHoaDon.setThangHD(dfm.parse(thang));
                                 } catch (ParseException e) {
@@ -395,12 +369,11 @@ public class HoaDonChuaThanhToan extends Fragment {
                                 objHoaDon.setIDPhong(tenP);
                                 objHoaDon.setSoDienCuoi(dienMoi);
                                 objHoaDon.setSoNuocCuoi(nuocMoi);
-                                if((calendar.getTime().after(objHoaDon.getHanGD()))){
+                                if ((calendar.getTime().after(objHoaDon.getHanGD()))) {
                                     objHoaDon.setTrangThaiHD(2);
-                                }else {
+                                } else {
                                     objHoaDon.setTrangThaiHD(0);
                                 }
-
                                 objHoaDon.setTienDV(TongtienDV);
                                 objHoaDon.setTienPhong(tongTienPhong);
                                 objHoaDon.setGiamGia(Integer.parseInt(String.valueOf(giamGia.getText())));
@@ -411,9 +384,9 @@ public class HoaDonChuaThanhToan extends Fragment {
                                 objHoaDon.setNgayGD(null);
 
                                 if (checkIDHD(objHoaDon) != null) {
-                                    L_hd_thang.setError("Phòng đã có hóa đơn của tháng "+thang+"! Mời bạn chọn lại!");
+                                    L_hd_thang.setError("Phòng đã có hóa đơn của tháng " + thang + "! Mời bạn chọn lại!");
                                     return;
-                                }else {
+                                } else {
                                     fb.collection(HoaDon.TB_NAME).document(objHoaDon.getIDHoaDon())
                                             .set(objHoaDon)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -433,16 +406,9 @@ public class HoaDonChuaThanhToan extends Fragment {
                                             Toast.makeText(getContext(), "Thêm hóa đơn thất bại", Toast.LENGTH_SHORT).show();
                                         }
                                     });
-
                                 }
-
-
                             }
                         }
-
-
-
-
                     });
 
                     clear.setOnClickListener(new View.OnClickListener() {
@@ -451,33 +417,25 @@ public class HoaDonChuaThanhToan extends Fragment {
                             dialog.dismiss();
                         }
                     });
-
-
-
-
                 }
-
             });
-
-        }
-        else {
+        } else {
+//            lấy objNguoiThue đăng nhập
+            main = (HoaDonMain) getActivity();
+            objNguoiThue = main.getNguoiThue();
             idP = objNguoiThue.getId_phong();
+//            lấy phòng của người thuê
+            arrHDP = getHoaDonPhong(idP);
             fab.setVisibility(View.INVISIBLE);
-            adapternt = new HoaDonNguoiThueAdapter(arrHDP,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu,arrNguoiThue);
+//            tạo và set adapter
+            adapternt = new HoaDonNguoiThueAdapter(arrHDP, getContext(), fb, arrTenPhong, arrPhong, arrHopDong, arrDichVu, arrNguoiThue);
             adapternt.notifyDataSetChanged();
-
-            Log.d("TAG", "onCreateView: "+arr.size());
+            Log.d("TAG", "onCreateView: " + arr.size());
             recyclerView.setAdapter(adapternt);
-
-
         }
-
-
-
     }
 
-
-    public ArrayList<HoaDon> getHoaDonPhong(String idphong){
+    public ArrayList<HoaDon> getHoaDonPhong(String idphong) {
         ArrayList<HoaDon> arr = new ArrayList<>();
 
         fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -486,8 +444,8 @@ public class HoaDonChuaThanhToan extends Fragment {
                 arr.clear();
                 for (QueryDocumentSnapshot document : value) {
                     HoaDon xHoaDon = document.toObject(HoaDon.class);
-                    if(xHoaDon.getIDPhong().equalsIgnoreCase(idphong)){
-                        if(xHoaDon.getTrangThaiHD() == 0) {
+                    if (xHoaDon.getIDPhong().equalsIgnoreCase(idphong)) {
+                        if (xHoaDon.getTrangThaiHD() == 0) {
                             arr.add(xHoaDon);
                         }
                     }
@@ -497,7 +455,8 @@ public class HoaDonChuaThanhToan extends Fragment {
         });
         return arr;
     }
-    public ArrayList<NguoiThue> getAllNguoiThue(){
+
+    public ArrayList<NguoiThue> getAllNguoiThue() {
         ArrayList<NguoiThue> arrarrngthue = new ArrayList<>();
         fb.collection(NguoiThue.TB_NGUOITHUE)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -513,6 +472,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                 });
         return arrarrngthue;
     }
+
     public HoaDon checkIDHD(HoaDon z) {
         arrHD = getHoaDon();
         for (HoaDon xyz : arr) {
@@ -523,15 +483,15 @@ public class HoaDonChuaThanhToan extends Fragment {
         return null;
     }
 
-    public ArrayList<String> getTenPhong(){
+    public ArrayList<String> getTenPhong() {
         ArrayList<String> arrTenPhong = new ArrayList<>();
         fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrTenPhong.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     Phong objPhong = document.toObject(Phong.class);
-                    if(objPhong.getTrangThai().equalsIgnoreCase("Đang Thuê")) {
+                    if (objPhong.getTrangThai().equalsIgnoreCase("Đang Thuê")) {
                         arrTenPhong.add(objPhong.getIDPhong());
                     }
                 }
@@ -540,13 +500,13 @@ public class HoaDonChuaThanhToan extends Fragment {
         return arrTenPhong;
     }
 
-    public ArrayList<Phong> getAllPhong(){
+    public ArrayList<Phong> getAllPhong() {
         ArrayList<Phong> arrPhong = new ArrayList<>();
         fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrPhong.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     Phong objPhong = document.toObject(Phong.class);
                     arrPhong.add(objPhong);
                 }
@@ -555,13 +515,13 @@ public class HoaDonChuaThanhToan extends Fragment {
         return arrPhong;
     }
 
-    public ArrayList<HopDong> getAllHopDong(){
+    public ArrayList<HopDong> getAllHopDong() {
         ArrayList<HopDong> arrHopDong = new ArrayList<>();
         fb.collection(HopDong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrHopDong.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     HopDong objHopDong = document.toObject(HopDong.class);
                     arrHopDong.add(objHopDong);
                 }
@@ -570,13 +530,13 @@ public class HoaDonChuaThanhToan extends Fragment {
         return arrHopDong;
     }
 
-    public ArrayList<DichVu> getAllDichVu(){
+    public ArrayList<DichVu> getAllDichVu() {
         ArrayList<DichVu> arrDichVu = new ArrayList<>();
         fb.collection(DichVu.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrDichVu.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     DichVu objDichVu = document.toObject(DichVu.class);
                     arrDichVu.add(objDichVu);
                 }
@@ -585,45 +545,41 @@ public class HoaDonChuaThanhToan extends Fragment {
         return arrDichVu;
     }
 
-    public ArrayList<HoaDon> getAllHoaDon(){
+    public ArrayList<HoaDon> getAllHoaDon() {
         ArrayList<HoaDon> arr = new ArrayList<>();
         fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arr.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
-                    if(objHoaDon.getTrangThaiHD() == 0) {
+                    if (objHoaDon.getTrangThaiHD() == 0) {
                         arr.add(objHoaDon);
-                        Log.d("hdctt", "onEvent: "+arr);
-                        if(user.equalsIgnoreCase("Admin"))
-                        {
+                        Log.d("hdctt", "onEvent: " + arr);
+                        if (user.equalsIgnoreCase("Admin")) {
                             adapterhd.notifyDataSetChanged();
-                        }
-                        else {
+                        } else {
                             adapternt.notifyDataSetChanged();
                         }
                     }
-
                 }
             }
         });
         return arr;
     }
 
-    public ArrayList<HoaDon> getHoaDon(){
+    public ArrayList<HoaDon> getHoaDon() {
         ArrayList<HoaDon> arrHD = new ArrayList<>();
         fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrHD.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
                     arrHD.add(objHoaDon);
                     adapterhd.notifyDataSetChanged();
                 }
                 adapterhd.notifyDataSetChanged();
-
             }
         });
         return arrHD;

@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import net.fpl.beehome.Adapter.hoaDon.HoaDonAdapter;
 import net.fpl.beehome.Adapter.hoaDon.HoaDonNguoiThueAdapter;
 import net.fpl.beehome.R;
+import net.fpl.beehome.detail.hoaDon.HoaDonMain;
 import net.fpl.beehome.model.DichVu;
 import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
@@ -38,6 +40,7 @@ import java.util.ArrayList;
 public class HoaDonQuaHanThanhToan extends Fragment {
     FirebaseFirestore fb;
     RecyclerView recyclerView;
+    ArrayList<HoaDon> arrHDP;
     ArrayList<NguoiThue> arrNguoiThue;
     ArrayList<HoaDon> arr;
     ArrayList<HoaDon> arrHD;
@@ -48,6 +51,10 @@ public class HoaDonQuaHanThanhToan extends Fragment {
     HoaDonAdapter adapterhd;
     HoaDonNguoiThueAdapter adapternt;
     String idP,user;
+    HoaDonMain main;
+    NguoiThue objNguoiThue;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,15 +62,13 @@ public class HoaDonQuaHanThanhToan extends Fragment {
         fb = FirebaseFirestore.getInstance();
         SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
         user = pref.getString(NgDung,"");
-        String hoTen = pref.getString(USER_KEY,"");
-        fb = FirebaseFirestore.getInstance();
+
         recyclerView = v.findViewById(R.id.recyclerView_hdqhtt);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(llm);
-//        recyclerView.setAdapter(adapterhd);
         arr = getAllHoaDon();
         arrHD = getHoaDon();
         arrHopDong = getAllHopDong();
@@ -80,19 +85,17 @@ public class HoaDonQuaHanThanhToan extends Fragment {
                     recyclerView.setAdapter(adapterhd);
 
         }else {
-                    for(int z =0; z<arrNguoiThue.size();z++){
-                        if(arrNguoiThue.get(z).getEmail().equalsIgnoreCase(hoTen)){
-                            idP = arrNguoiThue.get(z).getId_phong();
-                            Log.d("idP", "onCreateView: "+idP);
-                        }
-                    }
+            main = (HoaDonMain) getActivity();
+            objNguoiThue = main.getNguoiThue();
+            idP = objNguoiThue.getId_phong();
+            arrHDP = getHoaDonPhong(idP);
 
-                    arr = getHoaDonPhong(idP);
-                    adapternt = new HoaDonNguoiThueAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu,arrNguoiThue);
-                    adapternt.notifyDataSetChanged();
 
-                    Log.d("TAG", "onCreateView: "+arr.size());
-                    recyclerView.setAdapter(adapternt);
+            adapternt = new HoaDonNguoiThueAdapter(arrHDP,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu,arrNguoiThue);
+            adapternt.notifyDataSetChanged();
+
+            Log.d("TAG", "onCreateView: "+arr.size());
+            recyclerView.setAdapter(adapternt);
 
         }
 
