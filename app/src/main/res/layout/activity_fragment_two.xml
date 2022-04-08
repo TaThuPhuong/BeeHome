@@ -3,7 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="center_horizontal"
+    android:paddingTop="30dp"
+    android:paddingHorizontal="20dp"
     >
     <ImageView
         android:src="@drawable/fragment2"
@@ -14,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:text="Nhà Trọ"
         android:textSize="22sp"
-        android:textColor="@color/black"
+        android:textColor="@color/tim_400"
         android:padding="10dp"
         android:textStyle="bold"
         android:layout_width="wrap_content"
@@ -24,7 +26,7 @@
         android:text="Quản lý thông tin khách thuê, gồm các thông tin cá nhân, thông tin liên hệ."
         android:textSize="20sp"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/tim_300"
         android:padding="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
