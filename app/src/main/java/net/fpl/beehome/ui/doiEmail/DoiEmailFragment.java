@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,8 +39,9 @@ import java.util.ArrayList;
 
 
 public class DoiEmailFragment extends Fragment {
-    LinearLayout lnL;
-    Animation animation;
+
+    ConstraintLayout constraintLayout;
+    Animation animation, animation2;
     TextInputLayout edEmail;
     Button btnLuu, btnXoa;
     FirebaseFirestore fb;
@@ -49,6 +52,7 @@ public class DoiEmailFragment extends Fragment {
     ArrayList<NguoiThue> lsNguoiThue;
     ArrayList<Admin> lsAdmin;
     int indexAd;
+    ImageView logo, img1;
     NguoiThue nguoiThue;
 
     @Override
@@ -60,13 +64,13 @@ public class DoiEmailFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_doi_email, container, false);
-        lnL = v.findViewById(R.id.aniLogin);
-        animation = AnimationUtils.loadAnimation(getContext(), R.anim.login);
-        lnL.startAnimation(animation);
         return v;
     }
 
     public void init(View view) {
+        logo = view.findViewById(R.id.img_logo);
+        img1 = view.findViewById(R.id.img1);
+        constraintLayout = view.findViewById(R.id.anichangepass);
         fb = FirebaseFirestore.getInstance();
         fba = FirebaseAuth.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -79,6 +83,12 @@ public class DoiEmailFragment extends Fragment {
         getAllAdmin();
         getAllNguoiThue();
         indexAd = -1;
+
+        animation = AnimationUtils.loadAnimation(view.getContext(), R.anim.frombottom);
+        animation2 = AnimationUtils.loadAnimation(view.getContext(), R.anim.fromtop);
+        constraintLayout.startAnimation(animation);
+        img1.startAnimation(animation2);
+        logo.startAnimation(animation2);
     }
 
     @Override

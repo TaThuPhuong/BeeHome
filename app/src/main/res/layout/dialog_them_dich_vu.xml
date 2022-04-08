@@ -4,14 +4,15 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:orientation="vertical"
-    android:background="@drawable/bg_rd">
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Thêm dịch vụ"
+        android:background="@color/tim_400"
         android:textSize="22sp"
+        android:gravity="center_horizontal"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:padding="15dp"/>
@@ -21,70 +22,101 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="10dp"
-        android:layout_marginTop="10dp"
         android:background="@color/white">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tên dịch vụ:"
-            android:textSize="16dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            app:boxCornerRadiusBottomEnd="7dp"
-            app:boxCornerRadiusBottomStart="7dp"
-            app:boxCornerRadiusTopEnd="7dp"
-            app:boxCornerRadiusTopStart="7dp">
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/tim_300"
+            app:boxStrokeColor="@color/tim_300"
+            app:hintTextColor="@color/tim_300"
+            android:hint="Tên dịch vụ"
+            app:counterEnabled="true"
+            app:counterMaxLength="30"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:endIconMode="clear_text"
+            app:boxCornerRadiusTopStart="16dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:textSize="16sp"
             android:id="@+id/ed_tenDichVu"
-            android:textColor="#000000"
             android:layout_width="match_parent"
-            android:inputType="text"
             android:layout_height="wrap_content"
-            android:hint="Điện, nước, vệ sinh,..." />
+            android:maxLength="31"
+            />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Thu phí dựa trên:"
             android:textSize="16dp"/>
 
         <Spinner
+            android:background="@drawable/style_spinner_hd"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:id="@+id/spinner"/>
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Giá dịch vụ:"
-            android:textSize="16dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            app:boxCornerRadiusBottomEnd="7dp"
-            app:boxCornerRadiusBottomStart="7dp"
-            app:boxCornerRadiusTopEnd="7dp"
-            app:boxCornerRadiusTopStart="7dp">
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/tim_300"
+            app:boxStrokeColor="@color/tim_300"
+            app:hintTextColor="@color/tim_300"
+            android:hint="Giá dịch vụ"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:endIconMode="clear_text"
+            app:boxCornerRadiusTopStart="16dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:textSize="16sp"
                 android:id="@+id/ed_giaDichVu"
-                android:inputType="number"
-                android:textColor="#000000"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="0đ" />
+                android:maxLength="31"
+                />
         </com.google.android.material.textfield.TextInputLayout>
+
+
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="7dp"-->
+<!--            app:boxCornerRadiusBottomEnd="7dp"-->
+<!--            app:boxCornerRadiusBottomStart="7dp"-->
+<!--            app:boxCornerRadiusTopEnd="7dp"-->
+<!--            app:boxCornerRadiusTopStart="7dp">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:textSize="16sp"-->
+<!--                android:id="@+id/ed_giaDichVu"-->
+<!--                android:inputType="number"-->
+<!--                android:textColor="#000000"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="0đ" />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
 
     </LinearLayout>
 
@@ -103,7 +135,7 @@
             android:layout_height="wrap_content"
             android:text="Thêm"
             android:textAllCaps="false"
-            android:background="@drawable/background_btn_login"
+            android:backgroundTint="@color/tim_400"
             android:layout_marginRight="25dp"
             android:textSize="18sp"/>
         <Button
@@ -111,7 +143,7 @@
             android:layout_width="1dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="@drawable/background_btn_login"
+            android:backgroundTint="@color/tim_400"
             android:text="Hủy"
             android:textAllCaps="false"
             android:textSize="18sp"/>

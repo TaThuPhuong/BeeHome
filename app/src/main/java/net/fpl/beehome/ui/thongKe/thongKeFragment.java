@@ -36,6 +36,8 @@ import net.fpl.beehome.R;
 import net.fpl.beehome.model.HoaDon;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,6 +56,7 @@ public class thongKeFragment extends Fragment {
 
     int total = 0;
     int totalMonth = 0;
+    final NumberFormat fm = new DecimalFormat("#,###,###,###");
 
     @Nullable
     @Override
@@ -79,7 +82,7 @@ public class thongKeFragment extends Fragment {
                         Log.e("TAG", "onEvent: tien: " + hoaDon.getTongHD() );
                     }
                 }
-                tvTotal.setText(String.valueOf(total) + " đ");
+                tvTotal.setText(fm.format(total) + " VNĐ");
             }
         });
 
@@ -147,7 +150,7 @@ public class thongKeFragment extends Fragment {
                         ex.printStackTrace();
                     }
                 }
-                tvTotalMonth.setText(totalMonth+"đ");
+                tvTotalMonth.setText(fm.format(totalMonth)+"VNĐ");
             }
         });
 

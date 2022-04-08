@@ -3,19 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_themnguoithue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_rd_top_20dp"
+        android:background="@color/tim_400"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="15dp"
         android:text="Thêm Người Thuê"
         android:textColor="@color/white"
-        android:textSize="30dp"></TextView>
+        android:textSize="24dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,123 +23,151 @@
         >
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ed_hotennguoithue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Họ và tên"
-            android:id="@+id/ed_hotennguoithue"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+            android:layout_marginTop="18dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/tim_300"
+            app:boxStrokeColor="@color/tim_300"
+            app:hintTextColor="@color/tim_300"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            android:hint="Họ tên"
+            app:errorEnabled="true"
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:inputType="text"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.hbb20.CountryCodePicker
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cpp"
             app:ccp_autoDetectCountry="true"
             app:ccp_showNameCode="true"
             />
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ed_sdtnguoithue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/tim_300"
+            app:boxStrokeColor="@color/tim_300"
+            app:hintTextColor="@color/tim_300"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            android:hint="Số điện thoại"
             app:counterMaxLength="10"
             app:counterEnabled="true"
-            android:id="@+id/ed_sdtnguoithue"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+            app:errorEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
             <com.google.android.material.textfield.TextInputEditText
-                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:inputType="number"
-                android:hint="Số Điện Thoại"
                 android:maxLength="10"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-<!--            <EditText-->
-<!--                android:paddingLeft="10dp"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:maxLength="10"-->
-<!--                android:id="@+id/ed_sdtnguoithue"-->
-<!--                android:background="@color/white"-->
-<!--                android:textSize="25dp"-->
-<!--                android:editable="false"-->
-<!--                android:hint = " phone "-->
-<!--                android:inputType = "phone"-->
-<!--                android:singleLine = "true"-->
-<!--                />-->
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ed_emailnguoithue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/tim_300"
+            app:boxStrokeColor="@color/tim_300"
+            app:hintTextColor="@color/tim_300"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
             android:hint="Email"
-            android:id="@+id/ed_emailnguoithue"
-            android:layout_marginTop="15dp"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+            app:errorEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:inputType="text"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="CMND/CCCD"
             app:counterMaxLength="12"
             app:counterEnabled="true"
             android:id="@+id/ed_cccdnguoithue"
-            android:layout_marginTop="15dp"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/tim_300"
+            app:boxStrokeColor="@color/tim_300"
+            app:hintTextColor="@color/tim_300"
+            app:boxCornerRadiusBottomEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusTopStart="16dp"
+            app:errorEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:paddingTop="30dp"
-                android:maxLength="12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:inputType="number"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:maxLength="12"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/bg_white_rd_bottom_20dp"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="20dp"
             android:orientation="horizontal">
 
             <Button
+                android:layout_width="1dp"
+                android:layout_weight="1"
                 android:id="@+id/btn_dangkinguoithue"
-                android:layout_width="wrap_content"
+                android:layout_marginRight="25dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
+                android:backgroundTint="@color/tim_400"
                 android:text="Đăng Kí" />
 
             <Button
+                android:layout_width="1dp"
+                android:layout_weight="1"
                 android:id="@+id/btn_huynguoithue"
-                android:layout_width="wrap_content"
+                android:backgroundTint="@color/tim_400"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
                 android:text="Hủy" />
         </LinearLayout>
     </LinearLayout>
