@@ -1,21 +1,17 @@
 package net.fpl.beehome.model;
-
 import java.util.Date;
 
 public class HoaDon {
-    private String  IDHoaDon,IDPhong,GhiChu;
-    private Date HanGD,ThangHD,NgayGD;
+    private String IDHoaDon, IDPhong, GhiChu;
+    private Date HanGD, ThangHD, NgayGD;
     private int TongHD;
     private int SoDienCuoi;
     private int SoNuocCuoi;
     private int TrangThaiHD;
-//    0: chưa thanh toán, 1: đã thanh toán, 2: qua han
+    //    0: chưa thanh toán, 1: đã thanh toán, 2: qua han
     private int giamGia;
     private int tienPhong;
-    private int tienDV,tienNuoc,tienDien,tienDVC;
-
-
-
+    private int tienDV, tienNuoc, tienDien, tienDVC;
 
 
     public int getTienNuoc() {

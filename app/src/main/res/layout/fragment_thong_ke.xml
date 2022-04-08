@@ -11,26 +11,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="#D6D6D6"
-        android:padding="10dp"
         tools:context=".ui.thongKe.thongKeFragment">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#EAEAEA"
+        android:layout_height="match_parent"
         android:padding="2dp"
         android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_dialog"
         android:paddingVertical="10dp"
         android:orientation="vertical">
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/money"
+            android:src="@drawable/ic_tongdoanhthu"
             />
         <TextView
             android:layout_marginTop="10dp"
@@ -40,7 +38,7 @@
             android:textSize="26sp"
             android:gravity="center"
             android:textStyle="bold"
-            android:textColor="#F06C008A"/>
+            android:textColor="@color/tim_400"/>
 
         <View
             android:layout_width="match_parent"
@@ -56,120 +54,119 @@
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginTop="5dp"
-            android:textColor="#DF4B06"/>
+            android:textColor="@color/bg_del"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingVertical="10dp"
-        android:layout_marginTop="20dp"
-        android:gravity=""
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/money1"
-            />
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content"
-            android:text="Doanh thu theo tháng"
-            android:textSize="26sp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textColor="#F06C008A"/>
+            android:layout_height="500dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_dialog"
+            android:gravity=""
+            android:orientation="vertical"
+            android:paddingVertical="10dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="5dp"
-            android:background="#DCDCDC" />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_doanhthuthang" />
 
-            <com.google.android.material.textfield.TextInputLayout
-
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Doanh thu theo tháng"
+                android:textColor="@color/tim_400"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="5dp"
+                android:background="#DCDCDC" />
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="3dp"
                 android:backgroundTint="@color/purple_200"
+                android:hint="Từ Ngày"
                 app:boxStrokeColor="@color/purple_200"
                 app:hintTextColor="@color/purple_200"
-                android:hint="Từ Ngày"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                app:startIconDrawable="@drawable/ic_date2">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/layout_tuNgay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_date2"
 
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="3dp"
-            android:backgroundTint="@color/purple_200"
-            app:boxStrokeColor="@color/purple_200"
-            app:hintTextColor="@color/purple_200"
-            android:hint="Đến Ngày"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/layout_denNgay"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_date2"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="3dp"
+                android:backgroundTint="@color/purple_200"
+                android:hint="Đến Ngày"
+                app:boxStrokeColor="@color/purple_200"
+                app:hintTextColor="@color/purple_200"
 
-                />
+                app:startIconDrawable="@drawable/ic_date2">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/layout_denNgay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tìm kiếm"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginHorizontal="40dp"
-            android:gravity="center"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:background="@drawable/background_btn_login"
-            android:id="@+id/tv_search"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="10dp"
-            android:background="#DCDCDC" />
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_btn_login"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Tìm kiếm"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_total_month"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0 đ"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:textColor="#DF4B06"
-            android:layout_marginBottom="50dp"/>
-    </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="#DCDCDC" />
+
+            <TextView
+                android:id="@+id/tv_total_month"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="0 đ"
+                android:textColor="@color/bg_del"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
     </LinearLayout>
     </ScrollView>

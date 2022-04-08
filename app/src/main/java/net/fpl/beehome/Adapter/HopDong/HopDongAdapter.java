@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,15 +45,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongViewHolder> {
+public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongViewHolder> implements Filterable {
     ArrayList<HopDong> arr;
+    ArrayList<HopDong> arr1;
+
     Context context;
     FirebaseFirestore fb;
     ArrayList<Phong> arrphong;
     ArrayList<NguoiThue> arrnguoithue;
 
+
     public HopDongAdapter(ArrayList<HopDong> arr, Context context, FirebaseFirestore fb, ArrayList<Phong> arrphong, ArrayList<NguoiThue> arrnguoithue) {
         this.arr = arr;
+        this.arr1 = arr;
         this.context = context;
         this.fb = fb;
         this.arrphong = arrphong;
@@ -116,7 +123,6 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 Button btn_delete = dialog.findViewById(R.id.btn_delete);
                 Button btn_cancel = dialog.findViewById(R.id.btn_cancel);
                 ArrayList<HoaDon> arrhd = getListHD(objHopDong.getId_phong());
-
                 btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -439,6 +445,8 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
         return R.id.swipe;
     }
 
+
+
     public class HopDongViewHolder extends RecyclerView.ViewHolder {
         TextView tv_idphong, tv_ngayky, tv_ngaybd, tv_ngaykt;
         SwipeLayout swipeLayout;
@@ -486,5 +494,35 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
             }
         });
         return arr;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if (search.isEmpty()) {
+                    arr = arr1;
+                } else {
+                    ArrayList<HopDong> arrhd = new ArrayList<>();
+                    for (HopDong objHopDong : arr1) {
+                        if (objHopDong.getId_phong().toLowerCase().contains(search.toLowerCase())) {
+                            arrhd.add(objHopDong);
+                        }
+                    }
+                    arr = arrhd;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = arr;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                arr = (ArrayList<HopDong>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

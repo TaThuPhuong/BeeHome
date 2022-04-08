@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -94,16 +95,16 @@ public class PhongFragment extends Fragment {
                             Phong phong = document.toObject(Phong.class);
                             if (phong.getTrangThai().equals("Trống")) {
                                 phongTrong++;
-                                tvPhongTrong.setText("Phòng trống - " + phongTrong);
+                                tvPhongTrong.setText("Phòng trống: " + phongTrong);
                             }
                             Log.d("zzzzzz", "onComplete: " + phong.toString());
                             lsPhong.add(phong);
-                            tvTongPhong.setText("Tổng số phòng - " + lsPhong.size());
+                            tvTongPhong.setText("Tổng số phòng: " + lsPhong.size());
                             phongSwipeRecyclerViewAdapter.notifyDataSetChanged();
                         }
                         if (lsPhong.isEmpty()) {
-                            tvPhongTrong.setText("Phòng trống - 0");
-                            tvTongPhong.setText("Tổng số phòng - 0");
+                            tvPhongTrong.setText("Phòng trống: 0");
+                            tvTongPhong.setText("Tổng số phòng: 0");
 
                         }
                         Log.d("zzzzzz", "List: " + lsPhong.size());
@@ -135,18 +136,19 @@ public class PhongFragment extends Fragment {
         View view = View.inflate(getContext(), R.layout.dialog_them_phong, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
         dialog.show();
         TextInputLayout edSoPhong, edGiaPhong, edVatTu, edSoNuocDau, edSoDienDau;
-        EditText ed_VatTu, edTrangThai;
+        TextInputEditText ed_VatTu, edTrangThai;
         Button btnThem, btnHuy;
         CheckBox chkGiuong, chkTu, chkDieuHoa, chkNL, chkMayGiat, chkBan, chkBep;
         ImageButton btnChon, btnCancel, btnChonTatCa;
         RadioGroup rdgTrangThai;
-        ed_VatTu = view.findViewById(R.id.ed_vattu);
+        ed_VatTu = view.findViewById(R.id.ed_vat_tu);
         edSoPhong = view.findViewById(R.id.ed_so_phong);
         edGiaPhong = view.findViewById(R.id.ed_gia_phong);
-        edVatTu = view.findViewById(R.id.ed_vat_tu);
+        edVatTu = view.findViewById(R.id.ed_vattu);
+
         edTrangThai = view.findViewById(R.id.ed_trang_thai);
         edSoDienDau = view.findViewById(R.id.ed_so_dien_dau);
         edSoNuocDau = view.findViewById(R.id.ed_so_nuoc_dau);

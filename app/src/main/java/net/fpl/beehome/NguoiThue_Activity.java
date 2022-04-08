@@ -95,7 +95,7 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
         View view = View.inflate(this, R.layout.dialog_them_nguoithue, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
 
         ed_ten = view.findViewById(R.id.ed_hotennguoithue);
         ed_sodt = view.findViewById(R.id.ed_sdtnguoithue);

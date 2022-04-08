@@ -8,20 +8,16 @@
     tools:context=".HopDongActivity">
 
 
-    <TextView
-        android:id="@+id/textView"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_hopdong"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_tv_hopdong"
-        android:gravity="center"
-        android:padding="15dp"
-        android:text="Hợp Đồng"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:background="@color/tim_600"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Hợp Đồng"
+        app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/sw_rv"
@@ -34,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@id/toolbar_hopdong">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_hd"
