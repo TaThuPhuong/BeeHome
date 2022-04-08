@@ -11,24 +11,8 @@ public class HoaDon {
     //    0: chưa thanh toán, 1: đã thanh toán, 2: qua han
     private int giamGia;
     private int tienPhong;
-    private int tienDV, tienNuoc, tienDien, tienDVC;
+    private int tienDV, tienDVC;
 
-
-    public int getTienNuoc() {
-        return tienNuoc;
-    }
-
-    public void setTienNuoc(int tienNuoc) {
-        this.tienNuoc = tienNuoc;
-    }
-
-    public int getTienDien() {
-        return tienDien;
-    }
-
-    public void setTienDien(int tienDien) {
-        this.tienDien = tienDien;
-    }
 
     public int getTienDVC() {
         return tienDVC;
@@ -43,7 +27,7 @@ public class HoaDon {
     public HoaDon() {
     }
 
-    public HoaDon(String IDHoaDon, String IDPhong, String ghiChu, Date hanGD, Date thangHD, Date ngayGD, int tongHD, int soDienCuoi, int soNuocCuoi, int trangThaiHD, int giamGia, int tienPhong, int tienDV, int tienNuoc, int tienDien, int tienDVC) {
+    public HoaDon(String IDHoaDon, String IDPhong, String ghiChu, Date hanGD, Date thangHD, Date ngayGD, int tongHD, int soDienCuoi, int soNuocCuoi, int trangThaiHD, int giamGia, int tienPhong, int tienDV, int tienDVC) {
         this.IDHoaDon = IDHoaDon;
         this.IDPhong = IDPhong;
         GhiChu = ghiChu;
@@ -57,8 +41,6 @@ public class HoaDon {
         this.giamGia = giamGia;
         this.tienPhong = tienPhong;
         this.tienDV = tienDV;
-        this.tienNuoc = tienNuoc;
-        this.tienDien = tienDien;
         this.tienDVC = tienDVC;
     }
 

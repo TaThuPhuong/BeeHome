@@ -1,30 +1,18 @@
 package net.fpl.beehome.Adapter.hoaDon;
 
-
-import static android.view.View.VISIBLE;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +26,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -46,7 +33,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.R;
-import net.fpl.beehome.detail.hoaDon.Tab.HoaDonChuaThanhToan;
 import net.fpl.beehome.model.DichVu;
 import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HoaDonChiTiet;
@@ -55,7 +41,6 @@ import net.fpl.beehome.model.Phong;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,6 +48,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonViewHolder> {
+    final NumberFormat formatter = new DecimalFormat("#,###,###,###");
+    ArrayList<HoaDonChiTiet> arrHDCT;
     ArrayList<HoaDon> arr;
     Context context;
     FirebaseFirestore fb;
@@ -70,13 +57,11 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
     ArrayList<Phong> arrPhong;
     ArrayList<HopDong> arrhopdong;
     ArrayList<DichVu> arrDichVu;
-
     SimpleDateFormat dfm = new SimpleDateFormat("dd/MM/yyyy");
-    final NumberFormat formatter = new DecimalFormat("#,###,###,###");
     String tenP;
     int tienDVPhong = 0;
 
-    public HoaDonAdapter(ArrayList<HoaDon> arr, Context context, FirebaseFirestore fb, ArrayList<String> arrTenPhong, ArrayList<Phong> arrPhong, ArrayList<HopDong> arrhopdong, ArrayList<DichVu> arrDichVu) {
+    public HoaDonAdapter(ArrayList<HoaDon> arr, Context context, FirebaseFirestore fb, ArrayList<String> arrTenPhong, ArrayList<Phong> arrPhong, ArrayList<HopDong> arrhopdong, ArrayList<DichVu> arrDichVu, ArrayList<HoaDonChiTiet> arrHDCT) {
         this.arr = arr;
         this.context = context;
         this.fb = fb;
@@ -84,6 +69,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
         this.arrPhong = arrPhong;
         this.arrhopdong = arrhopdong;
         this.arrDichVu = arrDichVu;
+        this.arrHDCT = arrHDCT;
     }
 
 
@@ -103,16 +89,16 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
             viewHolder.tv_edit.setVisibility(View.INVISIBLE);
         }
 
-        viewHolder.tongHD.setText(formatter.format(objHoaDon.getTongHD())+" VNĐ");
-        viewHolder.phong.setText("Phòng: "+objHoaDon.getIDPhong());
+        viewHolder.tongHD.setText(formatter.format(objHoaDon.getTongHD()) + " VNĐ");
+        viewHolder.phong.setText("Phòng: " + objHoaDon.getIDPhong());
         viewHolder.hdthang.setText(dfm.format(objHoaDon.getThangHD()));
-        if(objHoaDon.getTrangThaiHD() == 0){
+        if (objHoaDon.getTrangThaiHD() == 0) {
             viewHolder.trangthai.setText("Chưa thanh toán");
             viewHolder.trangthai.setTextColor(Color.parseColor("#cd2457"));
-        }else if(objHoaDon.getTrangThaiHD() == 1){
+        } else if (objHoaDon.getTrangThaiHD() == 1) {
             viewHolder.trangthai.setText("Đã thanh toán");
             viewHolder.trangthai.setTextColor(Color.parseColor("#92db64"));
-        }else{
+        } else {
             viewHolder.trangthai.setText("Quá hạn");
             viewHolder.trangthai.setTextColor(Color.parseColor("#cd2457"));
         }
@@ -225,7 +211,17 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 TextView ngayGD = dialog.findViewById(R.id.tv_ngayThanhToanHD);
                 TextView ghiChu = dialog.findViewById(R.id.tv_ghiChuHD);
 
-                idPhong.setText("Phòng: "+objHoaDon.getIDPhong());
+                ArrayList<HoaDonChiTiet> arrHoaDonChiTiet = new ArrayList<>();
+                for (int z = 0; z < arrHDCT.size(); z++) {
+                    if (arrHDCT.get(z).getIDHoaDon().equalsIgnoreCase(objHoaDon.getIDHoaDon())) {
+                        arrHoaDonChiTiet.add(arrHDCT.get(z));
+                    }
+                }
+
+                Log.d("arrHDCT", "mang " + arrHoaDonChiTiet);
+
+
+                idPhong.setText("Phòng: " + objHoaDon.getIDPhong());
                 tienPhong.setText(formatter.format(objHoaDon.getTienPhong()) + "");
                 giamGia.setText(formatter.format(objHoaDon.getGiamGia()) + "");
                 tongHD.setText(formatter.format(objHoaDon.getTongHD()) + "");
@@ -244,13 +240,22 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 }
 
 
-                thangHD.setText("HĐ tháng: "+ dfm.format(objHoaDon.getThangHD()));
+                thangHD.setText("HĐ tháng: " + dfm.format(objHoaDon.getThangHD()));
                 hanHD.setText(dfm.format(objHoaDon.getHanGD()));
-                tienDien.setText(formatter.format(objHoaDon.getTienDien()) + "");
-                tienNuoc.setText(formatter.format(objHoaDon.getTienNuoc()) + "");
+
+                for (HoaDonChiTiet obj : arrHoaDonChiTiet) {
+                    if (obj.getTenDichVu().equalsIgnoreCase("Điện")) {
+                        tienDien.setText(formatter.format(obj.getThanhTien()) + "");
+                    }
+
+                    if (obj.getTenDichVu().equalsIgnoreCase("Nước")) {
+                        tienNuoc.setText(formatter.format(obj.getThanhTien()) + "");
+                    }
+                }
+
                 tienDVchung.setText(formatter.format(objHoaDon.getTienDVC()) + "");
                 ghiChu.setText(objHoaDon.getGhiChu());
-                if(ghiChu.getText().toString().length() <1){
+                if (ghiChu.getText().toString().length() < 1) {
                     ghiChu.setText("...");
                 }
 
@@ -445,8 +450,6 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                         hoaDon.setTienPhong(objHoaDon.getTienPhong());
                         hoaDon.setGiamGia(objHoaDon.getGiamGia());
                         hoaDon.setGhiChu(String.valueOf(ghiChu.getEditText().getText()));
-                        hoaDon.setTienDien(objHoaDon.getTienDien());
-                        hoaDon.setTienNuoc(objHoaDon.getTienNuoc());
                         hoaDon.setTienDVC(objHoaDon.getTienDVC());
 
 
@@ -498,26 +501,6 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
         return R.id.swipe_hd;
     }
 
-    public class HoaDonViewHolder extends RecyclerView.ViewHolder {
-        TextView tongHD,phong,hdthang,trangthai;
-        SwipeLayout swipeLayout;
-        LinearLayout tv_del, tv_edit, tv_info;
-
-        public HoaDonViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tongHD = itemView.findViewById(R.id.tv_tongHD);
-            phong = itemView.findViewById(R.id.tv_idPhongHD);
-            hdthang = itemView.findViewById(R.id.tv_hdthang);
-            trangthai = itemView.findViewById(R.id.tv_tt);
-
-            swipeLayout = itemView.findViewById(R.id.swipe_hd);
-
-            tv_del = itemView.findViewById(R.id.tv_delete);
-            tv_edit = itemView.findViewById(R.id.tv_edit);
-            tv_info = itemView.findViewById(R.id.tv_info);
-        }
-    }
-
     public ArrayList<HoaDonChiTiet> getListHDCT(String str) {
         ArrayList<HoaDonChiTiet> arr = new ArrayList<>();
         fb.collection(HoaDonChiTiet.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -534,6 +517,26 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
             }
         });
         return arr;
+    }
+
+    public class HoaDonViewHolder extends RecyclerView.ViewHolder {
+        TextView tongHD, phong, hdthang, trangthai;
+        SwipeLayout swipeLayout;
+        LinearLayout tv_del, tv_edit, tv_info;
+
+        public HoaDonViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tongHD = itemView.findViewById(R.id.tv_tongHD);
+            phong = itemView.findViewById(R.id.tv_idPhongHD);
+            hdthang = itemView.findViewById(R.id.tv_hdthang);
+            trangthai = itemView.findViewById(R.id.tv_tt);
+
+            swipeLayout = itemView.findViewById(R.id.swipe_hd);
+
+            tv_del = itemView.findViewById(R.id.tv_delete);
+            tv_edit = itemView.findViewById(R.id.tv_edit);
+            tv_info = itemView.findViewById(R.id.tv_info);
+        }
     }
 
 }

@@ -31,6 +31,7 @@ import net.fpl.beehome.R;
 import net.fpl.beehome.detail.hoaDon.HoaDonMain;
 import net.fpl.beehome.model.DichVu;
 import net.fpl.beehome.model.HoaDon;
+import net.fpl.beehome.model.HoaDonChiTiet;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
@@ -78,7 +79,7 @@ public class HoaDonQuaHanThanhToan extends Fragment {
         arrNguoiThue = getAllNguoiThue();
         if(user.equalsIgnoreCase("Admin")){
 
-                    adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
+                    adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu,getAllHoaDonCT());
 
                     adapterhd.notifyDataSetChanged();
 
@@ -91,7 +92,7 @@ public class HoaDonQuaHanThanhToan extends Fragment {
             arrHDP = getHoaDonPhong(idP);
 
 
-            adapternt = new HoaDonNguoiThueAdapter(arrHDP,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu,arrNguoiThue);
+            adapternt = new HoaDonNguoiThueAdapter(getAllHoaDonCT(), arrHDP, getContext(), fb, arrTenPhong, arrPhong, arrHopDong, arrDichVu, arrNguoiThue);
             adapternt.notifyDataSetChanged();
 
             Log.d("TAG", "onCreateView: "+arr.size());
@@ -247,5 +248,25 @@ public class HoaDonQuaHanThanhToan extends Fragment {
             }
         });
         return arrHD;
+    }
+
+    public ArrayList<HoaDonChiTiet> getAllHoaDonCT(){
+        ArrayList<HoaDonChiTiet> arrHDCT = new ArrayList<>();
+        fb.collection(HoaDonChiTiet.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arrHDCT.clear();
+                for(QueryDocumentSnapshot document : value){
+                    HoaDonChiTiet objHoaDonCT = document.toObject(HoaDonChiTiet.class);
+                    arrHDCT.add(objHoaDonCT);
+                    if (user.equalsIgnoreCase("Admin")) {
+                        adapterhd.notifyDataSetChanged();
+                    } else {
+                        adapternt.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+        return arrHDCT;
     }
 }
