@@ -13,18 +13,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/background_dialog"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/titleThemKhoan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:padding="10dp"
+                android:padding="15dp"
                 android:text="SỬA HÓA ĐƠN"
-                android:textColor="@color/grey_dam"
+                android:background="@color/tim_400"
+                android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 

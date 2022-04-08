@@ -2,10 +2,13 @@ package net.fpl.beehome;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +21,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -26,6 +31,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -45,12 +51,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     FloatingActionButton btn_add;
     RecyclerView rv_hd;
     FirebaseFirestore fb;
     SwipeRefreshLayout swipeRefreshLayout;
     HopDongAdapter hopDongAdapter;
+    FirebaseAuth fba;
+    Toolbar toolbar;
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +68,17 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         btn_add = findViewById(R.id.btn_add);
         rv_hd = findViewById(R.id.rv_hd);
         fb = FirebaseFirestore.getInstance();
+        fba = FirebaseAuth.getInstance();
         swipeRefreshLayout = findViewById(R.id.sw_rv);
-        rv_hd.setLayoutManager(new LinearLayoutManager(this));
+        toolbar = findViewById(R.id.toolbar_hopdong);
 
+        rv_hd.setLayoutManager(new LinearLayoutManager(this));
+        setSupportActionBar(toolbar);
 
         ArrayList<HopDong> arr = getAll();
         ArrayList<Phong> arrphong = getSPPHong();
         ArrayList<NguoiThue> arrnguoithue = getSPNguoiThue();
         ArrayList<Phong> arrallphong = getAllPHong();
-
 
 
         hopDongAdapter = new HopDongAdapter(arr, HopDongActivity.this, fb, arrallphong, arrnguoithue);
@@ -356,6 +367,30 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_search,menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                hopDongAdapter.getFilter().filter(query );
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                hopDongAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
     public void onRefresh() {
 
         new Handler().postDelayed(new Runnable() {
@@ -461,5 +496,6 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
             return false;
         }
     }
+
 
 }

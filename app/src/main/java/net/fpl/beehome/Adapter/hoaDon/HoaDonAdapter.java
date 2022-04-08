@@ -215,7 +215,6 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 TextView idPhong = dialog.findViewById(R.id.tv_idPhongHD);
                 TextView thangHD = dialog.findViewById(R.id.tv_thangHD);
                 TextView tienPhong = dialog.findViewById(R.id.tv_tienPhongHD);
-                TextView tienDV = dialog.findViewById(R.id.tv_tienDvHD);
                 TextView tienDien = dialog.findViewById(R.id.tv_tienDien);
                 TextView tienNuoc = dialog.findViewById(R.id.tv_tienNuoc);
                 TextView tienDVchung = dialog.findViewById(R.id.tv_tienDVCHung);
@@ -226,30 +225,34 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 TextView ngayGD = dialog.findViewById(R.id.tv_ngayThanhToanHD);
                 TextView ghiChu = dialog.findViewById(R.id.tv_ghiChuHD);
 
-                idPhong.setText(objHoaDon.getIDPhong());
-                tienPhong.setText(objHoaDon.getTienPhong() + "");
-                tienDV.setText(objHoaDon.getTienDV() + "");
-                giamGia.setText(objHoaDon.getGiamGia() + "");
-                tongHD.setText(objHoaDon.getTongHD() + "");
+                idPhong.setText("Phòng: "+objHoaDon.getIDPhong());
+                tienPhong.setText(formatter.format(objHoaDon.getTienPhong()) + "");
+                giamGia.setText(formatter.format(objHoaDon.getGiamGia()) + "");
+                tongHD.setText(formatter.format(objHoaDon.getTongHD()) + "");
                 if (objHoaDon.getTrangThaiHD() == 0) {
                     trangThai.setText("Chưa Thanh Toán");
-                    trangThai.setTextColor(R.color.red);
+                    trangThai.setTextColor(R.color.bg_del);
                     ngayGD.setText("UnPaid");
                 } else if (objHoaDon.getTrangThaiHD() == 1) {
+                    trangThai.setTextColor(Color.parseColor("#92db64"));
                     trangThai.setText("Đã Thanh Toán");
                     ngayGD.setText(dfm.format(objHoaDon.getNgayGD()));
                 } else {
                     trangThai.setText("Quá Hạn Thanh Toán");
+                    trangThai.setTextColor(R.color.bg_del);
                     ngayGD.setText("UnPaid");
                 }
 
-                ghiChu.setText(objHoaDon.getGhiChu());
-                thangHD.setText(dfm.format(objHoaDon.getThangHD()));
-                hanHD.setText(dfm.format(objHoaDon.getHanGD()));
-                tienDien.setText(objHoaDon.getTienDien() + "");
-                tienNuoc.setText(objHoaDon.getTienNuoc() + "");
-                tienDVchung.setText(objHoaDon.getTienDVC() + "");
 
+                thangHD.setText("HĐ tháng: "+ dfm.format(objHoaDon.getThangHD()));
+                hanHD.setText(dfm.format(objHoaDon.getHanGD()));
+                tienDien.setText(formatter.format(objHoaDon.getTienDien()) + "");
+                tienNuoc.setText(formatter.format(objHoaDon.getTienNuoc()) + "");
+                tienDVchung.setText(formatter.format(objHoaDon.getTienDVC()) + "");
+                ghiChu.setText(objHoaDon.getGhiChu());
+                if(ghiChu.getText().toString().length() <1){
+                    ghiChu.setText("...");
+                }
 
                 dialog.show();
                 mItemManger.closeAllItems();
