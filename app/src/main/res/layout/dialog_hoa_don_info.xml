@@ -22,7 +22,7 @@
             android:textStyle="bold"
             android:textSize="22dp"
             android:gravity="center"
-            android:background="@color/purple_200"
+            android:background="@color/tim_400"
             android:padding="10dp"
             android:textColor="@color/white"
             android:layout_marginBottom="5dp"/>
@@ -30,21 +30,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:layout_marginBottom="5dp"
+            android:padding="2dp"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/img_phong" />
-
                 <TextView
+                    android:layout_weight="1"
                     android:id="@+id/tv_idPhongHD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,13 +45,13 @@
                     android:textColor="#3A3A3A"
                     android:textSize="16dp"
                     android:textStyle="bold" />
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_thangHD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="210dp"
+                android:layout_weight="1"
                 android:layout_marginTop="5dp"
                 android:text="04-2022"
                 android:textColor="#3A3A3A"
@@ -79,7 +71,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Tiền phòng"
+                android:text="Tiền phòng:"
                 android:textColor="#3A3A3A"
                 android:textSize="12dp" />
 
@@ -108,7 +100,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Tiền dịch vụ"
+                android:text="Tiền dịch vụ:"
                 android:textColor="#3A3A3A"
                 android:textSize="12dp" />
 
@@ -131,12 +123,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="10dp">
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Tiền điện"
+                android:text="| Tiền điện"
                 android:textColor="#3A3A3A"
                 android:textSize="9dp" />
 
@@ -157,12 +149,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="10dp">
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Tiền nước"
+                android:text="| Tiền nước"
                 android:textColor="#3A3A3A"
                 android:textSize="9dp" />
 
@@ -183,12 +175,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:orientation="horizontal"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="10dp">
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Dịch vụ chung"
+                android:text="| Dịch vụ chung"
                 android:textColor="#3A3A3A"
                 android:textSize="9dp" />
 
@@ -216,7 +208,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Giảm giá"
+                android:text="Giảm giá:"
                 android:textColor="#3A3A3A"
                 android:textSize="12dp" />
 
@@ -243,7 +235,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Tổng hóa đơn"
+                android:text="Tổng hóa đơn:"
                 android:textColor="#3A3A3A"
                 android:textSize="13dp" />
 
@@ -268,7 +260,7 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Hạn hóa đơn"
+                android:text="Hạn hóa đơn:"
                 android:textColor="#3A3A3A"
                 android:textSize="12dp" />
 

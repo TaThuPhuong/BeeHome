@@ -88,7 +88,7 @@ public class HoaDonChuaThanhToan extends Fragment {
 
     String tenP, user;
     String idThang, thang, han, idP;
-    int tienSoDien, tienSoNuoc, tienNuoc, tienDien, tongTienPhong, TongtienDV, tongHD, dienMoi, nuocMoi, tienDVPhong = 0, month_han, year_han, month_thang, year_thang;
+    int slDien, sLNuoc,tienSoDien, tienSoNuoc, tienNuoc, tienDien, tongTienPhong, TongtienDV, tongHD, dienMoi, nuocMoi, tienDVPhong = 0, month_han, year_han, month_thang, year_thang;
 
 
     @Nullable
@@ -124,12 +124,13 @@ public class HoaDonChuaThanhToan extends Fragment {
         arrTenPhong = getTenPhong();
         arrNguoiThue = getAllNguoiThue();
 
+
         if (user.equalsIgnoreCase("Admin")) {
 //            set adapter
             adapterhd = new HoaDonAdapter(arr, getContext(), fb, getTenPhong(), getAllPhong(), getAllHopDong(), getAllDichVu());
             adapterhd.notifyDataSetChanged();
             recyclerView.setAdapter(adapterhd);
-//
+
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -139,6 +140,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                     AlertDialog dialog = builder.create();
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog.show();
+
 
 //                ánh xạ
                     Spinner sp_phong = dialog.findViewById(R.id.spn_Phong);
@@ -191,16 +193,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                     int m = calendar.get(Calendar.MONTH);
                     int y = calendar.get(Calendar.YEAR);
 
-// lấy tiền dịch vụ theo phòng
-                    for (int z = 0; z < arrDichVu.size(); z++) {
-                        if (arrDichVu.get(z).getDonVi().equals("Phòng")) {
-                            tienDVPhong += arrDichVu.get(z).getGia();
-                        }
-                    }
-
-                    tienDV.setText(tienDVPhong + "");
-
-// lấy hóa đơn tháng
+//lấy hóa đơn tháng
                     hd_thang.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -230,7 +223,6 @@ public class HoaDonChuaThanhToan extends Fragment {
                                     year_han = year;
                                     hd_han.setText(hanGD);
                                     han = hd_han.getText().toString();
-                                    L_hd_han.setError("Hạn thanh toán quá xa");
                                 }
                             }, y, m, d);
                             datePickerDialog.show();
@@ -260,33 +252,43 @@ public class HoaDonChuaThanhToan extends Fragment {
 
                         }
                     });
+
+// lấy tiền dịch vụ theo phòng
+                    tienDVPhong = 0;
+                    for (int z = 0; z < arrDichVu.size(); z++) {
+                        if (arrDichVu.get(z).getDonVi().equals("Phòng")) {
+                            tienDVPhong += arrDichVu.get(z).getGia();
+                        }
+                    }
+
+                    tienDV.setText(tienDVPhong + "");
 //chốt điện
                     chotDien.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (!dien_moi.getText().toString().isEmpty()) {
-                                lnLDien.setVisibility(VISIBLE);
-                                Log.d("zzzzzz", "tienDien " + arrDichVu);
-                                for (int x = 0; x < arrDichVu.size(); x++) {
-                                    if (arrDichVu.get(x).getTenDichVu().equals("Điện")) {
-                                        tienSoDien = arrDichVu.get(x).getGia();
-                                    }
-                                }
+                            if (TextUtils.isEmpty(String.valueOf(dien_moi.getText()))) {
+                                L_dien_moi.setError("Số điện không được để trống");
+                            } else {
                                 dienMoi = Integer.parseInt(String.valueOf(dien_moi.getText()));
                                 int dienCu = Integer.parseInt(String.valueOf(dien_cu.getText()));
-                                if (dienMoi < dienCu) {
+                                if (dienMoi <= dienCu) {
                                     L_dien_moi.setError("Số điện mới phải > số điện cũ");
                                 } else {
+                                    lnLDien.setVisibility(VISIBLE);
                                     L_dien_moi.setError(null);
-                                    int sLDien = dienMoi - dienCu;
-
-                                    tienDien = sLDien * tienSoDien;
+                                    slDien = dienMoi - dienCu;
+                                    for (int x = 0; x < arrDichVu.size(); x++) {
+                                        if (arrDichVu.get(x).getTenDichVu().equals("Điện")) {
+                                            tienSoDien = arrDichVu.get(x).getGia();
+                                            tienDien = slDien * tienSoDien;
+                                        }
+                                    }
                                     tvDien.setText(tienDien + "");
-
                                     TongtienDV = tienDien + tienNuoc + tienDVPhong;
                                     tienDV.setText(TongtienDV + "");
                                 }
                             }
+
 
                         }
                     });
@@ -294,22 +296,28 @@ public class HoaDonChuaThanhToan extends Fragment {
                     chotNuoc.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            L_nuoc_moi.setError(null);
-                            if (!nuoc_moi.getText().toString().isEmpty()) {
-                                lnLNuoc.setVisibility(VISIBLE);
-                                for (int x = 0; x < arrDichVu.size(); x++) {
-                                    if (arrDichVu.get(x).getTenDichVu().equals("Nước")) {
-                                        tienSoNuoc = arrDichVu.get(x).getGia();
-                                    }
-                                }
+                            if (TextUtils.isEmpty(String.valueOf(nuoc_moi.getText()))) {
+                                L_nuoc_moi.setError("Số nước không được để trống");
+                            } else {
                                 int nuocCu = Integer.parseInt(String.valueOf(nuoc_cu.getText()));
                                 nuocMoi = Integer.parseInt(String.valueOf(nuoc_moi.getText()));
-                                int sLNuoc = nuocMoi - nuocCu;
-                                tienNuoc = sLNuoc * tienSoNuoc;
+                                if (nuocMoi <= nuocCu) {
+                                    L_nuoc_moi.setError("Số nước mới phải > số nước cũ");
+                                } else {
+                                    L_nuoc_moi.setError(null);
+                                    lnLNuoc.setVisibility(VISIBLE);
+                                    sLNuoc = nuocMoi - nuocCu;
+                                    for (int x = 0; x < arrDichVu.size(); x++) {
+                                        if (arrDichVu.get(x).getTenDichVu().equals("Nước")) {
+                                            tienSoNuoc = arrDichVu.get(x).getGia();
+                                            tienNuoc = sLNuoc * tienSoNuoc;
+                                        }
+                                    }
 
-                                tvNuoc.setText(tienNuoc + "");
-                                TongtienDV = tienDien + tienNuoc + tienDVPhong;
-                                tienDV.setText(TongtienDV + "");
+                                    tvNuoc.setText(tienNuoc + "");
+                                    TongtienDV = tienDien + tienNuoc + tienDVPhong;
+                                    tienDV.setText(TongtienDV + "");
+                                }
                             }
 
                         }
@@ -339,12 +347,16 @@ public class HoaDonChuaThanhToan extends Fragment {
                         }
                     });
 
-
                     add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             if (TextUtils.isEmpty(thang) || TextUtils.isEmpty(han)) {
-
+                                if (TextUtils.isEmpty(thang)) {
+                                    L_hd_thang.setError("Bạn phải chọn tháng hóa đơn");
+                                }
+                                if (TextUtils.isEmpty(han)) {
+                                    L_hd_han.setError("Bạn phải chọn hạn hóa đơn");
+                                }
                             } else if (month_han - month_thang == 0) {
                                 L_hd_han.setError("Hạn thanh toán phải sau thời điểm tháng");
                             } else if (year_han - year_thang > 1) {
@@ -353,6 +365,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                                 tvTongHop.setError("");
                                 errAll.setVisibility(VISIBLE);
                             } else {
+//set hóa Đơn
                                 HoaDon objHoaDon = new HoaDon();
                                 objHoaDon.setIDHoaDon(tenP + "." + idThang);
                                 try {
@@ -383,6 +396,57 @@ public class HoaDonChuaThanhToan extends Fragment {
                                 objHoaDon.setTienDVC(tienDVPhong);
                                 objHoaDon.setNgayGD(null);
 
+//set HDCT phong
+
+                                for (int z = 0; z < arrDichVu.size(); z++) {
+                                    HoaDonChiTiet objHoaDonChiTietPhong = new HoaDonChiTiet();
+                                    if (arrDichVu.get(z).getDonVi().equals("Phòng")) {
+                                        objHoaDonChiTietPhong.setTenDichVu(arrDichVu.get(z).getTenDichVu());
+                                        objHoaDonChiTietPhong.setThanhTien(arrDichVu.get(z).getGia());
+                                        objHoaDonChiTietPhong.setSoLuong(1);
+                                        objHoaDonChiTietPhong.setIDHoaDon(tenP + "." + idThang);
+                                        objHoaDonChiTietPhong.setIDHoaDonCT(objHoaDonChiTietPhong.getIDHoaDon() + objHoaDonChiTietPhong.getTenDichVu());
+
+                                        fb.collection(HoaDonChiTiet.TB_NAME).document(objHoaDonChiTietPhong.getIDHoaDonCT())
+                                                .set(objHoaDonChiTietPhong)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thành công", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }).
+                                                addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thất bại", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    }
+                                }
+
+//set HDCT Dien
+                                HoaDonChiTiet objHoaDonChiTietDien = new HoaDonChiTiet();
+                                for (int x = 0; x < arrDichVu.size(); x++) {
+                                    if (arrDichVu.get(x).getTenDichVu().equals("Điện")) {
+                                        objHoaDonChiTietDien.setTenDichVu(arrDichVu.get(x).getTenDichVu());
+                                        objHoaDonChiTietDien.setThanhTien(tienDien);
+                                        objHoaDonChiTietDien.setSoLuong(slDien);
+                                        objHoaDonChiTietDien.setIDHoaDon(tenP + "." + idThang);
+                                        objHoaDonChiTietDien.setIDHoaDonCT(objHoaDonChiTietDien.getIDHoaDon() + objHoaDonChiTietDien.getTenDichVu());
+                                    }
+                                }
+//set HDCT Nuoc
+                                HoaDonChiTiet objHoaDonChiTietNuoc = new HoaDonChiTiet();
+                                for (int x = 0; x < arrDichVu.size(); x++) {
+                                    if (arrDichVu.get(x).getTenDichVu().equals("Nước")) {
+                                        objHoaDonChiTietNuoc.setTenDichVu(arrDichVu.get(x).getTenDichVu());
+                                        objHoaDonChiTietNuoc.setThanhTien(tienNuoc);
+                                        objHoaDonChiTietNuoc.setSoLuong(sLNuoc);
+                                        objHoaDonChiTietNuoc.setIDHoaDon(tenP + "." + idThang);
+                                        objHoaDonChiTietNuoc.setIDHoaDonCT(objHoaDonChiTietNuoc.getIDHoaDon() + objHoaDonChiTietNuoc.getTenDichVu());
+                                    }
+                                }
+
                                 if (checkIDHD(objHoaDon) != null) {
                                     L_hd_thang.setError("Phòng đã có hóa đơn của tháng " + thang + "! Mời bạn chọn lại!");
                                     return;
@@ -398,7 +462,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                                                     p.put(Phong.COL_SO_NUOC_DAU, objHoaDon.getSoNuocCuoi());
                                                     fb.collection(Phong.TB_NAME).document(tenP).update(p);
                                                     adapterhd.notifyDataSetChanged();
-                                                    dialog.dismiss();
+
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -406,9 +470,41 @@ public class HoaDonChuaThanhToan extends Fragment {
                                             Toast.makeText(getContext(), "Thêm hóa đơn thất bại", Toast.LENGTH_SHORT).show();
                                         }
                                     });
+
+                                    fb.collection(HoaDonChiTiet.TB_NAME).document(objHoaDonChiTietDien.getIDHoaDonCT())
+                                            .set(objHoaDonChiTietDien)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thành công", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).
+                                            addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thất bại", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                    fb.collection(HoaDonChiTiet.TB_NAME).document(objHoaDonChiTietNuoc.getIDHoaDonCT())
+                                            .set(objHoaDonChiTietNuoc)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thành công", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).
+                                            addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thất bại", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+
+                                    dialog.dismiss();
                                 }
                             }
                         }
+
                     });
 
                     clear.setOnClickListener(new View.OnClickListener() {
@@ -433,6 +529,7 @@ public class HoaDonChuaThanhToan extends Fragment {
             Log.d("TAG", "onCreateView: " + arr.size());
             recyclerView.setAdapter(adapternt);
         }
+
     }
 
     public ArrayList<HoaDon> getHoaDonPhong(String idphong) {

@@ -6,6 +6,17 @@ public class HoaDonChiTiet {
 
     public static final String TB_NAME = "tb_hoaDonCT";
 
+    @Override
+    public String toString() {
+        return "HoaDonChiTiet{" +
+                "IDHoaDonCT='" + IDHoaDonCT + '\'' +
+                ", IDHoaDon='" + IDHoaDon + '\'' +
+                ", tenDichVu='" + tenDichVu + '\'' +
+                ", soLuong=" + soLuong +
+                ", thanhTien=" + thanhTien +
+                '}';
+    }
+
     public HoaDonChiTiet(String IDHoaDonCT, String IDHoaDon, String tenDichVu, int soLuong, int thanhTien) {
         this.IDHoaDonCT = IDHoaDonCT;
         this.IDHoaDon = IDHoaDon;
