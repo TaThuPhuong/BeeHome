@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,13 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.firestore.auth.User;
-
 import net.fpl.beehome.MessageActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Admin;
-import net.fpl.beehome.model.LienHe;
 import net.fpl.beehome.model.NguoiThue;
 
 import java.util.ArrayList;
@@ -44,11 +39,6 @@ public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.
     public ContactUserAdapter(ArrayList<NguoiThue> list, Admin admin, Context context) {
         this.list = list;
         this.admin = admin;
-        this.context = context;
-    }
-
-    public ContactUserAdapter(ArrayList<NguoiThue> list, Context context) {
-        this.list = list;
         this.context = context;
     }
 

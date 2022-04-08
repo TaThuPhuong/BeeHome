@@ -1,7 +1,5 @@
 package net.fpl.beehome.Adapter.Message;
 
-import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +16,13 @@ import java.util.ArrayList;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
     ArrayList<Mess> list;
-    private String email;
+    private String sdt;
     public static final int VIEW_TYPE_SEND = 1;
     public static final int VIEW_TYPE_RECIEVED = 2;
 
-    public MessageAdapter( ArrayList<Mess> list, String email) {
+    public MessageAdapter( ArrayList<Mess> list, String sdt) {
         this.list = list;
-        this.email = email;
+        this.sdt = sdt;
     }
 
     @NonNull
@@ -51,7 +49,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public int getItemViewType(int position) {
-        if (list.get(position).getSdt().equals(email)) {
+        if (list.get(position).getSdt().equals(sdt)) {
             return VIEW_TYPE_SEND;
         } else {
             return VIEW_TYPE_RECIEVED;

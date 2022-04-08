@@ -3,7 +3,6 @@ package net.fpl.beehome;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -23,7 +22,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import net.fpl.beehome.Adapter.LienHe.ContactAdminAdapter;
 import net.fpl.beehome.Adapter.LienHe.ContactUserAdapter;
 import net.fpl.beehome.model.Admin;
-import net.fpl.beehome.model.LienHe;
 import net.fpl.beehome.model.NguoiThue;
 
 import java.util.ArrayList;
@@ -32,7 +30,6 @@ import java.util.ArrayList;
 public class ContactActivity extends AppCompatActivity {
 
     RecyclerView rcvContact;
-    ArrayList<LienHe> list;
     ArrayList<NguoiThue> listUser;
     ArrayList<Admin> listAdmin;
     ContactUserAdapter contactUserAdapter;

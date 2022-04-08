@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import net.fpl.beehome.MessageActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Admin;
-import net.fpl.beehome.model.LienHe;
 import net.fpl.beehome.model.NguoiThue;
 
 import java.util.ArrayList;
@@ -57,7 +56,6 @@ public class ContactAdminAdapter extends RecyclerView.Adapter<ContactAdminAdapte
         Admin admin = this.list.get(position);
         holder.tvNamead.setText(admin.getHoTen());
         holder.tvPhonead.setText(admin.getSdt());
-        String phone = holder.tvPhonead.getText().toString();
         holder.imgCallad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +64,6 @@ public class ContactAdminAdapter extends RecyclerView.Adapter<ContactAdminAdapte
                     ActivityCompat.requestPermissions((Activity) context,
                             new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
                 } else {
-                    String dial = "tel: " + phone;
                     Intent intent = new Intent(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:"+list.get(holder.getAdapterPosition()).getSdt()));
                     context.startActivity(intent);

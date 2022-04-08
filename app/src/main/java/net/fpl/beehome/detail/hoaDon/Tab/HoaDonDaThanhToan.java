@@ -7,8 +7,6 @@ import static net.fpl.beehome.MySharedPreferences.USER_KEY;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,16 +44,14 @@ public class HoaDonDaThanhToan extends Fragment {
     ArrayList<HoaDon> arrHD;
     ArrayList<HopDong> arrHopDong;
     ArrayList<NguoiThue> arrNguoiThue;
-    ArrayList<Phong> arrPhong ;
-    ArrayList<String> arrTenPhong ;
+    ArrayList<Phong> arrPhong;
+    ArrayList<String> arrTenPhong;
     ArrayList<DichVu> arrDichVu;
     HoaDonAdapter adapterhd;
     HoaDonNguoiThueAdapter adapternt;
-    String idP,user;
+    String idP, user;
     HoaDonMain main;
     NguoiThue objNguoiThue;
-
-    FirebaseUser ngDung;
 
 
     @Nullable
@@ -69,9 +65,8 @@ public class HoaDonDaThanhToan extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD",MODE_PRIVATE);
-        user = pref.getString(NgDung,"");
-        String hoTen = pref.getString(USER_KEY,"");
+        SharedPreferences pref = getActivity().getSharedPreferences("MSP_EMAIL_PASSWORD", MODE_PRIVATE);
+        user = pref.getString(NgDung, "");
 
         recyclerView = view.findViewById(R.id.recyclerView_hdctt);
 
@@ -86,39 +81,31 @@ public class HoaDonDaThanhToan extends Fragment {
         arrTenPhong = getTenPhong();
         arrNguoiThue = getAllNguoiThue();
 
-
-
-        if(user.equalsIgnoreCase("Admin")){
-
-                    adapterhd = new HoaDonAdapter(arr,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu);
-                    adapterhd.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapterhd);
-
-
-        }else {
-
+        if (user.equalsIgnoreCase("Admin")) {
+            adapterhd = new HoaDonAdapter(arr, getContext(), fb, arrTenPhong, arrPhong, arrHopDong, arrDichVu);
+            adapterhd.notifyDataSetChanged();
+            recyclerView.setAdapter(adapterhd);
+        } else {
             main = (HoaDonMain) getActivity();
             objNguoiThue = main.getNguoiThue();
             idP = objNguoiThue.getId_phong();
             arrHDP = getHoaDonPhong(idP);
-
-            adapternt = new HoaDonNguoiThueAdapter(arrHDP,getContext(),fb,arrTenPhong,arrPhong,arrHopDong,arrDichVu,arrNguoiThue);
+            adapternt = new HoaDonNguoiThueAdapter(arrHDP, getContext(), fb, arrTenPhong, arrPhong, arrHopDong, arrDichVu, arrNguoiThue);
             adapternt.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapternt);
-
+            recyclerView.setAdapter(adapternt);
         }
 
     }
 
-    public ArrayList<String> getTenPhong(){
+    public ArrayList<String> getTenPhong() {
         ArrayList<String> arrTenPhong = new ArrayList<>();
         fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrTenPhong.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     Phong objPhong = document.toObject(Phong.class);
-                    if(objPhong.getTrangThai().equalsIgnoreCase("Đang Thuê")) {
+                    if (objPhong.getTrangThai().equalsIgnoreCase("Đang Thuê")) {
                         arrTenPhong.add(objPhong.getIDPhong());
                     }
                 }
@@ -127,13 +114,13 @@ public class HoaDonDaThanhToan extends Fragment {
         return arrTenPhong;
     }
 
-    public ArrayList<Phong> getAllPhong(){
+    public ArrayList<Phong> getAllPhong() {
         ArrayList<Phong> arrPhong = new ArrayList<>();
         fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrPhong.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     Phong objPhong = document.toObject(Phong.class);
                     arrPhong.add(objPhong);
                 }
@@ -142,7 +129,7 @@ public class HoaDonDaThanhToan extends Fragment {
         return arrPhong;
     }
 
-    public ArrayList<HoaDon> getHoaDonPhong(String idphong){
+    public ArrayList<HoaDon> getHoaDonPhong(String idphong) {
         ArrayList<HoaDon> arr = new ArrayList<>();
 
         fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -151,8 +138,8 @@ public class HoaDonDaThanhToan extends Fragment {
                 arr.clear();
                 for (QueryDocumentSnapshot document : value) {
                     HoaDon xHoaDon = document.toObject(HoaDon.class);
-                    if(xHoaDon.getIDPhong().equalsIgnoreCase(idphong)){
-                        if(xHoaDon.getTrangThaiHD() == 1) {
+                    if (xHoaDon.getIDPhong().equalsIgnoreCase(idphong)) {
+                        if (xHoaDon.getTrangThaiHD() == 1) {
                             arr.add(xHoaDon);
                         }
                     }
@@ -162,7 +149,8 @@ public class HoaDonDaThanhToan extends Fragment {
         });
         return arr;
     }
-    public ArrayList<NguoiThue> getAllNguoiThue(){
+
+    public ArrayList<NguoiThue> getAllNguoiThue() {
         ArrayList<NguoiThue> arrarrngthue = new ArrayList<>();
         fb.collection(NguoiThue.TB_NGUOITHUE)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -179,13 +167,13 @@ public class HoaDonDaThanhToan extends Fragment {
         return arrarrngthue;
     }
 
-    public ArrayList<HopDong> getAllHopDong(){
+    public ArrayList<HopDong> getAllHopDong() {
         ArrayList<HopDong> arrHopDong = new ArrayList<>();
         fb.collection(HopDong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrHopDong.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     HopDong objHopDong = document.toObject(HopDong.class);
                     arrHopDong.add(objHopDong);
                 }
@@ -194,13 +182,13 @@ public class HoaDonDaThanhToan extends Fragment {
         return arrHopDong;
     }
 
-    public ArrayList<DichVu> getAllDichVu(){
+    public ArrayList<DichVu> getAllDichVu() {
         ArrayList<DichVu> arrDichVu = new ArrayList<>();
         fb.collection(DichVu.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrDichVu.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     DichVu objDichVu = document.toObject(DichVu.class);
                     arrDichVu.add(objDichVu);
                 }
@@ -209,15 +197,15 @@ public class HoaDonDaThanhToan extends Fragment {
         return arrDichVu;
     }
 
-    public ArrayList<HoaDon> getAllHoaDon(){
+    public ArrayList<HoaDon> getAllHoaDon() {
         ArrayList<HoaDon> arr = new ArrayList<>();
         fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arr.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
-                    if(objHoaDon.getTrangThaiHD() == 1) {
+                    if (objHoaDon.getTrangThaiHD() == 1) {
                         arr.add(objHoaDon);
                         adapterhd.notifyDataSetChanged();
                     }
@@ -228,20 +216,18 @@ public class HoaDonDaThanhToan extends Fragment {
         return arr;
     }
 
-    public ArrayList<HoaDon> getHoaDon(){
+    public ArrayList<HoaDon> getHoaDon() {
         ArrayList<HoaDon> arrHD = new ArrayList<>();
         fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrHD.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
                     arrHD.add(objHoaDon);
-                    if(user.equalsIgnoreCase("Admin"))
-                    {
+                    if (user.equalsIgnoreCase("Admin")) {
                         adapterhd.notifyDataSetChanged();
-                    }
-                    else {
+                    } else {
                         adapternt.notifyDataSetChanged();
                     }
                 }

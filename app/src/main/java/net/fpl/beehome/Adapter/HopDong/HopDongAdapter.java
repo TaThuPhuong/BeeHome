@@ -70,8 +70,8 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
 
         viewHolder.tv_idphong.setText("Phòng: "+ objHopDong.getId_phong());
         viewHolder.tv_ngayky.setText("Ngày ký: " + objHopDong.getNgayKiHD());
-        viewHolder.tv_ngaybd.setText("Ngày Bắt Đầu: "+objHopDong.getNgayBatDau());
-        viewHolder.tv_ngaykt.setText("Ngày Kết Thúc: "+objHopDong.getNgayKetThuc());
+        viewHolder.tv_ngaybd.setText("Ngày bắt đầu: "+objHopDong.getNgayBatDau());
+        viewHolder.tv_ngaykt.setText("Ngày kết thúc: "+objHopDong.getNgayKetThuc());
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper));

@@ -1,30 +1,21 @@
 package net.fpl.beehome.detail.hoaDon;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.util.Log;
-import android.view.MenuItem;
-import android.widget.DatePicker;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import net.fpl.beehome.MainActivity;
-import net.fpl.beehome.MainNguoiThueActivity;
 import net.fpl.beehome.R;
-import net.fpl.beehome.detail.hoaDon.Tab.HoaDonChuaThanhToan;
-import net.fpl.beehome.model.Admin;
 import net.fpl.beehome.model.NguoiThue;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class HoaDonMain extends AppCompatActivity {

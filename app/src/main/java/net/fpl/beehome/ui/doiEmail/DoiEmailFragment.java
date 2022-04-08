@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -78,7 +77,6 @@ public class DoiEmailFragment extends Fragment {
         edEmail.setError(null);
         getAllAdmin();
         getAllNguoiThue();
-        indexAd = -1;
     }
 
     @Override
@@ -99,6 +97,7 @@ public class DoiEmailFragment extends Fragment {
             public void onClick(View view) {
                 progressBarLoading.showLoading();
                 String email = edEmail.getEditText().getText().toString();
+                indexAd = -1;
                 if (TextUtils.isEmpty(email)) {
                     progressBarLoading.hideLoaing();
                     edEmail.setError("Nhập email mới");

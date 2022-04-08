@@ -2,7 +2,6 @@ package net.fpl.beehome;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,7 +21,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import net.fpl.beehome.model.Admin;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.ui.doiEmail.DoiEmailFragment;
 import net.fpl.beehome.ui.doiMatKhau.DoiMatKhauFragment;
@@ -114,10 +112,6 @@ public class MainNguoiThueActivity extends AppCompatActivity {
     //nhấn vào icon menu thì mở ra
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == android.R.id.) {
-//            drawer.openDrawer(GravityCompat.START);
-//        }
         switch (item.getItemId()) {
             case R.id.menu_user:
                 drawer.openDrawer(GravityCompat.START);
