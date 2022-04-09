@@ -151,6 +151,7 @@ public class Login_Activity extends AppCompatActivity {
                                             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
                                             intent.putExtra("email", email);
                                             intent.putExtra("ad", admin);
+                                            progressBarLoading.hideLoaing();
                                             startActivity(intent);
                                             nhoMatKhau(chk.isChecked(), email, pass);
                                             Toast.makeText(Login_Activity.this, "Đăng nhập thành công ", Toast.LENGTH_SHORT).show();
@@ -162,6 +163,7 @@ public class Login_Activity extends AppCompatActivity {
                                     public void onFailure(@NonNull Exception e) {
                                         progressBarLoading.hideLoaing();
                                         edMatkhau.setError("Sai mật khẩu");
+                                        progressBarLoading.hideLoaing();
                                         return;
                                     }
                                 });
