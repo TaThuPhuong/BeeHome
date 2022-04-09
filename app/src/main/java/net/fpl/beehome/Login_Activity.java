@@ -40,7 +40,7 @@ public class Login_Activity extends AppCompatActivity {
     Button btnDangNhap;
     CheckBox chk;
     TextView tvQuenMK;
-    Animation animation, animation2 ;
+    Animation animation, animation2;
 
     ConstraintLayout constraintLayout;
     MySharedPreferences mySharedPreferences;
@@ -130,7 +130,7 @@ public class Login_Activity extends AppCompatActivity {
                     for (Admin ad : lsAdmin) {
                         if (ad.getEmail().equals(email)) {
                             admin = ad;
-                            Log.d("TAG", "onClick: " +ad.toString());
+                            Log.d("TAG", "onClick: " + ad.toString());
                             break;
                         }
                     }
@@ -147,7 +147,7 @@ public class Login_Activity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (admin != null && task.isSuccessful()) {
                                             progressBarLoading.hideLoaing();
-                                            mySharedPreferences.getDN(MySharedPreferences.NgDung,"Admin");
+                                            mySharedPreferences.getDN(MySharedPreferences.NgDung, "Admin");
                                             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
                                             intent.putExtra("email", email);
                                             intent.putExtra("ad", admin);
@@ -175,7 +175,7 @@ public class Login_Activity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (nguoiThue != null && task.isSuccessful()) {
                                             progressBarLoading.hideLoaing();
-                                            mySharedPreferences.getDN(MySharedPreferences.NgDung,"ngThue");
+                                            mySharedPreferences.getDN(MySharedPreferences.NgDung, "ngThue");
                                             Intent intent = new Intent(Login_Activity.this, MainNguoiThueActivity.class);
                                             intent.putExtra("email", email);
                                             intent.putExtra("nt", nguoiThue);

@@ -5,11 +5,11 @@ import android.content.SharedPreferences;
 
 public class MySharedPreferences {
 
-    // Ghi nhớ tài khoản, mật khẩu đăng nhập trước đó
-    private static final String MSP = "MSP_EMAIL_PASSWORD";
     public static final String USER_KEY = "user";
     public static final String PASSWORD_KEY = "password";
     public static final String STATUS_KEY = "status";
+    // Ghi nhớ tài khoản, mật khẩu đăng nhập trước đó
+    private static final String MSP = "MSP_EMAIL_PASSWORD";
     public static String NgDung = "ngThue";
     private Context context;
 
@@ -17,13 +17,15 @@ public class MySharedPreferences {
     public MySharedPreferences(Context context) {
         this.context = context;
     }
-//
+
+    //
     public void saveUser(String key, String user) {
         SharedPreferences preferences = context.getSharedPreferences(MSP, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(key, user);
         editor.apply();
     }
+
     public void savePassword(String key, String pass) {
         SharedPreferences preferences = context.getSharedPreferences(MSP, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -44,7 +46,7 @@ public class MySharedPreferences {
         return preferences.getString(key, "");
     }
 
-    public String getDN(String key,String nThue) {
+    public String getDN(String key, String nThue) {
         SharedPreferences preferences = context.getSharedPreferences(MSP, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(key, nThue);
@@ -56,6 +58,7 @@ public class MySharedPreferences {
         SharedPreferences preferences = context.getSharedPreferences(MSP, Context.MODE_PRIVATE);
         return preferences.getString(key, "");
     }
+
     public boolean getStatus(String key) {
         SharedPreferences preferences = context.getSharedPreferences(MSP, Context.MODE_PRIVATE);
         return preferences.getBoolean(key, false);

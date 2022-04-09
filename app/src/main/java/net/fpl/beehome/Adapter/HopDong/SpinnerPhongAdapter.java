@@ -36,9 +36,9 @@ public class SpinnerPhongAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View itemView;
 
-        if (view == null){
+        if (view == null) {
             itemView = View.inflate(viewGroup.getContext(), R.layout.row_sp_phong_dialogadd, null);
-        }else {
+        } else {
             itemView = view;
         }
 

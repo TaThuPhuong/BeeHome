@@ -108,7 +108,7 @@ public class DoiMatKhauFragment extends Fragment {
                         return;
                     }
 
-                    if (strMKMoi.length() < 6){
+                    if (strMKMoi.length() < 6) {
                         edMKMoi.setError("Mật khẩu phải trên 6 ký tự");
                         return;
                     }
@@ -116,7 +116,7 @@ public class DoiMatKhauFragment extends Fragment {
                         edMKNhapLai.setError("Dữ liệu không được bỏ trống");
                         return;
                     }
-                    if (strMKNhapLai.equals(strMKMoi)){
+                    if (strMKNhapLai.equals(strMKMoi)) {
                         edMKNhapLai.setError("Mật khẩu phải trên 6 ký tự");
                         return;
                     }
@@ -144,6 +144,7 @@ public class DoiMatKhauFragment extends Fragment {
             }
         });
     }
+
     public void clear() {
         edMKMoi.getEditText().setText("");
         edMKNhapLai.getEditText().setText("");

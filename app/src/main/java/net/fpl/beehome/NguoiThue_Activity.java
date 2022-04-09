@@ -3,8 +3,6 @@ package net.fpl.beehome;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -13,10 +11,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,15 +23,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -63,7 +55,18 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
     CountryCodePicker ccp;
     FirebaseAuth fba;
     SwipeRefreshLayout swipeRefreshLayout1;
-//
+
+    public static boolean isEmail(CharSequence charSequence) {
+        return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
+    }
+
+    public static boolean isNumber(String input) {
+        Pattern b = Pattern.compile("(84|0[3|5|7|8|9])+([0-9]{8})\\b");
+        Matcher m = b.matcher(input);
+        return m.matches();
+    }
+
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +166,7 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search,menu);
+        getMenuInflater().inflate(R.menu.menu_search, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -171,7 +174,7 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                nguoiThueSwip.getFilter().filter(query );
+                nguoiThueSwip.getFilter().filter(query);
                 return false;
             }
 
@@ -182,16 +185,6 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
             }
         });
         return true;
-    }
-
-    public static boolean isEmail(CharSequence charSequence) {
-        return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
-    }
-
-    public static boolean isNumber(String input) {
-        Pattern b = Pattern.compile("(84|0[3|5|7|8|9])+([0-9]{8})\\b");
-        Matcher m = b.matcher(input);
-        return m.matches();
     }
 
     private void themNguoiThue(NguoiThue nguoiThue) {
@@ -276,6 +269,7 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
             }
         });
     }
+
     @Override
     public void onRefresh() {
         new Handler().postDelayed(new Runnable() {

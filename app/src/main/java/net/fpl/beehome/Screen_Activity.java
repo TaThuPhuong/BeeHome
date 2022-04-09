@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-
 import net.fpl.beehome.Adapter.ViewPageAdapter;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -21,6 +20,7 @@ public class Screen_Activity extends AppCompatActivity {
     CircleIndicator circleIndicator;
     ImageView next;
     RelativeLayout rel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

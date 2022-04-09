@@ -15,10 +15,11 @@ import net.fpl.beehome.R;
 public class Fragment_two extends Fragment {
     public Fragment_two() {
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_fragment_two,container,false);
+        View view = inflater.inflate(R.layout.activity_fragment_two, container, false);
         return view;
     }
 }

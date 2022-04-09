@@ -35,7 +35,7 @@ import net.fpl.beehome.model.SuCo;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
     FloatingActionButton btn_add;
     RecyclerView rv_cs;
     FirebaseFirestore fb;
@@ -58,18 +58,17 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         rv_cs.setLayoutManager(new LinearLayoutManager(this));
 
 
-
         Intent intent = getIntent();
         String quyen = intent.getStringExtra("quyen");
         objNguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
         Log.d("arrHDP", "onViewCreated: " + objNguoiThue);
 
-        if (quyen.equalsIgnoreCase("admin")){
+        if (quyen.equalsIgnoreCase("admin")) {
             btn_add.setVisibility(View.GONE);
             arr = getAll2();
             suCoAdapter2 = new SuCoAdapter2(arr, objNguoiThue, SuCoActivity.this, fb);
             rv_cs.setAdapter(suCoAdapter2);
-        }else{
+        } else {
             arr = getSuCoPhong(objNguoiThue.getId_phong());
             suCoAdapter = new SuCoAdapter(arr, objNguoiThue, SuCoActivity.this, fb);
             rv_cs.setAdapter(suCoAdapter);
@@ -109,28 +108,28 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                 final int m = calendar.get(Calendar.MONTH);
                 final int d = calendar.get(Calendar.DAY_OF_MONTH);
 
-                ed_ngbao.getEditText().setText(y +"/"+(m+1)+"/"+d);
+                ed_ngbao.getEditText().setText(y + "/" + (m + 1) + "/" + d);
 
                 btn_bc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        if(ed_mota.getEditText().getText().toString().length()==0 || ed_mota.getEditText().getText().toString().length()<5){
+                        if (ed_mota.getEditText().getText().toString().length() == 0 || ed_mota.getEditText().getText().toString().length() < 5) {
                             ed_mota.setError("Độ dài ký tự không hợp lệ (5 đến 30 ký tự)");
                             return;
-                        }else if(!checkMT(ed_mota.getEditText().getText().toString())){
+                        } else if (!checkMT(ed_mota.getEditText().getText().toString())) {
                             ed_mota.setError("Bạn đã báo cáo sự cố này rồi");
                             return;
                         }
 
                         SuCo objSuCo = new SuCo();
-                        objSuCo.setId_suco(tv_phong.getText().toString()+ed_mota.getEditText().getText().toString());
+                        objSuCo.setId_suco(tv_phong.getText().toString() + ed_mota.getEditText().getText().toString());
                         objSuCo.setId_phong(tv_phong.getText().toString());
                         objSuCo.setMoTa(ed_mota.getEditText().getText().toString());
                         objSuCo.setNgayBaoCao(ed_ngbao.getEditText().getText().toString());
 
 
-                        fb.collection(SuCo.TB_NAME).document(tv_phong.getText().toString()+ed_mota.getEditText().getText().toString())
+                        fb.collection(SuCo.TB_NAME).document(tv_phong.getText().toString() + ed_mota.getEditText().getText().toString())
                                 .set(objSuCo)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -163,10 +162,10 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                 suCoAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
             }
-        },1000);
+        }, 1000);
     }
 
-    public ArrayList<SuCo> getAll2(){
+    public ArrayList<SuCo> getAll2() {
         ArrayList<SuCo> arr = new ArrayList<>();
 
         fb.collection(SuCo.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -186,7 +185,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
 
-    public ArrayList<SuCo> getSuCoPhong(String idphong){
+    public ArrayList<SuCo> getSuCoPhong(String idphong) {
         ArrayList<SuCo> arr = new ArrayList<>();
 
         fb.collection(SuCo.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -195,7 +194,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                 arr.clear();
                 for (QueryDocumentSnapshot document : value) {
                     SuCo objSuCo = document.toObject(SuCo.class);
-                    if(objSuCo.getId_phong().equalsIgnoreCase(idphong)){
+                    if (objSuCo.getId_phong().equalsIgnoreCase(idphong)) {
                         arr.add(objSuCo);
                         Log.d("aaaaaaa", document.getId() + " => " + document.getData());
                     }
@@ -206,9 +205,9 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         return arr;
     }
 
-    public boolean checkMT(String str){
-        for(SuCo objSuCo : arr){
-            if(objSuCo.getMoTa().equalsIgnoreCase(str)){
+    public boolean checkMT(String str) {
+        for (SuCo objSuCo : arr) {
+            if (objSuCo.getMoTa().equalsIgnoreCase(str)) {
                 return false;
             }
         }

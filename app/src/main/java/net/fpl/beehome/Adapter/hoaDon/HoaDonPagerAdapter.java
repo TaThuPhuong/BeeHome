@@ -19,13 +19,13 @@ public class HoaDonPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        switch (position){
+        switch (position) {
             case 0:
-                return  new HoaDonChuaThanhToan();
+                return new HoaDonChuaThanhToan();
             case 1:
                 return new HoaDonDaThanhToan();
             case 2:
-                return  new HoaDonQuaHanThanhToan();
+                return new HoaDonQuaHanThanhToan();
 
         }
         return null;

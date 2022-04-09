@@ -3,11 +3,11 @@ package net.fpl.beehome.model;
 import java.io.Serializable;
 
 public class Admin implements Serializable {
-    private String hoTen,email,sdt;
     public final static String TB_NAME = "tb_admin";
     public final static String COL_HO_TEN = "hoTen";
     public final static String COL_EMAIL = "email";
     public final static String COL_SDT = "sdt";
+    private String hoTen, email, sdt;
 
     public Admin() {
     }
@@ -23,10 +23,11 @@ public class Admin implements Serializable {
         this.sdt = sdt;
     }
 
-    public String getSdt(){
+    public String getSdt() {
         return sdt;
     }
-    public void setSdt(String sdt){
+
+    public void setSdt(String sdt) {
         this.sdt = sdt;
     }
 

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-10dp"
+                android:background="@drawable/bg_ui"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="140dp"
+                    android:layout_marginBottom="-35dp"
+                    android:src="@drawable/logo_unbg_white" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/gt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:padding="2dp"
+                android:layout_margin="7dp"
+                android:gravity="start"
+                android:text="   Đây là phần mềm hỗ trợ quản lý nhà trọ trên nền tảng android. Giúp chủ nhà trọ có thể quản lý phòng, người thuê, hợp đồng, hóa đơn và các tiện ích khác. Dưới đây là hướng dẫn:"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:lineHeight="21dp"
+                android:textSize="14dp" />
+            <TextView
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="start"
+                android:lineHeight="20dp"
+                android:text="          1. Bạn phải thêm phòng và dịch vụ kèm các thông tin liên quan ở phần Phòng và Dịch Vụ"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:textSize="14dp" />
+
+            <TextView
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:gravity="start"
+                android:text="          2. Bạn hãy thêm người thuê ở phần Người thuê. Chú ý: email và số điện thoại người thuê chính là tài khoản để người thuê sử dụng app!"
+                android:lineHeight="20dp"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="10dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:textSize="14dp" />
+
+            <TextView
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="start"
+                android:lineHeight="20dp"
+                android:text="          3. Khi có đầy đủ thông tin phòng và người thuê, tiến hành tạo hợp đồng tại Hợp đồng."
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:textSize="14dp" />
+
+            <TextView
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="start"
+                android:lineHeight="20dp"
+                android:text="          4. Khi tới thời hạn, vào phần hóa đơn để tạo hóa đơn cho từng phòng ở Hóa đơn. Hóa đơn sẽ được hiện chi tiết cho người thuê. Chú ý: bạn hãy chốt số điện và nước cuối trước khi thanh toán!"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:textSize="14dp" />
+
+            <TextView
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="start"
+                android:lineHeight="20dp"
+                android:text="          5. Hãy thường xuyên check sự cố các phòng tại Sự cố để sửa chữa kịp thời"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:textSize="14dp" />
+            <TextView
+                android:padding="2dp"
+                android:lineHeight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="start"
+                android:text="          6. Bạn có thể nhắn tin hoặc gọi điện cho người thuê tại biểu tượng tin nhắn"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:textSize="14dp" />
+
+            <TextView
+                android:padding="2dp"
+                android:lineHeight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="start"
+                android:text="          7. Bạn có thể xem thống kê toàn doanh thu, hoặc theo tháng tại phần Thống kê"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:textSize="14dp" />
+
+            <TextView
+                android:padding="2dp"
+                android:lineHeight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="start"
+                android:text="          8. Ngoài ra bạn có thể xem giới thiệu về chúng tôi hoặc thực hiện các thay đổi như mật khẩu, email hoặc đăng xuất khi nhấn vào biểu tượng user trên màn hình"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:textSize="14dp" />
+
+            <TextView
+                android:padding="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="3dp"
+                android:lineHeight="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="start"
+                android:text="   Mọi sự cố hoặc vấn đề bạn có khi sử dụng app hãy liên hệ với chúng tôi theo contact phía dưới. Rất mong bạn có những trải nghiệm tốt với app. Chúc bạn dùng app vui vẻ!"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey_dam"
+                android:textSize="14dp" />
+
+            <LinearLayout
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_hdon"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="134dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="Contact"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/email"
+                    app:tint="@color/grey_dam" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:text="phuongta15099@gmail.com"
+                    android:textColor="@color/grey_dam"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_phone_black_24dp"
+                    app:tint="@color/grey_dam" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+
+                    android:text="0989481280"
+                    android:textColor="@color/grey_dam"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

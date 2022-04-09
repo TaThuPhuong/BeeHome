@@ -1,11 +1,10 @@
 package net.fpl.beehome.model;
 
-public class  SuCo {
-    String id_suco,id_phong, moTa, ngayBaoCao;
-
+public class SuCo {
     public static final String TB_NAME = "tb_suCo";
     public static final String COL_IDPHONG = "moTa";
     public static final String COL_NGAYBAOCAO = "ngayBaoCao";
+    String id_suco, id_phong, moTa, ngayBaoCao;
 
     public SuCo() {
     }

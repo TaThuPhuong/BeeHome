@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,7 +37,7 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
     ArrayList<HoaDon> arr;
     Context context;
     FirebaseFirestore fb;
-    ArrayList<String> arrTenPhong ;
+    ArrayList<String> arrTenPhong;
     ArrayList<Phong> arrPhong;
     ArrayList<HopDong> arrhopdong;
     ArrayList<DichVu> arrDichVu;
@@ -65,11 +66,11 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
     public void onBindViewHolder(final HoaDonViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         final HoaDon objHoaDon = arr.get(position);
 
-        viewHolder.tongHD.setText(objHoaDon.getTongHD()+"");
+        viewHolder.tongHD.setText(objHoaDon.getTongHD() + "");
         viewHolder.phong.setText(objHoaDon.getIDPhong());
-        viewHolder.tienNha.setText(objHoaDon.getTienPhong()+"");
-        viewHolder.tienDv.setText(objHoaDon.getTienDV()+"");
-        viewHolder.giamGia.setText(objHoaDon.getGiamGia()+"");
+        viewHolder.tienNha.setText(objHoaDon.getTienPhong() + "");
+        viewHolder.tienDv.setText(objHoaDon.getTienDV() + "");
+        viewHolder.giamGia.setText(objHoaDon.getGiamGia() + "");
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper_hd));
@@ -134,7 +135,6 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
                 }
 
 
-
                 idPhong.setText("Phòng: " + objHoaDon.getIDPhong());
                 tienPhong.setText(formatter.format(objHoaDon.getTienPhong()) + "");
                 giamGia.setText(formatter.format(objHoaDon.getGiamGia()) + "");
@@ -192,12 +192,11 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
     }
 
 
-
-
     public class HoaDonViewHolder extends RecyclerView.ViewHolder {
-        TextView tongHD,phong,tienNha,tienDv,giamGia;
+        TextView tongHD, phong, tienNha, tienDv, giamGia;
         SwipeLayout swipeLayout;
         LinearLayout tv_info;
+
         public HoaDonViewHolder(@NonNull View itemView) {
             super(itemView);
             tongHD = itemView.findViewById(R.id.tv_tongHD);
@@ -206,13 +205,11 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
             tienDv = itemView.findViewById(R.id.tv_tienDvHD);
             giamGia = itemView.findViewById(R.id.tv_giamGiaHD);
 
-            swipeLayout =itemView.findViewById(R.id.swipe_hd);
+            swipeLayout = itemView.findViewById(R.id.swipe_hd);
 
             tv_info = itemView.findViewById(R.id.tv_info);
         }
     }
-
-
 
 
 }

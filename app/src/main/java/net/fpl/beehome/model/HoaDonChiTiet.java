@@ -1,21 +1,9 @@
 package net.fpl.beehome.model;
 
 public class HoaDonChiTiet {
-    String IDHoaDonCT,IDHoaDon,tenDichVu;
-    int soLuong, thanhTien;
-
     public static final String TB_NAME = "tb_hoaDonCT";
-
-    @Override
-    public String toString() {
-        return "HoaDonChiTiet{" +
-                "IDHoaDonCT='" + IDHoaDonCT + '\'' +
-                ", IDHoaDon='" + IDHoaDon + '\'' +
-                ", tenDichVu='" + tenDichVu + '\'' +
-                ", soLuong=" + soLuong +
-                ", thanhTien=" + thanhTien +
-                '}';
-    }
+    String IDHoaDonCT, IDHoaDon, tenDichVu;
+    int soLuong, thanhTien;
 
     public HoaDonChiTiet(String IDHoaDonCT, String IDHoaDon, String tenDichVu, int soLuong, int thanhTien) {
         this.IDHoaDonCT = IDHoaDonCT;
@@ -26,6 +14,17 @@ public class HoaDonChiTiet {
     }
 
     public HoaDonChiTiet() {
+    }
+
+    @Override
+    public String toString() {
+        return "HoaDonChiTiet{" +
+                "IDHoaDonCT='" + IDHoaDonCT + '\'' +
+                ", IDHoaDon='" + IDHoaDon + '\'' +
+                ", tenDichVu='" + tenDichVu + '\'' +
+                ", soLuong=" + soLuong +
+                ", thanhTien=" + thanhTien +
+                '}';
     }
 
     public String getIDHoaDonCT() {

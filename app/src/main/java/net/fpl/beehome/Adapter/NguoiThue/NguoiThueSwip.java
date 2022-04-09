@@ -51,12 +51,22 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         this.arr1 = arr;
     }
 
+    public static boolean isNumber(String input) {
+        Pattern b = Pattern.compile("(84|0[3|5|7|8|9])+([0-9]{8})\\b");
+        Matcher m = b.matcher(input);
+        return m.matches();
+    }
+
     @Override
     public NguoiThueViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_nguoithue, parent, false);
 
         return new NguoiThueViewHolder(view);
     }
+
+//    public static boolean isEmail(CharSequence charSequence) {
+//        return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
+//    }
 
     @Override
     public void onBindViewHolder(final NguoiThueViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
@@ -241,16 +251,6 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         mItemManger.bindView(viewHolder.itemView, position);
     }
 
-//    public static boolean isEmail(CharSequence charSequence) {
-//        return !TextUtils.isEmpty(charSequence) && Patterns.EMAIL_ADDRESS.matcher(charSequence).matches();
-//    }
-
-    public static boolean isNumber(String input) {
-        Pattern b = Pattern.compile("(84|0[3|5|7|8|9])+([0-9]{8})\\b");
-        Matcher m = b.matcher(input);
-        return m.matches();
-    }
-
     public boolean checkSDTNguoiThue(NguoiThue nguoiThue) {
         ArrayList<NguoiThue> arrayList = new ArrayList<>();
         for (NguoiThue nguoiThue2 : arr) {
@@ -317,25 +317,6 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         return R.id.swipe;
     }
 
-    public class NguoiThueViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_tennguoithue, tv_phongnguoithue, tv_sdtnguoithue;
-        SwipeLayout swipeLayout;
-        LinearLayout tv_del, tv_edit, tv_info;
-
-        public NguoiThueViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tv_tennguoithue = itemView.findViewById(R.id.tv_tennguoithue);
-            tv_phongnguoithue = itemView.findViewById(R.id.tv_phongnguoithue);
-            tv_sdtnguoithue = itemView.findViewById(R.id.tv_sdtnguoithue);
-            swipeLayout = itemView.findViewById(R.id.swipe);
-
-            tv_del = itemView.findViewById(R.id.tv_deletenguoithue);
-            tv_edit = itemView.findViewById(R.id.tv_editnguoithue);
-            tv_info = itemView.findViewById(R.id.tv_infonguoithue);
-
-        }
-    }
-
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -364,5 +345,24 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 notifyDataSetChanged();
             }
         };
+    }
+
+    public class NguoiThueViewHolder extends RecyclerView.ViewHolder {
+        TextView tv_tennguoithue, tv_phongnguoithue, tv_sdtnguoithue;
+        SwipeLayout swipeLayout;
+        LinearLayout tv_del, tv_edit, tv_info;
+
+        public NguoiThueViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tv_tennguoithue = itemView.findViewById(R.id.tv_tennguoithue);
+            tv_phongnguoithue = itemView.findViewById(R.id.tv_phongnguoithue);
+            tv_sdtnguoithue = itemView.findViewById(R.id.tv_sdtnguoithue);
+            swipeLayout = itemView.findViewById(R.id.swipe);
+
+            tv_del = itemView.findViewById(R.id.tv_deletenguoithue);
+            tv_edit = itemView.findViewById(R.id.tv_editnguoithue);
+            tv_info = itemView.findViewById(R.id.tv_infonguoithue);
+
+        }
     }
 }

@@ -34,7 +34,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -118,7 +117,7 @@ public class HoaDonChuaThanhToan extends Fragment {
 
         if (user.equalsIgnoreCase("Admin")) {
 //            set adapter
-            adapterhd = new HoaDonAdapter(arr, getContext(), fb, getTenPhong(), getAllPhong(), getAllHopDong(), getAllDichVu(),getAllHoaDonCT());
+            adapterhd = new HoaDonAdapter(arr, getContext(), fb, getTenPhong(), getAllPhong(), getAllHopDong(), getAllDichVu(), getAllHoaDonCT());
             adapterhd.notifyDataSetChanged();
             recyclerView.setAdapter(adapterhd);
 
@@ -383,11 +382,13 @@ public class HoaDonChuaThanhToan extends Fragment {
                                                 .set(objHoaDonChiTietPhong)
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
-                                                    public void onSuccess(Void unused) {}
+                                                    public void onSuccess(Void unused) {
+                                                    }
                                                 }).
                                                 addOnFailureListener(new OnFailureListener() {
                                                     @Override
-                                                    public void onFailure(@NonNull Exception e) {}
+                                                    public void onFailure(@NonNull Exception e) {
+                                                    }
                                                 });
                                     }
                                 }
@@ -443,21 +444,25 @@ public class HoaDonChuaThanhToan extends Fragment {
                                             .set(objHoaDonChiTietDien)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
-                                                public void onSuccess(Void unused) {}
+                                                public void onSuccess(Void unused) {
+                                                }
                                             }).
                                             addOnFailureListener(new OnFailureListener() {
                                                 @Override
-                                                public void onFailure(@NonNull Exception e) {}
+                                                public void onFailure(@NonNull Exception e) {
+                                                }
                                             });
                                     fb.collection(HoaDonChiTiet.TB_NAME).document(objHoaDonChiTietNuoc.getIDHoaDonCT())
                                             .set(objHoaDonChiTietNuoc)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
-                                                public void onSuccess(Void unused) {}
+                                                public void onSuccess(Void unused) {
+                                                }
                                             }).
                                             addOnFailureListener(new OnFailureListener() {
                                                 @Override
-                                                public void onFailure(@NonNull Exception e) {}
+                                                public void onFailure(@NonNull Exception e) {
+                                                }
                                             });
 
                                     dialog.dismiss();
@@ -642,13 +647,13 @@ public class HoaDonChuaThanhToan extends Fragment {
         return arrHD;
     }
 
-    public ArrayList<HoaDonChiTiet> getAllHoaDonCT(){
+    public ArrayList<HoaDonChiTiet> getAllHoaDonCT() {
         ArrayList<HoaDonChiTiet> arrHDCT = new ArrayList<>();
         fb.collection(HoaDonChiTiet.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arrHDCT.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     HoaDonChiTiet objHoaDonCT = document.toObject(HoaDonChiTiet.class);
                     arrHDCT.add(objHoaDonCT);
                     if (user.equalsIgnoreCase("Admin")) {

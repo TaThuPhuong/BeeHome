@@ -52,8 +52,8 @@ public class SuCoAdapter2 extends RecyclerSwipeAdapter<SuCoAdapter2.SuCoViewHold
         final int index = position;
 
         viewHolder.tv_mota.setText("Mô tả: " + objSuCo.getMoTa());
-        viewHolder.tv_ngaybc.setText("Ngày báo cáo: "+objSuCo.getNgayBaoCao());
-        viewHolder.tv_phong.setText("Phòng: "+ objSuCo.getId_phong());
+        viewHolder.tv_ngaybc.setText("Ngày báo cáo: " + objSuCo.getNgayBaoCao());
+        viewHolder.tv_phong.setText("Phòng: " + objSuCo.getId_phong());
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper));
@@ -139,7 +139,7 @@ public class SuCoAdapter2 extends RecyclerSwipeAdapter<SuCoAdapter2.SuCoViewHold
                 dialog.setContentView(R.layout.dialog_info_suco);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 TextView tv_info = dialog.findViewById(R.id.tv_info_hopdong);
-                tv_info.setText("Phòng: "+objSuCo.getId_phong() + "\nNgày: " +objSuCo.getNgayBaoCao() + "\nMô Tả: "+ objSuCo.getMoTa());
+                tv_info.setText("Phòng: " + objSuCo.getId_phong() + "\nNgày: " + objSuCo.getNgayBaoCao() + "\nMô Tả: " + objSuCo.getMoTa());
                 mItemManger.closeAllItems();
                 dialog.show();
             }
@@ -158,16 +158,17 @@ public class SuCoAdapter2 extends RecyclerSwipeAdapter<SuCoAdapter2.SuCoViewHold
         return R.id.swipe;
     }
 
-    public class SuCoViewHolder extends RecyclerView.ViewHolder{
+    public class SuCoViewHolder extends RecyclerView.ViewHolder {
         TextView tv_phong, tv_mota, tv_ngaybc;
         SwipeLayout swipeLayout;
         LinearLayout tv_del, tv_info;
+
         public SuCoViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_phong = itemView.findViewById(R.id.tv_phong);
             tv_mota = itemView.findViewById(R.id.tv_mota);
             tv_ngaybc = itemView.findViewById(R.id.tv_ngaybc);
-            swipeLayout =itemView.findViewById(R.id.swipe);
+            swipeLayout = itemView.findViewById(R.id.swipe);
 
             tv_del = itemView.findViewById(R.id.tv_delete);
             tv_info = itemView.findViewById(R.id.tv_info);

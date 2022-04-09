@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import net.fpl.beehome.MessageActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Admin;
@@ -29,11 +30,11 @@ import java.util.ArrayList;
 
 public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.ContactUserViewHolder> {
 
+    private static final int REQUEST_CALL = 1;
+    private final int COUNTDOWN_RUNNING_TIME = 500;
+    Admin admin;
     private ArrayList<NguoiThue> list;
     private Animation animationUp, animationDown;
-    Admin admin;
-    private final int COUNTDOWN_RUNNING_TIME = 500;
-    private static final int REQUEST_CALL = 1;
     private Context context;
 
     public ContactUserAdapter(ArrayList<NguoiThue> list, Admin admin, Context context) {
@@ -45,8 +46,8 @@ public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.
     @NonNull
     @Override
     public ContactUserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_contact, parent, false);
-            return new ContactUserViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_contact, parent, false);
+        return new ContactUserViewHolder(view);
     }
 
     @Override
@@ -55,59 +56,59 @@ public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.
 
         holder.tvName.setText(user.getHoTen());
         holder.tvPhone.setText(user.getSdt());
-            String phone = holder.tvPhone.getText().toString();
+        String phone = holder.tvPhone.getText().toString();
         holder.imgMessage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, MessageActivity.class);
-                    intent.putExtra("user_nhan", user);
-                    intent.putExtra("admin_gui", admin);
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, MessageActivity.class);
+                intent.putExtra("user_nhan", user);
+                intent.putExtra("admin_gui", admin);
+                context.startActivity(intent);
+            }
+        });
+        holder.imgCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(context,
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions((Activity) context,
+                            new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                } else {
+                    String dial = "tel: " + phone;
+                    Intent intent = new Intent(Intent.ACTION_CALL);
+                    intent.setData(Uri.parse("tel:" + list.get(holder.getAdapterPosition()).getSdt()));
                     context.startActivity(intent);
                 }
-            });
-        holder.imgCall.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (ContextCompat.checkSelfPermission(context,
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                        ActivityCompat.requestPermissions((Activity) context,
-                                new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-                    } else {
-                        String dial = "tel: " + phone;
-                        Intent intent = new Intent(Intent.ACTION_CALL);
-                        intent.setData(Uri.parse("tel:"+list.get(holder.getAdapterPosition()).getSdt()));
-                        context.startActivity(intent);
-                    }
-                }
-            });
+            }
+        });
         holder.layoutItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
 
-                    animationDown = AnimationUtils.loadAnimation(view.getContext(), R.anim.down);
-                    animationUp = AnimationUtils.loadAnimation(view.getContext(), R.anim.up);
+                animationDown = AnimationUtils.loadAnimation(view.getContext(), R.anim.down);
+                animationUp = AnimationUtils.loadAnimation(view.getContext(), R.anim.up);
 
-                    if(holder.layoutExpand.isShown()){
-                        holder.layoutExpand.startAnimation(animationUp);
-                        CountDownTimer countDownTimer = new CountDownTimer(COUNTDOWN_RUNNING_TIME, 16) {
-                            @Override
-                            public void onTick(long l) {
+                if (holder.layoutExpand.isShown()) {
+                    holder.layoutExpand.startAnimation(animationUp);
+                    CountDownTimer countDownTimer = new CountDownTimer(COUNTDOWN_RUNNING_TIME, 16) {
+                        @Override
+                        public void onTick(long l) {
 
-                            }
+                        }
 
-                            @Override
-                            public void onFinish() {
-                                holder.layoutExpand.setVisibility(View.GONE);
-                            }
-                        };
-                        countDownTimer.start();
-                    } else {
+                        @Override
+                        public void onFinish() {
+                            holder.layoutExpand.setVisibility(View.GONE);
+                        }
+                    };
+                    countDownTimer.start();
+                } else {
 
-                        holder.layoutExpand.setVisibility(View.VISIBLE);
-                        holder.layoutExpand.startAnimation(animationDown);
-                    }
+                    holder.layoutExpand.setVisibility(View.VISIBLE);
+                    holder.layoutExpand.startAnimation(animationDown);
                 }
-            });
+            }
+        });
     }
 
     @Override
@@ -115,9 +116,9 @@ public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.
         return list.size();
     }
 
-    class ContactUserViewHolder extends RecyclerView.ViewHolder{
+    class ContactUserViewHolder extends RecyclerView.ViewHolder {
         private TextView tvName, tvPhone;
-        private LinearLayout layoutItem,layoutExpand;
+        private LinearLayout layoutItem, layoutExpand;
         private ImageView imgCall, imgMessage;
 
         public ContactUserViewHolder(@NonNull View itemView) {

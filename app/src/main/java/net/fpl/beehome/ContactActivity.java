@@ -34,9 +34,9 @@ public class ContactActivity extends AppCompatActivity {
     ArrayList<Admin> listAdmin;
     ContactUserAdapter contactUserAdapter;
     ContactAdminAdapter contactAdminAdapter;
-    private Animation animationUp, animationDown;
     String quyen;
     TextView tv;
+    private Animation animationUp, animationDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +55,14 @@ public class ContactActivity extends AppCompatActivity {
         Admin admin = (Admin) intent.getSerializableExtra("admin");
         NguoiThue nguoiThue = (NguoiThue) intent.getSerializableExtra("user");
 
-        if (quyen.equalsIgnoreCase("admin")){
+        if (quyen.equalsIgnoreCase("admin")) {
             tv.setText("Chat với người thuê");
             FirebaseFirestore db1 = FirebaseFirestore.getInstance();
             db1.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                     listUser.clear();
-                    for (DocumentSnapshot snapshot : value){
+                    for (DocumentSnapshot snapshot : value) {
                         NguoiThue nguoiThue = snapshot.toObject(NguoiThue.class);
                         listUser.add(nguoiThue);
                         contactUserAdapter.notifyDataSetChanged();
@@ -78,7 +78,7 @@ public class ContactActivity extends AppCompatActivity {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                     listAdmin.clear();
-                    for (DocumentSnapshot snapshot : value){
+                    for (DocumentSnapshot snapshot : value) {
                         Admin admin = snapshot.toObject(Admin.class);
                         listAdmin.add(admin);
                         contactAdminAdapter.notifyDataSetChanged();
@@ -93,7 +93,7 @@ public class ContactActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1){
+        if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             } else {
                 Toast.makeText(this, "Vui lòng cấp quyền gọi điện", Toast.LENGTH_SHORT).show();

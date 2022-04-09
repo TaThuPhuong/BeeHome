@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BeeHome">
         <activity
+            android:name=".HuongDanNguoiThueActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HuongDanActivity"
+            android:exported="false" />
+        <activity
             android:name=".MessageActivity"
             android:exported="false" />
         <activity
@@ -38,16 +44,13 @@
             android:exported="true" />
         <activity
             android:name=".Login_Activity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".NguoiThue_Activity"
             android:exported="true" />
         <activity
             android:name=".Screen_Activity"
-            android:exported="true" >
-            
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

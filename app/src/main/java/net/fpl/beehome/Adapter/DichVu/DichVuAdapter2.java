@@ -14,9 +14,9 @@ import net.fpl.beehome.model.DichVu;
 import java.util.ArrayList;
 
 public class DichVuAdapter2 extends RecyclerView.Adapter<DichVuAdapter2.DichVu2ViewHolder> {
-    ArrayList<DichVu> arr ;
+    ArrayList<DichVu> arr;
 
-    public DichVuAdapter2(ArrayList<DichVu> arr){
+    public DichVuAdapter2(ArrayList<DichVu> arr) {
         this.arr = arr;
     }
 

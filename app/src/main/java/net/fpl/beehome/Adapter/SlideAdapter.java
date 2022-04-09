@@ -17,6 +17,13 @@ import java.util.List;
 
 public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.SlideViewHolder> {
     private List<SlideItem> arr;
+    public Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            arr.addAll(arr);
+            notifyDataSetChanged();
+        }
+    };
     private ViewPager2 viewPager2;
 
     public SlideAdapter(List<SlideItem> arr, ViewPager2 viewPager2) {
@@ -33,7 +40,7 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.SlideViewHol
     @Override
     public void onBindViewHolder(@NonNull SlideViewHolder holder, int position) {
         holder.setImgView(arr.get(position));
-        if(position == arr.size()-2){
+        if (position == arr.size() - 2) {
             viewPager2.post(runnable);
         }
     }
@@ -43,24 +50,17 @@ public class SlideAdapter extends RecyclerView.Adapter<SlideAdapter.SlideViewHol
         return arr.size();
     }
 
-    public class SlideViewHolder extends RecyclerView.ViewHolder{
+    public class SlideViewHolder extends RecyclerView.ViewHolder {
         RoundedImageView imgView;
+
         public SlideViewHolder(@NonNull View itemView) {
             super(itemView);
             imgView = itemView.findViewById(R.id.img_slide);
         }
 
-        public void setImgView(SlideItem slideItem){
+        public void setImgView(SlideItem slideItem) {
             imgView.setImageResource(slideItem.getImg());
         }
 
     }
-
-    public Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            arr.addAll(arr);
-            notifyDataSetChanged();
-        }
-    };
 }

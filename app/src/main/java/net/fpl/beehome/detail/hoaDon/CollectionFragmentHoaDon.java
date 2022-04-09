@@ -43,15 +43,15 @@ public class CollectionFragmentHoaDon extends Fragment {
                 new TabLayoutMediator.TabConfigurationStrategy() {
                     @Override
                     public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        if(position == 0){
+                        if (position == 0) {
                             tab.setText("chưa thanh toán");
                         }
 
-                        if(position == 1){
+                        if (position == 1) {
                             tab.setText("Đã thanh toán");
                         }
 
-                        if(position == 2){
+                        if (position == 2) {
                             tab.setText("Quá hạn thanh toán");
                         }
 
@@ -59,7 +59,6 @@ public class CollectionFragmentHoaDon extends Fragment {
                 }
         );
         mediator.attach();
-
 
 
     }

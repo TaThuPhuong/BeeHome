@@ -2,8 +2,6 @@ package net.fpl.beehome.Adapter.DichVu;
 
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,12 +39,11 @@ import java.util.Map;
 
 public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuViewHolder> {
 
+    public static final String TAG = "123";
+    final NumberFormat fm = new DecimalFormat("#,###,###");
     ArrayList<DichVu> list;
     Context context;
     FirebaseFirestore db;
-
-    public static final String TAG = "123";
-    final NumberFormat fm = new DecimalFormat("#,###,###");
 
     public DichVuAdapter(ArrayList<DichVu> list, Context context, FirebaseFirestore db) {
         this.list = list;
@@ -60,7 +57,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 
-        View view  =layoutInflater.inflate(R.layout.item_dich_vu,parent,false);
+        View view = layoutInflater.inflate(R.layout.item_dich_vu, parent, false);
 
         DichVuViewHolder dichVuViewHolder = new DichVuViewHolder(view);
 
@@ -150,22 +147,6 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         return R.id.swipe;
     }
 
-    public class DichVuViewHolder extends RecyclerView.ViewHolder{
-        SwipeLayout swipeLayout;
-        public TextView tv_tenDV, tv_donVi, tv_gia;
-        private LinearLayout tvEdit, tvDelete;
-
-        public DichVuViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            tv_tenDV = itemView.findViewById(R.id.tv_tenDV);
-            tv_gia = itemView.findViewById(R.id.tv_gia);
-            tvEdit = itemView.findViewById(R.id.tv_edit);
-            tvDelete = itemView.findViewById(R.id.tv_delete);
-            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
-        }
-    }
-
     public void showDialog(Context context, int type, int i) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
@@ -215,7 +196,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
                 }
             });
             dialog.show();
-        }  else {
+        } else {
             View view = View.inflate(context, R.layout.dialog_delete_dichvu, null);
             builder.setView(view);
             Button tvCo = view.findViewById(R.id.btn_delete);
@@ -244,64 +225,64 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         }
     }
 
-    public void showDialogSua(Context context, DichVu dichVu, int i){
+    public void showDialogSua(Context context, DichVu dichVu, int i) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         View view = View.inflate(context, R.layout.dialog_sua_dich_vu, null);
-            builder.setView(view);
-            TextView edTenDichVu = view.findViewById(R.id.tv_tenDV);
-            EditText edGia = view.findViewById(R.id.ed_giaDichVu);
-            Button btnSua = view.findViewById(R.id.btn_suaDichVu);
-            Button btnHuy = view.findViewById(R.id.btn_huy);
+        builder.setView(view);
+        TextView edTenDichVu = view.findViewById(R.id.tv_tenDV);
+        EditText edGia = view.findViewById(R.id.ed_giaDichVu);
+        Button btnSua = view.findViewById(R.id.btn_suaDichVu);
+        Button btnHuy = view.findViewById(R.id.btn_huy);
 
-            AlertDialog alertDialog = builder.create();
-            alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
 
-            alertDialog.show();
+        alertDialog.show();
 
-            TextView tv_chiSo = view.findViewById(R.id.tv_chiSo);
+        TextView tv_chiSo = view.findViewById(R.id.tv_chiSo);
 
-            edTenDichVu.setText(dichVu.getTenDichVu());
-            edGia.setText(String.valueOf(dichVu.getGia()));
-            if (dichVu.getDonVi().equals("Người")){
-                tv_chiSo.setText("Người");
-            } else if(dichVu.getDonVi().equals("Phòng")){
-                tv_chiSo.setText("Phòng");
-            } else if(dichVu.getDonVi().equals("Số lần sử dụng")){
-                tv_chiSo.setText("Số lần sử dụng");
-            }else if(dichVu.getDonVi().equals("Kw")){
-                tv_chiSo.setText("Kw");
-            }else if(dichVu.getDonVi().equals("Khối nước")){
-                tv_chiSo.setText("Khối nước");
-            }
+        edTenDichVu.setText(dichVu.getTenDichVu());
+        edGia.setText(String.valueOf(dichVu.getGia()));
+        if (dichVu.getDonVi().equals("Người")) {
+            tv_chiSo.setText("Người");
+        } else if (dichVu.getDonVi().equals("Phòng")) {
+            tv_chiSo.setText("Phòng");
+        } else if (dichVu.getDonVi().equals("Số lần sử dụng")) {
+            tv_chiSo.setText("Số lần sử dụng");
+        } else if (dichVu.getDonVi().equals("Kw")) {
+            tv_chiSo.setText("Kw");
+        } else if (dichVu.getDonVi().equals("Khối nước")) {
+            tv_chiSo.setText("Khối nước");
+        }
 
 
-            btnSua.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String strGia = edGia.getText().toString();
-                    if (TextUtils.isEmpty(strGia)){
-                        Toast.makeText(context, "Vui lòng điền đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
-                        return;
-                    }else {
-                        dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
+        btnSua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String strGia = edGia.getText().toString();
+                if (TextUtils.isEmpty(strGia)) {
+                    Toast.makeText(context, "Vui lòng điền đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
 
-                        updateDichVu(dichVu);
-                        notifyDataSetChanged();
-                        alertDialog.dismiss();
-                    }
-                }
-            });
-
-            btnHuy.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                    updateDichVu(dichVu);
+                    notifyDataSetChanged();
                     alertDialog.dismiss();
                 }
-            });
+            }
+        });
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
     }
 
-    public void insertDichVu(DichVu dichVu){
+    public void insertDichVu(DichVu dichVu) {
 
         Map<String, Object> map = new HashMap<>();
         map.put(DichVu.COL_NAME, dichVu.getTenDichVu());
@@ -323,7 +304,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
                 });
     }
 
-    public void updateDichVu(DichVu dichVu){
+    public void updateDichVu(DichVu dichVu) {
 
         Map<String, Object> map = new HashMap<>();
         map.put(DichVu.COL_GIA, dichVu.getGia());
@@ -345,8 +326,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
                 });
     }
 
-
-    public void deleteDichVu(DichVu dichVu){
+    public void deleteDichVu(DichVu dichVu) {
 
         Map<String, Object> map = new HashMap<>();
         map.put(DichVu.COL_NAME, FieldValue.delete());
@@ -366,7 +346,24 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
                         Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
                         Log.e("TAG", "onFailure: " + dichVu.toString());
                     }
-                });;
+                });
+        ;
         db.collection(DichVu.TB_NAME).document(dichVu.getTenDichVu()).update(map);
+    }
+
+    public class DichVuViewHolder extends RecyclerView.ViewHolder {
+        public TextView tv_tenDV, tv_donVi, tv_gia;
+        SwipeLayout swipeLayout;
+        private LinearLayout tvEdit, tvDelete;
+
+        public DichVuViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            tv_tenDV = itemView.findViewById(R.id.tv_tenDV);
+            tv_gia = itemView.findViewById(R.id.tv_gia);
+            tvEdit = itemView.findViewById(R.id.tv_edit);
+            tvDelete = itemView.findViewById(R.id.tv_delete);
+            swipeLayout = (SwipeLayout) itemView.findViewById(R.id.swipe);
+        }
     }
 }

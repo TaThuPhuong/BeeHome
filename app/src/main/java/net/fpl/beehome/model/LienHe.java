@@ -8,17 +8,20 @@ public class LienHe implements Serializable {
     private String numberPhone;
     private boolean check;
 
+    public LienHe(String name, String numberPhone, boolean check) {
+        this.name = name;
+        this.numberPhone = numberPhone;
+        this.check = check;
+    }
+
+    public LienHe() {
+    }
+
     public boolean isCheck() {
         return check;
     }
 
     public void setCheck(boolean check) {
-        this.check = check;
-    }
-
-    public LienHe(String name, String numberPhone, boolean check) {
-        this.name = name;
-        this.numberPhone = numberPhone;
         this.check = check;
     }
 
@@ -36,9 +39,6 @@ public class LienHe implements Serializable {
 
     public void setNumberPhone(String numberPhone) {
         this.numberPhone = numberPhone;
-    }
-
-    public LienHe() {
     }
 
     @Override

@@ -24,7 +24,7 @@ public class Fragment_three extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_fragment_three,container,false);
+        View view = inflater.inflate(R.layout.activity_fragment_three, container, false);
         start = view.findViewById(R.id.btn_start);
         start.setOnClickListener(new View.OnClickListener() {
             @Override

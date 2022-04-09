@@ -39,6 +39,36 @@ public class MainActivity extends AppCompatActivity {
     TextView tvName;
     Admin admin;
     BottomNavigationView bnavigation;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    fragment = new HomeFragment();
+                    setTitle("Trang chủ");
+                    loadFragment(fragment);
+                    ab.show();
+                    return true;
+                case R.id.nav_phòng:
+                    setTitle("Phòng");
+                    fragment = new PhongFragment();
+                    loadFragment(fragment);
+                    ab.hide();
+                    return true;
+                case R.id.nav_thuChi:
+                    setTitle("Thống kê");
+                    fragment = new thongKeFragment();
+                    loadFragment(fragment);
+                    ab.show();
+                    return true;
+            }
+
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         tvName = view.findViewById(R.id.tv_name);
 
         admin = (Admin) intent.getSerializableExtra("ad");
-        Log.e("TAG", "onCreate: " + admin );
+        Log.e("TAG", "onCreate: " + admin);
         if (admin != null) {
             tvName.setText(admin.getHoTen());
         }
@@ -131,38 +161,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    fragment = new HomeFragment();
-                    setTitle("Trang chủ");
-                    loadFragment(fragment);
-                    ab.show();
-                    return true;
-                case R.id.nav_phòng:
-                    setTitle("Phòng");
-                    fragment = new PhongFragment();
-                    loadFragment(fragment);
-                    ab.hide();
-                    return true;
-                case R.id.nav_thuChi:
-                    setTitle("Thống kê");
-                    fragment = new thongKeFragment();
-                    loadFragment(fragment);
-                    ab.show();
-                    return true;
-            }
-
-            return false;
-        }
-    };
 
     private void loadFragment(Fragment fragment) {
         // load fragment

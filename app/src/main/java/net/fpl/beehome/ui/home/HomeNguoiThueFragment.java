@@ -23,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import net.fpl.beehome.Adapter.SlideAdapter;
 import net.fpl.beehome.ContactActivity;
 import net.fpl.beehome.DichVuActivity;
+import net.fpl.beehome.HuongDanNguoiThueActivity;
 import net.fpl.beehome.MainNguoiThueActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.SuCoActivity;
@@ -40,6 +41,12 @@ public class HomeNguoiThueFragment extends Fragment {
     TextView tv_hl_nd;
 
     ViewPager2 viewPager2;
+    public Runnable slideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
+        }
+    };
     Handler handler = new Handler();
 
     @Override
@@ -50,7 +57,7 @@ public class HomeNguoiThueFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home_nguoi_thue,container,false);
+        return inflater.inflate(R.layout.fragment_home_nguoi_thue, container, false);
     }
 
     @Override
@@ -84,7 +91,7 @@ public class HomeNguoiThueFragment extends Fragment {
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
             @Override
             public void transformPage(@NonNull View page, float position) {
-                float r = 1- Math.abs(position);
+                float r = 1 - Math.abs(position);
                 page.setScaleY(0.85f + r * 0.15f);
             }
         });
@@ -136,27 +143,28 @@ public class HomeNguoiThueFragment extends Fragment {
             }
         });
 
+        btnHuongDan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), HuongDanNguoiThueActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
-    public void showDialogMessage(){
+    public void showDialogMessage() {
         Intent intent = new Intent(HomeNguoiThueFragment.this.getContext(), ContactActivity.class);
         intent.putExtra("user", mainActivity.getNguoiThue());
         intent.putExtra("quyen", "nt");
-        Log.e("TAG", "onClick: " + mainActivity.getNguoiThue() );
+        Log.e("TAG", "onClick: " + mainActivity.getNguoiThue());
         startActivity(intent);
 
     }
 
-    public Runnable slideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
-        }
-    };
-
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         handler.removeCallbacks(slideRunnable);
     }

@@ -29,21 +29,20 @@ import net.fpl.beehome.model.NguoiThue;
 
 import java.util.ArrayList;
 
-public class ContactAdminAdapter extends RecyclerView.Adapter<ContactAdminAdapter.ContacAdminViewHolder>{
+public class ContactAdminAdapter extends RecyclerView.Adapter<ContactAdminAdapter.ContacAdminViewHolder> {
 
+    private static final int REQUEST_CALL = 1;
+    private final int COUNTDOWN_RUNNING_TIME = 500;
+    NguoiThue nguoiThue;
     private ArrayList<Admin> list;
     private Context context;
-    NguoiThue nguoiThue;
-    private static final int REQUEST_CALL = 1;
-
+    private Animation animationUp, animationDown;
     public ContactAdminAdapter(ArrayList<Admin> list, Context context, NguoiThue nguoiThue) {
         this.list = list;
         this.context = context;
         this.nguoiThue = nguoiThue;
     }
 
-    private final int COUNTDOWN_RUNNING_TIME = 500;
-    private Animation animationUp, animationDown;
     @NonNull
     @Override
     public ContacAdminViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,12 +59,12 @@ public class ContactAdminAdapter extends RecyclerView.Adapter<ContactAdminAdapte
             @Override
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(context,
-                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions((Activity) context,
-                            new String[] {Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                            new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
                 } else {
                     Intent intent = new Intent(Intent.ACTION_CALL);
-                    intent.setData(Uri.parse("tel:"+list.get(holder.getAdapterPosition()).getSdt()));
+                    intent.setData(Uri.parse("tel:" + list.get(holder.getAdapterPosition()).getSdt()));
                     context.startActivity(intent);
                 }
             }
@@ -87,7 +86,7 @@ public class ContactAdminAdapter extends RecyclerView.Adapter<ContactAdminAdapte
                 animationDown = AnimationUtils.loadAnimation(view.getContext(), R.anim.down);
                 animationUp = AnimationUtils.loadAnimation(view.getContext(), R.anim.up);
 
-                if(holder.layoutExpandad.isShown()){
+                if (holder.layoutExpandad.isShown()) {
                     holder.layoutExpandad.startAnimation(animationUp);
                     CountDownTimer countDownTimer = new CountDownTimer(COUNTDOWN_RUNNING_TIME, 16) {
                         @Override
@@ -115,10 +114,11 @@ public class ContactAdminAdapter extends RecyclerView.Adapter<ContactAdminAdapte
         return list.size();
     }
 
-    public class ContacAdminViewHolder extends RecyclerView.ViewHolder{
+    public class ContacAdminViewHolder extends RecyclerView.ViewHolder {
         private TextView tvNamead, tvPhonead;
-        private LinearLayout layoutItemad,layoutExpandad;
+        private LinearLayout layoutItemad, layoutExpandad;
         private ImageView imgCallad, imgMessagead;
+
         public ContacAdminViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNamead = itemView.findViewById(R.id.tv_name);

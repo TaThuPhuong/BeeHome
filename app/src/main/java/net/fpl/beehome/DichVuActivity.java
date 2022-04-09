@@ -34,7 +34,7 @@ public class DichVuActivity extends AppCompatActivity {
     FirebaseFirestore db;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_dich_vu);
         db = FirebaseFirestore.getInstance();
@@ -48,11 +48,11 @@ public class DichVuActivity extends AppCompatActivity {
         String quyen = intent.getStringExtra("quyen");
 
 
-        if(quyen.equalsIgnoreCase("admin")){
+        if (quyen.equalsIgnoreCase("admin")) {
             list = getAll();
-            dichVuAdapter = new DichVuAdapter(list,DichVuActivity.this, db);
+            dichVuAdapter = new DichVuAdapter(list, DichVuActivity.this, db);
             rcv_dichVu.setAdapter(dichVuAdapter);
-        }else{
+        } else {
             list = getAll2();
             dichVuAdapter2 = new DichVuAdapter2(list);
             rcv_dichVu.setAdapter(dichVuAdapter2);
@@ -63,40 +63,40 @@ public class DichVuActivity extends AppCompatActivity {
         fab_dichVu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dichVuAdapter.showDialog(DichVuActivity.this, 0 , 0);
+                dichVuAdapter.showDialog(DichVuActivity.this, 0, 0);
             }
         });
 
     }
 
-    public ArrayList<DichVu> getAll(){
-        ArrayList<DichVu> list = new ArrayList<>();
-
-        db.collection(DichVu.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                    list.clear();
-                    for (QueryDocumentSnapshot snapshot : value){
-                        DichVu dichVu = snapshot.toObject(DichVu.class);
-                        Log.e("TAG", "onComplete: "+snapshot.getId() + " / " + snapshot.getData());
-                        list.add(dichVu);
-                        dichVuAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-        return list;
-    }
-
-    public ArrayList<DichVu> getAll2(){
+    public ArrayList<DichVu> getAll() {
         ArrayList<DichVu> list = new ArrayList<>();
 
         db.collection(DichVu.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 list.clear();
-                for (QueryDocumentSnapshot snapshot : value){
+                for (QueryDocumentSnapshot snapshot : value) {
                     DichVu dichVu = snapshot.toObject(DichVu.class);
-                    Log.e("TAG", "onComplete: "+snapshot.getId() + " / " + snapshot.getData());
+                    Log.e("TAG", "onComplete: " + snapshot.getId() + " / " + snapshot.getData());
+                    list.add(dichVu);
+                    dichVuAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+        return list;
+    }
+
+    public ArrayList<DichVu> getAll2() {
+        ArrayList<DichVu> list = new ArrayList<>();
+
+        db.collection(DichVu.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                list.clear();
+                for (QueryDocumentSnapshot snapshot : value) {
+                    DichVu dichVu = snapshot.toObject(DichVu.class);
+                    Log.e("TAG", "onComplete: " + snapshot.getId() + " / " + snapshot.getData());
                     list.add(dichVu);
                     dichVuAdapter2.notifyDataSetChanged();
                 }
@@ -105,4 +105,4 @@ public class DichVuActivity extends AppCompatActivity {
         return list;
     }
 
-    }
+}

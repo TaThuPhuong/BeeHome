@@ -15,12 +15,12 @@ import java.util.ArrayList;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    ArrayList<Mess> list;
-    private String sdt;
     public static final int VIEW_TYPE_SEND = 1;
     public static final int VIEW_TYPE_RECIEVED = 2;
+    ArrayList<Mess> list;
+    private String sdt;
 
-    public MessageAdapter( ArrayList<Mess> list, String sdt) {
+    public MessageAdapter(ArrayList<Mess> list, String sdt) {
         this.list = list;
         this.sdt = sdt;
     }
@@ -56,7 +56,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         }
     }
 
-    class MessageViewHolder extends RecyclerView.ViewHolder{
+    class MessageViewHolder extends RecyclerView.ViewHolder {
 
         public TextView tvMess;
 

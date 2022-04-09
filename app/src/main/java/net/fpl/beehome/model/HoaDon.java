@@ -1,7 +1,9 @@
 package net.fpl.beehome.model;
+
 import java.util.Date;
 
 public class HoaDon {
+    public static final String TB_NAME = "tb_hoaDon";
     private String IDHoaDon, IDPhong, GhiChu;
     private Date HanGD, ThangHD, NgayGD;
     private int TongHD;
@@ -12,17 +14,6 @@ public class HoaDon {
     private int giamGia;
     private int tienPhong;
     private int tienDV, tienDVC;
-
-
-    public int getTienDVC() {
-        return tienDVC;
-    }
-
-    public void setTienDVC(int tienDVC) {
-        this.tienDVC = tienDVC;
-    }
-
-    public static final String TB_NAME = "tb_hoaDon";
 
     public HoaDon() {
     }
@@ -41,6 +32,14 @@ public class HoaDon {
         this.giamGia = giamGia;
         this.tienPhong = tienPhong;
         this.tienDV = tienDV;
+        this.tienDVC = tienDVC;
+    }
+
+    public int getTienDVC() {
+        return tienDVC;
+    }
+
+    public void setTienDVC(int tienDVC) {
         this.tienDVC = tienDVC;
     }
 

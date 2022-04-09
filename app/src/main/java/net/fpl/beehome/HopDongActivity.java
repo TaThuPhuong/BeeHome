@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -131,118 +130,118 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 ed_ngayky.getEditText().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
+                        DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                i1=i1+1;
+                                i1 = i1 + 1;
                                 String month = String.valueOf(i1);
                                 String day = String.valueOf(i2);
 
-                                if(String.valueOf(i1).length() == 1){
-                                    month = "0"+i1;
+                                if (String.valueOf(i1).length() == 1) {
+                                    month = "0" + i1;
                                 }
-                                if(String.valueOf(i2).length() == 1){
-                                    day = "0"+i2;
+                                if (String.valueOf(i2).length() == 1) {
+                                    day = "0" + i2;
                                 }
 
-                                ed_ngayky.getEditText().setText(i + "-" +month + "-" + day);
+                                ed_ngayky.getEditText().setText(i + "-" + month + "-" + day);
                             }
-                        },y,m,d);
+                        }, y, m, d);
                         dialog1.show();
                     }
                 });
                 ed_ngaybd.getEditText().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
+                        DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                                i1=i1+1;
+                                i1 = i1 + 1;
                                 String monthbd = String.valueOf(i1);
                                 String daybd = String.valueOf(i2);
 
-                                if(String.valueOf(i1).length() == 1){
-                                    monthbd = "0"+i1;
+                                if (String.valueOf(i1).length() == 1) {
+                                    monthbd = "0" + i1;
                                 }
-                                if(String.valueOf(i2).length() == 1){
-                                    daybd = "0"+i2;
+                                if (String.valueOf(i2).length() == 1) {
+                                    daybd = "0" + i2;
                                 }
 
-                                ed_ngaybd.getEditText().setText(i + "-" +monthbd + "-" + daybd);
+                                ed_ngaybd.getEditText().setText(i + "-" + monthbd + "-" + daybd);
 
-                                if(Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1 > 12){
-                                    int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1) - 12 ;
-                                    int iyearkt = i+1;
+                                if (Integer.parseInt(sp_kyhan.getSelectedItem() + "") + i1 > 12) {
+                                    int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem() + "") + i1) - 12;
+                                    int iyearkt = i + 1;
                                     String daykt = String.valueOf(i2);
                                     String monthkt = String.valueOf(imonthkt);
 
-                                    if(String.valueOf(imonthkt).length() == 1){
-                                        monthkt = "0"+imonthkt;
+                                    if (String.valueOf(imonthkt).length() == 1) {
+                                        monthkt = "0" + imonthkt;
                                     }
-                                    if(String.valueOf(i2).length() == 1){
-                                         daykt = "0"+i2;
+                                    if (String.valueOf(i2).length() == 1) {
+                                        daykt = "0" + i2;
                                     }
-                                    ed_ngaykt.getEditText().setText(iyearkt + "-" +monthkt + "-" + daykt);
-                                }else{
-                                    int imonthkt = Integer.parseInt(sp_kyhan.getSelectedItem()+"") + i1;
+                                    ed_ngaykt.getEditText().setText(iyearkt + "-" + monthkt + "-" + daykt);
+                                } else {
+                                    int imonthkt = Integer.parseInt(sp_kyhan.getSelectedItem() + "") + i1;
                                     String daykt = String.valueOf(i2);
                                     String monthkt = String.valueOf(imonthkt);
-                                    if(String.valueOf(imonthkt).length() == 1){
-                                        monthkt = "0"+imonthkt;
+                                    if (String.valueOf(imonthkt).length() == 1) {
+                                        monthkt = "0" + imonthkt;
                                     }
-                                    if(String.valueOf(i2).length() == 1){
-                                        daykt = "0"+i2;
+                                    if (String.valueOf(i2).length() == 1) {
+                                        daykt = "0" + i2;
                                     }
-                                    ed_ngaykt.getEditText().setText(i + "-" +monthkt + "-" + daykt);
+                                    ed_ngaykt.getEditText().setText(i + "-" + monthkt + "-" + daykt);
 
                                 }
 
                                 sp_kyhan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                     @Override
                                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                        DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this , R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
+                                        DatePickerDialog dialog1 = new DatePickerDialog(HopDongActivity.this, R.style.datePicker, new DatePickerDialog.OnDateSetListener() {
                                             @Override
                                             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                                                 String monthbd = String.valueOf(i1);
                                                 String daybd = String.valueOf(i2);
 
-                                                if(String.valueOf(i1).length() == 1){
-                                                    monthbd = "0"+i1;
+                                                if (String.valueOf(i1).length() == 1) {
+                                                    monthbd = "0" + i1;
                                                 }
-                                                if(String.valueOf(i2).length() == 1){
-                                                    daybd = "0"+i2;
+                                                if (String.valueOf(i2).length() == 1) {
+                                                    daybd = "0" + i2;
                                                 }
 
-                                                ed_ngaybd.getEditText().setText(i + "-" +monthbd + "-" + daybd);
+                                                ed_ngaybd.getEditText().setText(i + "-" + monthbd + "-" + daybd);
 
-                                                if(Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1 > 12){
-                                                    int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1) - 12 ;
-                                                    int iyearkt = i+1;
+                                                if (Integer.parseInt(sp_kyhan.getSelectedItem() + "") + i1 > 12) {
+                                                    int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem() + "") + i1) - 12;
+                                                    int iyearkt = i + 1;
                                                     String daykt = String.valueOf(i2);
                                                     String monthkt = String.valueOf(imonthkt);
 
-                                                    if(String.valueOf(imonthkt).length() == 1){
-                                                        monthkt = "0"+monthkt;
+                                                    if (String.valueOf(imonthkt).length() == 1) {
+                                                        monthkt = "0" + monthkt;
                                                     }
-                                                    if(String.valueOf(i2).length() == 1){
-                                                        daykt = "0"+i2;
+                                                    if (String.valueOf(i2).length() == 1) {
+                                                        daykt = "0" + i2;
                                                     }
-                                                    ed_ngaykt.getEditText().setText(iyearkt + "-" +monthkt + "-" + daykt);
-                                                }else{
-                                                    int imonthkt = Integer.parseInt(sp_kyhan.getSelectedItem()+"") + i1;
+                                                    ed_ngaykt.getEditText().setText(iyearkt + "-" + monthkt + "-" + daykt);
+                                                } else {
+                                                    int imonthkt = Integer.parseInt(sp_kyhan.getSelectedItem() + "") + i1;
                                                     String daykt = String.valueOf(i2);
                                                     String monthkt = String.valueOf(imonthkt);
-                                                    if(String.valueOf(imonthkt).length() == 1){
-                                                        monthkt = "0"+monthkt;
+                                                    if (String.valueOf(imonthkt).length() == 1) {
+                                                        monthkt = "0" + monthkt;
                                                     }
-                                                    if(String.valueOf(i2).length() == 1){
-                                                        daykt = "0"+i2;
+                                                    if (String.valueOf(i2).length() == 1) {
+                                                        daykt = "0" + i2;
                                                     }
-                                                    ed_ngaykt.getEditText().setText(i + "-" +monthkt + "-" + daykt);
+                                                    ed_ngaykt.getEditText().setText(i + "-" + monthkt + "-" + daykt);
 
                                                 }
                                             }
-                                        },y,m,d);
+                                        }, y, m, d);
                                         dialog1.show();
                                     }
 
@@ -253,7 +252,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                                 });
 
                             }
-                        },y,m,d);
+                        }, y, m, d);
                         dialog1.show();
                     }
                 });
@@ -271,12 +270,12 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                         Phong objPhong = (Phong) sp_phong.getSelectedItem();
                         NguoiThue objNguoiThue = (NguoiThue) sp_tvien.getSelectedItem();
 
-                        if(objPhong.getSoPhong().equalsIgnoreCase("Trống")&&
-                                objNguoiThue.getHoTen().equalsIgnoreCase("Trống")&&
-                                ednky.length()==0&&
-                                ednbd.length()==0&&
-                                ednkt.length()==0&&
-                                edsn.length()==0 ){
+                        if (objPhong.getSoPhong().equalsIgnoreCase("Trống") &&
+                                objNguoiThue.getHoTen().equalsIgnoreCase("Trống") &&
+                                ednky.length() == 0 &&
+                                ednbd.length() == 0 &&
+                                ednkt.length() == 0 &&
+                                edsn.length() == 0) {
                             tv_er_p.setTextSize(14);
                             tv_er_p.setText("Không có phòng trống");
                             tv_er_ngthue.setTextSize(14);
@@ -287,53 +286,50 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                             ed_songuoithue.setError("Trường không được bỏ trống");
                             return;
 
-                        }else if(objPhong.getSoPhong().equalsIgnoreCase("Trống")){
+                        } else if (objPhong.getSoPhong().equalsIgnoreCase("Trống")) {
                             tv_er_ngthue.setTextSize(14);
                             tv_er_ngthue.setText("Không có người thuê");
                             return;
 
-                        }else if(objNguoiThue.getHoTen().equalsIgnoreCase("Trống")){
+                        } else if (objNguoiThue.getHoTen().equalsIgnoreCase("Trống")) {
                             tv_er_ngthue.setTextSize(14);
                             tv_er_ngthue.setText("Không có người thuê");
                             return;
-                        }else if(ednky.length()==0){
+                        } else if (ednky.length() == 0) {
                             ed_ngayky.setError("Trường không được bỏ trống");
                             return;
-                        }else if(ednbd.length()==0){
+                        } else if (ednbd.length() == 0) {
                             ed_ngaybd.setError("Trường không được bỏ trống");
                             return;
-                        }else if(ednkt.length()==0){
+                        } else if (ednkt.length() == 0) {
                             ed_ngaykt.setError("Trường không được bỏ trống");
                             return;
-                        }else if(edsn.length()==0){
+                        } else if (edsn.length() == 0) {
                             ed_songuoithue.setError("Trường không được bỏ trống");
                             return;
-                        }else if(Integer.parseInt(edsn)<1){
+                        } else if (Integer.parseInt(edsn) < 1) {
                             ed_songuoithue.setError("Số người thuê phải lớn hơn 1");
                             return;
-                        }else if(ednbd.length() >= 2){
+                        } else if (ednbd.length() >= 2) {
                             ed_songuoithue.setError("Nhập tối da 1 ký tự");
-                        }
-                        else if(!checkDateFormat(ednky)){
+                        } else if (!checkDateFormat(ednky)) {
                             ed_ngayky.setError("Sai định dạng");
                             return;
-                        }else if(!checkDateFormat(ednbd)){
+                        } else if (!checkDateFormat(ednbd)) {
                             ed_ngaybd.setError("Sai định dạng");
                             return;
-                        }else if(!checkDateFormat(ednkt)){
+                        } else if (!checkDateFormat(ednkt)) {
                             ed_ngaykt.setError("Sai định dạng");
                             return;
                         }
 
 
-
-
-                        objHopDong.setId_hop_dong(objPhong.getIDPhong() + objNguoiThue.getHoTen()+ed_songuoithue.getEditText().getText().toString());
+                        objHopDong.setId_hop_dong(objPhong.getIDPhong() + objNguoiThue.getHoTen() + ed_songuoithue.getEditText().getText().toString());
                         objHopDong.setId_chu_tro("1");
 
                         objHopDong.setId_phong(objPhong.getIDPhong());
                         objHopDong.setId_thanh_vien(objNguoiThue.getId_thanhvien());
-                        objHopDong.setKyHan(Integer.parseInt(sp_kyhan.getSelectedItem()+""));
+                        objHopDong.setKyHan(Integer.parseInt(sp_kyhan.getSelectedItem() + ""));
                         objHopDong.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
                         objHopDong.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());
                         objHopDong.setNgayKetThuc(ed_ngaykt.getEditText().getText().toString());
@@ -370,7 +366,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_search,menu);
+        getMenuInflater().inflate(R.menu.menu_search, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
@@ -378,7 +374,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                hopDongAdapter.getFilter().filter(query );
+                hopDongAdapter.getFilter().filter(query);
                 return false;
             }
 
@@ -403,7 +399,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         }, 1000);
     }
 
-    public ArrayList<HopDong> getAll(){
+    public ArrayList<HopDong> getAll() {
         ArrayList<HopDong> arr = new ArrayList<>();
         fb.collection(HopDong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -422,19 +418,19 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         return arr;
     }
 
-    public ArrayList<Phong> getSPPHong(){
+    public ArrayList<Phong> getSPPHong() {
         ArrayList<Phong> arr = new ArrayList<>();
         fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arr.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     Phong objPhong = document.toObject(Phong.class);
-                    if(objPhong.getTrangThai().equalsIgnoreCase("Trống")) {
+                    if (objPhong.getTrangThai().equalsIgnoreCase("Trống")) {
                         arr.add(objPhong);
                     }
                 }
-                if(arr.size() == 0){
+                if (arr.size() == 0) {
                     Phong obj = new Phong();
                     obj.setSoPhong("Trống");
                     obj.setIDPhong("Trống");
@@ -444,36 +440,36 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         });
 
         return arr;
-}
+    }
 
-    public ArrayList<Phong> getAllPHong(){
+    public ArrayList<Phong> getAllPHong() {
         ArrayList<Phong> arr = new ArrayList<>();
         fb.collection(Phong.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arr.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     Phong objPhong = document.toObject(Phong.class);
-                        arr.add(objPhong);
+                    arr.add(objPhong);
                 }
             }
         });
         return arr;
     }
 
-    public ArrayList<NguoiThue> getSPNguoiThue(){
+    public ArrayList<NguoiThue> getSPNguoiThue() {
         ArrayList<NguoiThue> arr = new ArrayList<>();
         fb.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arr.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
-                    if(objNguoiThue.getId_phong().equalsIgnoreCase("Trống")){
+                    if (objNguoiThue.getId_phong().equalsIgnoreCase("Trống")) {
                         arr.add(objNguoiThue);
                     }
                 }
-                if(arr.size() == 0){
+                if (arr.size() == 0) {
                     NguoiThue obj = new NguoiThue();
                     obj.setHoTen("Trống");
                     obj.setId_phong("Trống");
@@ -486,15 +482,15 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         return arr;
     }
 
-    public ArrayList<NguoiThue> getALLNguoiThue(){
+    public ArrayList<NguoiThue> getALLNguoiThue() {
         ArrayList<NguoiThue> arr = new ArrayList<>();
         fb.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arr.clear();
-                for(QueryDocumentSnapshot document : value){
+                for (QueryDocumentSnapshot document : value) {
                     NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
-                        arr.add(objNguoiThue);
+                    arr.add(objNguoiThue);
 
                 }
             }
@@ -505,14 +501,14 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
     }
 
 
-    public Boolean checkDateFormat(String date){
+    public Boolean checkDateFormat(String date) {
         if (date == null || !date.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$"))
             return false;
-        SimpleDateFormat format=new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
         try {
             format.parse(date);
             return true;
-        }catch (ParseException e){
+        } catch (ParseException e) {
             return false;
         }
     }

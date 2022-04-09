@@ -1,8 +1,6 @@
 package net.fpl.beehome.model;
 
 public class Phong {
-    private String IDPhong, soPhong, trangThai, vatTu;
-    private int giaPhong, soDienDau, soNuocDau;
     public static final String TB_NAME = "tb_phong";
     public static final String COL_ID = "IDPhong";
     public static final String COL_SO_PHONG = "soPhong";
@@ -11,6 +9,8 @@ public class Phong {
     public static final String COL_GIA_PHONG = "giaPhong";
     public static final String COL_SO_DIEN_DAU = "soDienDau";
     public static final String COL_SO_NUOC_DAU = "soNuocDau";
+    private String IDPhong, soPhong, trangThai, vatTu;
+    private int giaPhong, soDienDau, soNuocDau;
 
     public Phong() {
     }

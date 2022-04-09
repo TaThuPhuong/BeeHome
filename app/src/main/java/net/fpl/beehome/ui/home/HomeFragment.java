@@ -25,6 +25,7 @@ import net.fpl.beehome.Adapter.SlideAdapter;
 import net.fpl.beehome.ContactActivity;
 import net.fpl.beehome.DichVuActivity;
 import net.fpl.beehome.HopDongActivity;
+import net.fpl.beehome.HuongDanActivity;
 import net.fpl.beehome.MainActivity;
 import net.fpl.beehome.NguoiThue_Activity;
 import net.fpl.beehome.R;
@@ -44,8 +45,13 @@ public class HomeFragment extends Fragment {
     NguoiThue nguoiThue;
 
     ViewPager2 viewPager2;
+    public Runnable slideRunnable = new Runnable() {
+        @Override
+        public void run() {
+            viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
+        }
+    };
     Handler handler = new Handler();
-
 
     public HomeFragment() {
     }
@@ -134,6 +140,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        btnHuongDan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), HuongDanActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         List<SlideItem> arr = new ArrayList<>();
@@ -153,7 +166,7 @@ public class HomeFragment extends Fragment {
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
             @Override
             public void transformPage(@NonNull View page, float position) {
-                float r = 1- Math.abs(position);
+                float r = 1 - Math.abs(position);
                 page.setScaleY(0.85f + r * 0.15f);
             }
         });
@@ -169,7 +182,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public void showMessage(){
+    public void showMessage() {
 
         Intent intent = new Intent(HomeFragment.this.getContext(), ContactActivity.class);
         intent.putExtra("admin", mainActivity.getAdmin());
@@ -179,15 +192,8 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public Runnable slideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            viewPager2.setCurrentItem(viewPager2.getCurrentItem() + 1);
-        }
-    };
-
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         handler.removeCallbacks(slideRunnable);
     }
@@ -197,6 +203,7 @@ public class HomeFragment extends Fragment {
         super.onResume();
         handler.postDelayed(slideRunnable, 2000);
     }
+
     public NguoiThue getNguoiThue() {
         return nguoiThue;
     }

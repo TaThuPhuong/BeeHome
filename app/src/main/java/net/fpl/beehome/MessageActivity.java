@@ -1,41 +1,27 @@
 package net.fpl.beehome;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firestore.v1.Value;
 
 import net.fpl.beehome.Adapter.Message.MessageAdapter;
 import net.fpl.beehome.model.Admin;
-import net.fpl.beehome.model.LienHe;
 import net.fpl.beehome.model.Mess;
 import net.fpl.beehome.model.NguoiThue;
 
@@ -71,26 +57,26 @@ public class MessageActivity extends AppCompatActivity {
         if (adminGui != null) {
             tv_mess.setText(nguoiThue.getHoTen());
             db.child(adminGui.getSdt() + nguoiThue.getSdt()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
-                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                    Mess mess = snapshot1.getValue(Mess.class);
-                    list.add(mess);
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    list.clear();
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                        Mess mess = snapshot1.getValue(Mess.class);
+                        list.add(mess);
+                    }
+                    messageAdapter = new MessageAdapter(list, adminGui.getSdt());
+                    rcvMess.setAdapter(messageAdapter);
+                    messageAdapter.notifyDataSetChanged();
                 }
-                messageAdapter = new MessageAdapter(list, adminGui.getSdt());
-                rcvMess.setAdapter(messageAdapter);
-                messageAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
             img_mess.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick (View view){
+                public void onClick(View view) {
                     String strMess = ed_mess.getText().toString().trim();
                     Mess mess = new Mess(strMess, adminGui.getSdt());
                     if (TextUtils.isEmpty(strMess)) {
@@ -133,11 +119,9 @@ public class MessageActivity extends AppCompatActivity {
 
                 }
             });
-            img_mess.setOnClickListener(new View.OnClickListener()
-
-            {
+            img_mess.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick (View view){
+                public void onClick(View view) {
                     String strMess = ed_mess.getText().toString().trim();
                     Mess mess = new Mess(strMess, nguoiThueGui.getSdt());
                     if (TextUtils.isEmpty(strMess)) {
@@ -163,7 +147,7 @@ public class MessageActivity extends AppCompatActivity {
         }
 
 
-        }
-
     }
+
+}
 

@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -32,7 +31,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.fpl.beehome.R;
-import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.ui.phong.PhongFragment;
 
@@ -133,8 +131,8 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
 
                 if (phong.getTrangThai().equals("Đang thuê")) {
                     showDialogSua(phong, 1);
-                }else {
-                    showDialogSua(phong,0);
+                } else {
+                    showDialogSua(phong, 0);
                 }
             }
         });
@@ -248,7 +246,7 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
         CheckBox chkGiuong, chkTu, chkDieuHoa, chkNL, chkMayGiat, chkBan, chkBep;
         ImageButton btnChon, btnCancel, btnChonTatCa;
         RadioGroup rdgTrangThai;
-        RadioButton rdoTrong,rdoDangSua;
+        RadioButton rdoTrong, rdoDangSua;
         edSoPhong = view.findViewById(R.id.ed_so_phong);
         edGiaPhong = view.findViewById(R.id.ed_gia_phong);
         edVatTu = view.findViewById(R.id.ed_vattu);
@@ -283,7 +281,7 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
             chkMayGiat.setEnabled(false);
             rdoTrong.setEnabled(false);
             rdoDangSua.setEnabled(false);
-        }else {
+        } else {
             edSoDienDau.setEnabled(true);
             edSoNuocDau.setEnabled(true);
             chkBan.setEnabled(true);
@@ -308,7 +306,7 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
         fragment.setUnErr(edVatTu);
         // set phòng sửa lên dialog
         edSoPhong.getEditText().setText(phong.getSoPhong());
-        edGiaPhong.getEditText().setText(phong.getGiaPhong()+"");
+        edGiaPhong.getEditText().setText(phong.getGiaPhong() + "");
         edVatTu.getEditText().setText(phong.getVatTu());
         edTrangThai.setText(phong.getTrangThai());
 
@@ -335,12 +333,12 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
             chkTu.setChecked(true);
         }
         if (phong.getTrangThai().equalsIgnoreCase("Trống")) {
-             rdoTrong = view.findViewById(R.id.rdo_trong);
+            rdoTrong = view.findViewById(R.id.rdo_trong);
             rdoTrong.setChecked(true);
         }
 
         if (phong.getTrangThai().equalsIgnoreCase("Đang sửa chữa")) {
-             rdoDangSua = view.findViewById(R.id.rdo_dang_sua);
+            rdoDangSua = view.findViewById(R.id.rdo_dang_sua);
             rdoDangSua.setChecked(true);
         }
         edSoDienDau.getEditText().setText(phong.getSoDienDau() + "");

@@ -3,13 +3,6 @@ package net.fpl.beehome.model;
 import java.io.Serializable;
 
 public class NguoiThue implements Serializable {
-    String id_thanhvien;
-    String id_phong;
-    String hoTen;
-    String sdt;
-    String email;
-    String cccd;
-
     public static final String TB_NGUOITHUE = "tb_nguoiThue";
     public static final String COL_ID_THANHVIEN = "id_thanhvien";
     public static final String COL_ID_PHONG = "id_phong";
@@ -17,6 +10,12 @@ public class NguoiThue implements Serializable {
     public static final String COL_SDT = "sdt";
     public static final String COL_EMAIL = "email";
     public static final String COL_CCCD = "cccd";
+    String id_thanhvien;
+    String id_phong;
+    String hoTen;
+    String sdt;
+    String email;
+    String cccd;
 
     public NguoiThue() {
     }
