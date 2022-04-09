@@ -2,18 +2,12 @@ package net.fpl.beehome.detail.hoaDon.Tab;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.view.View.VISIBLE;
-
-
 import static net.fpl.beehome.MySharedPreferences.NgDung;
-import static net.fpl.beehome.MySharedPreferences.USER_KEY;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,8 +35,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -50,7 +42,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import net.fpl.beehome.Adapter.hoaDon.HoaDonAdapter;
-
 import net.fpl.beehome.Adapter.hoaDon.HoaDonNguoiThueAdapter;
 import net.fpl.beehome.R;
 import net.fpl.beehome.detail.hoaDon.HoaDonMain;
@@ -88,7 +79,7 @@ public class HoaDonChuaThanhToan extends Fragment {
 
     String tenP, user;
     String idThang, thang, han, idP;
-    int slDien, sLNuoc,tienSoDien, tienSoNuoc, tienNuoc, tienDien, tongTienPhong, TongtienDV, tongHD, dienMoi, nuocMoi, tienDVPhong = 0, month_han, year_han, month_thang, year_thang;
+    int slDien, sLNuoc, tienSoDien, tienSoNuoc, tienNuoc, tienDien, tongTienPhong, TongtienDV, tongHD, dienMoi, nuocMoi, tienDVPhong = 0, month_han, year_han, month_thang, year_thang;
 
 
     @Nullable
@@ -127,7 +118,7 @@ public class HoaDonChuaThanhToan extends Fragment {
 
         if (user.equalsIgnoreCase("Admin")) {
 //            set adapter
-            adapterhd = new HoaDonAdapter(arr, getContext(), fb, getTenPhong(), getAllPhong(), getAllHopDong(), getAllDichVu());
+            adapterhd = new HoaDonAdapter(arr, getContext(), fb, getTenPhong(), getAllPhong(), getAllHopDong(), getAllDichVu(),getAllHoaDonCT());
             adapterhd.notifyDataSetChanged();
             recyclerView.setAdapter(adapterhd);
 
@@ -391,8 +382,6 @@ public class HoaDonChuaThanhToan extends Fragment {
                                 objHoaDon.setTienPhong(tongTienPhong);
                                 objHoaDon.setGiamGia(Integer.parseInt(String.valueOf(giamGia.getText())));
                                 objHoaDon.setGhiChu(String.valueOf(ghiChu.getEditText().getText()));
-                                objHoaDon.setTienDien(tienDien);
-                                objHoaDon.setTienNuoc(tienNuoc);
                                 objHoaDon.setTienDVC(tienDVPhong);
                                 objHoaDon.setNgayGD(null);
 
@@ -524,7 +513,7 @@ public class HoaDonChuaThanhToan extends Fragment {
             arrHDP = getHoaDonPhong(idP);
             fab.setVisibility(View.INVISIBLE);
 //            tạo và set adapter
-            adapternt = new HoaDonNguoiThueAdapter(arrHDP, getContext(), fb, arrTenPhong, arrPhong, arrHopDong, arrDichVu, arrNguoiThue);
+            adapternt = new HoaDonNguoiThueAdapter(getAllHoaDonCT(), arrHDP, getContext(), fb, arrTenPhong, arrPhong, arrHopDong, arrDichVu, arrNguoiThue);
             adapternt.notifyDataSetChanged();
             Log.d("TAG", "onCreateView: " + arr.size());
             recyclerView.setAdapter(adapternt);
@@ -682,21 +671,24 @@ public class HoaDonChuaThanhToan extends Fragment {
         return arrHD;
     }
 
-//    public ArrayList<HoaDonChiTiet> getAllHoaDonCT(){
-//        ArrayList<HoaDonChiTiet> arrHDCT = new ArrayList<>();
-//        fb.collection(HoaDonChiTiet.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                arrHDCT.clear();
-//                for(QueryDocumentSnapshot document : value){
-//                    HoaDonChiTiet objHoaDonCT = document.toObject(HoaDonChiTiet.class);
-//                    arrHDCT.add(objHoaDonCT);
-//
-//                }
-//            }
-//        });
-//        return arrHDCT;
-//    }
-
+    public ArrayList<HoaDonChiTiet> getAllHoaDonCT(){
+        ArrayList<HoaDonChiTiet> arrHDCT = new ArrayList<>();
+        fb.collection(HoaDonChiTiet.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arrHDCT.clear();
+                for(QueryDocumentSnapshot document : value){
+                    HoaDonChiTiet objHoaDonCT = document.toObject(HoaDonChiTiet.class);
+                    arrHDCT.add(objHoaDonCT);
+                    if (user.equalsIgnoreCase("Admin")) {
+                        adapterhd.notifyDataSetChanged();
+                    } else {
+                        adapternt.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+        return arrHDCT;
+    }
 
 }
