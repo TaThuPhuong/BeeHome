@@ -89,18 +89,40 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btn_bc"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Báo Cáo"
-        android:textSize="20dp"
-        android:padding="10dp"
-        android:backgroundTint="@color/tim_300"
-        android:shadowRadius="@integer/google_play_services_version"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"/>
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <Button
+            android:layout_weight="1"
+
+            android:id="@+id/btn_bc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Báo Cáo"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:backgroundTint="@color/tim_300"
+            android:shadowRadius="@integer/google_play_services_version"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"/>
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:backgroundTint="@color/tim_300"
+            android:shadowRadius="@integer/google_play_services_version"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"/>
+    </LinearLayout>
 
 </LinearLayout>

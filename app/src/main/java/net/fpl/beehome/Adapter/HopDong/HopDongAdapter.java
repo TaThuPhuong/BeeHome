@@ -120,6 +120,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
         viewHolder.tv_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_delete_hopdong);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
@@ -177,24 +178,26 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
         viewHolder.tv_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_info_suco);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 TextView tv_info = dialog.findViewById(R.id.tv_info_hopdong);
                 tv_info.setText("Phòng: " + objHopDong.getId_phong() + "\nSĐT người thuê: " + objHopDong.getId_thanh_vien() + "\nKỳ hạn: " + objHopDong.getKyHan() + "\nNgày ký: " + objHopDong.getNgayKiHD() + "\nNgày bắt đầu: " + objHopDong.getNgayBatDau() + "\nNgày kết thúc: " + objHopDong.getNgayKetThuc() + "\nSố người thuê: " + objHopDong.getSoNguoiThue());
                 dialog.show();
-                mItemManger.closeAllItems();
             }
         });
         viewHolder.tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_edit_hopdong);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 Spinner sp_kyhan = dialog.findViewById(R.id.sp_hd_kyhan);
 
                 Button btn_add = dialog.findViewById(R.id.btn_add);
+                Button btn_cancel = dialog.findViewById(R.id.btn_cancel);
                 TextInputLayout ed_ngayky = dialog.findViewById(R.id.ed_ngaykyhd);
                 TextInputLayout ed_ngaybd = dialog.findViewById(R.id.ed_ngaybd);
                 TextInputLayout ed_ngaykt = dialog.findViewById(R.id.ed_ngaykt);
@@ -494,6 +497,12 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                                         Toast.makeText(context, "Sửa thất bại", Toast.LENGTH_SHORT).show();
                                     }
                                 });
+                        dialog.dismiss();
+                    }
+                });
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
                         dialog.dismiss();
                     }
                 });

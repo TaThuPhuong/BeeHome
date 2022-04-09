@@ -140,6 +140,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
         viewHolder.tv_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_hoa_don_xoa);
                 Button btn_delete = dialog.findViewById(R.id.btn_yes);
@@ -195,6 +196,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_hoa_don_info);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);

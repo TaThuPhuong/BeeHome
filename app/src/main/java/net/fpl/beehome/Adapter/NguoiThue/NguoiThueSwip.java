@@ -114,6 +114,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         viewHolder.tv_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_delete_nguoithue);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
@@ -162,6 +163,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         viewHolder.tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 view = View.inflate(context, R.layout.dialog_sua_nguoithue, null);
                 builder.setView(view);
@@ -218,7 +220,6 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                                 p.put(NguoiThue.COL_CCCD, cccd);
                                 fb.collection(NguoiThue.TB_NGUOITHUE).document(objNguoiThue.getSdt()).update(p);
 
-                                mItemManger.closeAllItems();
                                 notifyDataSetChanged();
                                 dialog.dismiss();
                                 Toast.makeText(context, "Update Thành Công", Toast.LENGTH_SHORT).show();
@@ -238,12 +239,12 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         viewHolder.tv_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_info_nguoithue);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 TextView tv_info = dialog.findViewById(R.id.tv_info_nguoithue);
                 tv_info.setText("Tên: " + objNguoiThue.getHoTen() + "\nPhòng : " + objNguoiThue.getId_phong() + "\nEmail : " + objNguoiThue.getEmail() + "\nSĐT : " + objNguoiThue.getSdt() + "\nCCCD : " + objNguoiThue.getCccd());
-                mItemManger.closeAllItems();
                 dialog.show();
             }
         });

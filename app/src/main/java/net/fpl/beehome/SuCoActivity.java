@@ -102,6 +102,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                 TextView tv_phong = dialog.findViewById(R.id.tv_p_d);
                 tv_phong.setText(objNguoiThue.getId_phong());
                 Button btn_bc = dialog.findViewById(R.id.btn_bc);
+                Button btn_cancel = dialog.findViewById(R.id.btn_cancel);
 
                 Calendar calendar = Calendar.getInstance();
                 final int y = calendar.get(Calendar.YEAR);
@@ -147,7 +148,12 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
                         dialog.dismiss();
                     }
                 });
-
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
                 dialog.show();
             }
         });

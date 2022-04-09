@@ -97,6 +97,7 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 Spinner sp_tvien = dialog.findViewById(R.id.sp_hd_tvien);
                 Spinner sp_kyhan = dialog.findViewById(R.id.sp_hd_kyhan);
                 Button btn_add = dialog.findViewById(R.id.btn_add);
+                Button btn_cancel = dialog.findViewById(R.id.btn_cancel);
                 TextInputLayout ed_ngayky = dialog.findViewById(R.id.ed_ngaykyhd);
                 TextInputLayout ed_ngaybd = dialog.findViewById(R.id.ed_ngaybd);
                 TextInputLayout ed_ngaykt = dialog.findViewById(R.id.ed_ngaykt);
@@ -355,6 +356,12 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                             }
                         });
 
+                        dialog.dismiss();
+                    }
+                });
+                btn_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
                         dialog.dismiss();
                     }
                 });

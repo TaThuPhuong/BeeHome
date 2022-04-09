@@ -94,6 +94,7 @@ public class SuCoAdapter extends RecyclerSwipeAdapter<SuCoAdapter.SuCoViewHolder
         viewHolder.tv_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_delete_suco);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
@@ -136,6 +137,7 @@ public class SuCoAdapter extends RecyclerSwipeAdapter<SuCoAdapter.SuCoViewHolder
         viewHolder.tv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_edit_sc);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
@@ -201,12 +203,12 @@ public class SuCoAdapter extends RecyclerSwipeAdapter<SuCoAdapter.SuCoViewHolder
         viewHolder.tv_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_info_suco);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 TextView tv_info = dialog.findViewById(R.id.tv_info_hopdong);
                 tv_info.setText("Phòng: " + objSuCo.getId_phong() + "\nNgày: " + objSuCo.getNgayBaoCao() + "\nMô Tả: " + objSuCo.getMoTa());
-                mItemManger.closeAllItems();
                 dialog.show();
             }
         });
