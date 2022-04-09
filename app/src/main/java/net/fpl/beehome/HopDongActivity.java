@@ -79,9 +79,10 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
         ArrayList<Phong> arrphong = getSPPHong();
         ArrayList<NguoiThue> arrnguoithue = getSPNguoiThue();
         ArrayList<Phong> arrallphong = getAllPHong();
+        ArrayList<NguoiThue> arrallnt = getALLNguoiThue();
 
 
-        hopDongAdapter = new HopDongAdapter(arr, HopDongActivity.this, fb, arrallphong, arrnguoithue);
+        hopDongAdapter = new HopDongAdapter(arr, HopDongActivity.this, fb, arrallphong, arrallnt);
         rv_hd.setAdapter(hopDongAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -468,8 +469,10 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 arr.clear();
                 for(QueryDocumentSnapshot document : value){
                     NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
+                    if(objNguoiThue.getId_phong().equalsIgnoreCase("Trống")){
                         arr.add(objNguoiThue);
                     }
+                }
                 if(arr.size() == 0){
                     NguoiThue obj = new NguoiThue();
                     obj.setHoTen("Trống");
@@ -482,6 +485,25 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
 
         return arr;
     }
+
+    public ArrayList<NguoiThue> getALLNguoiThue(){
+        ArrayList<NguoiThue> arr = new ArrayList<>();
+        fb.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for(QueryDocumentSnapshot document : value){
+                    NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
+                        arr.add(objNguoiThue);
+
+                }
+            }
+        });
+
+
+        return arr;
+    }
+
 
     public Boolean checkDateFormat(String date){
         if (date == null || !date.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$"))
