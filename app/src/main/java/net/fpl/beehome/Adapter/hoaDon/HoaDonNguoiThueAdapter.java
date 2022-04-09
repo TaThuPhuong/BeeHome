@@ -4,6 +4,7 @@ package net.fpl.beehome.Adapter.hoaDon;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,7 +133,6 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
                     }
                 }
 
-                Log.d("arrHDCT", "mang " + arrHoaDonChiTiet);
 
 
                 idPhong.setText("Phòng: " + objHoaDon.getIDPhong());

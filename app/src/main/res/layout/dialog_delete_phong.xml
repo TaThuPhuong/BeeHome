@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Bạn có chắc chắn muốn xóa phòng này không?"
         android:textSize="18dp"
+        android:gravity="center"
         android:textStyle="bold"
         android:padding="15dp"
         android:layout_marginLeft="20dp"

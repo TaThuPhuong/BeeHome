@@ -47,6 +47,7 @@ import net.fpl.beehome.R;
 import net.fpl.beehome.detail.hoaDon.HoaDonMain;
 import net.fpl.beehome.model.DichVu;
 import net.fpl.beehome.model.HoaDon;
+import net.fpl.beehome.model.HoaDonChiTiet;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;

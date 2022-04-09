@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -31,6 +32,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.fpl.beehome.R;
+import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.ui.phong.PhongFragment;
 
@@ -44,6 +46,7 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
 
     private Context mContext;
     private ArrayList<Phong> lsPhong;
+    private ArrayList<Phong> lsPhongFilter;
     private FirebaseFirestore fb;
     private PhongFragment fragment;
 
@@ -52,6 +55,7 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
         this.lsPhong = lsPhong;
         this.fb = fb;
         this.fragment = phongFragment;
+        this.lsPhongFilter = lsPhong;
     }
 
     // Set màu sắc cho trạng thái phòng
@@ -130,7 +134,7 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
                 if (phong.getTrangThai().equals("Đang thuê")) {
                     showDialogSua(phong, 1);
                 }else {
-                    showDialogSua(phong, 0);
+                    showDialogSua(phong,0);
                 }
             }
         });
@@ -142,12 +146,12 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
                 mItemManger.closeAllItems();
 
                 Dialog dialog = new Dialog(mContext, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-                dialog.setContentView(R.layout.dialog_xoa);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.setContentView(R.layout.dialog_delete_phong);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
                 dialog.show();
 
-                TextView tvDelete = dialog.findViewById(R.id.tv_co);
-                TextView tvCancel = dialog.findViewById(R.id.tv_khong);
+                TextView tvDelete = dialog.findViewById(R.id.btn_delete);
+                TextView tvCancel = dialog.findViewById(R.id.btn_cancel);
                 tvDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -229,13 +233,12 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
     // Dialog sửa thông tin phòng
     public void showDialogSua(Phong phong, int type) {
         // Tạo dialog
-        DecimalFormat formatter = new DecimalFormat("###,###,###");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         View view = View.inflate(mContext, R.layout.dialog_sua_phong, null);
         builder.setView(view);
         AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
         dialog.show();
 
 
@@ -248,7 +251,7 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
         RadioButton rdoTrong,rdoDangSua;
         edSoPhong = view.findViewById(R.id.ed_so_phong);
         edGiaPhong = view.findViewById(R.id.ed_gia_phong);
-        edVatTu = view.findViewById(R.id.ed_vat_tu);
+        edVatTu = view.findViewById(R.id.ed_vattu);
         edTrangThai = view.findViewById(R.id.ed_trang_thai);
         edSoDienDau = view.findViewById(R.id.ed_so_dien_dau);
         edSoNuocDau = view.findViewById(R.id.ed_so_nuoc_dau);
@@ -270,7 +273,6 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
 
         if (type == 1) {
             edSoDienDau.setEnabled(false);
-            edTrangThai.setEnabled(false);
             edSoNuocDau.setEnabled(false);
             chkBan.setEnabled(false);
             chkBep.setEnabled(false);
@@ -283,7 +285,6 @@ public class PhongRecyclerViewAdapter extends RecyclerSwipeAdapter<PhongRecycler
             rdoDangSua.setEnabled(false);
         }else {
             edSoDienDau.setEnabled(true);
-            edTrangThai.setEnabled(true);
             edSoNuocDau.setEnabled(true);
             chkBan.setEnabled(true);
             chkBep.setEnabled(true);
