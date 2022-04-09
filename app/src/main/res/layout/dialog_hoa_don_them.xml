@@ -86,6 +86,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:enabled="false"
                         android:id="@+id/han_hd"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -332,16 +333,7 @@
                     android:gravity="center"
                     android:text="Tổng hợp"
                     />
-                <TextView
-                    android:id="@+id/errTongHop"
-                    android:visibility="invisible"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Phải tổng hợp trước khi thanh toán!"
-                    android:textSize="14dp"
-                    android:textColor="@color/do_nhat"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginRight="20dp"/>
+
 
                 <com.google.android.material.textfield.TextInputLayout
 
@@ -416,6 +408,7 @@
                         android:drawableRight="@drawable/ic_money"
                         android:hint="Giảm giá (nếu không thì điền 0)"
                         android:textColorHint="@color/grey_dam"
+                        android:inputType="number"
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -429,22 +422,40 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="10dp"
                         android:text="Thanh toán: "
                         android:textColor="@color/grey_dam"
                         android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/tongTien"
-                        android:layout_width="match_parent"
+                        android:layout_width="185dp"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:textColor="@color/grey_dam"
                         android:textSize="19dp"
                         android:textStyle="bold" />
 
+                    <ImageButton
+                        android:id="@+id/btnTongHD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_baseline_check_circle_24" />
+
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/errTongHop"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phải tổng hợp trước khi thanh toán!"
+                    android:textSize="14dp"
+                    android:textColor="@color/do_nhat"
+                    android:layout_marginLeft="100dp"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/ghiChuHD"
