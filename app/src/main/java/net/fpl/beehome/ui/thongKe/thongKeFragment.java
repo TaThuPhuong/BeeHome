@@ -150,7 +150,7 @@ public class thongKeFragment extends Fragment {
                         ex.printStackTrace();
                     }
                 }
-                tvTotalMonth.setText(fm.format(totalMonth)+"VNĐ");
+                tvTotalMonth.setText(fm.format(totalMonth)+" VNĐ");
             }
         });
 

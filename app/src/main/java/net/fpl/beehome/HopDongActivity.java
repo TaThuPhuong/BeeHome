@@ -468,10 +468,8 @@ public class HopDongActivity extends AppCompatActivity implements SwipeRefreshLa
                 arr.clear();
                 for(QueryDocumentSnapshot document : value){
                     NguoiThue objNguoiThue = document.toObject(NguoiThue.class);
-                    if(objNguoiThue.getId_phong().equalsIgnoreCase("Trống")){
                         arr.add(objNguoiThue);
                     }
-                }
                 if(arr.size() == 0){
                     NguoiThue obj = new NguoiThue();
                     obj.setHoTen("Trống");
