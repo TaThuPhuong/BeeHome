@@ -37,6 +37,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import net.fpl.beehome.HopDongActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.HoaDon;
+import net.fpl.beehome.model.HoaDonChiTiet;
 import net.fpl.beehome.model.HopDong;
 import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
@@ -126,6 +127,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 Button btn_delete = dialog.findViewById(R.id.btn_delete);
                 Button btn_cancel = dialog.findViewById(R.id.btn_cancel);
                 ArrayList<HoaDon> arrhd = getListHD(objHopDong.getId_phong());
+
                 btn_delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -138,13 +140,14 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                             }
                         }
 
-
                         mItemManger.closeAllItems();
                         fb.collection(Phong.TB_NAME).document(objHopDong.getId_phong()).update(Phong.COL_TRANG_THAI, "Trống");
                         fb.collection(NguoiThue.TB_NGUOITHUE).document(objHopDong.getId_thanh_vien()).update(NguoiThue.COL_ID_PHONG, "Trống");
                         for(HoaDon objHoaDon : arrhd){
                             fb.collection(HoaDon.TB_NAME).document(objHoaDon.getIDHoaDon()).delete();
+                            deleteAllHDCT(objHoaDon.getIDHoaDon());
                         }
+
                         fb.collection(HopDong.TB_NAME).document(objHopDong.getId_hop_dong())
                                 .delete()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -556,6 +559,22 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
             }
         });
         return arr;
+    }
+
+    public void deleteAllHDCT(String idhd){
+        fb.collection(HoaDonChiTiet.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                arr.clear();
+                for(QueryDocumentSnapshot document : value){
+                    HoaDonChiTiet objHoaDonChiTiet = document.toObject(HoaDonChiTiet.class);
+                    if(objHoaDonChiTiet.getIDHoaDon().equalsIgnoreCase(idhd)){
+                        fb.collection(HoaDonChiTiet.TB_NAME).document(objHoaDonChiTiet.getIDHoaDonCT()).delete();
+                        notifyDataSetChanged();
+                    }
+                }
+            }
+        });
     }
 
     @Override
