@@ -62,6 +62,7 @@ public class SuCoActivity extends AppCompatActivity implements SwipeRefreshLayou
         Intent intent = getIntent();
         String quyen = intent.getStringExtra("quyen");
         objNguoiThue = (NguoiThue) intent.getSerializableExtra("nt");
+        Log.d("arrHDP", "onViewCreated: " + objNguoiThue);
 
         if (quyen.equalsIgnoreCase("admin")){
             btn_add.setVisibility(View.GONE);
