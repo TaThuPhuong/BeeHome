@@ -34,6 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import net.fpl.beehome.HopDongActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.HoaDon;
 import net.fpl.beehome.model.HopDong;
@@ -53,6 +54,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
     FirebaseFirestore fb;
     ArrayList<Phong> arrphong;
     ArrayList<NguoiThue> arrnguoithue;
+    NguoiThue objnguoiThue;
 
 
     public HopDongAdapter(ArrayList<HopDong> arr, Context context, FirebaseFirestore fb, ArrayList<Phong> arrphong, ArrayList<NguoiThue> arrnguoithue) {
@@ -62,6 +64,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
         this.fb = fb;
         this.arrphong = arrphong;
         this.arrnguoithue = arrnguoithue;
+
     }
 
     @Override
@@ -194,8 +197,6 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 TextInputLayout ed_ngaybd = dialog.findViewById(R.id.ed_ngaybd);
                 TextInputLayout ed_ngaykt = dialog.findViewById(R.id.ed_ngaykt);
                 TextInputLayout ed_songuoithue = dialog.findViewById(R.id.ed_songuoithue);
-                TextView tv_er_p = dialog.findViewById(R.id.tv_er_phong);
-                TextView tv_er_ngthue = dialog.findViewById(R.id.tv_er_ngthue);
                 TextView tv_p_d = dialog.findViewById(R.id.tv_p_d);
                 TextView tv_p_nt = dialog.findViewById(R.id.tv_p_nt);
 
@@ -206,9 +207,16 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                 ed_ngayky.setError(null);
                 ed_songuoithue.setError(null);
 
+                for (Phong objPhong : arrphong){
+                    if(objPhong.getIDPhong().equalsIgnoreCase(objHopDong.getId_phong())){
+                        tv_p_d.setText(objPhong.getIDPhong());
+                    }
+                }
+                Log.d("aaaaaaaaa", "onClick: "+ arrnguoithue.size());
                 for (NguoiThue objNguoiThue : arrnguoithue){
-                    if(objNguoiThue.getId_phong().equalsIgnoreCase(objHopDong.getId_thanh_vien())){
-                        tv_p_nt.setText(objNguoiThue.getId_phong());
+                    if(objNguoiThue.getId_thanhvien().equalsIgnoreCase(objHopDong.getId_thanh_vien())){
+                        tv_p_nt.setText(objNguoiThue.getHoTen());
+                        objnguoiThue = objNguoiThue;
                     }
                 }
 
@@ -335,6 +343,60 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
                                                 }
                                             }
                                         },y,m,d);
+                                        sp_kyhan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                            @Override
+                                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                                DatePickerDialog dialog1 = new DatePickerDialog(view.getContext() , R.style.datePicker , new DatePickerDialog.OnDateSetListener() {
+                                                    @Override
+                                                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                                                        String monthbd = String.valueOf(i1);
+                                                        String daybd = String.valueOf(i2);
+
+                                                        if(String.valueOf(i1).length() == 1){
+                                                            monthbd = "0"+i1;
+                                                        }
+                                                        if(String.valueOf(i2).length() == 1){
+                                                            daybd = "0"+i2;
+                                                        }
+
+                                                        ed_ngaybd.getEditText().setText(i + "-" +monthbd + "-" + daybd);
+
+                                                        if(Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1 > 12){
+                                                            int imonthkt = (Integer.parseInt(sp_kyhan.getSelectedItem()+"")+i1) - 12 ;
+                                                            int iyearkt = i+1;
+                                                            String daykt = String.valueOf(i2);
+                                                            String monthkt = String.valueOf(imonthkt);
+
+                                                            if(String.valueOf(imonthkt).length() == 1){
+                                                                monthkt = "0"+monthkt;
+                                                            }
+                                                            if(String.valueOf(i2).length() == 1){
+                                                                daykt = "0"+i2;
+                                                            }
+                                                            ed_ngaykt.getEditText().setText(iyearkt + "-" +monthkt + "-" + daykt);
+                                                        }else{
+                                                            int imonthkt = Integer.parseInt(sp_kyhan.getSelectedItem()+"") + i1;
+                                                            String daykt = String.valueOf(i2);
+                                                            String monthkt = String.valueOf(imonthkt);
+                                                            if(String.valueOf(imonthkt).length() == 1){
+                                                                monthkt = "0"+monthkt;
+                                                            }
+                                                            if(String.valueOf(i2).length() == 1){
+                                                                daykt = "0"+i2;
+                                                            }
+                                                            ed_ngaykt.getEditText().setText(i + "-" +monthkt + "-" + daykt);
+
+                                                        }
+                                                    }
+                                                },y,m,d);
+                                                dialog1.show();
+                                            }
+
+                                            @Override
+                                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                                            }
+                                        });
                                         dialog1.show();
                                     }
 
@@ -398,7 +460,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
 
                         objHopDong.setId_chu_tro("1");
                         objHopDong.setId_phong(tv_p_d.getText().toString());
-                        objHopDong.setId_thanh_vien(tv_p_nt.getText().toString());
+                        objHopDong.setId_thanh_vien(objnguoiThue.getId_thanhvien());
                         objHopDong.setKyHan(Integer.parseInt(sp_kyhan.getSelectedItem()+""));
                         objHopDong.setNgayKiHD(ed_ngayky.getEditText().getText().toString());
                         objHopDong.setNgayBatDau(ed_ngaybd.getEditText().getText().toString());

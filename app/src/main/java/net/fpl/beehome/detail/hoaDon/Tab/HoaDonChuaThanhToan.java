@@ -156,12 +156,11 @@ public class HoaDonChuaThanhToan extends Fragment {
 
                     ImageButton chotDien = dialog.findViewById(R.id.chotDien);
                     ImageButton chotNuoc = dialog.findViewById(R.id.chotNuoc);
+                    ImageButton btntongHD = dialog.findViewById(R.id.btnTongHD);
 
                     TextView tvDien = dialog.findViewById(R.id.tvDien);
                     TextView tvNuoc = dialog.findViewById(R.id.tvNuoc);
                     TextView errAll = dialog.findViewById(R.id.errTongHop);
-
-                    MaterialTextView tvTongHop = dialog.findViewById(R.id.tongHop);
 
                     TextView tongTien = dialog.findViewById(R.id.tongTien);
                     TextInputLayout ghiChu = dialog.findViewById(R.id.ghiChuHD);
@@ -196,20 +195,9 @@ public class HoaDonChuaThanhToan extends Fragment {
                                     hd_thang.setText(thangHD);
                                     idThang = month_thang + "." + year_thang;
                                     thang = hd_thang.getText().toString();
-                                }
-                            }, y, m, d);
-                            datePickerDialog.show();
-                        }
-                    });
-//lấy hạn hóa đơn
-                    hd_han.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), R.style.datePicker, new DatePickerDialog.OnDateSetListener() {
-                                @Override
-                                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                    final String hanGD = dayOfMonth + "/" + (month + 1) + "/" + year;
-                                    month_han = month + 1;
+
+                                    final String hanGD = dayOfMonth + "/" + (month + 2) + "/" + year;
+                                    month_han = month + 2;
                                     year_han = year;
                                     hd_han.setText(hanGD);
                                     han = hd_han.getText().toString();
@@ -313,7 +301,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                         }
                     });
 //tổng hợp hóa đơn
-                    tvTongHop.setOnClickListener(new View.OnClickListener() {
+                    btntongHD.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             errAll.setVisibility(View.INVISIBLE);
@@ -347,12 +335,7 @@ public class HoaDonChuaThanhToan extends Fragment {
                                 if (TextUtils.isEmpty(han)) {
                                     L_hd_han.setError("Bạn phải chọn hạn hóa đơn");
                                 }
-                            } else if (month_han - month_thang == 0) {
-                                L_hd_han.setError("Hạn thanh toán phải sau thời điểm tháng");
-                            } else if (year_han - year_thang > 1) {
-                                L_hd_han.setError("Hạn thanh toán quá xa");
                             } else if (tongHD == 0) {
-                                tvTongHop.setError("");
                                 errAll.setVisibility(VISIBLE);
                             } else {
 //set hóa Đơn
@@ -399,15 +382,11 @@ public class HoaDonChuaThanhToan extends Fragment {
                                                 .set(objHoaDonChiTietPhong)
                                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
-                                                    public void onSuccess(Void unused) {
-                                                        Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thành công", Toast.LENGTH_SHORT).show();
-                                                    }
+                                                    public void onSuccess(Void unused) {}
                                                 }).
                                                 addOnFailureListener(new OnFailureListener() {
                                                     @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thất bại", Toast.LENGTH_SHORT).show();
-                                                    }
+                                                    public void onFailure(@NonNull Exception e) {}
                                                 });
                                     }
                                 }
@@ -463,29 +442,21 @@ public class HoaDonChuaThanhToan extends Fragment {
                                             .set(objHoaDonChiTietDien)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
-                                                public void onSuccess(Void unused) {
-                                                    Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thành công", Toast.LENGTH_SHORT).show();
-                                                }
+                                                public void onSuccess(Void unused) {}
                                             }).
                                             addOnFailureListener(new OnFailureListener() {
                                                 @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thất bại", Toast.LENGTH_SHORT).show();
-                                                }
+                                                public void onFailure(@NonNull Exception e) {}
                                             });
                                     fb.collection(HoaDonChiTiet.TB_NAME).document(objHoaDonChiTietNuoc.getIDHoaDonCT())
                                             .set(objHoaDonChiTietNuoc)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
-                                                public void onSuccess(Void unused) {
-                                                    Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thành công", Toast.LENGTH_SHORT).show();
-                                                }
+                                                public void onSuccess(Void unused) {}
                                             }).
                                             addOnFailureListener(new OnFailureListener() {
                                                 @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Toast.makeText(getContext(), "Thêm hóa đơn chi tiết thất bại", Toast.LENGTH_SHORT).show();
-                                                }
+                                                public void onFailure(@NonNull Exception e) {}
                                             });
 
                                     dialog.dismiss();
