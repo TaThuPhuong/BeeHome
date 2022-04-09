@@ -9,7 +9,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -131,6 +130,7 @@ public class Login_Activity extends AppCompatActivity {
                     for (Admin ad : lsAdmin) {
                         if (ad.getEmail().equals(email)) {
                             admin = ad;
+                            Log.d("TAG", "onClick: " +ad.toString());
                             break;
                         }
                     }

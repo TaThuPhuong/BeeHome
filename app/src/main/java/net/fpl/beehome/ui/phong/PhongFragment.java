@@ -2,22 +2,22 @@ package net.fpl.beehome.ui.phong;
 
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -25,28 +25,26 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import net.fpl.beehome.Adapter.Phong.PhongSwipeRecyclerViewAdapter;
+import net.fpl.beehome.Adapter.Phong.PhongRecyclerViewAdapter;
+import net.fpl.beehome.MainActivity;
 import net.fpl.beehome.R;
 import net.fpl.beehome.model.Phong;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -57,8 +55,7 @@ public class PhongFragment extends Fragment {
     RecyclerView recyclerView;
     TextView tvTongPhong, tvPhongTrong;
     int phongTrong = 0;
-    PhongSwipeRecyclerViewAdapter phongSwipeRecyclerViewAdapter;
-
+    PhongRecyclerViewAdapter phongSwipeRecyclerViewAdapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,9 +70,10 @@ public class PhongFragment extends Fragment {
         tvPhongTrong = view.findViewById(R.id.phong_trong);
         fab = view.findViewById(R.id.floating_action_button);
         lsPhong = new ArrayList<>();
-        phongSwipeRecyclerViewAdapter = new PhongSwipeRecyclerViewAdapter(getContext(), getLsPhong(), fb, this);
+        phongSwipeRecyclerViewAdapter = new PhongRecyclerViewAdapter(getContext(), getLsPhong(), fb, this);
         phongSwipeRecyclerViewAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(phongSwipeRecyclerViewAdapter);
+
     }
 
     @Override
@@ -342,6 +340,7 @@ public class PhongFragment extends Fragment {
             }
         });
     }
+
 }
 // #################################################################
 // #                             _`

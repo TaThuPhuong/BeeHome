@@ -75,6 +75,7 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
         toolbar = findViewById(R.id.toolbar_nguoithue);
         firestore = FirebaseFirestore.getInstance();
         fba = FirebaseAuth.getInstance();
+
         ArrayList<NguoiThue> list = getall();
         nguoiThueSwip = new NguoiThueSwip(list, NguoiThue_Activity.this, firestore);
         setSupportActionBar(toolbar);
@@ -115,7 +116,6 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
         btn_them.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//ccp.getFullNumber() +
                 String ten = ed_ten.getEditText().getText().toString();
                 String sodt = ed_sodt.getEditText().getText().toString();
                 String email = ed_email.getEditText().getText().toString();
@@ -124,7 +124,6 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
                 setUnErrNguoiThue(ed_sodt);
                 setUnErrNguoiThue(ed_email);
                 setUnErrNguoiThue(ed_cccd);
-//                ccp.registerCarrierNumberEditText(ed_sodt);
                 if (TextUtils.isEmpty(ten)) {
                     ed_ten.setError("Không Được Để Trống Tên");
                     return;

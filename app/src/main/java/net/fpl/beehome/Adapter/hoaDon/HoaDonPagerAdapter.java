@@ -2,7 +2,6 @@ package net.fpl.beehome.Adapter.hoaDon;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import net.fpl.beehome.detail.hoaDon.Tab.HoaDonChuaThanhToan;

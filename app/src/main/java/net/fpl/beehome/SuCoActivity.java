@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,11 +27,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import net.fpl.beehome.Adapter.HopDong.SpinnerPhongAdapter;
 import net.fpl.beehome.Adapter.SuCo.SuCoAdapter;
 import net.fpl.beehome.Adapter.SuCo.SuCoAdapter2;
 import net.fpl.beehome.model.NguoiThue;
-import net.fpl.beehome.model.Phong;
 import net.fpl.beehome.model.SuCo;
 
 import java.util.ArrayList;

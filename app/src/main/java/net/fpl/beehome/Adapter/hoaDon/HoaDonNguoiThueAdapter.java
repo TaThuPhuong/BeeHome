@@ -1,37 +1,20 @@
 package net.fpl.beehome.Adapter.hoaDon;
 
-import static android.view.View.VISIBLE;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.fpl.beehome.R;
@@ -46,7 +29,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThueAdapter.HoaDonViewHolder> {
     final NumberFormat formatter = new DecimalFormat("#,###,###,###");
@@ -82,7 +64,6 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
     @Override
     public void onBindViewHolder(final HoaDonViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         final HoaDon objHoaDon = arr.get(position);
-        final int index = position;
 
         viewHolder.tongHD.setText(objHoaDon.getTongHD()+"");
         viewHolder.phong.setText(objHoaDon.getIDPhong());
@@ -152,7 +133,6 @@ public class HoaDonNguoiThueAdapter extends RecyclerSwipeAdapter<HoaDonNguoiThue
                     }
                 }
 
-                Log.d("arrHDCT", "mang " + arrHoaDonChiTiet);
 
 
                 idPhong.setText("Phòng: " + objHoaDon.getIDPhong());

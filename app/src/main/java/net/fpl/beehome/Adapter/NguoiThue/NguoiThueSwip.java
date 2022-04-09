@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +27,6 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import net.fpl.beehome.R;
@@ -37,7 +34,6 @@ import net.fpl.beehome.model.NguoiThue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -136,7 +132,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                                     });
                             dialog.dismiss();
                         } else {
-                            Toast.makeText(context, "Đã Có Phòng Không Thể Xóa", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Kết thúc hợp đồng trước khi xóa", Toast.LENGTH_SHORT).show();
                             mItemManger.closeAllItems();
                             dialog.dismiss();
                         }

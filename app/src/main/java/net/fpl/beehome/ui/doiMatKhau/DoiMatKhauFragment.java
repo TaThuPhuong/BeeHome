@@ -11,7 +11,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,7 +65,6 @@ public class DoiMatKhauFragment extends Fragment {
         phongFragment = new PhongFragment();
         progressBarLoading = new ProgressBarLoading(getContext());
         email = user.getEmail();
-        Log.d("TAG", "init: " + email);
         edMKMoi = view.findViewById(R.id.ed_mk_moi);
         edMKNhapLai = view.findViewById(R.id.ed_re_mk_moi);
         btnLuu = view.findViewById(R.id.btn_luu_doi_mk);

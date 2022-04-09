@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -179,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu_toolbar_right, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public void onBackPressed() {
