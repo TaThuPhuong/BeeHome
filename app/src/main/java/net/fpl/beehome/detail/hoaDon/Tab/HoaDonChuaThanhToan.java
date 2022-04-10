@@ -609,13 +609,14 @@ public class HoaDonChuaThanhToan extends Fragment {
 
     public ArrayList<HoaDon> getAllHoaDon() {
         ArrayList<HoaDon> arr = new ArrayList<>();
+        final Calendar calendar = Calendar.getInstance();
         fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arr.clear();
                 for (QueryDocumentSnapshot document : value) {
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
-                    if (objHoaDon.getTrangThaiHD() == 0) {
+                    if (objHoaDon.getTrangThaiHD() == 0 && calendar.getTime().before(objHoaDon.getHanGD())) {
                         arr.add(objHoaDon);
                         Log.d("hdctt", "onEvent: " + arr);
                         if (user.equalsIgnoreCase("Admin")) {
