@@ -34,6 +34,7 @@ import net.fpl.beehome.model.NguoiThue;
 import net.fpl.beehome.model.Phong;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class HoaDonQuaHanThanhToan extends Fragment {
     FirebaseFirestore fb;
@@ -202,13 +203,14 @@ public class HoaDonQuaHanThanhToan extends Fragment {
 
     public ArrayList<HoaDon> getAllHoaDon() {
         ArrayList<HoaDon> arr = new ArrayList<>();
+        final Calendar calendar = Calendar.getInstance();
         fb.collection(HoaDon.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 arr.clear();
                 for (QueryDocumentSnapshot document : value) {
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
-                    if (objHoaDon.getTrangThaiHD() == 2) {
+                    if (objHoaDon.getTrangThaiHD() == 2 || calendar.getTime().after(objHoaDon.getHanGD())) {
                         arr.add(objHoaDon);
                         if (user.equalsIgnoreCase("Admin")) {
                             adapterhd.notifyDataSetChanged();
