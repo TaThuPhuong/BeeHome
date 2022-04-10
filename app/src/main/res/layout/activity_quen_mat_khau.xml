@@ -1,123 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background2"
-    android:orientation="vertical"
-    tools:context=".Login_Activity">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/tim_100"
+android:orientation="vertical"
+tools:context=".QuenMatKhauActivity">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView3"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
+<ImageView
+    android:id="@+id/img1"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_marginBottom="-50dp"
+    android:scaleType="centerCrop"
+    android:src="@drawable/p1"
+    app:layout_constraintBottom_toTopOf="@id/anichangepass"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<ImageView
+    android:id="@+id/img_logo"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    android:layout_marginBottom="-50dp"
+    android:background="@drawable/bg_gradian_toplogin"
+    android:src="@drawable/logo_unbg"
+    app:layout_constraintBottom_toTopOf="@+id/anichangepass"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/img1" />
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/anichangepass"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginTop="180dp"
+    android:background="@drawable/bg_loginmain"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="413dp"
+        android:layout_height="371dp"
+        android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/clou" />
+        tools:ignore="MissingConstraints">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView2"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView3"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/home" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView4"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView2"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/bee" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="268dp"
-        android:text="HOME"
-        android:textColor="#673AB7"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/aniLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints">
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:text="Quên mật khẩu"
+            android:textColor="@color/tim_400"
+            android:textSize="24dp"
+            android:layout_marginBottom="15dp"
+            android:textStyle="bold" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ed_email"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ed_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/tim_300"
+            android:hint="Nhập email"
+            app:boxStrokeColor="@color/tim_300"
+            app:errorEnabled="true"
+            app:hintTextColor="@color/tim_300">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                app:errorEnabled="true"
-                app:hintEnabled="false"
-             >
+                android:inputType="textPassword" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_dialog_addhd"
-                    android:gravity="center_vertical"
-                    android:hint="Nhập email"
-                    android:paddingVertical="14dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey_dam" />
-            </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_khoi_phuc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:background="@drawable/background_btn_login"
+                android:text="Khôi phục mật khẩu"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/btn_khoi_phuc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:backgroundTint="@color/tim_300"
-            android:padding="10dp"
-            android:text="Khôi phục mật khẩu"
-            android:textAllCaps="false"
-            app:cornerRadius="10dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
