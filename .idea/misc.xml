@@ -88,14 +88,19 @@
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/layout/fragment_slideshow.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/Desktop/Android/BeeHome/app/src/main/res/menu/main.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/drawable/background_dialog.xml" value="0.1985" />
         <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/activity_hop_dong.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/activity_huong_dan.xml" value="0.2" />
         <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/activity_huong_dan_nguoi_thue.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/dialog_delete_phong.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/dialog_hoa_don_them.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/dialog_hoa_don_xoa.xml" value="0.176" />
+        <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/fragment_doi_email.xml" value="0.15896739130434784" />
         <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/fragment_gioi_thieu.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/fragment_home_nguoi_thue.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/fragment_thong_ke.xml" value="0.25" />
         <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/hoa_don_chua_thanh_toan.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/Lenovo/Documents/Android/BeeHome/app/src/main/res/layout/hoa_don_da_thanh_toan.xml" value="0.15896739130434784" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable-v24/bg_dialog_info.xml" value="0.1465" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable-v24/bg_hd_avt.xml" value="0.1225" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/drawable-v24/bg_hdon.xml" value="0.1225" />

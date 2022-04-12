@@ -143,6 +143,7 @@ public class HoaDonAdapter extends RecyclerSwipeAdapter<HoaDonAdapter.HoaDonView
                 mItemManger.closeAllItems();
                 Dialog dialog = new Dialog(context, androidx.transition.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
                 dialog.setContentView(R.layout.dialog_hoa_don_xoa);
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 Button btn_delete = dialog.findViewById(R.id.btn_yes);
                 Button btn_cancel = dialog.findViewById(R.id.btn_no);
                 ArrayList<HoaDonChiTiet> arrHDCT = getListHDCT(objHoaDon.getIDHoaDon());
