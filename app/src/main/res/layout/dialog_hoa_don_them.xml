@@ -406,6 +406,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/ic_money"
+                        android:text="0"
                         android:hint="Giảm giá (nếu không thì điền 0)"
                         android:textColorHint="@color/grey_dam"
                         android:inputType="number"

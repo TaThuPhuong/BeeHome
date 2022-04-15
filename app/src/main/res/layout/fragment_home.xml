@@ -159,28 +159,30 @@
                         android:id="@+id/btn_hoa_don"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
-                        android:layout_columnWeight="1"
                         android:layout_rowWeight="1"
-                        app:cardElevation="10dp"
-                        app:cardCornerRadius="12dp"
+                        android:layout_columnWeight="1"
                         android:layout_margin="20dp"
-                        >
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="10dp">
+
                         <LinearLayout
-                            android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:gravity="center"
                             android:orientation="vertical">
+
                             <ImageView
-                                android:src="@drawable/ic_bill"
                                 android:layout_width="70dp"
-                                android:layout_height="70dp"/>
+                                android:layout_height="70dp"
+                                android:src="@drawable/ic_bill" />
+
                             <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:text="Hóa đơn"
-                                android:textSize="18dp"
                                 android:textColor="@color/tim_400"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:textSize="18dp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
