@@ -140,11 +140,10 @@
                 <CheckBox
                     android:id="@+id/chk_vt_may_giat"
                     android:buttonTint="#7D0E95"
-
                     android:text="Máy giặt" />
 
                 <CheckBox
-                    android:id="@+id/chk_vt_ban"
+                        android:id="@+id/chk_vt_ban"
 
                     android:buttonTint="#7D0E95"
                     android:text="Bàn" />
