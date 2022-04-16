@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -157,8 +158,8 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
             dialog.show();
 
-            EditText edTenDichVu = dialog.findViewById(R.id.ed_tenDichVu);
-            EditText edGia = dialog.findViewById(R.id.ed_giaDichVu);
+            TextInputLayout edTenDichVu = dialog.findViewById(R.id.ed_tenDichVu);
+            TextInputLayout edGia = dialog.findViewById(R.id.ed_giaDichVu);
             Button btnThem = dialog.findViewById(R.id.btn_themDichVu);
             Button btnHuy = dialog.findViewById(R.id.btn_huy);
 
@@ -170,15 +171,14 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             btnThem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String ten = edTenDichVu.getText().toString().trim();
-                    String gia = edGia.getText().toString().trim();
+                    String ten = edTenDichVu.getEditText().getText().toString();
+                    String gia = edGia.getEditText().getText().toString();
 
                     if (ten.equals("")) {
-                        Toast.makeText(context, "Không để trống tên dịch vụ", Toast.LENGTH_SHORT).show();
+                        edTenDichVu.setError("Không để trống tên dịch vụ");
                         return;
                     } else if(gia.equals("")){
-                        Toast.makeText(context, "Không để trống giá dịch vụ", Toast.LENGTH_SHORT).show();
-
+                        edGia.setError("Không để trống giá dịch vụ");
                     } else {
                         DichVu dichVu = new DichVu();
                         dichVu.setTenDichVu(ten);
