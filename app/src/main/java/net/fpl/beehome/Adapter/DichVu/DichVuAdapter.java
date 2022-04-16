@@ -171,8 +171,8 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             btnThem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String ten = edTenDichVu.getEditText().getText().toString();
-                    String gia = edGia.getEditText().getText().toString();
+                    String ten = edTenDichVu.getEditText().getText().toString().trim();
+                    String gia = edGia.getEditText().getText().toString().trim();
 
                     if (ten.equals("")) {
                         edTenDichVu.setError("Không để trống tên dịch vụ");
@@ -241,7 +241,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         View view = View.inflate(context, R.layout.dialog_sua_dich_vu, null);
         builder.setView(view);
         TextView edTenDichVu = view.findViewById(R.id.tv_tenDV);
-        EditText edGia = view.findViewById(R.id.ed_giaDichVu);
+        TextInputLayout edGia = view.findViewById(R.id.ed_giaDichVu);
         Button btnSua = view.findViewById(R.id.btn_suaDichVu);
         Button btnHuy = view.findViewById(R.id.btn_huy);
 
@@ -253,7 +253,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         TextView tv_chiSo = view.findViewById(R.id.tv_chiSo);
 
         edTenDichVu.setText(dichVu.getTenDichVu());
-        edGia.setText(String.valueOf(dichVu.getGia()));
+        edGia.getEditText().setText(String.valueOf(dichVu.getGia()));
         if (dichVu.getDonVi().equals("Người")) {
             tv_chiSo.setText("Người");
         } else if (dichVu.getDonVi().equals("Phòng")) {
@@ -270,12 +270,11 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         btnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String strGia = edGia.getText().toString();
+                String strGia = edGia.getEditText().getText().toString().trim();
                 if(strGia.equals("")){
-                    Toast.makeText(context, "Không để trống giá dịch vụ", Toast.LENGTH_SHORT).show();
-
+                    edGia.setError("Không để trống giá dịch vụ");
                 } else {
-                    dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
+                    dichVu.setGia(Integer.parseInt(strGia));
 
                     updateDichVu(dichVu);
                     notifyDataSetChanged();
