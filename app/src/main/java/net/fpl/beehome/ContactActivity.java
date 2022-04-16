@@ -1,8 +1,11 @@
 package net.fpl.beehome;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -11,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -34,6 +39,8 @@ public class ContactActivity extends AppCompatActivity {
     ArrayList<Admin> listAdmin;
     ContactUserAdapter contactUserAdapter;
     ContactAdminAdapter contactAdminAdapter;
+    SearchView searchView;
+    Toolbar toolbar;
     String quyen;
     TextView tv;
     private Animation animationUp, animationDown;
@@ -49,6 +56,8 @@ public class ContactActivity extends AppCompatActivity {
         animationDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.down);
         animationUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.up);
         tv = findViewById(R.id.tv);
+        toolbar = findViewById(R.id.toolbar_nguoithue);
+        setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         quyen = intent.getStringExtra("quyen");
@@ -56,7 +65,6 @@ public class ContactActivity extends AppCompatActivity {
         NguoiThue nguoiThue = (NguoiThue) intent.getSerializableExtra("user");
 
         if (quyen.equalsIgnoreCase("admin")) {
-            tv.setText("Chat với người thuê");
             FirebaseFirestore db1 = FirebaseFirestore.getInstance();
             db1.collection(NguoiThue.TB_NGUOITHUE).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
@@ -72,7 +80,7 @@ public class ContactActivity extends AppCompatActivity {
             contactUserAdapter = new ContactUserAdapter(listUser, admin, this);
             rcvContact.setAdapter(contactUserAdapter);
         } else {
-            tv.setText("Chat với admin");
+            toolbar.setTitle("Chat với admin");
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection(Admin.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
@@ -99,5 +107,29 @@ public class ContactActivity extends AppCompatActivity {
                 Toast.makeText(this, "Vui lòng cấp quyền gọi điện", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (quyen.equalsIgnoreCase("admin")) {
+            getMenuInflater().inflate(R.menu.menu_search, menu);
+            SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+            searchView = (SearchView) menu.findItem(R.id.search_view).getActionView();
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setMaxWidth(Integer.MAX_VALUE);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    contactUserAdapter.getFilter().filter(query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    contactUserAdapter.getFilter().filter(newText);
+                    return false;
+                }
+            });
+        }
+        return true;
     }
 }

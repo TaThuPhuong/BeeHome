@@ -7,17 +7,16 @@
     android:orientation="vertical"
     tools:context=".ContactActivity">
 
-  <TextView
-      android:id="@+id/tv"
+  <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar_nguoithue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:gravity="center"
-      android:text="All Contacts"
-      android:padding="7dp"
-      android:textColor="@color/white"
-      android:background="@color/tim_500"
-      android:textSize="26sp"
-      android:textStyle="bold" />
+      android:background="@color/tim_600"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:title="Chat với người thuê"
+      app:titleTextColor="@color/white"></androidx.appcompat.widget.Toolbar>
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rcv_contact"

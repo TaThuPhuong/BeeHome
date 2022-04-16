@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,12 +30,13 @@ import net.fpl.beehome.model.NguoiThue;
 
 import java.util.ArrayList;
 
-public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.ContactUserViewHolder> {
+public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.ContactUserViewHolder> implements Filterable {
 
     private static final int REQUEST_CALL = 1;
     private final int COUNTDOWN_RUNNING_TIME = 500;
     Admin admin;
     private ArrayList<NguoiThue> list;
+    private ArrayList<NguoiThue> list1;
     private Animation animationUp, animationDown;
     private Context context;
 
@@ -41,6 +44,7 @@ public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.
         this.list = list;
         this.admin = admin;
         this.context = context;
+        this.list1=list;
     }
 
     @NonNull
@@ -131,6 +135,37 @@ public class ContactUserAdapter extends RecyclerView.Adapter<ContactUserAdapter.
             imgCall = itemView.findViewById(R.id.img_call);
             imgMessage = itemView.findViewById(R.id.img_message);
         }
+    }
+
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String search = charSequence.toString();
+                if (search.isEmpty()) {
+                    list = list1;
+                } else {
+                    ArrayList<NguoiThue> nguoiThues = new ArrayList<>();
+                    for (NguoiThue nguoiThue1 : list1) {
+                        if (nguoiThue1.getHoTen().toLowerCase().contains(search.toLowerCase())) {
+                            nguoiThues.add(nguoiThue1);
+                        }
+                    }
+                    list = nguoiThues;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = list;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                list = (ArrayList<NguoiThue>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 }
