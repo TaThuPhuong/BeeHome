@@ -173,18 +173,27 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
                     String ten = edTenDichVu.getText().toString().trim();
                     String gia = edGia.getText().toString().trim();
 
-                    if (ten.equals("") || gia.equals("")) {
-                        Toast.makeText(context, "Vui lòng điền đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
+                    if (ten.equals("")) {
+                        Toast.makeText(context, "Không để trống tên dịch vụ", Toast.LENGTH_SHORT).show();
                         return;
+                    } else if(gia.equals("")){
+                        Toast.makeText(context, "Không để trống giá dịch vụ", Toast.LENGTH_SHORT).show();
+
                     } else {
                         DichVu dichVu = new DichVu();
                         dichVu.setTenDichVu(ten);
                         dichVu.setDonVi((String) spinner.getSelectedItem());
                         dichVu.setGia(Integer.parseInt(gia));
-
-                        insertDichVu(dichVu);
-                        dialog.dismiss();
-                        notifyDataSetChanged();
+                        for (DichVu dichVu1 : list){
+                            if (dichVu.getTenDichVu().equals(dichVu1.getTenDichVu())){
+                                Toast.makeText(context, "Dịch vụ đã tồn tại !", Toast.LENGTH_SHORT).show();
+                                return;
+                            }else{
+                                insertDichVu(dichVu);
+                                dialog.dismiss();
+                                notifyDataSetChanged();
+                            }
+                        }
                     }
                 }
             });
@@ -225,6 +234,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         }
     }
 
+
     public void showDialogSua(Context context, DichVu dichVu, int i) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
@@ -261,9 +271,9 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             @Override
             public void onClick(View view) {
                 String strGia = edGia.getText().toString();
-                if (TextUtils.isEmpty(strGia)) {
-                    Toast.makeText(context, "Vui lòng điền đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
-                    return;
+                if(strGia.equals("")){
+                    Toast.makeText(context, "Không để trống giá dịch vụ", Toast.LENGTH_SHORT).show();
+
                 } else {
                     dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
 
