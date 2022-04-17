@@ -155,6 +155,7 @@
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_main.xml" value="0.12092391304347826" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_main_nguoi_thue.xml" value="0.1" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_nguoi_thue.xml" value="0.2318840579710145" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_quen_mat_khau.xml" value="0.17572463768115942" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_screen.xml" value="0.2" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/activity_su_co.xml" value="0.2" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/app_bar_main.xml" value="0.12092391304347826" />
@@ -196,13 +197,14 @@
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/item_phong_spinner.xml" value="0.13858695652173914" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/item_phong_swipe.xml" value="0.264" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/nav_header_main.xml" value="0.14671052631578949" />
-        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_hopdong.xml" value="0.264" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_hopdong.xml" value="0.176" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_nguoithue.xml" value="0.264" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_suco.xml" value="0.264" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/row_suco2.xml" value="0.17753623188405798" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/layout/slide_item_img.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/menu/activity_main_drawer.xml" value="0.14671052631578949" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/menu/menu_search.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/menu/menu_toolbar_right.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/tienl/Desktop/BeeHome/app/src/main/res/mipmap-anydpi-v26/ic_launcher_logo1.xml" value="0.1575" />
         <entry key="app/src/main/res/drawable-v24/bg_dialog_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_hop_dong.xml" value="0.18568840579710144" />

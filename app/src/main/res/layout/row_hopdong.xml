@@ -9,10 +9,10 @@
 
     <LinearLayout
         android:id="@+id/bottom_wrapper"
-        android:layout_width="200dp"
+        android:layout_width="134dp"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:weightSum="3"
+        android:weightSum="2"
         >
 
         <LinearLayout
@@ -35,33 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Info"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:textSize="14dp"
-                android:textColor="#fff" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/tv_edit"
-
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="5dp"
-            android:background="@color/bg_ed"
-            android:layout_weight="1">
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_edit"
-                android:text="Info"
-                android:layout_gravity="center"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Edit"
                 android:gravity="center"
                 android:layout_marginTop="5dp"
                 android:textSize="14dp"
