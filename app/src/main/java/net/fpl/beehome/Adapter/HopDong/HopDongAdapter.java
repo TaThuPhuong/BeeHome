@@ -266,7 +266,7 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
     public class HopDongViewHolder extends RecyclerView.ViewHolder {
         TextView tv_idphong, tv_ngayky, tv_ngaybd, tv_ngaykt;
         SwipeLayout swipeLayout;
-        LinearLayout tv_del, tv_edit, tv_info;
+        LinearLayout tv_del, tv_info;
 
         public HopDongViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -277,7 +277,6 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
             swipeLayout = itemView.findViewById(R.id.swipe);
 
             tv_del = itemView.findViewById(R.id.tv_delete);
-            tv_edit = itemView.findViewById(R.id.tv_edit);
             tv_info = itemView.findViewById(R.id.tv_info);
         }
     }
