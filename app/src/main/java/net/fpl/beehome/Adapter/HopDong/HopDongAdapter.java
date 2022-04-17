@@ -103,7 +103,6 @@ public class HopDongAdapter extends RecyclerSwipeAdapter<HopDongAdapter.HopDongV
 
             @Override
             public void onOpen(SwipeLayout layout) {
-                //when the BottomView totally show.
             }
 
             @Override
