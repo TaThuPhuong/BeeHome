@@ -52,12 +52,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 //
     implementation 'me.relex:circleindicator:2.1.6'
-    def lottieVersion = '5.0.3'
-    implementation "com.airbnb.android:lottie:$lottieVersion"
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
-    implementation('io.socket:socket.io-client:2.0.0') {
-        exclude group: 'org.json', module: 'json'
-    }
     //
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.hbb20:ccp:2.5.0'
@@ -65,11 +60,6 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
-
-    implementation('io.socket:socket.io-client:2.0.0') {
-        exclude group: 'org.json', module: 'json'
-    }
-    implementation 'com.jpardogo.googleprogressbar:library:1.2.0'
     implementation platform('com.google.firebase:firebase-bom:29.3.0')
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
     implementation 'com.google.firebase:firebase-database'

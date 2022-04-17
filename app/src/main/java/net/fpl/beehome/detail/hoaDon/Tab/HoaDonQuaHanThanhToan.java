@@ -210,7 +210,16 @@ public class HoaDonQuaHanThanhToan extends Fragment {
                 arr.clear();
                 for (QueryDocumentSnapshot document : value) {
                     HoaDon objHoaDon = document.toObject(HoaDon.class);
-                    if (objHoaDon.getTrangThaiHD() == 2 || calendar.getTime().after(objHoaDon.getHanGD())) {
+                    if (objHoaDon.getTrangThaiHD() == 2) {
+                        arr.add(objHoaDon);
+                        if (user.equalsIgnoreCase("Admin")) {
+                            adapterhd.notifyDataSetChanged();
+                        } else {
+                            adapternt.notifyDataSetChanged();
+                        }
+                    }
+
+                    if (objHoaDon.getTrangThaiHD() == 0 && calendar.getTime().after(objHoaDon.getHanGD())) {
                         arr.add(objHoaDon);
                         if (user.equalsIgnoreCase("Admin")) {
                             adapterhd.notifyDataSetChanged();

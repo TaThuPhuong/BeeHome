@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="0 VND"
+                android:text="0 VNĐ"
                 android:textColor="@color/bg_del"
                 android:textSize="30sp"
                 android:textStyle="bold" />
