@@ -26,6 +26,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ed_tenDichVu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -45,7 +46,6 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ed_tenDichVu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="31"
@@ -71,6 +71,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ed_giaDichVu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -90,9 +91,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_giaDichVu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:maxLength="31"
                 />
         </com.google.android.material.textfield.TextInputLayout>

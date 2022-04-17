@@ -69,6 +69,7 @@ public class DichVuActivity extends AppCompatActivity {
 
     }
 
+
     public ArrayList<DichVu> getAll() {
         ArrayList<DichVu> list = new ArrayList<>();
 

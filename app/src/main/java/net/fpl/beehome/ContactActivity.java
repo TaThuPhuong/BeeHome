@@ -80,7 +80,7 @@ public class ContactActivity extends AppCompatActivity {
             contactUserAdapter = new ContactUserAdapter(listUser, admin, this);
             rcvContact.setAdapter(contactUserAdapter);
         } else {
-            toolbar.setTitle("Chat với admin");
+            toolbar.setTitle("Chat với chủ trọ");
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection(Admin.TB_NAME).addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override

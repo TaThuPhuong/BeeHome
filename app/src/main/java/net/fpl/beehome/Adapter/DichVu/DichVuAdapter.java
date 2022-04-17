@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -157,8 +158,8 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_addhd);
             dialog.show();
 
-            EditText edTenDichVu = dialog.findViewById(R.id.ed_tenDichVu);
-            EditText edGia = dialog.findViewById(R.id.ed_giaDichVu);
+            TextInputLayout edTenDichVu = dialog.findViewById(R.id.ed_tenDichVu);
+            TextInputLayout edGia = dialog.findViewById(R.id.ed_giaDichVu);
             Button btnThem = dialog.findViewById(R.id.btn_themDichVu);
             Button btnHuy = dialog.findViewById(R.id.btn_huy);
 
@@ -170,21 +171,29 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
             btnThem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String ten = edTenDichVu.getText().toString().trim();
-                    String gia = edGia.getText().toString().trim();
+                    String ten = edTenDichVu.getEditText().getText().toString().trim();
+                    String gia = edGia.getEditText().getText().toString().trim();
 
-                    if (ten.equals("") || gia.equals("")) {
-                        Toast.makeText(context, "Vui lòng điền đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
+                    if (ten.equals("")) {
+                        edTenDichVu.setError("Không để trống tên dịch vụ");
                         return;
+                    } else if(gia.equals("")){
+                        edGia.setError("Không để trống giá dịch vụ");
                     } else {
                         DichVu dichVu = new DichVu();
                         dichVu.setTenDichVu(ten);
                         dichVu.setDonVi((String) spinner.getSelectedItem());
                         dichVu.setGia(Integer.parseInt(gia));
-
-                        insertDichVu(dichVu);
-                        dialog.dismiss();
-                        notifyDataSetChanged();
+                        for (DichVu dichVu1 : list){
+                            if (dichVu.getTenDichVu().equals(dichVu1.getTenDichVu())){
+                                Toast.makeText(context, "Dịch vụ đã tồn tại !", Toast.LENGTH_SHORT).show();
+                                return;
+                            }else{
+                                insertDichVu(dichVu);
+                                dialog.dismiss();
+                                notifyDataSetChanged();
+                            }
+                        }
                     }
                 }
             });
@@ -225,13 +234,14 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         }
     }
 
+
     public void showDialogSua(Context context, DichVu dichVu, int i) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
         View view = View.inflate(context, R.layout.dialog_sua_dich_vu, null);
         builder.setView(view);
         TextView edTenDichVu = view.findViewById(R.id.tv_tenDV);
-        EditText edGia = view.findViewById(R.id.ed_giaDichVu);
+        TextInputLayout edGia = view.findViewById(R.id.ed_giaDichVu);
         Button btnSua = view.findViewById(R.id.btn_suaDichVu);
         Button btnHuy = view.findViewById(R.id.btn_huy);
 
@@ -243,7 +253,7 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         TextView tv_chiSo = view.findViewById(R.id.tv_chiSo);
 
         edTenDichVu.setText(dichVu.getTenDichVu());
-        edGia.setText(String.valueOf(dichVu.getGia()));
+        edGia.getEditText().setText(String.valueOf(dichVu.getGia()));
         if (dichVu.getDonVi().equals("Người")) {
             tv_chiSo.setText("Người");
         } else if (dichVu.getDonVi().equals("Phòng")) {
@@ -260,12 +270,11 @@ public class DichVuAdapter extends RecyclerSwipeAdapter<DichVuAdapter.DichVuView
         btnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String strGia = edGia.getText().toString();
-                if (TextUtils.isEmpty(strGia)) {
-                    Toast.makeText(context, "Vui lòng điền đầy đủ thông tin ", Toast.LENGTH_SHORT).show();
-                    return;
+                String strGia = edGia.getEditText().getText().toString().trim();
+                if(strGia.equals("")){
+                    edGia.setError("Không để trống giá dịch vụ");
                 } else {
-                    dichVu.setGia(Integer.parseInt(edGia.getText().toString()));
+                    dichVu.setGia(Integer.parseInt(strGia));
 
                     updateDichVu(dichVu);
                     notifyDataSetChanged();
