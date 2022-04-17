@@ -154,7 +154,9 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
                     } else if (checkCMND(nguoiThue) != null) {
                         ed_cccd.setError("Số CCCD đã được đăng ký");
                         return;
-                    } else {
+                    } else if (checkemailNguoiThue(nguoiThue) != null){
+                        ed_email.setError("Email đã được đăng ký");
+                    }else {
                         themNguoiThue(nguoiThue);
                     }
                 }
@@ -234,6 +236,15 @@ public class NguoiThue_Activity extends AppCompatActivity implements SwipeRefres
             if (nguoiThue.getSdt().equals(nguoiThue1.getSdt())) {
                 Toast.makeText(this, "Trùng Số Điện Thoại", Toast.LENGTH_SHORT).show();
                 return nguoiThue1;
+            }
+        }
+        return null;
+    }
+
+    public NguoiThue checkemailNguoiThue(NguoiThue nguoiThue){
+        for (NguoiThue nguoiThue1 : arr){
+            if (nguoiThue.getEmail().equals(nguoiThue1.getEmail())){
+                Toast.makeText(this, "Trùng Email", Toast.LENGTH_SHORT).show();
             }
         }
         return null;

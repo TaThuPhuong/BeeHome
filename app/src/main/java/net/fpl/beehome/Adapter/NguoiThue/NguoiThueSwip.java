@@ -77,6 +77,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
         viewHolder.tv_sdtnguoithue.setText("SĐT : " + objNguoiThue.getSdt());
 
         viewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        //
         viewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, viewHolder.swipeLayout.findViewById(R.id.bottom_wrapper));
 
         viewHolder.swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
@@ -244,7 +245,8 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 dialog.setContentView(R.layout.dialog_info_nguoithue);
                 dialog.getWindow().setBackgroundDrawableResource(R.drawable.bg_dialog_info);
                 TextView tv_info = dialog.findViewById(R.id.tv_info_nguoithue);
-                tv_info.setText("Tên: " + objNguoiThue.getHoTen() + "\nPhòng : " + objNguoiThue.getId_phong() + "\nEmail : " + objNguoiThue.getEmail() + "\nSĐT : " + objNguoiThue.getSdt() + "\nCCCD : " + objNguoiThue.getCccd());
+                tv_info.setText("Tên: " + objNguoiThue.getHoTen() + "\nPhòng : " + objNguoiThue.getId_phong() +
+                        "\nEmail : " + objNguoiThue.getEmail() + "\nSĐT : " + objNguoiThue.getSdt() + "\nCCCD : " + objNguoiThue.getCccd());
                 dialog.show();
             }
         });
