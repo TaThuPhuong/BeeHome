@@ -308,6 +308,7 @@ public class NguoiThueSwip extends RecyclerSwipeAdapter<NguoiThueSwip.NguoiThueV
                 }
             }
         });
+
     }
 
     @Override
